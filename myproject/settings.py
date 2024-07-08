@@ -71,7 +71,7 @@ if os.getenv("DOMAIN"):
     CSRF_TRUSTED_ORIGINS.append(trusted_user_domain)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
