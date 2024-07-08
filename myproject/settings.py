@@ -23,10 +23,10 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #Session Management
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_SECURITY_WARN_AFTER = 120 # warning popup that session will expire
-SESSION_SECURITY_EXPIRE_AFTER = 300 # invalidate session
+#SESSION_SECURITY_WARN_AFTER = 10 # warning popup that session will expire
+#SESSION_SECURITY_EXPIRE_AFTER = 30 # invalidate session
 CSRF_COOKIE_HTTPONLY = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 30*60 # 30 minute session age
 SESSION_COOKIE_NAME = 'SESSION'
 SESSION_COOKIE_SAMESITE = 'Strict'
@@ -39,13 +39,13 @@ CSRF_COOKIE_SECURE = True # https only
 #SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = 'DENY'
 REFERRER_POLICY = 'same-origin'
 CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'",)
-CSP_SCRIPT_SRC = ("'self'","'unsafe-inline'", "'unsafe-eval'",)
-CSP_FONT_SRC = ("'self'",)
-CSP_IMG_SRC = ("'self'", 'data:',)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "https://fonts.googleapis.com")
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'")
+CSP_FONT_SRC = ("'self'", "https://fonts.googleapis.com")
+CSP_IMG_SRC = ("'self'", 'data:')
 CSP_OBJECT_SRC = ("'none'",)
 CSP_CONNECT_SRC = ("'self'",)
 
@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'session_security',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +95,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'session_security.middleware.SessionSecurityMiddleware',
+    'django_http_referrer_policy.middleware.ReferrerPolicyMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'

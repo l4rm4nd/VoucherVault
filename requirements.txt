@@ -6,7 +6,7 @@ python-dotenv==1.0.0
 # HTTP HEADERS
 django-feature-policy==4.0.0
 django-http-referrer-policy==1.1.1
-django-session-security==2.6.7
+#django-session-security==2.6.7
 django-csp==3.7
 
 # APP SPECIFIC
