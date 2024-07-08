@@ -10,8 +10,6 @@ from django.db.models import Q
 from .forms import ItemForm
 from .models import *
 from django.db.models import Sum
-import treepoem
-
 
 @require_GET
 @auth_required
@@ -109,23 +107,13 @@ def view_item(request, item_uuid):
     qr.save(buffer)
     qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
     
-    # Generate EAN13 barcode
-    barcode_image = treepoem.generate_barcode(
-        barcode_type='ean13',
-        data=str(item.id.int)[:12]  # Ensure the data is 12 digits
-    )
-    buffer = io.BytesIO()
-    barcode_image.convert('1').save(buffer, format='PNG')
-    barcode_base64 = base64.b64encode(buffer.getvalue()).decode()
-    
     context = {
         'item': item,
         'qr_code_base64': qr_code_base64,
-        'barcode_base64': barcode_base64,
         'current_date': timezone.now(),
     }
     return render(request, 'view-item.html', context)
-    
+
 @require_POST
 @auth_required
 def delete_item(request, item_id):

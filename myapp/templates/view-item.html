@@ -67,16 +67,15 @@
           </div>
         </div><!-- End Item Details Card -->
 
-        <!-- QR Code and Barcode Card -->
+        <!-- QR Code -->
         <div class="col-lg-4">
           <div class="card">
             <div class="card-body text-center">
-              <h5 class="card-title">Scan to Redeem</h5>
-              <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid" style="max-width: 100%;">
-              <img src="data:image/png;base64,{{ barcode_base64 }}" alt="Barcode" class="img-fluid" style="max-width: 100%;">
+              <h5 class="card-title ps-0 pb-0 pt-3">Scan to Redeem</h5>
+              <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid" style="max-width: 100%;"><span>{{ item.redeem_code }}</span>
             </div>
           </div>
-        </div><!-- End QR Code and Barcode Card -->
+        </div><!-- End QR Code -->
 
       </div>
     </div><!-- End Full width column -->
