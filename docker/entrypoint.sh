@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "[i] The environment is set to ${ENV}"
-
 # Function to generate a random string
 generate_random_string() {
     LC_ALL=C tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 20
@@ -26,7 +24,7 @@ else
   echo "[>] Randomly generated password: $admin_password"
 fi
 
-#echo "[~] Starting Celery worker and beat"
+echo "[~] Starting Celery worker and beat"
 celery -A myproject worker -l info --detach
 celery -A myproject beat -l info --detach --scheduler django_celery_beat.schedulers:DatabaseScheduler
 echo "[i] Change ownership of db.sqlite3 to www-data"
