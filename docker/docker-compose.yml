@@ -10,7 +10,7 @@ services:
       # takes one or multiple comma-separated apprise urls for notifications
       - APPRISE_URLS=tgram://bottoken1/ChatID1,tgram://bottoken2/ChatID2 
       - REDIS_HOST=redis # the redis host for celery beat notification tasks
-      - EXPIRY_THRESHOLD_DAYS=30 # send notifications xx days prior expiry
+      - EXPIRY_THRESHOLD_DAYS=90 # send notifications xx days prior expiry; default is 30
     restart: unless-stopped
     expose:
       - 8000
