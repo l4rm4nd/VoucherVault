@@ -24,7 +24,7 @@ VoucherVault is a Django web application that allows you to manage coupons, vouc
 docker compose -f docker/docker-compose.yml up
 ````
 
-Once the container is up and running, you can access the web portal at http://127.0.0.1:8000.
+Once the container is up and running, you can access the web portal at http://127.0.0.1:8000. 
 
 The default username is `admin`. The default password is auto-generated.
 
@@ -33,6 +33,9 @@ You can obtain the auto-generated password via the Docker container logs:
 ````
 docker compose -f docker/docker-compose.yml logs -f
 ````
+
+> [!WARNING]
+> The container runs as low-privileged `www-data` user. So you likely have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chmod -R 777 <path-to-volume-bind-mount>` should work. Alternatively, leave the RWE permissions in place and solely change the ownership via `sudo chown -R www-data: <path-to-volume-bind-mount>`.
 
 ## Screenshots
 
