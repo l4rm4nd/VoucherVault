@@ -7,7 +7,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib import admin
 
 urlpatterns = [
-    path(r'session_security/', include('session_security.urls')),
+    #path(r'session_security/', include('session_security.urls')),
     path("dashboard", views.dashboard, name="dashboard"),
     path('', views.show_items, name='show_items'),
     path('items/create/', views.create_item, name='create_item'),
