@@ -23,7 +23,7 @@ class Command(BaseCommand):
         # Split the URLs into a list
         apprise_urls = apprise_urls.split(',')
 
-        # Get the threshold value from environment variable or use default (2 days)
+        # Get the threshold value from environment variable or use default (14 days)
         threshold_days = os.getenv('EXPIRY_THRESHOLD_DAYS', 14)
         try:
             threshold_days = int(threshold_days)
@@ -33,7 +33,10 @@ class Command(BaseCommand):
 
         # Define the time threshold (e.g., items expiring within the next threshold_days)
         threshold_date = timezone.now() + timezone.timedelta(days=threshold_days)
-        expiring_items = Item.objects.filter(expiry_date__lte=threshold_date)
+        current_date = timezone.now()
+        
+        # Filter items that are not used, not already expired but are about to expire
+        expiring_items = Item.objects.filter(expiry_date__lte=threshold_date, expiry_date__gte=current_date, is_used=False)
 
         if expiring_items.exists():
             # Initialize Apprise
