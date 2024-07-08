@@ -46,9 +46,6 @@
                     <input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>
                   </div>
                 </div>
-                <script>
-                  document.getElementById('issue_date').valueAsDate = new Date();
-                </script>
                 <div class="row mb-3">
                   <label for="expiry_date" class="col-sm-2 col-form-label">Expiry Date</label>
                   <div class="col-sm-10">
