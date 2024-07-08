@@ -10,18 +10,20 @@ from django.db.models import Q
 from .forms import ItemForm
 from .models import *
 from django.db.models import Sum
+from django.utils import timezone
 
 @require_GET
 @auth_required
 def dashboard(request):
-    total_items = Item.objects.filter(is_used=False).count()
-    available_items = Item.objects.filter(is_used=False, expiry_date__gte=timezone.now()).count()
-    used_items = Item.objects.filter(is_used=True).count()
-    total_value = Item.objects.filter(is_used=False, expiry_date__gte=timezone.now()).aggregate(total_value=Sum('value'))['total_value'] or 0
-    coupons_count = Item.objects.filter(type='coupon', is_used=False, expiry_date__gte=timezone.now()).count()
-    vouchers_count = Item.objects.filter(type='voucher', is_used=False, expiry_date__gte=timezone.now()).count()
-    giftcards_count = Item.objects.filter(type='giftcard', is_used=False, expiry_date__gte=timezone.now()).count()
-    expired_items = Item.objects.filter(expiry_date__lt=timezone.now(), is_used=False).count()
+    user = request.user
+    total_items = Item.objects.filter(user=user, is_used=False).count()
+    available_items = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now()).count()
+    used_items = Item.objects.filter(user=user, is_used=True).count()
+    total_value = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now()).aggregate(total_value=Sum('value'))['total_value'] or 0
+    coupons_count = Item.objects.filter(user=user, type='coupon', is_used=False, expiry_date__gte=timezone.now()).count()
+    vouchers_count = Item.objects.filter(user=user, type='voucher', is_used=False, expiry_date__gte=timezone.now()).count()
+    giftcards_count = Item.objects.filter(user=user, type='giftcard', is_used=False, expiry_date__gte=timezone.now()).count()
+    expired_items = Item.objects.filter(user=user, expiry_date__lt=timezone.now(), is_used=False).count()
 
     context = {
         'total_items': total_items,
@@ -38,11 +40,12 @@ def dashboard(request):
 @require_GET
 @auth_required
 def show_items(request):
+    user = request.user
     item_type = request.GET.get('type')
     item_status = request.GET.get('status', 'available')  # Default to 'available'
     search_query = request.GET.get('query', '')
 
-    items = Item.objects.all()
+    items = Item.objects.filter(user=user)
 
     if item_type:
         items = items.filter(type=item_type)
@@ -99,7 +102,7 @@ def create_item(request):
 @require_GET
 @auth_required
 def view_item(request, item_uuid):
-    item = get_object_or_404(Item, id=item_uuid)
+    item = get_object_or_404(Item, id=item_uuid, user=request.user)
     
     # Generate QR code
     qr = qrcode.make(item.redeem_code)
@@ -116,15 +119,14 @@ def view_item(request, item_uuid):
 
 @require_POST
 @auth_required
-def delete_item(request, item_id):
-    item = get_object_or_404(Item, id=item_id)
-    if request.method == 'POST':
-        item.delete()
-        return redirect('show_items')
+def delete_item(request, item_uuid):
+    item = get_object_or_404(Item, id=item_uuid, user=request.user)
+    item.delete()
+    return redirect('show_items')
 
 @auth_required
 def edit_item(request, item_uuid):
-    item = get_object_or_404(Item, id=item_uuid)
+    item = get_object_or_404(Item, id=item_uuid, user=request.user)
     if request.method == 'POST':
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
@@ -136,15 +138,8 @@ def edit_item(request, item_uuid):
 
 @require_POST
 @auth_required
-def delete_item(request, item_uuid):
-    item = get_object_or_404(Item, id=item_uuid)
-    item.delete()
-    return redirect('show_items')
-
-@require_POST
-@auth_required
 def mark_as_used(request, item_uuid):
-    item = get_object_or_404(Item, id=item_uuid)
+    item = get_object_or_404(Item, id=item_uuid, user=request.user)
     item.is_used = True  # Assuming you have an is_used field in your Item model
     item.save()
     return redirect('view_item', item_uuid=item.id)
@@ -152,7 +147,7 @@ def mark_as_used(request, item_uuid):
 @require_POST
 @auth_required
 def toggle_item_status(request, item_id):
-    item = get_object_or_404(Item, id=item_id)
+    item = get_object_or_404(Item, id=item_id, user=request.user)
     item.is_used = not item.is_used
     item.save()
-    return redirect('view_item', item.id)    
+    return redirect('view_item', item.id)
