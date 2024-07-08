@@ -27,14 +27,9 @@ class ItemForm(forms.ModelForm):
         model = Item
         fields = ['name', 'issuer', 'redeem_code', 'issue_date', 'expiry_date', 'description', 'type', 'value']
         widgets = {
-            'issue_date': forms.DateInput(attrs={'type': 'date'}),
-            'expiry_date': forms.DateInput(attrs={'type': 'date'}),
+            'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
+            'expiry_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
         }
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not self.instance.pk:  # Check if this is a new instance
-            self.fields['issue_date'].initial = timezone.localdate()  # Ensure timezone aware date
     
     def clean_value(self):
         value = self.cleaned_data.get('value')
