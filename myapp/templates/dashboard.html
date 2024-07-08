@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pagetitle">
+  <h1>Dashboard</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+  <div class="row">
+
+    <!-- Left side columns -->
+    <div class="col-lg-8">
+      <div class="row">
+
+        <!-- Total Items Card -->
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card revenue-card">
+            <a href="{% url 'show_items' %}?status=available" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">Items <span>| Available</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-boxes"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ available_items}}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- End Total Items Card -->
+
+        <!-- Available Items Card -->
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card customers-card">
+            <a href="{% url 'show_items' %}?status=used" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">Items <span>| Used</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-ban"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ used_items }}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- End Available Items Card -->
+
+        <!-- Available Items Card -->
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card customers-card">
+            <a href="{% url 'show_items' %}?status=expired" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">Items <span>| Expired</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-clock"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ expired_items }}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- End Available Items Card -->
+
+        <!-- Total Value Card -->
+        <div class="col-xxl-4 col-xl-12">
+          <div class="card info-card sales-card">
+            <div class="card-body">
+              <h5 class="card-title">Total Value <span>| Available Items</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-currency-dollar"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ total_value|floatformat:2 }}</h6>
+                  <span class="text-muted small pt-1 fw-bold">Total Value of Available Items</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Total Value Card -->        
+
+      </div>
+    </div><!-- End Left side columns -->
+
+    <!-- Right side columns -->
+    <div class="col-lg-4">
+
+      <!-- Item Distribution -->
+      <div class="card">
+
+        <div class="card-body pb-0">
+          <h5 class="card-title">Item Distribution <span>| Total</span></h5>
+
+          <div id="itemDistributionChart" style="min-height: 400px;" class="echart"></div>
+
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              echarts.init(document.querySelector("#itemDistributionChart")).setOption({
+                tooltip: {
+                  trigger: 'item'
+                },
+                legend: {
+                  top: '5%',
+                  left: 'center'
+                },
+                series: [{
+                  name: 'Item Distribution',
+                  type: 'pie',
+                  radius: ['40%', '70%'],
+                  avoidLabelOverlap: false,
+                  label: {
+                    show: false,
+                    position: 'center'
+                  },
+                  emphasis: {
+                    label: {
+                      show: true,
+                      fontSize: '18',
+                      fontWeight: 'bold'
+                    }
+                  },
+                  labelLine: {
+                    show: false
+                  },
+                  data: [
+                    { value: {{ coupons_count }}, name: 'Coupons' },
+                    { value: {{ vouchers_count }}, name: 'Vouchers' },
+                    { value: {{ giftcards_count }}, name: 'Gift Cards' }
+                  ]
+                }]
+              });
+            });
+          </script>
+
+        </div>
+      </div><!-- End Item Distribution -->
+
+    </div><!-- End Right side columns -->
+
+  </div>
+</section>
+
+{% endblock content %}

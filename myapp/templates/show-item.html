@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="pagetitle">
+      <h1>Inventory</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Inventory</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+      <!-- Filter Dropdown -->
+      <div class="col-12 mb-3">
+        <form method="GET" action="">
+          <div class="row g-2">
+            <div class="col-12 col-md-3">
+              <select name="type" onchange="this.form.submit()" class="form-select">
+                <option value="">All Items</option>
+                <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>Vouchers</option>
+                <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>Gift Cards</option>
+                <option value="coupon" {% if item_type == 'coupon' %}selected{% endif %}>Coupons</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-3">
+              <select name="status" onchange="this.form.submit()" class="form-select">
+                <option value="">All Status</option>
+                <option value="available" {% if item_status == 'available' %}selected{% endif %}>Available</option>
+                <option value="used" {% if item_status == 'used' %}selected{% endif %}>Used</option>
+                <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>Expired</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-4">
+              <input type="text" name="query" placeholder="Search" value="{{ search_query }}" class="form-control">
+            </div>
+            <div class="col-12 col-md-2 d-grid">
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+        </form>
+      </div><!-- End Filter Dropdown -->
+        <!-- Full width columns -->
+        <div class="col-12">
+          <div class="row">
+
+            <!-- Items Card -->
+            {% for entry in items_with_qr %}
+            <div title="{{ entry.item.description }}" class="col-12 col-md-12 col-lg-12">
+              <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
+                <div class="card info-card sales-card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h5 class="card-title"><i class="bi bi-shop"></i> {{ entry.item.issuer }} <span>| {{ entry.item.type }}
+                        {% if entry.item.is_used %}
+                          - <span style="color:red">used</span>
+                        {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
+                          - <span style="color:red">expired</span>
+                        {% else %}
+                          - <span style="color:green">available</span>
+                        {% endif %}
+                      </span></h5>
+                        <h6>{{ entry.item.name }}</h6>
+                      </div>
+                      <img src="data:image/png;base64,{{ entry.qr_code_base64 }}" alt="QR Code" style="width: 80px; height: 80px;">
+                    </div>
+                    <table style="width: 100%;">
+                      <tr>
+                        <td style="vertical-align: top;">
+                          <div class="ps-3">
+                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-key"></i> <b>Redeem Code</b>: {{ entry.item.redeem_code }}</span><br>
+                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-calendar"></i> <b>Issue Date</b>: {{ entry.item.issue_date }}</span><br>
+                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-calendar-x"></i> <b>Expiry Date</b>: {{ entry.item.expiry_date }}</span><br>
+                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-cash"></i> <b>Value</b>: {{ entry.item.value }}</span><br><br>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </a>
+            </div><!-- End Items Card -->
+            {% endfor %}
+
+          </div>
+        </div><!-- End Full width columns -->
+
+      </div>
+    </section>
+
+    <style>
+      .description {
+        max-height: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+        -webkit-box-orient: vertical;
+      }
+    </style>
+{% endblock content %}

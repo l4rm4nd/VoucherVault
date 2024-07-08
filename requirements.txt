@@ -1,0 +1,19 @@
+# DEFAULT LIBS
+Django==4.2.13
+pytz==2023.3.post1
+python-dotenv==1.0.0
+
+# HTTP HEADERS
+django-feature-policy==4.0.0
+django-http-referrer-policy==1.1.1
+django-session-security==2.6.7
+django-csp==3.7
+
+# APP SPECIFIC
+qrcode==7.4.2
+treepoem==3.24.0
+apprise==1.8.0
+
+# TASKS
+celery[redis]
+django-celery-beat==2.6.0

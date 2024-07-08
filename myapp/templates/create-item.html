@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="pagetitle">
+      <h1>Create New Item</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Create New Item</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Item Details</h5>
+
+              <!-- Item Form -->
+              <form method="POST" action="{% url 'create_item' %}">
+                {% csrf_token %}
+                <div class="row mb-3">
+                  <label for="name" class="col-sm-2 col-form-label">Item Name</label>
+                  <div class="col-sm-10">
+                    <input placeholder="The name of the item" type="text" class="form-control" id="name" name="name" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="issuer" class="col-sm-2 col-form-label">Issuer</label>
+                  <div class="col-sm-10">
+                    <input placeholder="The issuer of the item" type="text" class="form-control mt-2" id="issuer" name="issuer" placeholder="">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="redeem_code" class="col-sm-2 col-form-label">Redeem Code</label>
+                  <div class="col-sm-10">
+                    <input placeholder="The redeem code of the item" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="issue_date" class="col-sm-2 col-form-label">Issue Date</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control" id="issue_date" name="issue_date" required>
+                  </div>
+                <script>
+                  document.getElementById('issue_date').valueAsDate = new Date();
+                </script>
+                </div>
+                <div class="row mb-3">
+                  <label for="expiry_date" class="col-sm-2 col-form-label">Expiry Date</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="description" class="col-sm-2 col-form-label">Description</label>
+                  <div class="col-sm-10">
+                    <textarea placeholder="A description of the item" class="form-control" id="description" name="description" rows="4"></textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="type" class="col-sm-2 col-form-label">Item Type</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="type" name="type" required>
+                      <option value="giftcard">Gift Card</option>
+                      <option value="voucher">Voucher</option>
+
+                      <option value="coupon">Coupon</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="value" class="col-sm-2 col-form-label">Value</label>
+                  <div class="col-sm-10">
+                    <input placeholder="The monetary value of the item" type="number" class="form-control" id="value" name="value" step="0.01" min="0.01" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Create Item</button>
+                  </div>
+                </div>
+              </form><!-- End Item Form -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock content %}
