@@ -1,0 +1,21 @@
+# Ignore common Python and Django files
+*.pyc
+*.pyo
+__pycache__
+
+# Ignore environment files
+.env
+
+# Ignore Docker related files
+Dockerfile
+docker-compose.yml
+
+# Ignore version control system directories
+.git
+
+# Ignore documentation files
+documentation/
+screenshots/
+
+# Ignore GitHub Actions workflows for Docker images
+.github
