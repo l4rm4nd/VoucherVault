@@ -37,7 +37,17 @@ docker compose -f docker/docker-compose.yml logs -f
 > [!WARNING]
 > The container runs as low-privileged `www-data` user. So you likely have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chmod -R 777 <path-to-volume-bind-mount>` should work. Alternatively, leave the RWE permissions in place and solely change the ownership via `sudo chown -R www-data: <path-to-volume-bind-mount>`.
 
-## Screenshots
+## 🔔 Notifications
+
+Notifications are handled by [Apprise](https://github.com/caronc/apprise) URLs. 
+
+You can define those in the environment variable `APPRISE_URLS`. The variable takes a comma-separated list of Apprise URLs.
+
+The interval, how often items are checked against a potential expiry, is pre-defined (every 10 days) in the Django admin area. Here, we are utilizing Django-Celery-Beat + a Redis instance for periodic task execution. If you want to adjust the crontab interval, please head over to the admin area at `/admin/django_celery_beat/periodictask/1/change/` (`Periodic Tasks` > `Periodic Expiry Check` > `Crontab Schedule`) and adjust to your liking.
+
+An item will trigger an expiry notification if the expiry date is within the number of days defined by the environment variable `EXPIRY_THRESHOLD_DAYS`. By default, this threshold is set to 30 days.
+
+## 📷 Screenshots
 
 <img src="screenshots/dashboard.png">
 
