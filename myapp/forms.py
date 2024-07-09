@@ -45,7 +45,7 @@ class UserProfileForm(forms.ModelForm):
             'apprise_urls': forms.Textarea(
                 attrs={
                     'rows': 3,
-                    'class': 'form-control',  # Add Bootstrap class for full width
+                    'class': 'form-control',
                     'placeholder': 'tgram://bottoken1/ChatID1,tgram://bottoken2/ChatID2'
                 }
             ),

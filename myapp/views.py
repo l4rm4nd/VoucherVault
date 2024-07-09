@@ -158,8 +158,15 @@ def update_apprise_urls(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
+            apprise_urls = form.cleaned_data['apprise_urls']
+            if apprise_urls != 'URLs are set. Update to change.':
+                user_profile.apprise_urls = apprise_urls
             form.save()
-            return redirect('dashboard')  # Redirect to a profile page or another page after saving
+            return redirect('show_items')  # Redirect to 'show_items' after saving
     else:
-        form = UserProfileForm(instance=user_profile)
+        # Mask the apprise_urls in the form
+        initial_data = {
+            'apprise_urls': 'Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.' if user_profile.apprise_urls else ''
+        }
+        form = UserProfileForm(instance=user_profile, initial=initial_data)
     return render(request, 'update_apprise_urls.html', {'form': form})
