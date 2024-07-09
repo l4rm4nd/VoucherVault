@@ -7,7 +7,7 @@ import qrcode
 import io
 import base64
 from django.db.models import Q
-from .forms import ItemForm
+from .forms import *
 from .models import *
 from django.db.models import Sum
 from django.utils import timezone
@@ -151,3 +151,15 @@ def toggle_item_status(request, item_id):
     item.is_used = not item.is_used
     item.save()
     return redirect('view_item', item.id)
+
+@auth_required
+def update_apprise_urls(request):
+    user_profile = request.user.userprofile
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirect to a profile page or another page after saving
+    else:
+        form = UserProfileForm(instance=user_profile)
+    return render(request, 'update_apprise_urls.html', {'form': form})

@@ -5,7 +5,7 @@ from io import BytesIO
 from django.http import HttpResponse
 import apprise
 from django import forms
-from .models import Item
+from .models import *
 
 def send_notifications():
     now = timezone.now().date()
@@ -36,3 +36,17 @@ class ItemForm(forms.ModelForm):
         if value <= 0:
             raise forms.ValidationError("Value must be positive.")
         return value
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['apprise_urls']
+        widgets = {
+            'apprise_urls': forms.Textarea(
+                attrs={
+                    'rows': 3,
+                    'class': 'form-control',  # Add Bootstrap class for full width
+                    'placeholder': 'tgram://bottoken1/ChatID1,tgram://bottoken2/ChatID2'
+                }
+            ),
+        }

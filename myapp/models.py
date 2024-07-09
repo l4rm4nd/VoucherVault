@@ -23,3 +23,10 @@ class Item(models.Model):
     
     def __str__(self):
         return self.name
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    apprise_urls = models.TextField(blank=True, null=True)  # Allow multiple URLs separated by commas
+
+    def __str__(self):
+        return self.user.username
