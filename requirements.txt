@@ -1,5 +1,5 @@
 # DEFAULT LIBS
-Django==4.2.13
+Django==4.2.14
 pytz==2023.3.post1
 python-dotenv==1.0.0
 
