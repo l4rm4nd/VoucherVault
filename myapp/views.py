@@ -174,7 +174,6 @@ def update_apprise_urls(request):
         form = UserProfileForm(instance=user_profile, initial=initial_data)
     return render(request, 'update_apprise_urls.html', {'form': form})
 
-@csrf_exempt
 @require_POST
 @auth_required
 def verify_apprise_urls(request):
