@@ -11,6 +11,9 @@ from .forms import *
 from .models import *
 from django.db.models import Sum
 from django.utils import timezone
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 @require_GET
 @auth_required
@@ -170,3 +173,41 @@ def update_apprise_urls(request):
         }
         form = UserProfileForm(instance=user_profile, initial=initial_data)
     return render(request, 'update_apprise_urls.html', {'form': form})
+
+@csrf_exempt
+@require_POST
+@auth_required
+def verify_apprise_urls(request):
+    data = json.loads(request.body)
+    apprise_urls = data.get('apprise_urls', '')
+
+    if not apprise_urls:
+        return JsonResponse({'success': False, 'message': 'No Apprise URLs provided.'})
+
+    apprise_urls = apprise_urls.split(',')
+    apobj = apprise.Apprise()
+    invalid_urls = []
+
+    for url in apprise_urls:
+        url = url.strip()
+        try:
+            apobj.add(url)
+        except apprise.AppriseAssetException:
+            invalid_urls.append(url)
+
+    if invalid_urls:
+        return JsonResponse({'success': False, 'message': f'Invalid Apprise URLs: {", ".join(invalid_urls)}'})
+
+    # Send a test notification if all URLs are valid
+    try:
+        success = apobj.notify(
+            body='This is an Apprise test notification.',
+            title='Test Notification by VoucherVault',
+            notify_type=apprise.NotifyType.INFO
+        )
+        if success:
+            return JsonResponse({'success': True, 'message': 'Test notification to at least one Apprise URL sent successfully.'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Failed to send test notification to for any Apprise URL given.'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': f'Failed to send test notification: {str(e)}'})

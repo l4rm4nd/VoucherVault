@@ -18,7 +18,7 @@ urlpatterns = [
     path('items/toggle_status/<uuid:item_id>', views.toggle_item_status, name='toggle_item_status'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('user/edit/notifications', views.update_apprise_urls, name='update_apprise_urls'),
-
+    path('verify-apprise-urls/', views.verify_apprise_urls, name='verify_apprise_urls'),
 ]
 
 admin.site.site_header = "VoucherVault"
