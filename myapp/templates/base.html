@@ -67,18 +67,18 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'update_apprise_urls' %}">
+                <i class="bi bi-bell"></i>
+                <span>Notification Settings</span>
+              </a>
+            </li>
+            <li>
               {% if request.user.is_superuser %}
                 <a class="dropdown-item d-flex align-items-center" href="/admin">
                   <i class="bi bi-gear"></i>
                   <span>Admin Settings</span>
                 </a>
               {% endif %}
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'update_apprise_urls' %}">
-                <i class="bi bi-bell"></i>
-                <span>Notification Settings</span>
-              </a>
             </li>
             <li>
               <hr class="dropdown-divider">

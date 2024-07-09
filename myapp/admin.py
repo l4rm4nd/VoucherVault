@@ -14,6 +14,4 @@ class ItemAdmin(admin.ModelAdmin):
     # Specify the filters to use in the list view
     list_filter = ('type', 'is_used', 'issue_date', 'expiry_date', 'user')
 
-
-admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Item, ItemAdmin)
