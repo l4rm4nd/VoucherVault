@@ -73,6 +73,12 @@
               </a>
             </li>
             <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'password_change' %}">
+                <i class="bi bi-key"></i>
+                <span>Change Password</span>
+              </a>
+            </li>
+            <li>
               {% if request.user.is_superuser %}
                 <a class="dropdown-item d-flex align-items-center" href="/admin">
                   <i class="bi bi-gear"></i>
