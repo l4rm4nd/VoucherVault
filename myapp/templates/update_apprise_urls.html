@@ -19,7 +19,7 @@
       <div class="card">
         <div class="card-body">
           <h6 class="card-title">Configure Your Apprise URLs</h6>
-          <span>These URLs will be used to send out personal expiry notifications.</span><p>
+          <span>These URLs will be used to send out personal expiry notifications. Leave empty to disable notifications.</span><p>
 
           <!-- Apprise URLs Form -->
           <form method="POST" action="">
@@ -46,4 +46,13 @@
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const appriseField = document.querySelector("#id_apprise_urls");
+    appriseField.addEventListener("focus", function() {
+            this.value = "";
+    });
+});
+</script>
 {% endblock content %}
