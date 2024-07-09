@@ -50,7 +50,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const appriseField = document.querySelector("#id_apprise_urls");
     appriseField.addEventListener("focus", function() {
+        if (this.value === "Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.") {
             this.value = "";
+        }
     });
 });
 </script>
