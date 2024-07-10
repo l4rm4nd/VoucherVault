@@ -12,7 +12,7 @@ services:
     expose:
       - 8000
     ports:
-      - 8888:8000
+      - 8000:8000
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
