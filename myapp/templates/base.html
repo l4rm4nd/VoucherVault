@@ -31,6 +31,7 @@
 
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/dark-mode.css' %}" rel="stylesheet">  
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -54,14 +55,15 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
+    <!-- Dark Mode Toggle Button -->
+    <i id="darkModeToggle" class="bi bi-brightness-low toggle-sidebar-btn"></i>
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
         <li class="nav-item dropdown pe-3">
-
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{% static 'assets/img/user.jpg' %}" alt="Profile" class="rounded-circle">
+            <i id="user-icon" class="bi bi-person-circle"></i>
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ user.username }}</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -201,6 +203,28 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+
+  <!-- Darkmode -->
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // Check if dark mode was previously enabled
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+      }
+
+      const toggleButton = document.getElementById('darkModeToggle');
+      toggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+          // Save the preference to localStorage
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          // Remove the preference from localStorage
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+    });
+  </script>
 
 </body>
 
