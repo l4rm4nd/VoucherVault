@@ -207,6 +207,6 @@ def verify_apprise_urls(request):
         if success:
             return JsonResponse({'success': True, 'message': 'Test notification to at least one Apprise URL sent successfully.'})
         else:
-            return JsonResponse({'success': False, 'message': 'Failed to send test notification to for any Apprise URL given.'})
+            return JsonResponse({'success': False, 'message': 'Failed to send test notification for every Apprise URL given.'})
     except Exception as e:
         return JsonResponse({'success': False, 'message': f'Failed to send test notification: {str(e)}'})
