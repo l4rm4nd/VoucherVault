@@ -49,6 +49,9 @@ An item will trigger an expiry notification if the expiry date is within the num
 
 ## 📷 Screenshots
 
+> [!TIP]
+> Support for light and dark theme available!
+
 <img src="screenshots/dashboard.png">
 
 <img src="screenshots/items.png">
