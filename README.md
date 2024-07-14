@@ -83,7 +83,7 @@ docker exec -it vouchervault bash
 # export sqlite3 database tables into outfile
 python manage.py dumpdata auth.group > database/backup_db_table_groups.json
 python manage.py dumpdata auth.user > database/backup_db_table_users.json
-python manage.py dumpdata myapp.item > database/backup_db_table_item.json
+python manage.py dumpdata myapp.item > database/backup_db_table_items.json
 python manage.py dumpdata myapp.transaction > database/backup_db_table_transactions.json
 ````
 
@@ -92,6 +92,6 @@ python manage.py dumpdata myapp.transaction > database/backup_db_table_transacti
 # import old backup outfiles into sqlite3
 python manage.py loaddata database/backup_db_table_groups.json
 python manage.py loaddata database/backup_db_table_users.json
-python manage.py loaddata database/backup_db_table_item.json
+python manage.py loaddata database/backup_db_table_items.json
 python manage.py loaddata database/backup_db_table_transactions.json
 ````
