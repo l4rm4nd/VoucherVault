@@ -321,3 +321,7 @@ body.dark-mode .default-tile {
   color: #e0e6eb;
 }
 
+/* Dark mode for description */
+body.dark-mode .content {
+  color: #e0e6eb;
+}

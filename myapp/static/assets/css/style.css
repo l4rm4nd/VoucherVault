@@ -1265,3 +1265,9 @@ h6 {
   padding: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.content {
+  white-space: pre-wrap; /* This property ensures that line breaks are preserved */
+  word-wrap: break-word;
+  display: block;
+}
