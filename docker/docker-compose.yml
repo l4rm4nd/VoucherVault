@@ -16,7 +16,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/vouchervault/database:/opt/app/database
+      - ./volume_data/database:/opt/app/database
     #networks:
     #  - proxy
     #labels:
