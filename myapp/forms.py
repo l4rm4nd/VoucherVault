@@ -25,7 +25,7 @@ def send_notifications():
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['name', 'issuer', 'redeem_code', 'issue_date', 'expiry_date', 'description', 'type', 'value']
+        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'type', 'value']
         widgets = {
             'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'expiry_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),

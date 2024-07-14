@@ -43,16 +43,16 @@
         </form>
       </div><!-- End Filter Dropdown -->
         <!-- Full width columns -->
-        <div class="col-12">
+        <div class="col-12 mt-2">
           <div class="row">
 
             <!-- Items Card -->
             {% for entry in items_with_qr %}
-            <div title="{{ entry.item.description }}" class="col-12 col-md-12 col-lg-12">
+            <div title="{{ entry.item.description }}" class="col-12 col-md-6">
               <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
                 <div class="card info-card sales-card">
                   <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
                       <div>
                         <h5 class="card-title"><i class="bi bi-shop"></i> {{ entry.item.issuer }} <span>| {{ entry.item.type }}
                         {% if entry.item.is_used %}
@@ -67,18 +67,17 @@
                       </div>
                       <img src="data:image/png;base64,{{ entry.qr_code_base64 }}" alt="QR Code" style="width: 80px; height: 80px;">
                     </div>
-                    <table style="width: 100%;">
-                      <tr>
-                        <td style="vertical-align: top;">
-                          <div class="ps-3">
-                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-key"></i> <b>Redeem Code</b>: {{ entry.item.redeem_code }}</span><br>
-                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-calendar"></i> <b>Issue Date</b>: {{ entry.item.issue_date }}</span><br>
-                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-calendar-x"></i> <b>Expiry Date</b>: {{ entry.item.expiry_date }}</span><br>
-                            <span class="text-muted small pt-2 ps-1"><i class="bi bi-cash"></i> <b>Value</b>: {{ entry.item.value }}</span><br><br>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
+                    <div class="item-details">
+                      <div class="detail-item default-tile">
+                        <i class="bi bi-calendar text-muted"></i> <span><b>Issue Date:</b> {{ entry.item.issue_date }}</span>
+                      </div>
+                      <div class="detail-item default-tile">
+                        <i class="bi bi-calendar-x text-muted"></i> <span><b>Expiry Date:</b> {{ entry.item.expiry_date }}</span>
+                      </div>
+                      <div class="detail-item default-tile">
+                        <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ entry.item.value }}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </a>
@@ -90,15 +89,4 @@
 
       </div>
     </section>
-
-    <style>
-      .description {
-        max-height: 80px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* number of lines to show */
-        -webkit-box-orient: vertical;
-      }
-    </style>
 {% endblock content %}

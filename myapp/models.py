@@ -13,12 +13,13 @@ class Item(models.Model):
     type = models.CharField(max_length=50, choices=ITEM_TYPES)
     name = models.CharField(max_length=255)
     redeem_code = models.CharField(max_length=50)
+    pin = models.CharField(max_length=10, blank=True, null=True)
     issuer = models.CharField(max_length=50)
     issue_date = models.DateField(default=timezone.now)
     expiry_date = models.DateField()
     description = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    value = models.DecimalField(max_digits=10, decimal_places=2)  # New field for price
+    value = models.DecimalField(max_digits=10, decimal_places=2)
     is_used = models.BooleanField(default=False)
     
     def __str__(self):
@@ -26,7 +27,7 @@ class Item(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    apprise_urls = models.TextField(blank=True, null=True)  # Allow multiple URLs separated by commas
+    apprise_urls = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username

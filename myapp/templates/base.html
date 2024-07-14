@@ -1,13 +1,32 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <!-- Darkmode -->
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // Check if dark mode was previously enabled
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+      }
+
+      const toggleButton = document.getElementById('darkModeToggle');
+      toggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+          // Save the preference to localStorage
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          // Remove the preference from localStorage
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+    });
+  </script>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>VoucherVault</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -130,30 +149,6 @@
         </a>
       </li>
 
-      <!--
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Inventory</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{% url 'show_items' %}?type=coupon">
-              <i class="bi bi-circle"></i><span>Coupons</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'show_items' %}?type=voucher">
-              <i class="bi bi-circle"></i><span>Vouchers</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'show_items' %}?type=giftcard">
-              <i class="bi bi-circle"></i><span>Gift Cards</span>
-            </a>
-          </li>
-        </ul>
-      </li>--><!-- End Components Nav -->
-
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
@@ -176,15 +171,11 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      <h5>VoucherVault by LRVT</h5>
+      <h5>VoucherVault</h5>
       &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | Developed by <a href="https://github.com/l4rm4nd">LRVT</a>
+      Developed by <a href="https://github.com/l4rm4nd">LRVT</a> | Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
 
   </footer><!-- End Footer -->
@@ -204,28 +195,5 @@
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
 
-  <!-- Darkmode -->
-  <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      // Check if dark mode was previously enabled
-      if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-      }
-
-      const toggleButton = document.getElementById('darkModeToggle');
-      toggleButton.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-          // Save the preference to localStorage
-          localStorage.setItem('darkMode', 'enabled');
-        } else {
-          // Remove the preference from localStorage
-          localStorage.setItem('darkMode', 'disabled');
-        }
-      });
-    });
-  </script>
-
 </body>
-
 </html>

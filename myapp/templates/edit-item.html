@@ -41,6 +41,12 @@
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="redeem_code" class="col-sm-2 col-form-label">PIN Code</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="pin" name="pin" value="{{ item.pin.value }}">
+                  </div>
+                </div>                
+                <div class="row mb-3">
                   <label for="issue_date" class="col-sm-2 col-form-label">Issue Date</label>
                   <div class="col-sm-10">
                     <input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>

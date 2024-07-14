@@ -26,30 +26,32 @@
               <h5 class="card-title">
                 <i class="bi bi-shop"></i> {{ item.issuer }} 
                 <span>| {{ item.type }}
-                        {% if item.is_used %}
-                          - <span style="color:red">used</span>
-                        {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
-                          - <span style="color:red">expired</span>
-                        {% else %}
-                          - <span style="color:green">available</span>
-                        {% endif %}
-                      </span>
+                  {% if item.is_used %}
+                    - <span style="color:red">used</span>
+                  {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
+                    - <span style="color:red">expired</span>
+                  {% else %}
+                    - <span style="color:green">available</span>
+                  {% endif %}
+                </span>
               </h5>
               <h6>{{ item.name }}</h6>
-              <table style="width: 100%;">
-                <tr>
-                  <td style="vertical-align: top;">
-                    <div class="ps-3">
-                      <span class="text-muted small pt-2 ps-1"><i class="bi bi-key"></i> <b>Redeem Code</b>: {{ item.redeem_code }}</span><br>
-                      <span class="text-muted small pt-2 ps-1"><i class="bi bi-calendar"></i> <b>Issue Date</b>: {{ item.issue_date }}</span><br>
-                      <span class="text-muted small pt-2 ps-1"><i class="bi bi-calendar-x"></i> <b>Expiry Date</b>: {{ item.expiry_date }}</span><br>
-                      <span class="text-muted small pt-2 ps-1"><i class="bi bi-cash"></i> <b>Value</b>: {{ item.value }}</span><br><br>
-                      <span class="text-muted small pt-2 ps-0"><b>Description</b>:<br><span class="text-muted small pt-2 ps-0">{{ item.description }}</span></span><br><br>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <div class="d-flex justify-content-end">
+              <div class="item-details pt-2">
+                <div class="detail-item default-tile">
+                  <i class="bi bi-calendar text-muted"></i> <span><b>Issue Date:</b> {{ item.issue_date }}</span>
+                </div>
+                <div class="detail-item default-tile">
+                  <i class="bi bi-calendar-x text-muted"></i> <span><b>Expiry Date:</b> {{ item.expiry_date }}</span>
+                </div>
+                <div class="detail-item default-tile">
+                  <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ item.value }}</span>
+                </div>
+                <div class="default-tile" style="text-align: justify;">
+                  <b>Description:</b><br>
+                  <span>{{ item.description }}</span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end mt-3">
                 <a href="{% url 'edit_item' item.id %}" class="btn btn-primary me-2"><i class="bi bi-pencil"></i> Edit</a>
                 <form action="{% url 'delete_item' item.id %}" method="post" class="me-2">
                   {% csrf_token %}
@@ -67,16 +69,26 @@
           </div>
         </div><!-- End Item Details Card -->
 
-        <!-- QR Code -->
+        <!-- QR Code and PIN Display -->
         <div class="col-lg-4">
-          <div class="card">
+          <div class="card mb-3">
             <div class="card-body text-center">
               <h5 class="card-title ps-0 pb-0 pt-3">Scan to Redeem</h5>
-              <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid" style="max-width: 100%;"><br>
+              <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2" style="max-width: 100%;"><br>
               <span>{{ item.redeem_code }}</span>
             </div>
           </div>
-        </div><!-- End QR Code -->
+          <div class="card">
+              {% if item.pin %}
+              <div class="card-body text-center" style="padding: 0px">
+                <div class="input-group">
+                  <input type="password" id="pin-code" class="form-control" value="{{ item.pin }}" readonly>
+                  <button type="button" id="toggle-pin" class="btn btn-secondary">Show PIN</button>
+                </div>
+              </div>
+              {% endif %}
+          </div>
+        </div><!-- End QR Code and PIN Display -->
 
       </div>
     </div><!-- End Full width column -->
@@ -84,18 +96,20 @@
   </div>
 </section>
 
-<style>
-  .description {
-    max-height: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* number of lines to show */
-    -webkit-box-orient: vertical;
-  }
-
-  .card-title i {
-    margin-right: 5px;
-  }
-</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const pinInput = document.getElementById('pin-code');
+    const toggleButton = document.getElementById('toggle-pin');
+    
+    toggleButton.addEventListener('click', function() {
+        if (pinInput.type === 'password') {
+            pinInput.type = 'text';
+            toggleButton.textContent = 'Hide PIN';
+        } else {
+            pinInput.type = 'password';
+            toggleButton.textContent = 'Show PIN';
+        }
+    });
+});
+</script>
 {% endblock content %}

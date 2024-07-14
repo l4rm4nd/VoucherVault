@@ -8,7 +8,7 @@ on:
       - '**/README.md'
       - 'screenshots/**'
       - 'docker/docker-compose.yml'
-      
+
 jobs:
   build-docker-image:
     runs-on: ubuntu-latest
@@ -21,7 +21,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}

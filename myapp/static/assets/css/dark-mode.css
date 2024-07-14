@@ -280,6 +280,10 @@ body.dark-mode .footer .copyright {
   color: #646668 !important;
 }
 
+body.dark-mode .footer .copyright h5 {
+  color: #646668 !important;
+}
+
 body.dark-mode .footer .credits {
   color: #646668 !important;
 }
@@ -310,3 +314,10 @@ body.dark-mode input[type="password"] {
 body.dark-mode input[type="password"]::placeholder {
   color: #bbbbbb !important;
 }
+
+/* custom css for show-item.html */
+body.dark-mode .default-tile {
+  background-color: #2a2a2a;
+  color: #e0e6eb;
+}
+
