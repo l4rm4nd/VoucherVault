@@ -86,7 +86,7 @@ def show_items(request):
         'search_query': search_query,
         'current_date': timezone.now(),
     }
-    return render(request, 'show-item.html', context)
+    return render(request, 'inventory.html', context)
 
 @auth_required
 def create_item(request):
