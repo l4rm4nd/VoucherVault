@@ -233,7 +233,7 @@ def update_apprise_urls(request):
             apprise_urls = form.cleaned_data['apprise_urls']
             if apprise_urls != 'Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.':
                 user_profile.apprise_urls = apprise_urls
-            form.save()
+                form.save()
             return redirect('show_items')  # Redirect to 'show_items' after saving
     else:
         # Mask the apprise_urls in the form
