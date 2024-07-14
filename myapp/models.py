@@ -25,6 +25,15 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+class Transaction(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='transactions')
+    description = models.CharField(max_length=255)
+    value = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f'{self.item.name} - {self.description}'        
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     apprise_urls = models.TextField(blank=True, null=True)

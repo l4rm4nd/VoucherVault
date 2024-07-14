@@ -325,3 +325,17 @@ body.dark-mode .default-tile {
 body.dark-mode .content {
   color: #e0e6eb;
 }
+
+body.dark-mode .table-striped th{
+  border-color: #21262d;
+  background-color: #2a2a2a;
+  color:  lightgrey;
+}
+
+body.dark-mode .table-striped>tbody>tr:nth-of-type(odd)>*{
+  background-color: lightgrey;
+}
+
+body.dark-mode .table-striped>tbody>tr:nth-of-type(even)>*{
+  background-color: darkgrey;
+}

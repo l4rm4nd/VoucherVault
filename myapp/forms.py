@@ -37,6 +37,27 @@ class ItemForm(forms.ModelForm):
             raise forms.ValidationError("Value must be positive.")
         return value
 
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['description', 'value']
+    
+    def __init__(self, *args, **kwargs):
+        self.item = kwargs.pop('item', None)
+        super(TransactionForm, self).__init__(*args, **kwargs)
+
+    def clean_value(self):
+        value = self.cleaned_data['value']
+        if value >= 0:
+            raise forms.ValidationError("Transaction value must be negative.")
+        
+        if self.item:
+            # Calculate the total value after applying this transaction
+            total_value = self.item.value + sum(t.value for t in self.item.transactions.all()) + value
+            if total_value < 0:
+                raise forms.ValidationError("Transaction would result in negative item value.")
+        return value     
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

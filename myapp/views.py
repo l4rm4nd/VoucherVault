@@ -22,11 +22,19 @@ def dashboard(request):
     total_items = Item.objects.filter(user=user, is_used=False).count()
     available_items = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now()).count()
     used_items = Item.objects.filter(user=user, is_used=True).count()
-    total_value = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now()).aggregate(total_value=Sum('value'))['total_value'] or 0
+    expired_items = Item.objects.filter(user=user, expiry_date__lt=timezone.now(), is_used=False).count()
+
+    # Calculate the current total value of available items
+    items = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now())
+    total_value = 0
+    for item in items:
+        transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
+        current_value = item.value + transactions_sum
+        total_value += current_value
+
     coupons_count = Item.objects.filter(user=user, type='coupon', is_used=False, expiry_date__gte=timezone.now()).count()
     vouchers_count = Item.objects.filter(user=user, type='voucher', is_used=False, expiry_date__gte=timezone.now()).count()
     giftcards_count = Item.objects.filter(user=user, type='giftcard', is_used=False, expiry_date__gte=timezone.now()).count()
-    expired_items = Item.objects.filter(user=user, expiry_date__lt=timezone.now(), is_used=False).count()
 
     context = {
         'total_items': total_items,
@@ -74,9 +82,15 @@ def show_items(request):
         buffer = io.BytesIO()
         qr.save(buffer)
         qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+        
+        # Calculate current value
+        transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
+        current_value = item.value + transactions_sum
+
         items_with_qr.append({
             'item': item,
             'qr_code_base64': qr_code_base64,
+            'current_value': current_value,
         })
 
     context = {
@@ -102,12 +116,23 @@ def create_item(request):
     
     return render(request, 'create-item.html', {'form': form})
 
-@require_GET
 @auth_required
 def view_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
+    transactions = item.transactions.all()
+    total_value = item.value + sum(t.value for t in transactions)
     
-    # Generate QR code
+    if request.method == 'POST':
+        form = TransactionForm(request.POST, item=item)
+        if form.is_valid():
+            transaction = form.save(commit=False)
+            transaction.item = item
+            # Save the transaction
+            transaction.save()
+            return redirect('view_item', item_uuid=item.id)
+    else:
+        form = TransactionForm(item=item)
+    
     qr = qrcode.make(item.redeem_code)
     buffer = io.BytesIO()
     qr.save(buffer)
@@ -115,7 +140,10 @@ def view_item(request, item_uuid):
     
     context = {
         'item': item,
+        'transactions': transactions,
+        'total_value': total_value,
         'qr_code_base64': qr_code_base64,
+        'form': form,
         'current_date': timezone.now(),
     }
     return render(request, 'view-item.html', context)
@@ -210,3 +238,12 @@ def verify_apprise_urls(request):
             return JsonResponse({'success': False, 'message': 'Failed to send test notification for every Apprise URL given.'})
     except Exception as e:
         return JsonResponse({'success': False, 'message': f'Failed to send test notification: {str(e)}'})
+
+@require_POST
+@auth_required
+def delete_transaction(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    item = transaction.item
+    if transaction.item.user == request.user:
+        transaction.delete()
+    return redirect('view_item', item_uuid=item.id)        
