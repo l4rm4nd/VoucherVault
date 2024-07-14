@@ -8,8 +8,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
       // Check if dark mode was previously enabled
-      if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
+      if (localStorage.getItem('darkMode') === 'disabled') {
+        document.body.classList.remove('dark-mode');
       }
 
       const toggleButton = document.getElementById('darkModeToggle');
