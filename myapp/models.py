@@ -26,13 +26,14 @@ class Item(models.Model):
         return self.name
 
 class Transaction(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='transactions')
+    date = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=255)
     value = models.DecimalField(max_digits=10, decimal_places=2)
-    date = models.DateTimeField(default=timezone.now)
-    
+
     def __str__(self):
-        return f'{self.item.name} - {self.description}'        
+        return f"{self.description} ({self.value})"      
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

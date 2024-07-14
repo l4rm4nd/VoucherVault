@@ -15,3 +15,4 @@ class ItemAdmin(admin.ModelAdmin):
     list_filter = ('type', 'is_used', 'issue_date', 'expiry_date', 'user')
 
 admin.site.register(Item, ItemAdmin)
+admin.site.register(Transaction)

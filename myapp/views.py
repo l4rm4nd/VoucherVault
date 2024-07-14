@@ -244,6 +244,7 @@ def verify_apprise_urls(request):
 def delete_transaction(request, transaction_id):
     transaction = get_object_or_404(Transaction, id=transaction_id)
     item = transaction.item
-    if transaction.item.user == request.user:
-        transaction.delete()
-    return redirect('view_item', item_uuid=item.id)        
+    # Delete the transaction
+    transaction.delete()
+
+    return redirect('view_item', item_uuid=item.id)
