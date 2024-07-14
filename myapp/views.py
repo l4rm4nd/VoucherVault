@@ -129,6 +129,13 @@ def view_item(request, item_uuid):
             transaction.item = item
             # Save the transaction
             transaction.save()
+            # Recalculate the total value
+            total_value += transaction.value
+            
+            # Check if the total value is 0 or less and mark as used if true
+            if total_value <= 0:
+                item.is_used = True
+                item.save()            
             return redirect('view_item', item_uuid=item.id)
     else:
         form = TransactionForm(item=item)
@@ -171,7 +178,20 @@ def edit_item(request, item_uuid):
 @auth_required
 def mark_as_used(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
-    item.is_used = True  # Assuming you have an is_used field in your Item model
+    item.is_used = True
+    transactions = item.transactions.all()
+    value_to_remove = item.value + sum(t.value for t in transactions)
+
+    transaction = Transaction(
+        item=item,
+        description='Marked as used, removing remaining value',
+        value=-value_to_remove  # This will be a negative value to reduce the item value
+    )
+    transaction.save()
+
+    item.value += transaction.value  # This will set the item value to 0
+    
+    item.save()    
     item.save()
     return redirect('view_item', item_uuid=item.id)
 
@@ -179,9 +199,30 @@ def mark_as_used(request, item_uuid):
 @auth_required
 def toggle_item_status(request, item_id):
     item = get_object_or_404(Item, id=item_id, user=request.user)
-    item.is_used = not item.is_used
+    
+    if item.is_used:
+        # If item is currently marked as used, re-toggle to available
+        item.is_used = False
+
+        # Remove the previously created "Mark as used" transaction
+        transaction = Transaction.objects.filter(item=item, description='Marked as used, removing remaining value').all()
+        if transaction:
+            transaction.delete()
+    else:
+        # If item is available, mark as used and create a transaction
+        item.is_used = True
+        transactions = item.transactions.all()
+        value_to_remove = item.value + sum(t.value for t in transactions)
+
+        transaction = Transaction(
+            item=item,
+            description='Marked as used, removing remaining value',
+            value=-value_to_remove  # This will be a negative value to reduce the item value
+        )
+        transaction.save()
+    
     item.save()
-    return redirect('view_item', item.id)
+    return redirect('view_item', item_uuid=item.id)
 
 @auth_required
 def update_apprise_urls(request):
