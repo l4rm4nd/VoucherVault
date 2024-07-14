@@ -12,6 +12,7 @@ django-csp==3.7
 # APP SPECIFIC
 qrcode==7.4.2
 apprise==1.8.0
+treepoem==3.24.0
 
 # TASKS
 celery[redis]

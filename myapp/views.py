@@ -14,6 +14,19 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import treepoem
+
+def calculate_ean13_check_digit(code):
+    # Calculate the EAN-13 check digit
+    sum_odd = sum(int(code[i]) for i in range(0, 12, 2))
+    sum_even = sum(int(code[i]) for i in range(1, 12, 2))
+    checksum = (sum_odd + 3 * sum_even) % 10
+    return (10 - checksum) % 10
+
+def is_valid_ean13(code):
+    if len(code) != 13 or not code.isdigit():
+        return False
+    return int(code[-1]) == calculate_ean13_check_digit(code)
 
 @require_GET
 @auth_required
@@ -127,12 +140,9 @@ def view_item(request, item_uuid):
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.item = item
-            # Save the transaction
             transaction.save()
-            # Recalculate the total value
             total_value += transaction.value
             
-            # Check if the total value is 0 or less and mark as used if true
             if total_value <= 0:
                 item.is_used = True
                 item.save()            
@@ -140,9 +150,23 @@ def view_item(request, item_uuid):
     else:
         form = TransactionForm(item=item)
     
-    qr = qrcode.make(item.redeem_code)
-    buffer = io.BytesIO()
-    qr.save(buffer)
+    try:
+        # Validate and generate barcode if redeem code is a valid EAN-13
+        if is_valid_ean13(item.redeem_code):
+            barcode = treepoem.generate_barcode(
+                barcode_type='ean13',  # Specify the barcode type
+                data=item.redeem_code
+            )
+            buffer = io.BytesIO()
+            barcode.save(buffer, 'PNG')
+        else:
+            raise ValueError("Invalid EAN-13 code")
+    except Exception as e:
+        # Fallback to QR code if barcode generation fails
+        qr = qrcode.make(item.redeem_code)
+        buffer = io.BytesIO()
+        qr.save(buffer)
+    
     qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
     
     context = {
@@ -192,7 +216,6 @@ def mark_as_used(request, item_uuid):
     item.value += transaction.value  # This will set the item value to 0
     
     item.save()    
-    item.save()
     return redirect('view_item', item_uuid=item.id)
 
 @require_POST
