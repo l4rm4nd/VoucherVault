@@ -37,7 +37,7 @@ docker compose -f docker/docker-compose.yml logs -f
 ````
 
 > [!WARNING]
-> The container runs as low-privileged `www-data` user. So you likely have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chmod -R 777 <path-to-volume-bind-mount>` should work. Alternatively, leave the RWE permissions in place and solely change the ownership via `sudo chown -R www-data: <path-to-volume-bind-mount>`.
+> The container runs as low-privileged `www-data` user. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R www-data:www-data <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
 
 ## 🔔 Notifications
 
