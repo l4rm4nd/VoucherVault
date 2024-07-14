@@ -21,7 +21,8 @@ class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=10, decimal_places=2)
     is_used = models.BooleanField(default=False)
-    
+    qr_code_base64 = models.TextField(blank=True, null=True)  # New field to store QR code
+
     def __str__(self):
         return self.name
 

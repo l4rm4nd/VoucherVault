@@ -122,6 +122,21 @@ def create_item(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.user = request.user  # Set the user from the session
+
+            # Generate QR code or barcode and save it as base64
+            buffer = io.BytesIO()
+            if is_valid_ean13(item.redeem_code):
+                barcode = treepoem.generate_barcode(
+                    barcode_type='ean13',  # Specify the barcode type
+                    data=item.redeem_code
+                )
+                barcode.save(buffer, 'PNG')
+            else:
+                qr = qrcode.make(item.redeem_code)
+                qr.save(buffer)
+            
+            item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
             item.save()
             return redirect('show_items')
     else:
@@ -145,35 +160,16 @@ def view_item(request, item_uuid):
             
             if total_value <= 0:
                 item.is_used = True
-                item.save()            
+                item.save()
             return redirect('view_item', item_uuid=item.id)
     else:
         form = TransactionForm(item=item)
-    
-    try:
-        # Validate and generate barcode if redeem code is a valid EAN-13
-        if is_valid_ean13(item.redeem_code):
-            barcode = treepoem.generate_barcode(
-                barcode_type='ean13',  # Specify the barcode type
-                data=item.redeem_code
-            )
-            buffer = io.BytesIO()
-            barcode.save(buffer, 'PNG')
-        else:
-            raise ValueError("Invalid EAN-13 code")
-    except Exception as e:
-        # Fallback to QR code if barcode generation fails
-        qr = qrcode.make(item.redeem_code)
-        buffer = io.BytesIO()
-        qr.save(buffer)
-    
-    qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
     
     context = {
         'item': item,
         'transactions': transactions,
         'total_value': total_value,
-        'qr_code_base64': qr_code_base64,
+        'qr_code_base64': item.qr_code_base64,
         'form': form,
         'current_date': timezone.now(),
     }
@@ -189,13 +185,34 @@ def delete_item(request, item_uuid):
 @auth_required
 def edit_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
+    original_redeem_code = item.redeem_code  # Store the original redeem code
+
     if request.method == 'POST':
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
-            form.save()
+            item = form.save(commit=False)
+
+            # Check if redeem code has changed
+            if original_redeem_code != item.redeem_code:
+                # Generate new QR code or barcode and save it as base64
+                buffer = io.BytesIO()
+                if is_valid_ean13(item.redeem_code):
+                    barcode = treepoem.generate_barcode(
+                        barcode_type='ean13',  # Specify the barcode type
+                        data=item.redeem_code
+                    )
+                    barcode.save(buffer, 'PNG')
+                else:
+                    qr = qrcode.make(item.redeem_code)
+                    qr.save(buffer)
+                
+                item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+            item.save()
             return redirect('view_item', item_uuid=item.id)
     else:
         form = ItemForm(instance=item)
+
     return render(request, 'edit-item.html', {'form': form, 'item': item})
 
 @require_POST
