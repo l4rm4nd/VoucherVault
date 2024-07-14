@@ -43,7 +43,7 @@ docker compose -f docker/docker-compose.yml logs -f
 
 Notifications are handled by [Apprise](https://github.com/caronc/apprise). 
 
-You can define custom Apprise URLs in the user dashboard. The input form takes a comma-separated list of Apprise URLs.
+You can define custom Apprise URLs in the user profile settings. The input form takes a single or a comma-separated list of multiple Apprise URLs.
 
 The interval, how often items are checked against a potential expiry, is pre-defined (every 10 days) in the Django admin area. Here, we are utilizing Django-Celery-Beat + a Redis instance for periodic task execution. If you want to adjust the crontab interval, please head over to the admin area at `/admin/django_celery_beat/periodictask/1/change/` (`Periodic Tasks` > `Periodic Expiry Check` > `Crontab Schedule`) and adjust to your liking.
 
