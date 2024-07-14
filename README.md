@@ -16,7 +16,9 @@
 
 ## 💬 Description
 
-VoucherVault is a Django web application that allows you to manage coupons, vouchers and gift cards digitally. It provides a web portal that is mobile friendly and easy to use. Additionally, it supports expiry notifications via Apprise URLs that will frequently remind you to redeem your stuff.
+VoucherVault is a Django web application that allows you to manage coupons, vouchers and gift cards digitally. It provides a web portal that is mobile friendly and easy to use. 
+
+Additionally, it supports expiry notifications via Apprise URLs that will frequently remind you to redeem your stuff. You can also track fractional transactions, which help to understand historical redemptions and reflect the remaining monetary value of an item accurately.
 
 ## 🐳 Usage
 
