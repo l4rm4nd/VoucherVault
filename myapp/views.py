@@ -249,9 +249,16 @@ def verify_apprise_urls(request):
     data = json.loads(request.body)
     apprise_urls = data.get('apprise_urls', '')
 
+    # if the user sent no apprise urls
     if not apprise_urls:
         return JsonResponse({'success': False, 'message': 'No Apprise URLs provided.'})
 
+    # if the user just wants to test the previously configured apprise urls
+    if apprise_urls == "Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.":
+        user_settings = get_object_or_404(UserProfile, user=request.user)
+        apprise_urls = user_settings.apprise_urls
+
+    # obtain the individual apprise urls
     apprise_urls = apprise_urls.split(',')
     apobj = apprise.Apprise()
     invalid_urls = []
