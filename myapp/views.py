@@ -90,19 +90,14 @@ def show_items(request):
     
     items_with_qr = []
 
-    for item in items:
-        qr = qrcode.make(item.redeem_code)
-        buffer = io.BytesIO()
-        qr.save(buffer)
-        qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
-        
+    for item in items:       
         # Calculate current value
         transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
         current_value = item.value + transactions_sum
 
         items_with_qr.append({
             'item': item,
-            'qr_code_base64': qr_code_base64,
+            'qr_code_base64': item.qr_code_base64,
             'current_value': current_value,
         })
 
