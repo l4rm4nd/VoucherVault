@@ -16,3 +16,5 @@ jobs:
           image: l4rm4nd/vouchervault
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          context: .
+          file: docker/Dockerfile
