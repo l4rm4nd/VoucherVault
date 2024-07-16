@@ -20,6 +20,8 @@ VoucherVault is a Django web application that allows you to manage coupons, vouc
 
 Additionally, it supports expiry notifications via Apprise URLs that will frequently remind you to redeem your stuff. You can also track fractional transactions, which help to understand historical redemptions and reflect the remaining monetary value of an item accurately.
 
+Finally, redeem codes are nicely printed as QR code or EAN13 barcode.
+
 ## 🐳 Usage
 
 ````
