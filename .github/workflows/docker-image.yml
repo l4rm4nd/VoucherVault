@@ -74,6 +74,5 @@ jobs:
             - ${{ env.changelog }}
           draft: false
           prerelease: false
-          target_commitish: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
