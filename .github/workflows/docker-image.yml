@@ -37,7 +37,7 @@ jobs:
         run: |
           latest_version=${{ env.latest_version }}
           if [ "$latest_version" = "0.0" ]; then
-            new_version="1.0"
+            new_version="0.1"
           elif echo "${{ github.event.head_commit.message }}" | grep -iq "MAJOR RELEASE"; then
             new_version=$(echo "${latest_version}" | awk -F. '{$1+=1;$2=0; print $1"."$2}')
           else
@@ -74,5 +74,6 @@ jobs:
             - ${{ env.changelog }}
           draft: false
           prerelease: false
+          target_commitish: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
