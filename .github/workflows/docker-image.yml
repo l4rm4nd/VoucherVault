@@ -29,7 +29,7 @@ jobs:
         id: get-version
         run: |
           # Retrieve all tags from Docker Hub and filter out 'latest'
-          latest_version=$(curl -s "https://hub.docker.com/v2/repositories/l4rm4nd/voucheme/tags/?page_size=100" | jq -r '.results[].name' | grep -v '^latest$' | sort -V | tail -n 1)
+          latest_version=$(curl -s "https://hub.docker.com/v2/repositories/l4rm4nd/vouchervault/tags/?page_size=100" | jq -r '.results[].name' | grep -v '^latest$' | sort -V | tail -n 1)
           echo "latest_version=${latest_version:-0.0}" >> $GITHUB_ENV
 
       - name: Calculate new version
