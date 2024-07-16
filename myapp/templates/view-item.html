@@ -44,7 +44,7 @@
                   <i class="bi bi-calendar-x text-muted"></i> <span><b>Expiry Date:</b> {{ item.expiry_date }}</span>
                 </div>
                 <div class="detail-item default-tile">
-                  <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ total_value }}</span>
+                  <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ total_value|floatformat:2 }}</span>
                 </div>
                 <div class="default-tile" style="text-align: justify;">
                   <b>Description:</b><br>
