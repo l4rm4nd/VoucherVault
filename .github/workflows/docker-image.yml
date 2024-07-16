@@ -13,27 +13,67 @@ jobs:
   build-docker-image:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Set up Docker Buildx
+
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
+
+      - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      -
-        name: Build and push
+
+      - name: Get previous version
+        id: get-version
+        run: |
+          # Retrieve all tags from Docker Hub and filter out 'latest'
+          latest_version=$(curl -s "https://hub.docker.com/v2/repositories/l4rm4nd/voucheme/tags/?page_size=100" | jq -r '.results[].name' | grep -v '^latest$' | sort -V | tail -n 1)
+          echo "latest_version=${latest_version:-0.0}" >> $GITHUB_ENV
+
+      - name: Calculate new version
+        id: calc-version
+        run: |
+          latest_version=${{ env.latest_version }}
+          if [ "$latest_version" = "0.0" ]; then
+            new_version="1.0"
+          elif echo "${{ github.event.head_commit.message }}" | grep -iq "MAJOR RELEASE"; then
+            new_version=$(echo "${latest_version}" | awk -F. '{$1+=1;$2=0; print $1"."$2}')
+          else
+            new_version=$(echo "${latest_version}" | awk -F. '{$2+=1; print $1"."$2}')
+          fi
+          echo "new_version=${new_version}" >> $GITHUB_ENV
+          echo "new_version=${new_version}"
+
+      - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           file: docker/Dockerfile
           push: true
-          tags: l4rm4nd/vouchervault:latest
+          tags: l4rm4nd/vouchervault:latest, l4rm4nd/vouchervault:${{ env.new_version }}
           build-args: |
               VERSION=${{ github.sha }}
               BRANCH=${{ github.ref_name }}
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+
+      - name: Create Release Notes
+        id: release_notes
+        run: |
+          commit_list=$(git log -1 --pretty=format:"%h - %s" --no-merges |  cut -d '@' -f 1)
+          echo "changelog=${commit_list}" >> $GITHUB_ENV          
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ env.new_version }}
+          release_name: Release ${{ env.new_version }}
+          body: |
+            Changes in this release:
+            - ${{ env.changelog }}
+          draft: false
+          prerelease: false
+          target_commitish: master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
