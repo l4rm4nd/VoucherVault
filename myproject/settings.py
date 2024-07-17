@@ -68,6 +68,8 @@ if os.getenv("DOMAIN"):
     DOMAIN = os.getenv("DOMAIN")
     ALLOWED_HOSTS.append(DOMAIN)
     trusted_user_domain = "https://" + str(DOMAIN)
+    if os.getenv("PORT"):
+        trusted_user_domain = trusted_user_domain + ":" + str(os.getenv("PORT"))
     CSRF_TRUSTED_ORIGINS.append(trusted_user_domain)
 
 # SECURITY WARNING: don't run with debug turned on in production!
