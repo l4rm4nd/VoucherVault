@@ -22,21 +22,51 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
+DEBUG = False
+
+# auto-generate a secure secret key or use from env variable
+SECRET_KEY = os.environ.get("SECRET_KEY", secrets.token_urlsafe(32))
+
+# define allowed hosts and trusted domains via env variables
+DOMAIN = ""
+ALLOWED_HOSTS = ["127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000"]
+
+DOMAIN = str(os.environ.get("DOMAIN", "localhost"))
+TRUSTED_PORT = str(os.environ.get("PORT", "8000"))
+SECURE_COOKIES = str(os.environ.get("SECURE_COOKIES", "False"))
+
+if DOMAIN:
+    DOMAIN = DOMAIN.rstrip('/').replace('http://', '').replace('https://', '')
+    ALLOWED_HOSTS.append(DOMAIN)
+    TRUSTED_USER_DOMAIN_HTTP = f"http://{DOMAIN}:{TRUSTED_PORT}"
+    TRUSTED_USER_DOMAIN_HTTPS = f"https://{DOMAIN}:{TRUSTED_PORT}"
+    CSRF_TRUSTED_ORIGINS.extend([TRUSTED_USER_DOMAIN_HTTP, TRUSTED_USER_DOMAIN_HTTPS])
+
 #Session Management
-#SESSION_SECURITY_WARN_AFTER = 10 # warning popup that session will expire
-#SESSION_SECURITY_EXPIRE_AFTER = 30 # invalidate session
 CSRF_COOKIE_HTTPONLY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 30*60 # 30 minute session age
-SESSION_COOKIE_NAME = 'SESSION'
+SESSION_COOKIE_NAME = 'VVSESS'
 SESSION_COOKIE_SAMESITE = 'Strict'
-SESSION_COOKIE_SECURE = True # https only
-CSRF_COOKIE_SECURE = True # https only
 
-# HTTPS settings
-#SECURE_HSTS_SECONDS = "31536000"
-#SECURE_HSTS_PRELOAD = True
-#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+if SECURE_COOKIES == "False":
+    # transmit cookies over unencrypted http
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+else:
+    # transmit cookies over encrypted https only
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # also set hsts response header
+    SECURE_HSTS_SECONDS = "31536000"
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# http security response headers
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
@@ -49,32 +79,7 @@ CSP_IMG_SRC = ("'self'", 'data:')
 CSP_OBJECT_SRC = ("'none'",)
 CSP_CONNECT_SRC = ("'self'",)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ""
-
-if os.getenv("SECRET_KEY"):
-    SECRET_KEY = os.getenv("SECRET_KEY")
-else:
-    SECRET_KEY = secrets.token_urlsafe(32)
-
-DOMAIN = ""
-ALLOWED_HOSTS = ["127.0.0.1"]
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1"]
-
-if os.getenv("DOMAIN"):
-    DOMAIN = os.getenv("DOMAIN")
-    ALLOWED_HOSTS.append(DOMAIN)
-    trusted_user_domain = "https://" + str(DOMAIN)
-    CSRF_TRUSTED_ORIGINS.append(trusted_user_domain)
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 # Application definition
-
 INSTALLED_APPS = [
     'myapp',
     'django_celery_beat',
@@ -128,7 +133,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'database', 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
