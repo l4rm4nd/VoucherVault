@@ -4,7 +4,7 @@ services:
     image: l4rm4nd/vouchervault:latest
     container_name: vouchervault
     environment:
-      - DOMAIN=vouchervault.example.com # your FQDN; used to define ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS
+      - DOMAIN=vouchervault.example.com # your FQDN or IP; used to define ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS
       - SECURE_COOKIES=False # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
       - EXPIRY_THRESHOLD_DAYS=90 # send notifications xx days prior expiry; default is 30
       - SECRET_KEY=ChooseSuperSecretKey # optional; if not defined, a secure secret is auto-generated
