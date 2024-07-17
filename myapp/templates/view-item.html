@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .opaque {
+        filter: blur(5px); /* Blur effect for pixelated appearance */
+        cursor: pointer; /* Change cursor to pointer to indicate clickability */
+    }
+</style>
+
 <div class="pagetitle">
   <h1>Item Details</h1>
   <nav>
@@ -74,8 +81,9 @@
           <div class="card mb-3">
             <div class="card-body text-center">
               <h5 class="card-title ps-0 pb-0 pt-3">Scan to Redeem</h5>
-              <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2" style="max-width: 100%;"><br>
-              <span>{{ item.redeem_code }}</span>
+              <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2 opaque" id="qr-code" style="max-width: 100%;">
+              <br>
+              <span class="opaque" id="redeem-code">{{ item.redeem_code }}</span>
             </div>
           </div>
           <div class="card">
@@ -188,9 +196,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-</script>
 
-<script>
 document.addEventListener("DOMContentLoaded", function() {
     const valueInput = document.getElementById('value');
 
@@ -200,6 +206,20 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (!valueInput.value.startsWith('-')) {
             valueInput.value = '-' + valueInput.value;
         }
+    });
+
+    // Handling QR Code and Redeem Code visibility toggle
+    const qrCode = document.getElementById('qr-code');
+    const redeemCode = document.getElementById('redeem-code');
+
+    qrCode.addEventListener('click', function() {
+        qrCode.classList.toggle('opaque');
+        redeemCode.classList.toggle('opaque');
+    });
+
+    redeemCode.addEventListener('click', function() {
+        qrCode.classList.toggle('opaque');
+        redeemCode.classList.toggle('opaque');
     });
 });
 </script>
