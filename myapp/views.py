@@ -118,7 +118,6 @@ def create_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
-            print("Form is valid")  # Debugging statement
             item = form.save(commit=False)
             item.user = request.user  # Set the user from the session
 
