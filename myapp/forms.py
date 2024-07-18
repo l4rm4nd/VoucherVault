@@ -44,7 +44,7 @@ class ItemForm(forms.ModelForm):
         cleaned_data = super().clean()
         item_type = cleaned_data.get('type')
         value = cleaned_data.get('value')
-        if item_type == 'loyaltycard' and value > 0:
+        if item_type == 'loyaltycard' and value != 0:
             raise forms.ValidationError("Value must be zero for loyalty cards.")
         if item_type != 'loyaltycard' and (value is None or value < 0):
             raise forms.ValidationError("Value must be positive.")
