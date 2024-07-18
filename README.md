@@ -54,9 +54,6 @@ The docker container takes various environment variables:
 | `PORT`                   | Defines a custom port. Used to set `CSRF_TRUSTED_ORIGINS` in conjunction with the `DOMAIN` environment variable for the Django framework. Only necessary, if VoucherVault is operated on a different port than `8000`, `80` or `443`. | `8000`                     | Optional            |
 | `REDIS_HOST`             | Defines the Redis instance to use for Django-Celery-Beat task processing.                                       | `redis`                    | Optional            |
 
-> [!TIP]
-> If you plan to run VoucherVault behind a reverse proxy, please ensure to define the environment variables `DOMAIN` and `SECURE_COOKIES` correctly.
-
 ## 🔔 Notifications
 
 Notifications are handled by [Apprise](https://github.com/caronc/apprise). 
@@ -66,6 +63,17 @@ You can define custom Apprise URLs in the user profile settings. The input form 
 The interval, how often items are checked against a potential expiry, is pre-defined (every 10 days) in the Django admin area. Here, we are utilizing Django-Celery-Beat + a Redis instance for periodic task execution. If you want to adjust the crontab interval, please head over to the admin area at `/admin/django_celery_beat/periodictask/1/change/` (`Periodic Tasks` > `Periodic Expiry Check` > `Crontab Schedule`) and adjust to your liking.
 
 An item will trigger an expiry notification if the expiry date is within the number of days defined by the environment variable `EXPIRY_THRESHOLD_DAYS`. By default, this threshold is set to 30 days.
+
+## 🔐 Multi-User Setup
+
+VoucherVault is initialized with a default superuser account named `admin` and a secure auto-generated password. 
+
+This administrative account has full privileges to the Django admin panel, located at `/admin`. Therefore, all database model entries can be read and modified by this user. Additionally, new user accounts and groups can be freely created too.
+
+For simplicity, VoucherVault makes use of the default Django authentication scheme for `Superusers` and `Staff Users`.
+
+> [!CAUTION]
+If you create new users on VoucherVault, you must at least assign the `Staff status` privilege. This indicates and ensures that the new user account can use the VoucherVault login area at `/admin`, although not being a superuser with high privileges. 
 
 ## 📷 Screenshots
 
