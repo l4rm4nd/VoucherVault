@@ -1,7 +1,7 @@
 <div align="center" width="100%">
     <h1>VoucherVault</h1>
     <img width="150px" src="myapp/static/assets/img/logo.png">
-    <p>Django web application to store and manage vouchers, coupons and gift cards digitally</p><p>
+    <p>Django web application to store and manage vouchers, coupons, loyalty and gift cards digitally</p><p>
     <a target="_blank" href="https://github.com/l4rm4nd"><img src="https://img.shields.io/badge/maintainer-LRVT-orange" /></a>
     <a target="_blank" href="https://GitHub.com/l4rm4nd/VoucherVault/graphs/contributors/"><img src="https://img.shields.io/github/contributors/l4rm4nd/VoucherVault.svg" /></a><br>
     <a target="_blank" href="https://GitHub.com/l4rm4nd/VoucherVault/commits/"><img src="https://img.shields.io/github/last-commit/l4rm4nd/VoucherVault.svg" /></a>
@@ -16,7 +16,7 @@
 
 ## 💬 Description
 
-VoucherVault is a Django web application that allows you to manage coupons, vouchers and gift cards digitally. It provides a web portal that is mobile friendly and easy to use. 
+VoucherVault is a Django web application that allows you to manage coupons, vouchers, loyalty and gift cards digitally. It provides a web portal that is mobile friendly and easy to use. 
 
 Additionally, it supports expiry notifications via Apprise URLs that will frequently remind you to redeem your stuff. You can also track fractional transactions, which help to understand historical redemptions and reflect the remaining monetary value of an item accurately.
 
