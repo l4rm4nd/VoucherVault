@@ -155,14 +155,15 @@
                 data: [
                     { value: {{ coupons_count }}, name: 'Coupons' },
                     { value: {{ vouchers_count }}, name: 'Vouchers' },
-                    { value: {{ giftcards_count }}, name: 'Gift Cards' }
+                    { value: {{ giftcards_count }}, name: 'Gift Cards' },
+                    { value: {{ loyaltycards_count }}, name: 'Loyalty Cards' }
                 ],
                 itemStyle: {
                     color: function(params) {
                         // Customize the colors if needed
                         const colors = isDarkMode 
-                            ? ['#91cc75', '#fac858', '#ee6666']
-                            : ['#5470c6', '#91cc75', '#fac858'];
+                            ? ['#91cc75', '#fac858', '#ee6666', '#5470c6']
+                            : ['#91cc75', '#fac858', '#ee6666', '#5470c6']
                         return colors[params.dataIndex];
                     }
                 }

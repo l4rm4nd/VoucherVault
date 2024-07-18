@@ -339,3 +339,23 @@ body.dark-mode .table-striped>tbody>tr:nth-of-type(odd)>*{
 body.dark-mode .table-striped>tbody>tr:nth-of-type(even)>*{
   background-color: darkgrey;
 }
+
+body.dark-mode .card-available {
+  background-color: #0f150e;
+}
+
+body.dark-mode .card-used {
+  background-color: #0c1a2b;
+}
+
+body.dark-mode .card-expired {
+  background-color: #290d0d;
+}
+
+body.dark-mode .card-title span {
+  color: #a6a5a5;
+}
+
+body.dark-mode .footer {
+  border-top: 1px solid #222;
+}

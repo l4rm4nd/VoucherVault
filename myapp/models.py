@@ -8,6 +8,7 @@ class Item(models.Model):
         ('voucher', 'Voucher'),
         ('giftcard', 'Gift Card'),
         ('coupon', 'Coupon'),
+        ('loyaltycard', 'Loyalty Card'),
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=50, choices=ITEM_TYPES)

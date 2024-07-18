@@ -23,7 +23,18 @@
               <form method="POST" action="{% url 'edit_item' item.id %}">
                 {% csrf_token %}
                 <div class="row mb-3">
-                  <label for="name" class="col-sm-2 col-form-label">Item Name</label>
+                  <label for="type" class="col-sm-2 col-form-label">Type</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="type" name="type" required>
+                      <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>Gift Card</option>
+                      <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>Voucher</option>
+                      <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>Coupon</option>
+                      <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>Loyalty Card</option>
+                    </select>
+                  </div>
+                </div>                
+                <div class="row mb-3">
+                  <label for="name" class="col-sm-2 col-form-label">Name</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="name" name="name" value="{{ item.name }}" required>
                   </div>
@@ -65,19 +76,9 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="type" class="col-sm-2 col-form-label">Item Type</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" id="type" name="type" required>
-                      <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>Gift Card</option>
-                      <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>Voucher</option>
-                      <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>Coupon</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
                   <label for="value" class="col-sm-2 col-form-label">Value</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" id="value" name="value" step="0.01" min="0.01" value="{{ item.value }}" required>
+                    <input type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" value="{{ item.value }}" required>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -86,10 +87,61 @@
                   </div>
                 </div>
               </form><!-- End Item Form -->
-
+              {% if form.errors %}
+                <div class="alert alert-danger mt-2">
+                  <ul>
+                    {% for error in form.non_field_errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                    {% for field, errors in form.errors.items %}
+                      {% for error in errors %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const typeField = document.getElementById('type');
+          const pinField = document.getElementById('pin');
+          const valueField = document.getElementById('value');
+          const issuerCodeField = document.getElementById('issuer');
+          const redeemCodeField = document.getElementById('redeem_code');
+          const pinFieldContainer = pinField.closest('.row');
+          const valueFieldContainer = valueField.closest('.row');
+          const issuerCodeLabel = document.querySelector('label[for="issuer"]');
+          const redeemCodeLabel = document.querySelector('label[for="redeem_code"]');
+
+          function toggleFields() {
+              if (typeField.value === 'loyaltycard') {
+                  pinField.readOnly = true;
+                  valueField.readOnly = true;
+                  pinField.classList.add('readonly');
+                  valueField.classList.add('readonly');
+                  valueField.value = 0;
+                  issuerCodeLabel.textContent = 'Store';
+                  issuerCodeField.placeholder = 'The store of your loyalty card'
+                  redeemCodeLabel.textContent = 'Loyalty ID';
+                  redeemCodeField.placeholder = 'Loyalty card number or customer ID';
+              } else {
+                  pinField.readOnly = false;
+                  valueField.readOnly = false;
+                  pinField.classList.remove('readonly');
+                  valueField.classList.remove('readonly');
+                  redeemCodeLabel.textContent = 'Redeem Code';
+                  redeemCodeField.placeholder = 'The redeem code of the item';
+              }
+          }
+
+          typeField.addEventListener('change', toggleFields);
+          toggleFields();  // Initial call to set the correct state on page load
+      });
+    </script>    
 {% endblock content %}

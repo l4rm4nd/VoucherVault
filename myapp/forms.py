@@ -20,7 +20,7 @@ def send_notifications():
         apobj.notify(
             body=f'The voucher "{voucher.name}" is expiring soon!',
             title='Voucher Expiry Notification'
-        )    
+        )
 
 class ItemForm(forms.ModelForm):
     class Meta:
@@ -30,12 +30,25 @@ class ItemForm(forms.ModelForm):
             'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'expiry_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
         }
-    
-    def clean_value(self):
-        value = self.cleaned_data.get('value')
-        if value <= 0:
+
+    def __init__(self, *args, **kwargs):
+        super(ItemForm, self).__init__(*args, **kwargs)
+        if 'data' in kwargs:
+            item_type = kwargs['data'].get('type')
+            if item_type == 'loyaltycard':
+                self.fields['value'].required = False
+            else:
+                self.fields['value'].required = True
+
+    def clean(self):
+        cleaned_data = super().clean()
+        item_type = cleaned_data.get('type')
+        value = cleaned_data.get('value')
+        if item_type == 'loyaltycard' and value > 0:
+            raise forms.ValidationError("Value must be zero for loyalty cards.")
+        if item_type != 'loyaltycard' and (value is None or value < 0):
             raise forms.ValidationError("Value must be positive.")
-        return value
+        return cleaned_data
 
 class TransactionForm(forms.ModelForm):
     class Meta:

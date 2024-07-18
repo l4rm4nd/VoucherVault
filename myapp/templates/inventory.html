@@ -11,37 +11,39 @@
       </nav>
     </div><!-- End Page Title -->
 
-  <section class="section dashboard">
-    <div class="row">
-      <!-- Filter Dropdown -->
-      <div class="col-12 mb-3">
-        <form method="GET" action="">
-          <div class="row g-2">
-            <div class="col-12 col-md-3">
-              <select name="type" onchange="this.form.submit()" class="form-select">
-                <option value="">All Items</option>
-                <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>Vouchers</option>
-                <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>Gift Cards</option>
-                <option value="coupon" {% if item_type == 'coupon' %}selected{% endif %}>Coupons</option>
-              </select>
+    <section class="section dashboard">
+      <div class="row">
+        <!-- Filter Dropdown -->
+        <div class="col-12 mb-3">
+          <form method="GET" action="">
+            <div class="row g-2">
+              <div class="col-12 col-md-3">
+                <select name="type" onchange="this.form.submit()" class="form-select">
+                  <option value="">All Items</option>
+                  <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>Vouchers</option>
+                  <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>Gift Cards</option>
+                  <option value="coupon" {% if item_type == 'coupon' %}selected{% endif %}>Coupons</option>
+                  <option value="loyaltycard" {% if item_type == 'loyaltycard' %}selected{% endif %}>Loyalty Cards</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-3">
+                <select name="status" onchange="this.form.submit()" class="form-select">
+                  <option value="">All Status</option>
+                  <option value="available" {% if item_status == 'available' %}selected{% endif %}>Available</option>
+                  <option value="used" {% if item_status == 'used' %}selected{% endif %}>Used</option>
+                  <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>Expired</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-4">
+                <input type="text" name="query" placeholder="Search" value="{{ search_query }}" class="form-control">
+              </div>
+              <div class="col-12 col-md-2 d-grid">
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
             </div>
-            <div class="col-12 col-md-3">
-              <select name="status" onchange="this.form.submit()" class="form-select">
-                <option value="">All Status</option>
-                <option value="available" {% if item_status == 'available' %}selected{% endif %}>Available</option>
-                <option value="used" {% if item_status == 'used' %}selected{% endif %}>Used</option>
-                <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>Expired</option>
-              </select>
-            </div>
-            <div class="col-12 col-md-4">
-              <input type="text" name="query" placeholder="Search" value="{{ search_query }}" class="form-control">
-            </div>
-            <div class="col-12 col-md-2 d-grid">
-              <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-          </div>
-        </form>
-      </div><!-- End Filter Dropdown -->
+          </form>
+        </div><!-- End Filter Dropdown -->
+
         <!-- Full width columns -->
         <div class="col-12 mt-2">
           <div class="row">
@@ -50,19 +52,23 @@
             {% for entry in items_with_qr %}
             <div title="{{ entry.item.description }}" class="col-12 col-md-6">
               <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
-                <div class="card info-card sales-card">
+                <div class="card info-card sales-card card-available
+                    {% if entry.item.is_used %} card-used
+                    {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
+                    {% endif %}">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                       <div>
-                        <h5 class="card-title"><i class="bi bi-shop"></i> {{ entry.item.issuer }} <span>| {{ entry.item.type }}
-                        {% if entry.item.is_used %}
-                          - <span style="color:red">used</span>
-                        {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
-                          - <span style="color:red">expired</span>
-                        {% else %}
-                          - <span style="color:green">available</span>
-                        {% endif %}
-                      </span></h5>
+                        <h5 class="card-title">
+                          <i class="bi bi-shop"></i> {{ entry.item.issuer }}
+                          <span>&gt; {{ entry.item.type }}
+                            {% if entry.item.is_used %}
+                              <span style="margin-left: 5px; color: black;" class="badge bg-info">Used</span>
+                            {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
+                              <span style="margin-left: 5px;" class="badge bg-danger text-dark">Expired</span>
+                            {% endif %}
+                          </span>
+                        </h5>
                         <h6>{{ entry.item.name }}</h6>
                       </div>
                       <img src="data:image/png;base64,{{ entry.qr_code_base64 }}" alt="QR Code" style="width: 50px; height: 50px;">
@@ -74,9 +80,11 @@
                       <div class="detail-item default-tile">
                         <i class="bi bi-calendar-x text-muted"></i> <span><b>Expiry Date:</b> {{ entry.item.expiry_date }}</span>
                       </div>
+                      {% if entry.item.type != "loyaltycard" %}
                       <div class="detail-item default-tile">
                         <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ entry.current_value|floatformat:2 }}</span>
                       </div>
+                      {% endif %}
                     </div>
                   </div>
                 </div>

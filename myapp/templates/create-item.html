@@ -11,6 +11,14 @@
       </nav>
     </div><!-- End Page Title -->
 
+                        {% if form.type.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.type.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %} 
+
     <section class="section">
       <div class="row">
         <div class="col-12">
@@ -22,7 +30,18 @@
               <form method="POST" action="{% url 'create_item' %}">
                 {% csrf_token %}
                 <div class="row mb-3">
-                  <label for="name" class="col-sm-2 col-form-label">Item Name</label>
+                  <label for="type" class="col-sm-2 col-form-label">Type</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="type" name="type" required>
+                      <option value="giftcard">Gift Card</option>
+                      <option value="voucher">Voucher</option>
+                      <option value="coupon">Coupon</option>
+                      <option value="loyaltycard">Loyalty Card</option>
+                    </select>                   
+                  </div>
+                </div>                
+                <div class="row mb-3">
+                  <label for="name" class="col-sm-2 col-form-label">Name</label>
                   <div class="col-sm-10">
                     <input placeholder="The name of the item" type="text" class="form-control" id="name" name="name" required>
                   </div>
@@ -30,7 +49,7 @@
                 <div class="row mb-3">
                   <label for="issuer" class="col-sm-2 col-form-label">Issuer</label>
                   <div class="col-sm-10">
-                    <input placeholder="The issuer of the item" type="text" class="form-control mt-2" id="issuer" name="issuer" placeholder="">
+                    <input placeholder="The issuer of the item" type="text" class="form-control mt-2" id="issuer" name="issuer">
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -40,9 +59,9 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="redeem_code" class="col-sm-2 col-form-label">PIN Code</label>
+                  <label for="pin" class="col-sm-2 col-form-label">PIN Code</label>
                   <div class="col-sm-10">
-                    <input placeholder="The pin code of the item for redeeming" type="text" class="form-control" id="pin" name="pin">
+                    <input placeholder="The pin code of the item" type="text" class="form-control" id="pin" name="pin">
                   </div>
                 </div>                
                 <div class="row mb-3">
@@ -60,27 +79,16 @@
                     <input type="date" class="form-control" id="expiry_date" name="expiry_date" required>
                   </div>
                 </div>
+                <div class="row mb-3" id="value-field">
+                  <label for="value" class="col-sm-2 col-form-label">Value</label>
+                  <div class="col-sm-10">
+                    <input placeholder="The monetary value of the item" type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" required>
+                  </div>
+                </div>
                 <div class="row mb-3">
                   <label for="description" class="col-sm-2 col-form-label">Description</label>
                   <div class="col-sm-10">
                     <textarea placeholder="A description of the item" class="form-control" id="description" name="description" rows="4"></textarea>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="type" class="col-sm-2 col-form-label">Item Type</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" id="type" name="type" required>
-                      <option value="giftcard">Gift Card</option>
-                      <option value="voucher">Voucher</option>
-
-                      <option value="coupon">Coupon</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="value" class="col-sm-2 col-form-label">Value</label>
-                  <div class="col-sm-10">
-                    <input placeholder="The monetary value of the item" type="number" class="form-control" id="value" name="value" step="0.01" min="0.01" required>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -89,10 +97,57 @@
                   </div>
                 </div>
               </form><!-- End Item Form -->
-
+              {% if form.errors %}
+                <div class="alert alert-danger mt-2">
+                  <ul>
+                    {% for field, errors in form.errors.items %}
+                      {% for error in errors %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const typeField = document.getElementById('type');
+          const pinField = document.getElementById('pin');
+          const valueField = document.getElementById('value');
+          const issuerCodeField = document.getElementById('issuer');
+          const redeemCodeField = document.getElementById('redeem_code');
+          const pinFieldContainer = pinField.closest('.row');
+          const valueFieldContainer = valueField.closest('.row');
+          const issuerCodeLabel = document.querySelector('label[for="issuer"]');
+          const redeemCodeLabel = document.querySelector('label[for="redeem_code"]');
+
+          function toggleFields() {
+              if (typeField.value === 'loyaltycard') {
+                  pinField.readOnly = true;
+                  valueField.readOnly = true;
+                  pinField.classList.add('readonly');
+                  valueField.classList.add('readonly');
+                  valueField.value = 0;
+                  issuerCodeLabel.textContent = 'Store';
+                  issuerCodeField.placeholder = 'The store of your loyalty card'
+                  redeemCodeLabel.textContent = 'Loyalty ID';
+                  redeemCodeField.placeholder = 'Loyalty card number or customer ID';
+              } else {
+                  pinField.readOnly = false;
+                  valueField.readOnly = false;
+                  valueField.classList.remove('readonly');
+                  redeemCodeLabel.textContent = 'Redeem Code';
+                  redeemCodeField.placeholder = 'The redeem code of the item';
+              }
+          }
+
+          typeField.addEventListener('change', toggleFields);
+          toggleFields();  // Initial call to set the correct state on page load
+      });
+    </script>
 {% endblock content %}

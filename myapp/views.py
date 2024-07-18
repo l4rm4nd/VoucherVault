@@ -39,6 +39,7 @@ def dashboard(request):
 
     # Calculate the current total value of available items
     items = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now())
+    items = items.exclude(type='loyaltycard')
     total_value = 0
     for item in items:
         transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
@@ -48,6 +49,7 @@ def dashboard(request):
     coupons_count = Item.objects.filter(user=user, type='coupon', is_used=False, expiry_date__gte=timezone.now()).count()
     vouchers_count = Item.objects.filter(user=user, type='voucher', is_used=False, expiry_date__gte=timezone.now()).count()
     giftcards_count = Item.objects.filter(user=user, type='giftcard', is_used=False, expiry_date__gte=timezone.now()).count()
+    loyaltycards_count = Item.objects.filter(user=user, type='loyaltycard', is_used=False, expiry_date__gte=timezone.now()).count()
 
     context = {
         'total_items': total_items,
@@ -57,6 +59,7 @@ def dashboard(request):
         'coupons_count': coupons_count,
         'vouchers_count': vouchers_count,
         'giftcards_count': giftcards_count,
+        'loyaltycards_count':loyaltycards_count,
         'expired_items': expired_items,
     }
     return render(request, 'dashboard.html', context)
@@ -115,6 +118,7 @@ def create_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
+            print("Form is valid")  # Debugging statement
             item = form.save(commit=False)
             item.user = request.user  # Set the user from the session
 
@@ -129,14 +133,14 @@ def create_item(request):
             else:
                 qr = qrcode.make(item.redeem_code)
                 qr.save(buffer)
-            
+
             item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
 
             item.save()
             return redirect('show_items')
     else:
         form = ItemForm()
-    
+
     return render(request, 'create-item.html', {'form': form})
 
 @auth_required

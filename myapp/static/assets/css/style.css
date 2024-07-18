@@ -241,7 +241,7 @@ h6 {
 }
 
 .card-title span {
-  color: #899bbd;
+  color: #334464;
   font-size: 14px;
   font-weight: 400;
 }
@@ -1272,4 +1272,16 @@ h6 {
   display: block;
 }
 
+input.readonly {
+    background-color: #e9ecef; /* Light grey background */
+    cursor: not-allowed;       /* Not-allowed cursor */
+    opacity: 0.65;             /* Slightly transparent */
+}
 
+.card-used {
+  background-color: #dae9fb;
+}
+
+.card-expired {
+  background-color: #ffc9c959;
+}
