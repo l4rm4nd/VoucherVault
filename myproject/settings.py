@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 import os
 import pytz
 import secrets
+from django.utils.html import escape
 
 # Load environment variables from .env file
 load_dotenv()
@@ -26,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 DEBUG = False
+VERSION = escape(os.environ.get("VERSION", ''))
 
 # auto-generate a secure secret key or use from env variable
 SECRET_KEY = os.environ.get("SECRET_KEY", secrets.token_urlsafe(32))

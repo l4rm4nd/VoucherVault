@@ -15,6 +15,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import treepoem
+from django.conf import settings
 
 def calculate_ean13_check_digit(code):
     # Calculate the EAN-13 check digit
@@ -61,6 +62,7 @@ def dashboard(request):
         'giftcards_count': giftcards_count,
         'loyaltycards_count':loyaltycards_count,
         'expired_items': expired_items,
+        'container_version': settings.VERSION,
     }
     return render(request, 'dashboard.html', context)
 
@@ -110,6 +112,7 @@ def show_items(request):
         'item_status': item_status,
         'search_query': search_query,
         'current_date': timezone.now(),
+        'container_version': settings.VERSION,
     }
     return render(request, 'inventory.html', context)
 
@@ -170,6 +173,7 @@ def view_item(request, item_uuid):
         'qr_code_base64': item.qr_code_base64,
         'form': form,
         'current_date': timezone.now(),
+        'container_version': settings.VERSION,
     }
     return render(request, 'view-item.html', context)
 
