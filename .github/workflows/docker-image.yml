@@ -24,41 +24,23 @@ jobs:
       clean_changelog: ${{ steps.changelog.outputs.clean_changelog }}
       version: ${{ steps.changelog.outputs.version }}
 
-    env:
-      PR_BRANCH: release-ci-${{ github.sha }}
-
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - name: Create Branch
-        run: |
-          git checkout -b ${{ env.PR_BRANCH }}
+      - uses: actions/checkout@v4
 
-      - name: Create Changelog
-        uses: TriPSs/conventional-changelog-action@dd734f74fce61a6e02f821ee1b5930bc79a23534 # v5
+      - name: Conventional Changelog Action
         id: changelog
+        uses: TriPSs/conventional-changelog-action@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          git-user-name: "github-actions[bot]"
-          git-user-email: "github-actions[bot]@users.noreply.github.com"
-          git-branch: ${{ env.PR_BRANCH }}
-          skip-git-pull: true
-          output-file: false
-          version-file: .github/package.yaml
-          create-summary: true
 
-      - name: Create Changelog PR
-        if: steps.changelog.outputs.skipped == 'false'
-        run: |
-          gh pr create --base main --head ${{ env.PR_BRANCH }} --title 'chore(release): ${{ steps.changelog.outputs.tag }} [skip-ci]' --body '${{ steps.changelog.outputs.clean_changelog }}'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Merge Changelog PR
-        if: steps.changelog.outputs.skipped == 'false'
-        run: |
-          gh pr merge --squash --auto --delete-branch ${{ env.PR_BRANCH }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        with:
+          name: ${{ steps.changelog.outputs.tag }}
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     name: Deploy Image
