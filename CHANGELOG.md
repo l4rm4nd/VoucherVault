@@ -1,3 +1,12 @@
+## [0.1.2](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.1...v0.1.2) (2024-07-19)
+
+
+### Bug Fixes
+
+* **ui:** display version in footer ([f6673fb](https://github.com/l4rm4nd/VoucherVault/commit/f6673fbc461795c1487b54e2012e1b573319d3bc))
+
+
+
 ## [0.1.1](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.0...v0.1.1) (2024-07-19)
 
 
