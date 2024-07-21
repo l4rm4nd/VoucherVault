@@ -1,3 +1,12 @@
+## [0.1.4](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.3...v0.1.4) (2024-07-21)
+
+
+### Bug Fixes
+
+* **ci:** remove unnecessary packages from Dockerfile ([7bd950e](https://github.com/l4rm4nd/VoucherVault/commit/7bd950e808524189e4739502e58cadb8d57e1ee7))
+
+
+
 ## [0.1.3](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.2...v0.1.3) (2024-07-21)
 
 
