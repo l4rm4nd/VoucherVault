@@ -1,3 +1,12 @@
+## [0.1.3](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.2...v0.1.3) (2024-07-21)
+
+
+### Bug Fixes
+
+* **ci:** build docker image for arm64 too ([edcd092](https://github.com/l4rm4nd/VoucherVault/commit/edcd092e01cb64abaa05407888c83fc74b9f2944))
+
+
+
 ## [0.1.2](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.1...v0.1.2) (2024-07-19)
 
 
