@@ -25,6 +25,13 @@ Finally, redeem codes are nicely printed as QR code or EAN13 barcode.
 ## 🐳 Usage
 
 ````
+# create volume dir for persistence
+mkdir -p ./volume-data/database
+
+# adjust permissions
+sudo chown -R www-data:www-data volume-dir/*
+
+# spawn the container stack
 docker compose -f docker/docker-compose.yml up
 ````
 
