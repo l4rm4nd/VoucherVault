@@ -7,9 +7,6 @@ ENV BRANCH=$BRANCH
 
 # update and install software + create necessary dirs
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    nginx \
-    nano \
-    gnupg \
     cron \
     ghostscript \
     gcc \
@@ -30,7 +27,6 @@ COPY /docker/entrypoint.sh /opt/app/docker/entrypoint.sh
 # fix dependencies, permissions and openssl
 RUN pip install --upgrade pip && \
     pip3 install -r requirements.txt --cache-dir /opt/app/pip_cache && \
-    pip3 install uwsgi -I --no-cache-dir && \
     chown -R www-data:www-data /opt/app && \
     chmod -R 770 /opt/app && \
     chmod +x /opt/app/docker/entrypoint.sh
