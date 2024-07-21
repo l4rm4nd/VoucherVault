@@ -24,6 +24,15 @@ Finally, redeem codes are nicely printed as QR code or EAN13 barcode.
 
 ## 🐳 Usage
 
+> [!WARNING]
+> The container runs as low-privileged `www-data` user. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R www-data:www-data <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
+
+> [!TIP]
+> This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
+> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `0.1.x`.
+>
+> This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
+
 ````
 # create volume dir for persistence
 mkdir -p ./volume-data/database
@@ -44,15 +53,6 @@ You can obtain the auto-generated password via the Docker container logs:
 ````
 docker compose -f docker/docker-compose.yml logs -f
 ````
-
-> [!WARNING]
-> The container runs as low-privileged `www-data` user. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R www-data:www-data <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
-
-> [!TIP]
-> This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
-> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `0.1.x`.
->
-> This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
 
 ## 🌍 Environment Variables
 
