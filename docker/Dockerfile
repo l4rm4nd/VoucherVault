@@ -1,4 +1,4 @@
-FROM python:3.10.12-slim
+FROM python:3.12.4-slim
 
 ARG VERSION=0
 ENV VERSION=$VERSION
