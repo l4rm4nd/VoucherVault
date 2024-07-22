@@ -30,3 +30,6 @@ venv/
 # ignore traefik certs and logs
 acme.json
 **/logs/**
+
+# ignore file uploads
+**/uploads/**

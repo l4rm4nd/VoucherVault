@@ -23,9 +23,11 @@ def send_notifications():
         )
 
 class ItemForm(forms.ModelForm):
+    file = forms.FileField(required=False)
+
     class Meta:
         model = Item
-        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'type', 'value']
+        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'type', 'value', 'file']
         widgets = {
             'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'expiry_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
@@ -39,6 +41,16 @@ class ItemForm(forms.ModelForm):
                 self.fields['value'].required = False
             else:
                 self.fields['value'].required = True
+
+    def clean_file(self):
+        file = self.cleaned_data.get('file')
+        if file:
+            if hasattr(file, 'content_type'):
+                if file.content_type not in ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']:
+                    raise forms.ValidationError('File type is not supported.')
+                if file.size > 5*1024*1024:  # 5MB max size
+                    raise forms.ValidationError('File size is too large.')
+        return file
 
     def clean(self):
         cleaned_data = super().clean()

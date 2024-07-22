@@ -361,3 +361,7 @@ body.dark-mode .card-title span {
 body.dark-mode .footer {
   border-top: 1px solid #222;
 }
+
+body.dark-mode .btn-download {
+  color: #ffffff;
+}

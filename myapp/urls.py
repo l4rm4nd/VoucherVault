@@ -20,6 +20,7 @@ urlpatterns = [
     path('user/edit/notifications', views.update_apprise_urls, name='update_apprise_urls'),
     path('transactions/delete/<uuid:transaction_id>', views.delete_transaction, name='delete_transaction'),
     path('verify-apprise-urls/', views.verify_apprise_urls, name='verify_apprise_urls'),
+    path('download/<uuid:item_id>/', views.download_file, name='download_file'),
 ]
 
 admin.site.site_header = "VoucherVault"

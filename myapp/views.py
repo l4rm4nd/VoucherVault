@@ -6,6 +6,7 @@ from .models import Item
 import qrcode
 import io
 import base64
+import os
 from django.db.models import Q
 from .forms import *
 from .models import *
@@ -119,10 +120,13 @@ def show_items(request):
 @auth_required
 def create_item(request):
     if request.method == 'POST':
-        form = ItemForm(request.POST)
+        form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
             item = form.save(commit=False)
             item.user = request.user  # Set the user from the session
+
+            # Save the item first to generate the ID
+            item.save()
 
             # Generate QR code or barcode and save it as base64
             buffer = io.BytesIO()
@@ -137,6 +141,13 @@ def create_item(request):
                 qr.save(buffer)
 
             item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+            # Handle file upload
+            if 'file' in request.FILES:
+                file = request.FILES['file']
+                file_name = f"{item.id}_{file.name}"
+                file_path = os.path.join(file_name)
+                item.file.save(file_name, file)
 
             item.save()
             return redirect('show_items')
@@ -190,7 +201,7 @@ def edit_item(request, item_uuid):
     original_redeem_code = item.redeem_code  # Store the original redeem code
 
     if request.method == 'POST':
-        form = ItemForm(request.POST, instance=item)
+        form = ItemForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
             item = form.save(commit=False)
 
@@ -209,6 +220,13 @@ def edit_item(request, item_uuid):
                     qr.save(buffer)
                 
                 item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+            # Handle file upload
+            if 'file' in request.FILES:
+                file = request.FILES['file']
+                file_name = f"{item.id}_{file.name}"
+                file_path = os.path.join(file_name)
+                item.file.save(file_name, file)
 
             item.save()
             return redirect('view_item', item_uuid=item.id)
@@ -338,3 +356,14 @@ def delete_transaction(request, transaction_id):
     transaction.delete()
 
     return redirect('view_item', item_uuid=item.id)
+
+@require_GET
+@auth_required
+def download_file(request, item_id):
+    item = get_object_or_404(Item, id=item_id, user=request.user)
+    if item.file:
+        response = HttpResponse(item.file, content_type='application/octet-stream')
+        response['Content-Disposition'] = f'attachment; filename="{item.file.name}"'
+        return response
+    else:
+        return HttpResponse("No file found", status=404)
