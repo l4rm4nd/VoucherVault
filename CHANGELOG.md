@@ -1,3 +1,12 @@
+## [0.1.6](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.5...v0.1.6) (2024-07-23)
+
+
+### Bug Fixes
+
+* **decorator:** add support for next redirect url ([7404c1b](https://github.com/l4rm4nd/VoucherVault/commit/7404c1b09531aced0a9d3c631dbdf9ae988543f1))
+
+
+
 ## [0.1.5](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.4...v0.1.5) (2024-07-21)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * **ui:** display version in footer ([f6673fb](https://github.com/l4rm4nd/VoucherVault/commit/f6673fbc461795c1487b54e2012e1b573319d3bc))
-
-
-
-## [0.1.1](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.0...v0.1.1) (2024-07-19)
-
-
-### Bug Fixes
-
-* **ci:** add minor docker image tags ([ffb253c](https://github.com/l4rm4nd/VoucherVault/commit/ffb253ca1755aefd9140dd3d779e030eacd41ec1))
 
 
 
