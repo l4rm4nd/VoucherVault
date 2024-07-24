@@ -24,6 +24,8 @@ Finally, redeem codes are nicely printed as QR code or EAN13 barcode.
 
 ## 🐳 Usage
 
+[READ THE WIKI](https://github.com/l4rm4nd/VoucherVault/wiki/01-%E2%80%90-Installation)
+
 > [!WARNING]
 > The container runs as low-privileged `www-data` user. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R www-data:www-data <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
 
