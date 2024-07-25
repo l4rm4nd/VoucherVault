@@ -44,7 +44,10 @@ jobs:
 
   bandit:
     name: SAST with Bandit
+    needs: changelog
+    if: github.event_name != 'pull_request' && needs.changelog.outputs.skipped == 'false'
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
