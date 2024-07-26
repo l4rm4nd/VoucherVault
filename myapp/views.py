@@ -118,45 +118,6 @@ def show_items(request):
     return render(request, 'inventory.html', context)
 
 @auth_required
-def create_item(request):
-    if request.method == 'POST':
-        form = ItemForm(request.POST, request.FILES)
-        if form.is_valid():
-            item = form.save(commit=False)
-            item.user = request.user  # Set the user from the session
-
-            # Save the item first to generate the ID
-            item.save()
-
-            # Generate QR code or barcode and save it as base64
-            buffer = io.BytesIO()
-            if is_valid_ean13(item.redeem_code):
-                barcode = treepoem.generate_barcode(
-                    barcode_type='ean13',  # Specify the barcode type
-                    data=item.redeem_code
-                )
-                barcode.save(buffer, 'PNG')
-            else:
-                qr = qrcode.make(item.redeem_code)
-                qr.save(buffer)
-
-            item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
-
-            # Handle file upload
-            if 'file' in request.FILES:
-                file = request.FILES['file']
-                file_name = f"{item.id}_{file.name}"
-                file_path = os.path.join(file_name)
-                item.file.save(file_name, file)
-
-            item.save()
-            return redirect('show_items')
-    else:
-        form = ItemForm()
-
-    return render(request, 'create-item.html', {'form': form})
-
-@auth_required
 def view_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
     transactions = item.transactions.all()
@@ -188,12 +149,49 @@ def view_item(request, item_uuid):
     }
     return render(request, 'view-item.html', context)
 
-@require_POST
+
 @auth_required
-def delete_item(request, item_uuid):
-    item = get_object_or_404(Item, id=item_uuid, user=request.user)
-    item.delete()
-    return redirect('show_items')
+def create_item(request):
+    if request.method == 'POST':
+        form = ItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.user = request.user  # Set the user from the session
+
+            # Save the item first to generate the ID
+            item.save()
+
+            # Generate QR code or barcode and save it as base64
+            buffer = io.BytesIO()
+            if is_valid_ean13(item.redeem_code):
+                barcode = treepoem.generate_barcode(
+                    barcode_type='ean13',  # Specify the barcode type
+                    data=item.redeem_code
+                )
+                barcode.save(buffer, 'PNG')
+            else:
+                qr = qrcode.make(item.redeem_code)
+                qr.save(buffer)
+
+            item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+            # Handle file upload
+            if 'file' in request.FILES:
+                file = request.FILES['file']
+                username = request.user.username
+                user_folder = os.path.join(settings.MEDIA_ROOT, 'uploads', username)
+                if not os.path.exists(user_folder):
+                    os.makedirs(user_folder)
+                file_name = f"{item.id}_{file.name}"
+                file_path = os.path.join(user_folder, file_name)
+                item.file.save(file_path, file)
+
+            item.save()
+            return redirect('show_items')
+    else:
+        form = ItemForm()
+
+    return render(request, 'create-item.html', {'form': form})
 
 @auth_required
 def edit_item(request, item_uuid):
@@ -224,9 +222,13 @@ def edit_item(request, item_uuid):
             # Handle file upload
             if 'file' in request.FILES:
                 file = request.FILES['file']
+                username = request.user.username
+                user_folder = os.path.join(settings.MEDIA_ROOT, 'uploads', username)
+                if not os.path.exists(user_folder):
+                    os.makedirs(user_folder)
                 file_name = f"{item.id}_{file.name}"
-                file_path = os.path.join(file_name)
-                item.file.save(file_name, file)
+                file_path = os.path.join(user_folder, file_name)
+                item.file.save(file_path, file)
 
             item.save()
             return redirect('view_item', item_uuid=item.id)
@@ -234,6 +236,35 @@ def edit_item(request, item_uuid):
         form = ItemForm(instance=item)
 
     return render(request, 'edit-item.html', {'form': form, 'item': item})
+
+@require_POST
+@auth_required
+def delete_item(request, item_uuid):
+    item = get_object_or_404(Item, id=item_uuid, user=request.user)
+    item.delete()
+    return redirect('show_items')
+
+@require_POST
+@auth_required
+def delete_transaction(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    item = transaction.item
+    # Delete the transaction
+    transaction.delete()
+
+    return redirect('view_item', item_uuid=item.id)
+
+@require_GET
+@auth_required
+def download_file(request, item_id):
+    item = get_object_or_404(Item, id=item_id, user=request.user)
+    if item.file:
+        file_name = os.path.basename(item.file.name)
+        response = HttpResponse(item.file, content_type='application/octet-stream')
+        response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+        return response
+    else:
+        return HttpResponse("No file found", status=404)
 
 @require_POST
 @auth_required
@@ -346,24 +377,3 @@ def verify_apprise_urls(request):
             return JsonResponse({'success': False, 'message': 'Failed to send test notification for every Apprise URL given.'})
     except Exception as e:
         return JsonResponse({'success': False, 'message': f'Failed to send test notification: {str(e)}'})
-
-@require_POST
-@auth_required
-def delete_transaction(request, transaction_id):
-    transaction = get_object_or_404(Transaction, id=transaction_id)
-    item = transaction.item
-    # Delete the transaction
-    transaction.delete()
-
-    return redirect('view_item', item_uuid=item.id)
-
-@require_GET
-@auth_required
-def download_file(request, item_id):
-    item = get_object_or_404(Item, id=item_id, user=request.user)
-    if item.file:
-        response = HttpResponse(item.file, content_type='application/octet-stream')
-        response['Content-Disposition'] = f'attachment; filename="{item.file.name}"'
-        return response
-    else:
-        return HttpResponse("No file found", status=404)

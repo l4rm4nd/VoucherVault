@@ -34,6 +34,6 @@ echo "[~] Starting Celery worker and beat"
 celery -A myproject worker -l info --detach
 celery -A myproject beat -l info --detach --scheduler django_celery_beat.schedulers:DatabaseScheduler
 echo "[i] Changing DB ownership to www-data"
-chown 1000:1000 /opt/app/database/db.sqlite3
+chown www-data:www-data /opt/app/database/db.sqlite3
 echo "[i] Spawning the application server"
 python manage.py runserver 0.0.0.0:8000 --insecure

@@ -23,7 +23,7 @@ class Item(models.Model):
     value = models.DecimalField(max_digits=10, decimal_places=2)
     is_used = models.BooleanField(default=False)
     qr_code_base64 = models.TextField(blank=True, null=True)
-    file = models.FileField(upload_to='uploads/', blank=True, null=True)
+    file = models.FileField(upload_to='database/', blank=True, null=True)
 
 
     def __str__(self):
