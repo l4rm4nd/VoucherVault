@@ -45,8 +45,6 @@ jobs:
 
   bandit:
     name: SAST with Bandit
-    needs: changelog
-    if: github.event_name != 'pull_request' && needs.changelog.outputs.skipped == 'false'
     runs-on: ubuntu-latest
     
     steps:
@@ -62,7 +60,16 @@ jobs:
         run: pip install bandit
 
       - name: Run Bandit
-        run: bandit -r ./myapp ./myproject
+        id: bandit
+        run: |
+          bandit -r myapp myproject -f html -o bandit_report.html
+
+      - name: Upload Bandit report
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: bandit-report
+          path: bandit_report.html
 
   deploy:
     name: Deploy Image
