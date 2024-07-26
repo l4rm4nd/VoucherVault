@@ -268,26 +268,6 @@ def download_file(request, item_id):
 
 @require_POST
 @auth_required
-def mark_as_used(request, item_uuid):
-    item = get_object_or_404(Item, id=item_uuid, user=request.user)
-    item.is_used = True
-    transactions = item.transactions.all()
-    value_to_remove = item.value + sum(t.value for t in transactions)
-
-    transaction = Transaction(
-        item=item,
-        description='Marked as used, removing remaining value',
-        value=-value_to_remove  # This will be a negative value to reduce the item value
-    )
-    transaction.save()
-
-    item.value += transaction.value  # This will set the item value to 0
-    
-    item.save()    
-    return redirect('view_item', item_uuid=item.id)
-
-@require_POST
-@auth_required
 def toggle_item_status(request, item_id):
     item = get_object_or_404(Item, id=item_id, user=request.user)
     

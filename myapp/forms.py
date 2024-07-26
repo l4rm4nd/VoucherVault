@@ -50,7 +50,7 @@ class ItemForm(forms.ModelForm):
                     raise forms.ValidationError('File type is not supported.')
                 if file.size > 5*1024*1024:  # 5MB max size
                     raise forms.ValidationError('File size is too large.')
-        return file
+                return file
 
     def clean(self):
         cleaned_data = super().clean()
