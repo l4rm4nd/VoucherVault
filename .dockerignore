@@ -17,5 +17,8 @@ docker-compose.yml
 documentation/
 screenshots/
 
+# ignore file uploads
+database/uploads/
+
 # Ignore GitHub Actions workflows for Docker images
 .github

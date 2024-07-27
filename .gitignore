@@ -16,6 +16,9 @@ venv/
 *.log
 *.bak
 
+# ignore file uploads
+database/uploads/
+
 # ignore signed licenses
 **license.txt
 
