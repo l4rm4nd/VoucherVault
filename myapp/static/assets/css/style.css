@@ -1290,3 +1290,8 @@ input.readonly {
   background-color: #cfe5ff !important;
   color: black !important;
 }
+
+.btn-download {
+  background-color: #dde9ff;
+  color: black;
+}
