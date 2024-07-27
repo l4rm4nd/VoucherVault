@@ -193,11 +193,11 @@ def create_item(request):
 
     return render(request, 'create-item.html', {'form': form})
 
-
 @auth_required
 def edit_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
     original_redeem_code = item.redeem_code  # Store the original redeem code
+    old_file_path = item.file.path if item.file else None  # Store the old file path
 
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES, instance=item)
@@ -229,6 +229,12 @@ def edit_item(request, item_uuid):
                     os.makedirs(user_folder)
                 file_name = f"{item.id}_{file.name}"
                 file_path = os.path.join(user_folder, file_name)
+
+                # Delete the old file if it exists and a new file is provided
+                if old_file_path and os.path.isfile(old_file_path):
+                    os.remove(old_file_path)
+
+                # Save the new file
                 item.file.save(file_path, file)
 
             item.save()
@@ -242,6 +248,12 @@ def edit_item(request, item_uuid):
 @auth_required
 def delete_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
+
+    # Delete the associated file if it exists
+    if item.file:
+        if os.path.isfile(item.file.path):
+            os.remove(item.file.path)
+
     item.delete()
     return redirect('show_items')
 
