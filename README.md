@@ -104,36 +104,11 @@ If you create new users on VoucherVault, you must at least assign the `Staff sta
 
 ## 💾 Backups
 
-All application data is stored within an SQLite3 database. The database is persistently stored within a Docker bind mount volume, which is defined in the `docker-compose.yml` file. The default location is defined as `./volume-data/database/db.sqlite3`.
+All application data is stored within a Docker bind mount volume. 
+
+This volume is defined in the `docker-compose.yml` file. The default location is defined as `./volume-data/database`.
 
 Therefore, by backing up this bind mount volume, all your application data is saved.
 
 > [!WARNING]
 > Read the official [SQLite3 documentation](https://sqlite.org/backup.html) regarding backups.
-
-### Manual Django Backups
-
-You can alternatively dump the SQLite database content manually using Django's `manage.py`. This may help if something bricks and you have to re-import your application data into a freshly spawned VoucherVault container.
-
-Proceed as follows:
-
-#### Export data | Create Backup
-````
-# exec into the vouchervault container
-docker exec -it vouchervault bash
-
-# export sqlite3 database tables into outfile
-python manage.py dumpdata auth.group > database/backup_db_table_groups.json
-python manage.py dumpdata auth.user > database/backup_db_table_users.json
-python manage.py dumpdata myapp.item > database/backup_db_table_items.json
-python manage.py dumpdata myapp.transaction > database/backup_db_table_transactions.json
-````
-
-#### Import data | Recover Backup:
-````
-# import old backup outfiles into sqlite3
-python manage.py loaddata database/backup_db_table_groups.json
-python manage.py loaddata database/backup_db_table_users.json
-python manage.py loaddata database/backup_db_table_items.json
-python manage.py loaddata database/backup_db_table_transactions.json
-````
