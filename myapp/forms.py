@@ -7,27 +7,13 @@ import apprise
 from django import forms
 from .models import *
 
-def send_notifications():
-    now = timezone.now().date()
-    soon = now + timezone.timedelta(days=200)
-    expiring_vouchers = Voucher.objects.filter(expiry_date__lte=soon)
-
-    apobj = apprise.Apprise()
-    # Add your notification services here
-    apobj.add('mailto://your_email@example.com')
-
-    for voucher in expiring_vouchers:
-        apobj.notify(
-            body=f'The voucher "{voucher.name}" is expiring soon!',
-            title='Voucher Expiry Notification'
-        )
-
 class ItemForm(forms.ModelForm):
     file = forms.FileField(required=False)
+    value_type = forms.CharField(widget=forms.HiddenInput(), initial='money')
 
     class Meta:
         model = Item
-        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'type', 'value', 'file']
+        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'type', 'value', 'value_type', 'file']
         widgets = {
             'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'expiry_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
@@ -55,10 +41,17 @@ class ItemForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         item_type = cleaned_data.get('type')
+        value_type = cleaned_data.get('value_type')
         value = cleaned_data.get('value')
+
         if item_type == 'loyaltycard' and value != 0:
             raise forms.ValidationError("Value must be zero for loyalty cards.")
-        if item_type != 'loyaltycard' and (value is None or value < 0):
+        if item_type == 'coupon':
+            if value_type == 'money' and (value is None or value < 0):
+                raise forms.ValidationError("Value must be a positive monetary amount.")
+            elif value_type == 'percentage' and (value is None or value < 0 or value > 100):
+                raise forms.ValidationError("Percentage value must be between 0 and 100.")
+        elif item_type != 'loyaltycard' and (value is None or value < 0):
             raise forms.ValidationError("Value must be positive.")
         return cleaned_data
 

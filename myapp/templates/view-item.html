@@ -53,7 +53,11 @@
                 </div>
                 {% if item.type != "loyaltycard" %}
                 <div class="detail-item default-tile">
+                  {% if item.value_type == "percentage" %}
+                  <i class="bi bi-percent text-muted"></i> <span><b>Percent:</b> {{ total_value|floatformat:2 }}</span>
+                  {% elif item.value_type == "money" %}
                   <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ total_value|floatformat:2 }}</span>
+                  {% endif %}
                 </div>
                 {% endif %}
                 {% if item.description %}

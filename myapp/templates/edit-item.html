@@ -1,153 +1,216 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="pagetitle">
-      <h1>Edit Item</h1>
-      <nav>
+<style>
+#toggle-value-type {
+    background-color: red !important;
+    color: white !important;
+}
+</style>
+
+<div class="pagetitle">
+    <h1>Edit Item</h1>
+    <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'show_items' %}">Inventory</a></li>
-          <li class="breadcrumb-item active">Edit Item</li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'show_items' %}">Inventory</a></li>
+            <li class="breadcrumb-item active">Edit Item</li>
         </ol>
-      </nav>
-    </div><!-- End Page Title -->
+    </nav>
+</div><!-- End Page Title -->
 
-    <section class="section">
-      <div class="row">
+<section class="section">
+    <div class="row">
         <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Item Details</h5>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Item Details</h5>
 
-              <!-- Item Form -->
-              <form method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="row mb-3">
-                  <label for="type" class="col-sm-2 col-form-label">Type</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" id="type" name="type" required>
-                      <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>Gift Card</option>
-                      <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>Voucher</option>
-                      <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>Coupon</option>
-                      <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>Loyalty Card</option>
-                    </select>
-                  </div>
-                </div>                
-                <div class="row mb-3">
-                  <label for="name" class="col-sm-2 col-form-label">Name</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" name="name" value="{{ item.name }}" required>
-                  </div>
+                    <!-- Item Form -->
+                    <form method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label for="type" class="col-sm-2 col-form-label">Type</label>
+                            <div class="col-sm-10">
+                                <select class="form-select" id="type" name="type" required>
+                                    <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>Gift Card</option>
+                                    <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>Voucher</option>
+                                    <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>Coupon</option>
+                                    <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>Loyalty Card</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ item.name }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="issuer" class="col-sm-2 col-form-label">Issuer</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control mt-2" id="issuer" name="issuer" value="{{ item.issuer }}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="redeem_code" class="col-sm-2 col-form-label">Redeem Code</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="redeem_code" name="redeem_code" value="{{ item.redeem_code }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="redeem_code" class="col-sm-2 col-form-label">PIN Code</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="pin" name="pin" value="{{ item.pin|default_if_none:'' }}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="issue_date" class="col-sm-2 col-form-label">Issue Date</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="expiry_date" class="col-sm-2 col-form-label">Expiry Date</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="expiry_date" name="expiry_date" value='{{ form.expiry_date.value|date:"Y-m-d" }}' required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="description" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="description" name="description" rows="4">{{ item.description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="value" class="col-sm-2 col-form-label">Value</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" value="{{ item.value }}" required>
+                                    <button class="btn btn-outline-secondary d-none" type="button" id="toggle-value-type">
+                                        <span id="value-type-icon" class="bi bi-cash-coin"></span>
+                                    </button>
+                                </div>
+                                <input type="hidden" id="value_type" name="value_type" value="{{ item.value_type }}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="file" class="col-sm-2 col-form-label">Upload File</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="file" name="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10 offset-sm-2">
+                                <button type="submit" class="btn btn-primary">Update Item</button>
+                            </div>
+                        </div>
+                    </form><!-- End Item Form -->
+                    {% if form.errors %}
+                    <div class="alert alert-danger mt-2">
+                        <ul>
+                            {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
                 </div>
-                <div class="row mb-3">
-                  <label for="issuer" class="col-sm-2 col-form-label">Issuer</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control mt-2" id="issuer" name="issuer" value="{{ item.issuer }}">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="redeem_code" class="col-sm-2 col-form-label">Redeem Code</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="redeem_code" name="redeem_code" value="{{ item.redeem_code }}" required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="redeem_code" class="col-sm-2 col-form-label">PIN Code</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="pin" name="pin" value="{{ item.pin|default_if_none:'' }}">
-                  </div>
-                </div>                
-                <div class="row mb-3">
-                  <label for="issue_date" class="col-sm-2 col-form-label">Issue Date</label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="expiry_date" class="col-sm-2 col-form-label">Expiry Date</label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value='{{ form.expiry_date.value|date:"Y-m-d" }}' required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="description" class="col-sm-2 col-form-label">Description</label>
-                  <div class="col-sm-10">
-                    <textarea class="form-control" id="description" name="description" rows="4">{{ item.description }}</textarea>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="value" class="col-sm-2 col-form-label">Value</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" value="{{ item.value }}" required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="file" class="col-sm-2 col-form-label">Upload File</label>
-                  <div class="col-sm-10">
-                    <input type="file" id="file" name="file" class="form-control">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-primary">Update Item</button>
-                  </div>
-                </div>
-              </form><!-- End Item Form -->
-              {% if form.errors %}
-                <div class="alert alert-danger mt-2">
-                  <ul>
-                    {% for error in form.non_field_errors %}
-                      <li>{{ error }}</li>
-                    {% endfor %}
-                    {% for field, errors in form.errors.items %}
-                      {% for error in errors %}
-                        <li>{{ error }}</li>
-                      {% endfor %}
-                    {% endfor %}
-                  </ul>
-                </div>
-              {% endif %}
             </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const typeField = document.getElementById('type');
-          const pinField = document.getElementById('pin');
-          const valueField = document.getElementById('value');
-          const issuerCodeField = document.getElementById('issuer');
-          const redeemCodeField = document.getElementById('redeem_code');
-          const pinFieldContainer = pinField.closest('.row');
-          const valueFieldContainer = valueField.closest('.row');
-          const issuerCodeLabel = document.querySelector('label[for="issuer"]');
-          const redeemCodeLabel = document.querySelector('label[for="redeem_code"]');
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const typeField = document.getElementById('type');
+      const pinField = document.getElementById('pin');
+      const valueField = document.getElementById('value');
+      const issuerCodeField = document.getElementById('issuer');
+      const redeemCodeField = document.getElementById('redeem_code');
+      const pinFieldContainer = pinField.closest('.row');
+      const valueFieldContainer = valueField.closest('.row');
+      const issuerCodeLabel = document.querySelector('label[for="issuer"]');
+      const redeemCodeLabel = document.querySelector('label[for="redeem_code"]');
+      const valueTypeIcon = document.getElementById('value-type-icon');
+      const toggleValueTypeBtn = document.getElementById('toggle-value-type');
+      const valueTypeField = document.getElementById('value_type');
 
-          function toggleFields() {
-              if (typeField.value === 'loyaltycard') {
-                  pinField.readOnly = true;
-                  valueField.readOnly = true;
-                  pinField.classList.add('readonly');
-                  valueField.classList.add('readonly');
-                  valueField.value = 0;
-                  issuerCodeLabel.textContent = 'Store';
-                  issuerCodeField.placeholder = 'The store of your loyalty card'
-                  redeemCodeLabel.textContent = 'Loyalty ID';
-                  redeemCodeField.placeholder = 'Loyalty card number or customer ID';
-              } else {
-                  pinField.readOnly = false;
-                  valueField.readOnly = false;
-                  pinField.classList.remove('readonly');
-                  valueField.classList.remove('readonly');
-                  redeemCodeLabel.textContent = 'Redeem Code';
-                  redeemCodeField.placeholder = 'The redeem code of the item';
-              }
+      function setInitialValueType() {
+          if (valueTypeField.value === 'percentage') {
+              valueTypeIcon.classList.remove('bi-cash-coin');
+              valueTypeIcon.classList.add('bi-percent');
+              valueField.placeholder = "The percentage value of the item";
+              valueField.setAttribute('step', '0.01');
+              valueField.setAttribute('min', '0.00');
+              valueField.setAttribute('max', '100.00');
+          } else {
+              valueTypeIcon.classList.remove('bi-percent');
+              valueTypeIcon.classList.add('bi-cash-coin');
+              valueField.placeholder = "The monetary value of the item";
+              valueField.setAttribute('step', '0.01');
+              valueField.setAttribute('min', '0.00');
+              valueField.removeAttribute('max');
+          }
+      }
+
+      function toggleFields() {
+          if (typeField.value === 'loyaltycard') {
+              pinField.readOnly = true;
+              valueField.readOnly = true;
+              pinField.classList.add('readonly');
+              valueField.classList.add('readonly');
+              valueField.value = 0;
+              issuerCodeLabel.textContent = 'Store';
+              issuerCodeField.placeholder = 'The store of your loyalty card';
+              redeemCodeLabel.textContent = 'Loyalty ID';
+              redeemCodeField.placeholder = 'Loyalty card number or customer ID';
+          } else {
+              pinField.readOnly = false;
+              valueField.readOnly = false;
+              pinField.classList.remove('readonly');
+              valueField.classList.remove('readonly');
+              redeemCodeLabel.textContent = 'Redeem Code';
+              redeemCodeField.placeholder = 'The redeem code of the item';
           }
 
-          typeField.addEventListener('change', toggleFields);
-          toggleFields();  // Initial call to set the correct state on page load
-      });
-    </script>    
+          if (typeField.value === 'coupon') {
+              toggleValueTypeBtn.classList.remove('d-none');
+          } else {
+              toggleValueTypeBtn.classList.add('d-none');
+          }
+      }
+
+      function toggleValueInput() {
+          if (valueTypeField.value === 'money') {
+              valueTypeField.value = 'percentage';
+              valueTypeIcon.classList.remove('bi-cash-coin');
+              valueTypeIcon.classList.add('bi-percent');
+              valueField.placeholder = "The percentage value of the item";
+              valueField.setAttribute('step', '0.01');
+              valueField.setAttribute('min', '0.00');
+              valueField.setAttribute('max', '100.00');
+          } else {
+              valueTypeField.value = 'money';
+              valueTypeIcon.classList.remove('bi-percent');
+              valueTypeIcon.classList.add('bi-cash-coin');
+              valueField.placeholder = "The monetary value of the item";
+              valueField.setAttribute('step', '0.01');
+              valueField.setAttribute('min', '0.00');
+              valueField.removeAttribute('max');
+          }
+      }
+
+      typeField.addEventListener('change', toggleFields);
+      toggleValueTypeBtn.addEventListener('click', toggleValueInput);
+
+      setInitialValueType(); // Set the initial state based on the value_type field value
+      toggleFields();  // Initial call to set the correct state on page load
+  });
+</script>
 {% endblock content %}

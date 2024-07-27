@@ -40,7 +40,7 @@ def dashboard(request):
     expired_items = Item.objects.filter(user=user, expiry_date__lt=timezone.now(), is_used=False).count()
 
     # Calculate the current total value of available items
-    items = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now())
+    items = Item.objects.filter(user=user, is_used=False, value_type='money', expiry_date__gte=timezone.now())
     items = items.exclude(type='loyaltycard')
     total_value = 0
     for item in items:
@@ -192,6 +192,7 @@ def create_item(request):
         form = ItemForm()
 
     return render(request, 'create-item.html', {'form': form})
+
 
 @auth_required
 def edit_item(request, item_uuid):
