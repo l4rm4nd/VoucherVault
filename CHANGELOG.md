@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.0...v1.0.1) (2024-07-27)
+
+
+### Bug Fixes
+
+* **upload:** add missing upload form + fix css ([8fa538f](https://github.com/l4rm4nd/VoucherVault/commit/8fa538f672a603da7ab4cdbe6cc406dcea0ea3ad))
+
 ## [1.0.0](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.6...v1.0.0) (2024-07-27)
 
 
@@ -32,11 +39,4 @@
 ### Bug Fixes
 
 * **ci:** remove unnecessary packages from Dockerfile ([7bd950e](https://github.com/l4rm4nd/VoucherVault/commit/7bd950e808524189e4739502e58cadb8d57e1ee7))
-
-## [0.1.3](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.2...v0.1.3) (2024-07-21)
-
-
-### Bug Fixes
-
-* **ci:** build docker image for arm64 too ([edcd092](https://github.com/l4rm4nd/VoucherVault/commit/edcd092e01cb64abaa05407888c83fc74b9f2944))
 
