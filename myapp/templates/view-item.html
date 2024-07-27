@@ -53,13 +53,24 @@
                 </div>
                 {% if item.type != "loyaltycard" %}
                 <div class="detail-item default-tile">
+                  {% if item.value_type == "percentage" %}
+                  <i class="bi bi-percent text-muted"></i> <span><b>Percent:</b> {{ total_value|floatformat:2 }}</span>
+                  {% elif item.value_type == "money" %}
                   <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ total_value|floatformat:2 }}</span>
+                  {% endif %}
                 </div>
                 {% endif %}
                 {% if item.description %}
                 <div class="default-tile" style="text-align: justify;">
                   <b>Description:</b><br>
                   <span class="content">{{ item.description }}</span>
+                </div>
+                {% endif %}
+                {% if item.file %}
+                <div class="default-tile" style="text-align: justify;">
+                  <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
+                    <i class="bi bi-download"></i> Download
+                  </a>
                 </div>
                 {% endif %}
               </div>

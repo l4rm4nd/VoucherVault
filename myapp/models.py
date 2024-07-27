@@ -10,6 +10,10 @@ class Item(models.Model):
         ('coupon', 'Coupon'),
         ('loyaltycard', 'Loyalty Card'),
     )
+    VALUE_TYPES = (
+        ('money', 'Money'),
+        ('percentage', 'Percentage'),
+    )    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=50, choices=ITEM_TYPES)
     name = models.CharField(max_length=255)
@@ -21,8 +25,11 @@ class Item(models.Model):
     description = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=10, decimal_places=2)
+    value_type = models.CharField(max_length=20, choices=VALUE_TYPES, default='money')
     is_used = models.BooleanField(default=False)
-    qr_code_base64 = models.TextField(blank=True, null=True)  # New field to store QR code
+    qr_code_base64 = models.TextField(blank=True, null=True)
+    file = models.FileField(upload_to='database/', blank=True, null=True)
+
 
     def __str__(self):
         return self.name
