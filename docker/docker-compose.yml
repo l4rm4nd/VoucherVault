@@ -1,7 +1,7 @@
 services:
 
   vouchervault:
-    image: l4rm4nd/vouchervault:latest # better pin a minor version series tag like 0.1.x
+    image: l4rm4nd/vouchervault:1.0.x # pin a minor version series tag instead of latest
     container_name: vouchervault
     environment:
       - DOMAIN=vouchervault.example.com # your FQDN or IP; used to define ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS
