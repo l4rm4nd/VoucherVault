@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.1...v1.0.2) (2024-07-27)
+
+
+### Bug Fixes
+
+* **upload:** remove files if deleted or changed ([28f88c6](https://github.com/l4rm4nd/VoucherVault/commit/28f88c6b45c3f9dd5dac32814eca6c098135211c))
+
 ## [1.0.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.0...v1.0.1) (2024-07-27)
 
 
@@ -32,11 +39,4 @@
 ### Bug Fixes
 
 * **docker:** upgrade base python image ([628115a](https://github.com/l4rm4nd/VoucherVault/commit/628115aacf18014d47e7d00656a92b26452a12f2))
-
-## [0.1.4](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.3...v0.1.4) (2024-07-21)
-
-
-### Bug Fixes
-
-* **ci:** remove unnecessary packages from Dockerfile ([7bd950e](https://github.com/l4rm4nd/VoucherVault/commit/7bd950e808524189e4739502e58cadb8d57e1ee7))
 
