@@ -32,7 +32,7 @@ Finally, redeem codes are nicely printed as QR code or EAN13 barcode and you can
 
 > [!TIP]
 > This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
-> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `0.1.x`.
+> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `1.0.x`.
 >
 > This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
 
