@@ -169,8 +169,8 @@ USE_TZ = True
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 
 if os.environ.get('REDIS_HOST') == None:
-    CELERY_BROKER_URL = 'redis://localhost:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+    CELERY_BROKER_URL = 'redis://redis:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 else:
     redis_host = os.environ.get('REDIS_HOST')
     CELERY_BROKER_URL = f'redis://{redis_host}:6379/0'
