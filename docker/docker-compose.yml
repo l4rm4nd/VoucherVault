@@ -8,7 +8,7 @@ services:
       - SECURE_COOKIES=False # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
       - EXPIRY_THRESHOLD_DAYS=90 # send notifications xx days prior expiry; default is 30
       # ------- OPTIONAL OIDC AUTH --------
-      # Set to 'True' to enable OIDC authentication and disable local authentication
+      # Set to 'True' to enable OIDC authentication
       #- OIDC_ENABLED=True
       # Set to 'True' to allow the creation of new users through OIDC
       #- OIDC_CREATE_USER=True

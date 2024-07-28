@@ -23,28 +23,29 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
+# get debug modus from env
 DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true']
+
+# get container version from env
 VERSION = escape(os.environ.get("VERSION", ''))
 
-# OIDC related vars
+# check if oidc is enabled
 OIDC_ENABLED = os.environ.get('OIDC_ENABLED', 'False').lower() in ['true']
-OIDC_CREATE_USER = os.environ.get('OIDC_CREATE_USER', 'True').lower() in ['true']
-OIDC_RP_SIGN_ALGO = os.environ.get('OIDC_RP_SIGN_ALGO', 'RS256')
-OIDC_OP_JWKS_ENDPOINT = os.environ.get('OIDC_OP_JWKS_ENDPOINT')
-OIDC_RP_IDP_SIGN_KEY = os.environ.get('OIDC_RP_IDP_SIGN_KEY')
-OIDC_RP_CLIENT_ID = os.environ.get('OIDC_RP_CLIENT_ID', "vouchervault")
-OIDC_RP_CLIENT_SECRET = os.environ.get('OIDC_RP_CLIENT_SECRET')
-OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get('OIDC_OP_AUTHORIZATION_ENDPOINT')
-OIDC_OP_TOKEN_ENDPOINT = os.environ.get('OIDC_OP_TOKEN_ENDPOINT')
-OIDC_OP_USER_ENDPOINT = os.environ.get('OIDC_OP_USER_ENDPOINT')
-OIDC_USERNAME_ALGO = 'myapp.utils.generate_username'
-ALLOW_LOGOUT_GET_METHOD = True
 
-# simple check whether OIDC is enabled
 if OIDC_ENABLED:
+    # get oidc config from env
+    OIDC_CREATE_USER = os.environ.get('OIDC_CREATE_USER', 'True').lower() in ['true']
+    OIDC_RP_SIGN_ALGO = os.environ.get('OIDC_RP_SIGN_ALGO', 'RS256')
+    OIDC_OP_JWKS_ENDPOINT = os.environ.get('OIDC_OP_JWKS_ENDPOINT')
+    OIDC_RP_IDP_SIGN_KEY = os.environ.get('OIDC_RP_IDP_SIGN_KEY')
+    OIDC_RP_CLIENT_ID = os.environ.get('OIDC_RP_CLIENT_ID', "vouchervault")
+    OIDC_RP_CLIENT_SECRET = os.environ.get('OIDC_RP_CLIENT_SECRET')
+    OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get('OIDC_OP_AUTHORIZATION_ENDPOINT')
+    OIDC_OP_TOKEN_ENDPOINT = os.environ.get('OIDC_OP_TOKEN_ENDPOINT')
+    OIDC_OP_USER_ENDPOINT = os.environ.get('OIDC_OP_USER_ENDPOINT')
+    OIDC_USERNAME_ALGO = 'myapp.utils.generate_username'
+    ALLOW_LOGOUT_GET_METHOD = True
+
     # Add 'mozilla_django_oidc' authentication backend
     AUTHENTICATION_BACKENDS = (
         'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
