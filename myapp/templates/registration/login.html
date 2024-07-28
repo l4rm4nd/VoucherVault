@@ -134,6 +134,7 @@
         </div>
         {% if not "OIDC_ENABLED"|env %}
         <form method="post" action="{% url 'login' %}">
+            <input type="hidden" name="next" value="{{next}}" />
             {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -148,6 +149,7 @@
         {% endif %}
         {% if "OIDC_ENABLED"|env == True %}
         <form method="get" action="{% url 'oidc_authentication_init' %}">
+            <input type="hidden" name="next" value="{{next}}" />
             {% csrf_token %}
             <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right toggle-sidebar-btn"></i> OIDC</button>
         </form>
