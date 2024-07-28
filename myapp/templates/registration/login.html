@@ -130,7 +130,7 @@
 <body>
     <div class="container">
         <div class="logo-container">
-            <img src="{% static 'assets/img/logo.png' %}" width="50px" alt="">
+            <a href="/"><img src="{% static 'assets/img/logo.png' %}" width="50px" alt=""></a>
         </div>
         {% if not "OIDC_ENABLED"|env %}
         <form method="post" action="{% url 'login' %}">
