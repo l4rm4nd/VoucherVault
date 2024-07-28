@@ -79,6 +79,8 @@ The docker container takes various environment variables:
 | `OIDC_OP_TOKEN_ENDPOINT`         | Token endpoint URL of the OIDC provider.                                                                        |                            | Optional            |
 | `OIDC_OP_USER_ENDPOINT`          | User info endpoint URL of the OIDC provider.                                                                    |                            | Optional            |
 
+More details about the OIDC environment variables can be found [here](https://mozilla-django-oidc.readthedocs.io/en/stable/settings.html).
+
 ## 🔔 Notifications
 
 Notifications are handled by [Apprise](https://github.com/caronc/apprise). 
