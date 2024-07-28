@@ -14,6 +14,6 @@ def auth_required(view_func):
             except Resolver404:
                 next_url = '/'
             # Redirect to the admin login page with the 'next' parameter
-            return redirect(f'/login/?next={next_url}')
+            return redirect(f'/accounts/login/?next={next_url}')
         return view_func(request, *args, **kwargs)
     return _wrapped_view
