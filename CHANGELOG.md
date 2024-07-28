@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.0...v1.1.1) (2024-07-28)
+
+
+### Bug Fixes
+
+* **login:** add title and dynamic js exec ([0a9898d](https://github.com/l4rm4nd/VoucherVault/commit/0a9898d96dc966ad72dd04cb0592f8301ad00785))
+
 ## [1.1.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.4...v1.1.0) (2024-07-28)
 
 
@@ -34,11 +41,4 @@
 ### Bug Fixes
 
 * **upload:** remove files if deleted or changed ([28f88c6](https://github.com/l4rm4nd/VoucherVault/commit/28f88c6b45c3f9dd5dac32814eca6c098135211c))
-
-## [1.0.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.0...v1.0.1) (2024-07-27)
-
-
-### Bug Fixes
-
-* **upload:** add missing upload form + fix css ([8fa538f](https://github.com/l4rm4nd/VoucherVault/commit/8fa538f672a603da7ab4cdbe6cc406dcea0ea3ad))
 
