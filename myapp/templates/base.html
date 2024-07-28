@@ -1,4 +1,5 @@
 {% load static %}
+{% load extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,12 +94,14 @@
                 <span>Notification Settings</span>
               </a>
             </li>
+            {% if not "OIDC_ENABLED"|env %}
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{% url 'password_change' %}">
                 <i class="bi bi-key"></i>
                 <span>Change Password</span>
               </a>
             </li>
+            {% endif %}
             <li>
               {% if request.user.is_superuser %}
                 <a class="dropdown-item d-flex align-items-center" href="/admin">
@@ -116,7 +119,11 @@
             </li>
 
             <li>
+              {% if "OIDC_ENABLED"|env == True %}
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'oidc_logout' %}">
+              {% else %}
               <a class="dropdown-item d-flex align-items-center" href="/logout">
+              {% endif %}
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>

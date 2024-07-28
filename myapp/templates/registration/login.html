@@ -1,0 +1,168 @@
+{% load static %}
+{% load extras %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/dark-mode.css' %}">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #0f0f0f;
+        }
+        .container {
+            margin-top: 10vh;
+            width: 300px;
+            padding: 20px;
+            background: linear-gradient(145deg, #1b1b1b, #1f1f1f);
+            border-radius: 12px;
+            position: relative;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #ff0057, #0099ff, #00ff99, #ffcc00);
+            background-size: 400% 400%;
+            animation: neon-border 8s infinite;
+            z-index: -1;
+        }
+        @keyframes neon-border {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        h2 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #ffffff;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #6c63ff, #00c9ff);
+            color: #ffffff;
+        }
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            color: #000;
+            margin-top: 10px;
+        }
+        .btn-google img {
+            margin-right: 10px;
+        }
+        .form-check {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        .form-check input {
+            margin-right: 10px;
+        }
+        .form-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        .form-links a {
+            color: #00c9ff;
+            text-decoration: none;
+        }
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .form-control:focus {
+            background-color: #525252;
+            color: white;
+            border-color: white;
+            box-shadow: 0 0 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <a href="/"><img title="VoucherVault" src="{% static 'assets/img/logo.png' %}" width="50px" alt=""></a>
+        </div>
+        {% if not "OIDC_ENABLED"|env %}
+        <form method="post" action="{% url 'login' %}">
+            <input type="hidden" name="next" value="{{next}}" />
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" autocapitalize="none" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" autocapitalize="none" name="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        {% endif %}
+        {% if "OIDC_ENABLED"|env == True %}
+        <form method="get" action="{% url 'oidc_authentication_init' %}">
+            <input type="hidden" name="next" value="{{next}}" />
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right toggle-sidebar-btn"></i> OIDC</button>
+        </form>
+        {% endif %}
+        <form method="get" action="/admin">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary"><i class="bi bi-person-gear toggle-sidebar-btn"></i> Admin Panel</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('username').focus();
+        });
+    </script>    
+</body>
+</html>

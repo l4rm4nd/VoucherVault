@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .decorators import auth_required
+#from .decorators import auth_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
 from .models import Item
@@ -14,9 +14,11 @@ from django.db.models import Sum
 from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 import json
 import treepoem
 from django.conf import settings
+import unicodedata
 
 def calculate_ean13_check_digit(code):
     # Calculate the EAN-13 check digit
@@ -31,7 +33,7 @@ def is_valid_ean13(code):
     return int(code[-1]) == calculate_ean13_check_digit(code)
 
 @require_GET
-@auth_required
+@login_required
 def dashboard(request):
     user = request.user
     total_items = Item.objects.filter(user=user, is_used=False).count()
@@ -68,7 +70,7 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 @require_GET
-@auth_required
+@login_required
 def show_items(request):
     user = request.user
     item_type = request.GET.get('type')
@@ -117,7 +119,7 @@ def show_items(request):
     }
     return render(request, 'inventory.html', context)
 
-@auth_required
+@login_required
 def view_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
     transactions = item.transactions.all()
@@ -150,7 +152,7 @@ def view_item(request, item_uuid):
     return render(request, 'view-item.html', context)
 
 
-@auth_required
+@login_required
 def create_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES)
@@ -193,7 +195,7 @@ def create_item(request):
 
     return render(request, 'create-item.html', {'form': form})
 
-@auth_required
+@login_required
 def edit_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
     original_redeem_code = item.redeem_code  # Store the original redeem code
@@ -245,7 +247,7 @@ def edit_item(request, item_uuid):
     return render(request, 'edit-item.html', {'form': form, 'item': item})
 
 @require_POST
-@auth_required
+@login_required
 def delete_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
 
@@ -258,7 +260,7 @@ def delete_item(request, item_uuid):
     return redirect('show_items')
 
 @require_POST
-@auth_required
+@login_required
 def delete_transaction(request, transaction_id):
     transaction = get_object_or_404(Transaction, id=transaction_id)
     item = transaction.item
@@ -268,7 +270,7 @@ def delete_transaction(request, transaction_id):
     return redirect('view_item', item_uuid=item.id)
 
 @require_GET
-@auth_required
+@login_required
 def download_file(request, item_id):
     item = get_object_or_404(Item, id=item_id, user=request.user)
     if item.file:
@@ -280,7 +282,7 @@ def download_file(request, item_id):
         return HttpResponse("No file found", status=404)
 
 @require_POST
-@auth_required
+@login_required
 def toggle_item_status(request, item_id):
     item = get_object_or_404(Item, id=item_id, user=request.user)
     
@@ -308,7 +310,7 @@ def toggle_item_status(request, item_id):
     item.save()
     return redirect('view_item', item_uuid=item.id)
 
-@auth_required
+@login_required
 def update_apprise_urls(request):
     user_profile = request.user.userprofile
     if request.method == 'POST':
@@ -328,7 +330,7 @@ def update_apprise_urls(request):
     return render(request, 'update_apprise_urls.html', {'form': form})
 
 @require_POST
-@auth_required
+@login_required
 def verify_apprise_urls(request):
     data = json.loads(request.body)
     apprise_urls = data.get('apprise_urls', '')

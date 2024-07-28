@@ -23,10 +23,10 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# get debug modus from env
+DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true']
 
-DEBUG = False
+# get container version from env
 VERSION = escape(os.environ.get("VERSION", ''))
 
 # auto-generate a secure secret key or use from env variable
@@ -55,7 +55,7 @@ CSRF_COOKIE_HTTPONLY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 30*60 # 30 minute session age
 SESSION_COOKIE_NAME = 'VVSESS'
-SESSION_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 if SECURE_COOKIES == "False":
     # transmit cookies over unencrypted http
@@ -93,7 +93,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'session_security',
 ]
 
 MIDDLEWARE = [
@@ -104,7 +103,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'session_security.middleware.SessionSecurityMiddleware',
     'django_http_referrer_policy.middleware.ReferrerPolicyMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'csp.middleware.CSPMiddleware',
@@ -115,7 +113,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'myapp/templates/registration')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,7 +154,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 LANGUAGE_CODE = 'en-us'
@@ -189,7 +186,37 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'dashboard'
-LOGOUT_REDIRECT_URL = 'dashboard'
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
+
+# check if oidc is enabled
+OIDC_ENABLED = os.environ.get('OIDC_ENABLED', 'False').lower() in ['true']
+
+if OIDC_ENABLED:
+    # get oidc config from env
+    OIDC_CREATE_USER = os.environ.get('OIDC_CREATE_USER', 'True').lower() in ['true']
+    OIDC_RP_SIGN_ALGO = os.environ.get('OIDC_RP_SIGN_ALGO', 'RS256')
+    OIDC_OP_JWKS_ENDPOINT = os.environ.get('OIDC_OP_JWKS_ENDPOINT')
+    OIDC_RP_IDP_SIGN_KEY = os.environ.get('OIDC_RP_IDP_SIGN_KEY')
+    OIDC_RP_CLIENT_ID = os.environ.get('OIDC_RP_CLIENT_ID', "vouchervault")
+    OIDC_RP_CLIENT_SECRET = os.environ.get('OIDC_RP_CLIENT_SECRET')
+    OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get('OIDC_OP_AUTHORIZATION_ENDPOINT')
+    OIDC_OP_TOKEN_ENDPOINT = os.environ.get('OIDC_OP_TOKEN_ENDPOINT')
+    OIDC_OP_USER_ENDPOINT = os.environ.get('OIDC_OP_USER_ENDPOINT')
+    OIDC_USERNAME_ALGO = 'myapp.utils.generate_username'
+    ALLOW_LOGOUT_GET_METHOD = True
+
+    # Add 'mozilla_django_oidc.middleware.SessionRefresh' to INSTALLED_APPS
+    INSTALLED_APPS.append('mozilla_django_oidc')
+    
+    # Add 'mozilla_django_oidc' authentication backend
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    )
+
+    # Add 'mozilla_django_oidc.middleware.SessionRefresh' to MIDDLEWARE
+    MIDDLEWARE.append('mozilla_django_oidc.middleware.SessionRefresh')

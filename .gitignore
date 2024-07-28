@@ -1,5 +1,8 @@
-# Ignore virtual environment folder
+# ignore virtual environment folder
 venv/
+
+# ignore secret .env
+**.env**
 
 # ignore database
 *.db
