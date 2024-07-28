@@ -6,7 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>VoucherVault Login</title>
+    <link href="{% static 'assets/img/favicon.ico' %}" rel="shortcut icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/dark-mode.css' %}">
     <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -159,10 +161,12 @@
             <button type="submit" class="btn btn-secondary"><i class="bi bi-person-gear toggle-sidebar-btn"></i> Admin Panel</button>
         </form>
     </div>
+    {% if not "OIDC_ENABLED"|env %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('username').focus();
         });
-    </script>    
+    </script>
+    {% endif %}
 </body>
 </html>
