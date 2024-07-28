@@ -1,3 +1,19 @@
+## [1.1.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.4...v1.1.0) (2024-07-28)
+
+
+### Features
+
+* **auth:** add oidc support ([94c986d](https://github.com/l4rm4nd/VoucherVault/commit/94c986d55caf1e8b1fbbd90436a0fe8a1b92fb2d))
+* **login:** custom user login ([b4a5227](https://github.com/l4rm4nd/VoucherVault/commit/b4a5227aa8d2402cf129027715648840ee073a30))
+* **oidc:** implement mozilla oidc auth ([3841672](https://github.com/l4rm4nd/VoucherVault/commit/3841672b49d1e0c4736fe6022491b78836dfe3d2))
+
+
+### Bug Fixes
+
+* **login:** support next redirect parameter ([06e7300](https://github.com/l4rm4nd/VoucherVault/commit/06e73004ad102b6a85c50c18b34159d90dade19c))
+* **oidc:** adjust username generation ([b780df8](https://github.com/l4rm4nd/VoucherVault/commit/b780df810db2ac0a7ebc944e2614327b9df4f1bc))
+* **oidc:** enable local auth on /admin ([ef91c7b](https://github.com/l4rm4nd/VoucherVault/commit/ef91c7ba7036e3fcf7e48d59840ae13bbc257f87))
+
 ## [1.0.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.3...v1.0.4) (2024-07-28)
 
 
@@ -25,18 +41,4 @@
 ### Bug Fixes
 
 * **upload:** add missing upload form + fix css ([8fa538f](https://github.com/l4rm4nd/VoucherVault/commit/8fa538f672a603da7ab4cdbe6cc406dcea0ea3ad))
-
-## [1.0.0](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.6...v1.0.0) (2024-07-27)
-
-
-### Features
-
-* **ci:** run container as low priv 1000:1000 user ([b8e285b](https://github.com/l4rm4nd/VoucherVault/commit/b8e285b99ffd3971e82e57c3b870a53c07ddc824))
-* support percentage values ([92a0122](https://github.com/l4rm4nd/VoucherVault/commit/92a012263ab12f54c319ab7376e4a774437e06c5))
-* **upload:** allow file uploads ([8ed7d9b](https://github.com/l4rm4nd/VoucherVault/commit/8ed7d9b043b01044b2e0a8f404c36404ac87478c))
-
-
-### Bug Fixes
-
-* **docker:** adjust permissions ([b3294f0](https://github.com/l4rm4nd/VoucherVault/commit/b3294f0d0169df7d721f5e3b4b47233fd69d96f3))
 
