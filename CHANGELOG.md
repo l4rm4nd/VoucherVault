@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.3...v1.0.4) (2024-07-28)
+
+
+### Bug Fixes
+
+* **django:** disable debug mode ([8f06976](https://github.com/l4rm4nd/VoucherVault/commit/8f0697665db2424f2c727040ef617dc1579b8abb))
+
 ## [1.0.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.2...v1.0.3) (2024-07-28)
 
 
@@ -32,11 +39,4 @@
 ### Bug Fixes
 
 * **docker:** adjust permissions ([b3294f0](https://github.com/l4rm4nd/VoucherVault/commit/b3294f0d0169df7d721f5e3b4b47233fd69d96f3))
-
-## [0.1.6](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.5...v0.1.6) (2024-07-23)
-
-
-### Bug Fixes
-
-* **decorator:** add support for next redirect url ([7404c1b](https://github.com/l4rm4nd/VoucherVault/commit/7404c1b09531aced0a9d3c631dbdf9ae988543f1))
 
