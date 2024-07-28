@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.2...v1.0.3) (2024-07-28)
+
+
+### Bug Fixes
+
+* **redis:** adjust default redis hostname ([6586785](https://github.com/l4rm4nd/VoucherVault/commit/65867854263119aaf68d00cffc803d1852b0d51d))
+
 ## [1.0.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.1...v1.0.2) (2024-07-27)
 
 
@@ -32,11 +39,4 @@
 ### Bug Fixes
 
 * **decorator:** add support for next redirect url ([7404c1b](https://github.com/l4rm4nd/VoucherVault/commit/7404c1b09531aced0a9d3c631dbdf9ae988543f1))
-
-## [0.1.5](https://github.com/l4rm4nd/VoucherVault/compare/v0.1.4...v0.1.5) (2024-07-21)
-
-
-### Bug Fixes
-
-* **docker:** upgrade base python image ([628115a](https://github.com/l4rm4nd/VoucherVault/commit/628115aacf18014d47e7d00656a92b26452a12f2))
 
