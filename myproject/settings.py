@@ -48,8 +48,8 @@ if OIDC_ENABLED:
 
     # Add 'mozilla_django_oidc' authentication backend
     AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
         'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
-        # ...
     )
 
 # auto-generate a secure secret key or use from env variable
