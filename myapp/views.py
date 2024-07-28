@@ -18,6 +18,16 @@ import json
 import treepoem
 from django.conf import settings
 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')  # Redirect to a success page.
+    return render(request, 'login.html')
+
 def calculate_ean13_check_digit(code):
     # Calculate the EAN-13 check digit
     sum_odd = sum(int(code[i]) for i in range(0, 12, 2))
