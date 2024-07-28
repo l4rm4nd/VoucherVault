@@ -15,26 +15,22 @@
     <a href="https://www.buymeacoffee.com/LRVT" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 </div>
 
-## 💬 Description
+## ⭐ Features
 
-VoucherVault is a Django web application that allows you to manage coupons, vouchers, loyalty and gift cards digitally. It provides a web portal that is mobile friendly and easy to use. 
-
-Additionally, it supports expiry notifications via Apprise URLs that will frequently remind you to redeem your stuff. You can also track fractional transactions, which help to understand historical redemptions and reflect the remaining monetary value of an item accurately.
-
-Finally, redeem codes are nicely printed as QR code or EAN13 barcode and you can optionally upload a PDF or image of your voucher/coupon/giftcard/loyaltycard.
+- Intuitive and mobile-friendly web portal
+- Support for light and dark themes
+- Support for vouchers, coupons, giftcards and loyalty cards
+- Support for giftcard transaction histories
+- Support for individual file uploads per item
+- Displaying redeem codes as QR code or EAN13 barcode
+- Expiry notifications via Apprise
+- Multi-user support via local auth
+- Multi-user support via OIDC Single-Sign-On (SSO)
+- Open-Source via GPL-3.0 license
 
 ## 🐳 Usage
 
 [READ THE WIKI](https://github.com/l4rm4nd/VoucherVault/wiki/01-%E2%80%90-Installation)
-
-> [!WARNING]
-> The container runs as low-privileged `www-data` user. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R www-data:www-data <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
-
-> [!TIP]
-> This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
-> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `1.1.x`.
->
-> This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
 
 ````
 # create volume dir for persistence
@@ -56,6 +52,15 @@ You can obtain the auto-generated password via the Docker container logs:
 ````
 docker compose -f docker/docker-compose.yml logs -f
 ````
+
+> [!WARNING]
+> The container runs as low-privileged `www-data` user. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R www-data:www-data <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
+
+> [!TIP]
+> This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
+> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `1.1.x`.
+>
+> This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
 
 ## 🌍 Environment Variables
 
@@ -97,12 +102,11 @@ VoucherVault is initialized with a default superuser account named `admin` and a
 
 This administrative account has full privileges to the Django admin panel, located at `/admin`. 
 
-Therefore, all database model entries can be read and modified by this user. Additionally, new user accounts and groups can be freely created too.
+Therefore, all database model entries can be read and modified by this user. Additionally, new user accounts and groups can be freely created too. 
+
+Finally, Single-Sign-On (SSO) via OIDC is supported. Check out the environment variables above as well as the [wiki](https://github.com/l4rm4nd/VoucherVault/wiki/02-%E2%80%90-Authentication#oidc-authentication).
 
 ## 📷 Screenshots
-
-> [!TIP]
-> Support for light and dark theme available!
 
 <img src="screenshots/dashboard.png">
 
