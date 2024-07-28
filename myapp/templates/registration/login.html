@@ -1,4 +1,5 @@
 {% load static %}
+{% load extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/dark-mode.css' %}">
     <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
@@ -15,12 +16,13 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             height: 100vh;
             margin: 0;
             background-color: #0f0f0f;
         }
         .container {
+            margin-top: 10vh;
             width: 300px;
             padding: 20px;
             background: linear-gradient(145deg, #1b1b1b, #1f1f1f);
@@ -130,26 +132,27 @@
         <div class="logo-container">
             <img src="{% static 'assets/img/logo.png' %}" width="50px" alt="">
         </div>
+        {% if not "OIDC_ENABLED"|env %}
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="form-control">
+                <input type="text" id="username" name="username" autocapitalize="none" class="form-control">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" class="form-control">
+                <input type="password" id="password" autocapitalize="none" name="password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary">Local Authentication</button>
-            <div>
-                <hr class="hr hr-blurry text-primary mb-1" />
-            <a href="{% url 'oidc_provider:authorize' %}">
-                <button type="submit" class="btn btn-primary"><i id="darkModeToggle" class="bi bi-box-arrow-in-right"></i> OIDC</button>
-            </a>
-            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
         </form>
+        {% endif %}
+        {% if "OIDC_ENABLED"|env == True %}
+        <form method="get" action="{% url 'oidc_authentication_init' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right toggle-sidebar-btn"></i> OIDC</button>
+        </form>
+        {% endif %}
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('username').focus();

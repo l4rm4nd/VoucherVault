@@ -19,7 +19,6 @@ urlpatterns = [
     path('transactions/delete/<uuid:transaction_id>', views.delete_transaction, name='delete_transaction'),
     path('verify-apprise-urls/', views.verify_apprise_urls, name='verify_apprise_urls'),
     path('download/<uuid:item_id>/', views.download_file, name='download_file'),
-    path('openid/', include('oidc_provider.urls', namespace='oidc_provider')),
     path('login/', views.login_view, name='login'),
 ]
 

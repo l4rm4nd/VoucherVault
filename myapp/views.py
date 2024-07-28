@@ -14,18 +14,24 @@ from django.db.models import Sum
 from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 import json
 import treepoem
 from django.conf import settings
+import unicodedata
 
 def login_view(request):
+    next_url = request.GET.get('next', '/')
+    
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
-            return redirect('/')  # Redirect to a success page.
+
     return render(request, 'login.html')
 
 def calculate_ean13_check_digit(code):
