@@ -77,12 +77,13 @@ The docker container takes various environment variables:
 | `OIDC_ENABLED`                   | Set to `True` to enable OIDC authentication.                                                                    | `False`                    | Optional            |
 | `OIDC_CREATE_USER`               | Set to `True` to allow the creation of new users through OIDC.                                                  | `True`                     | Optional            |
 | `OIDC_RP_SIGN_ALGO`              | The signing algorithm used by the OIDC provider (e.g., RS256, HS256).                                           | `RS256`                    | Optional            |
-| `OIDC_OP_JWKS_ENDPOINT`          | URL of the JWKS endpoint for the OIDC provider.                                                                 |                            | Optional            |
-| `OIDC_RP_CLIENT_ID`              | Client ID for your OIDC RP.                                                                                     |                            | Optional            |
-| `OIDC_RP_CLIENT_SECRET`          | Client secret for your OIDC RP.                                                                                 |                            | Optional            |
-| `OIDC_OP_AUTHORIZATION_ENDPOINT` | Authorization endpoint URL of the OIDC provider.                                                                |                            | Optional            |
-| `OIDC_OP_TOKEN_ENDPOINT`         | Token endpoint URL of the OIDC provider.                                                                        |                            | Optional            |
-| `OIDC_OP_USER_ENDPOINT`          | User info endpoint URL of the OIDC provider.                                                                    |                            | Optional            |
+| `OIDC_RP_IDP_SIGN_KEY`           | The signing key used by the OIDC provider when RS256 is used.                                                   | `None`                     | Optional            |
+| `OIDC_OP_JWKS_ENDPOINT`          | URL of the JWKS endpoint for the OIDC provider.                                                                 | `None`                     | Optional            |
+| `OIDC_RP_CLIENT_ID`              | Client ID for your OIDC RP.                                                                                     | `None`                     | Optional            |
+| `OIDC_RP_CLIENT_SECRET`          | Client secret for your OIDC RP.                                                                                 | `None`                     | Optional            |
+| `OIDC_OP_AUTHORIZATION_ENDPOINT` | Authorization endpoint URL of the OIDC provider.                                                                | `None`                     | Optional            |
+| `OIDC_OP_TOKEN_ENDPOINT`         | Token endpoint URL of the OIDC provider.                                                                        | `None`                     | Optional            |
+| `OIDC_OP_USER_ENDPOINT`          | User info endpoint URL of the OIDC provider.                                                                    | `None`                     | Optional            |
 
 More details about the OIDC environment variables can be found [here](https://mozilla-django-oidc.readthedocs.io/en/stable/settings.html).
 
