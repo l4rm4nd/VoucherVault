@@ -111,67 +111,86 @@
 
           <div id="itemDistributionChart" style="min-height: 400px;" class="echart"></div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-
-        const chart = echarts.init(document.querySelector("#itemDistributionChart"));
-        chart.setOption({
-            tooltip: {
-                trigger: 'item',
-                backgroundColor: isDarkMode ? '#333' : '#fff',
-                borderColor: isDarkMode ? '#aaa' : '#ccc',
-                textStyle: {
-                    color: isDarkMode ? '#fff' : '#333'
-                }
-            },
-            legend: {
-                top: '5%',
-                left: 'center',
-                textStyle: {
-                    color: isDarkMode ? '#fff' : '#333'
-                }
-            },
-            series: [{
-                name: 'Item Distribution',
-                type: 'pie',
-                radius: ['45%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    label: {
-                        show: true,
-                        fontSize: '18',
-                        fontWeight: 'bold',
-                        color: isDarkMode ? '#fff' : '#333'
-                    }
-                },
-                labelLine: {
-                    show: false
-                },
-                data: [
-                    { value: {{ coupons_count }}, name: 'Coupons' },
-                    { value: {{ vouchers_count }}, name: 'Vouchers' },
-                    { value: {{ giftcards_count }}, name: 'Gift Cards' },
-                    { value: {{ loyaltycards_count }}, name: 'Loyalty Cards' }
-                ],
-                itemStyle: {
-                    color: function(params) {
-                        // Customize the colors if needed
-                        const colors = isDarkMode 
-                            ? ['#91cc75', '#fac858', '#ee6666', '#5470c6']
-                            : ['#91cc75', '#fac858', '#ee6666', '#5470c6']
-                        return colors[params.dataIndex];
-                    }
-                }
-            }]
-        });
-    });
-</script>
-
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Function to set chart options
+                const setChartOptions = (isDarkMode) => {
+                    return {
+                        tooltip: {
+                            trigger: 'item',
+                            backgroundColor: isDarkMode ? '#333' : '#fff',
+                            borderColor: isDarkMode ? '#aaa' : '#ccc',
+                            textStyle: {
+                                color: isDarkMode ? '#fff' : '#333'
+                            }
+                        },
+                        legend: {
+                            top: '5%',
+                            left: 'center',
+                            textStyle: {
+                                color: isDarkMode ? '#fff' : '#333'
+                            }
+                        },
+                        series: [{
+                            name: 'Item Distribution',
+                            type: 'pie',
+                            radius: ['45%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '18',
+                                    fontWeight: 'bold',
+                                    color: isDarkMode ? '#fff' : '#333'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: [
+                                { value: {{ coupons_count }}, name: 'Coupons' },
+                                { value: {{ vouchers_count }}, name: 'Vouchers' },
+                                { value: {{ giftcards_count }}, name: 'Gift Cards' },
+                                { value: {{ loyaltycards_count }}, name: 'Loyalty Cards' }
+                            ],
+                            itemStyle: {
+                                color: function(params) {
+                                    const colors = isDarkMode 
+                                        ? ['#91cc75', '#fac858', '#ee6666', '#5470c6']
+                                        : ['#91cc75', '#fac858', '#ee6666', '#5470c6']
+                                    return colors[params.dataIndex];
+                                }
+                            }
+                        }]
+                    };
+                };
+        
+                // Initialize the chart
+                const initializeChart = () => {
+                    const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+                    const chart = echarts.init(document.querySelector("#itemDistributionChart"));
+                    const chartOptions = setChartOptions(isDarkMode);
+                    chart.setOption(chartOptions);
+                    return chart;
+                };
+        
+                // Create the initial chart
+                let chart = initializeChart();
+        
+                // Add event listener for the dark mode toggle button
+                document.getElementById('darkModeToggle').addEventListener('click', () => {
+                    setTimeout(() => {
+                        chart.dispose(); // Dispose of the current chart instance
+                        chart = initializeChart(); // Reinitialize the chart
+                    }, 100);
+                });
+            });
+        </script>
+        
 
         </div>
       </div><!-- End Item Distribution -->
