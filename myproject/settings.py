@@ -220,3 +220,7 @@ if OIDC_ENABLED:
 
     # Add 'mozilla_django_oidc.middleware.SessionRefresh' to MIDDLEWARE
     MIDDLEWARE.append('mozilla_django_oidc.middleware.SessionRefresh')
+
+    # Fix http callback issue in mozilla-django-oidc by forcing https; https://github.com/mozilla/mozilla-django-oidc/issues/417
+    # OIDC should only be setup behind a TLS reverse proxy anyways
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
