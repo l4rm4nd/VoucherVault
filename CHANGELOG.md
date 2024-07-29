@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.1...v1.1.2) (2024-07-29)
+
+
+### Bug Fixes
+
+* **oidc:** force https callback; fixes [#18](https://github.com/l4rm4nd/VoucherVault/issues/18) ([770cd0a](https://github.com/l4rm4nd/VoucherVault/commit/770cd0af9cfb3609e3296704c34d3bd006c8761a))
+
 ## [1.1.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.0...v1.1.1) (2024-07-28)
 
 
@@ -34,11 +41,4 @@
 ### Bug Fixes
 
 * **redis:** adjust default redis hostname ([6586785](https://github.com/l4rm4nd/VoucherVault/commit/65867854263119aaf68d00cffc803d1852b0d51d))
-
-## [1.0.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.1...v1.0.2) (2024-07-27)
-
-
-### Bug Fixes
-
-* **upload:** remove files if deleted or changed ([28f88c6](https://github.com/l4rm4nd/VoucherVault/commit/28f88c6b45c3f9dd5dac32814eca6c098135211c))
 
