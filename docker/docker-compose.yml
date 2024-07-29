@@ -30,6 +30,7 @@ services:
       #- SECRET_KEY=ChooseSuperSecretKey # optional; if not defined, a secure secret is auto-generated
       #- PORT=8000 # optional; only relevant if you use a custom port; used to define CSRF_TRUSTED_ORIGINS
       #- REDIS_HOST=redis # optional; only change if you use another redis container
+      #- DEBUG=True # # optional; only enable for debugging and dev environments
     restart: unless-stopped
     expose:
       - 8000
