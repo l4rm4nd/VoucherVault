@@ -119,14 +119,13 @@
             </li>
 
             <li>
-              {% if "OIDC_ENABLED"|env == True %}
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'oidc_logout' %}">
-              {% else %}
-              <a class="dropdown-item d-flex align-items-center" href="/logout">
-              {% endif %}
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
+              <form method="post" action="{% if 'OIDC_ENABLED'|env == True %}{% url 'oidc_logout' %}{% else %}/logout/{% endif %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item d-flex align-items-center">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </button>
+              </form>
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
