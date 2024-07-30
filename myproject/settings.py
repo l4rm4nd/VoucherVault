@@ -130,22 +130,23 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DB_ENGINE = os.environ.get("DB_ENGINE", "sqlite3")
-DB_HOST = os.environ.get("POSTGRES_HOST", "localhost")
-DB_PORT = os.environ.get("POSTGRES_PORT", "5432")
-DB_USER = os.environ.get("POSTGRES_USER", "user")
-DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "password")
-DB_NAME = os.environ.get("POSTGRES_DB", os.path.join(BASE_DIR, 'database', 'db.sqlite3'))
 
 if DB_ENGINE == "sqlite3":
     
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DB_NAME,
+        'NAME': os.path.join(BASE_DIR, 'database', 'db.sqlite3'),
     }
 }
 
 elif DB_ENGINE == "postgres":
+
+    DB_HOST = os.environ.get("POSTGRES_HOST", "db")
+    DB_PORT = os.environ.get("POSTGRES_PORT", "5432")
+    DB_USER = os.environ.get("POSTGRES_USER", "vouchervault")
+    DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "vouchervault")
+    DB_NAME = os.environ.get("POSTGRES_DB", "vouchervault")
 
     DATABASES = {
         'default': {

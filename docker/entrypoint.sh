@@ -37,19 +37,20 @@ perform_migrations() {
 }
 
 # Check for prior database init
-if test -f "/opt/app/database/db.sqlite3"; then
-    echo "[i] SQLite3 database found. Skipping initialization."
-    DB_INITIALIZED=true
-    perform_migrations
+if [ "$DB_ENGINE" = "sqlite3" ]; then
+    if test -f "/opt/app/database/db.sqlite3"; then
+        echo "[i] SQLite3 database found. Skipping initialization."
+        DB_INITIALIZED=true
+    fi
 elif [ "$DB_ENGINE" = "postgres" ]; then
     if PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB -c '\dt' | grep -q 'django_migrations'; then
         echo "PostgreSQL database found. Skipping initialization."
         DB_INITIALIZED=true
     fi
-    perform_migrations
-else
-    perform_migrations
 fi
+
+# Perform database migrations
+perform_migrations
 
 # Start Django-Celery-Beat
 echo "[~] Starting Celery worker and beat"
