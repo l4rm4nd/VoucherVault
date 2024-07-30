@@ -129,12 +129,35 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+DB_ENGINE = os.environ.get("DB_ENGINE", "sqlite3")
+
+if DB_ENGINE == "sqlite3":
+    
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'database', 'db.sqlite3'),
     }
 }
+
+elif DB_ENGINE == "postgres":
+
+    DB_HOST = os.environ.get("POSTGRES_HOST", "db")
+    DB_PORT = os.environ.get("POSTGRES_PORT", "5432")
+    DB_USER = os.environ.get("POSTGRES_USER", "vouchervault")
+    DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "vouchervault")
+    DB_NAME = os.environ.get("POSTGRES_DB", "vouchervault")
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': DB_NAME,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
