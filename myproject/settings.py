@@ -198,7 +198,7 @@ OIDC_ENABLED = os.environ.get('OIDC_ENABLED', 'False').lower() in ['true']
 if OIDC_ENABLED:
     # get oidc config from env
     OIDC_CREATE_USER = os.environ.get('OIDC_CREATE_USER', 'True').lower() in ['true']
-    OIDC_RP_SIGN_ALGO = os.environ.get('OIDC_RP_SIGN_ALGO', 'RS256')
+    OIDC_RP_SIGN_ALGO = os.environ.get('OIDC_RP_SIGN_ALGO', 'HS256')
     OIDC_OP_JWKS_ENDPOINT = os.environ.get('OIDC_OP_JWKS_ENDPOINT')
     OIDC_RP_IDP_SIGN_KEY = os.environ.get('OIDC_RP_IDP_SIGN_KEY')
     OIDC_RP_CLIENT_ID = os.environ.get('OIDC_RP_CLIENT_ID', "vouchervault")
