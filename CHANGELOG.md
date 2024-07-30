@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.3...v1.1.4) (2024-07-30)
+
+
+### Bug Fixes
+
+* **logout:** fix logout http method for django v5 ([99f7e73](https://github.com/l4rm4nd/VoucherVault/commit/99f7e739476ef742d697f644c6f6f451daef96a4))
+
 ## [1.1.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.2...v1.1.3) (2024-07-30)
 
 
@@ -34,11 +41,4 @@
 * **login:** support next redirect parameter ([06e7300](https://github.com/l4rm4nd/VoucherVault/commit/06e73004ad102b6a85c50c18b34159d90dade19c))
 * **oidc:** adjust username generation ([b780df8](https://github.com/l4rm4nd/VoucherVault/commit/b780df810db2ac0a7ebc944e2614327b9df4f1bc))
 * **oidc:** enable local auth on /admin ([ef91c7b](https://github.com/l4rm4nd/VoucherVault/commit/ef91c7ba7036e3fcf7e48d59840ae13bbc257f87))
-
-## [1.0.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.3...v1.0.4) (2024-07-28)
-
-
-### Bug Fixes
-
-* **django:** disable debug mode ([8f06976](https://github.com/l4rm4nd/VoucherVault/commit/8f0697665db2424f2c727040ef617dc1579b8abb))
 
