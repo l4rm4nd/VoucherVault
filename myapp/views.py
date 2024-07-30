@@ -1,12 +1,10 @@
-from django.http import HttpResponse
-#from .decorators import auth_required
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_GET, require_POST
-from .models import Item
 import qrcode
 import io
 import base64
 import os
+import json
+import treepoem
+import unicodedata
 from django.db.models import Q
 from .forms import *
 from .models import *
@@ -15,10 +13,10 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-import json
-import treepoem
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_GET, require_POST
 from django.conf import settings
-import unicodedata
 
 def calculate_ean13_check_digit(code):
     # Calculate the EAN-13 check digit

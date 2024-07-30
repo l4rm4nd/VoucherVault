@@ -1,12 +1,16 @@
 services:
 
-  vouchervault:
-    image: l4rm4nd/vouchervault:1.1.x # pin a minor version series tag instead of latest
+  app:
+    image: l4rm4nd/vouchervault:1.2.x
     container_name: vouchervault
+    restart: unless-stopped
     environment:
-      - DOMAIN=vouchervault.example.com # your FQDN or IP; used to define ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS
-      - SECURE_COOKIES=False # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
-      - EXPIRY_THRESHOLD_DAYS=90 # send notifications xx days prior expiry; default is 30
+      # your FQDN or IP; used to define ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS
+      - DOMAIN=vouchervault.example.com
+      # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
+      - SECURE_COOKIES=False
+      # send notifications xx days prior expiry
+      - EXPIRY_THRESHOLD_DAYS=90
       # ------- OPTIONAL OIDC AUTH --------
       # Set to 'True' to enable OIDC authentication
       #- OIDC_ENABLED=True
@@ -26,19 +30,13 @@ services:
       #- OIDC_OP_TOKEN_ENDPOINT=https://authentik.example.com/application/o/token/
       # User info endpoint URL of the OIDC provider
       #- OIDC_OP_USER_ENDPOINT=https://authentik.example.com/application/o/userinfo/
-      # ------- OTHER OPTIONAL ENVS --------
-      #- SECRET_KEY=ChooseSuperSecretKey # optional; if not defined, a secure secret is auto-generated
-      #- PORT=8000 # optional; only relevant if you use a custom port; used to define CSRF_TRUSTED_ORIGINS
-      #- REDIS_HOST=redis # optional; only change if you use another redis container
-      #- DEBUG=True # # optional; only enable for debugging and dev environments
-      # ------- PSQL DB ENVS --------
+      # ------- OPTIONAL PSQL DB --------
       #- DB_ENGINE=postgres
       #- POSTGRES_USER=vouchervault
       #- POSTGRES_PASSWORD=vouchervault
       #- POSTGRES_DB=vouchervault
-      #- POSTGRES_HOST=vouchervault-psql
+      #- POSTGRES_HOST=db
       #- POSTGRES_PORT=5432
-    restart: unless-stopped
     expose:
       - 8000
     ports:
@@ -83,4 +81,4 @@ services:
     
 #networks:
 #  proxy:
-#    external: true      
+#    external: true
