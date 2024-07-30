@@ -37,7 +37,7 @@ perform_migrations() {
 }
 
 # Check for prior database init
-if [ "$DB_ENGINE" = "sqlite3" ]; then
+if [ -z "$DB_ENGINE" ] || [ "$DB_ENGINE" = "sqlite3" ]; then
     if test -f "/opt/app/database/db.sqlite3"; then
         echo "[i] SQLite3 database found. Skipping initialization."
         DB_INITIALIZED=true
