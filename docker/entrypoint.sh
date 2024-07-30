@@ -10,7 +10,7 @@ if [ "$DB_ENGINE" = "postgres" ]; then
     echo "[i] Waiting for PostgreSQL db..."
 
     while ! nc -z $POSTGRES_HOST $POSTGRES_PORT; do
-      sleep 1
+      sleep 0.1
     done
 
     echo "[i] PostgreSQL started"
@@ -36,10 +36,16 @@ perform_migrations() {
     fi
 }
 
-# Check for SQLite database file
+# Check for prior database init
 if test -f "/opt/app/database/db.sqlite3"; then
     echo "[i] SQLite3 database found. Skipping initialization."
     DB_INITIALIZED=true
+    perform_migrations
+elif [ "$DB_ENGINE" = "postgres" ]; then
+    if PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB -c '\dt' | grep -q 'django_migrations'; then
+        echo "PostgreSQL database found. Skipping initialization."
+        DB_INITIALIZED=true
+    fi
     perform_migrations
 else
     perform_migrations
