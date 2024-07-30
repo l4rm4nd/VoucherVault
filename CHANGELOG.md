@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.2.0...v1.2.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* **docker:** adjust entrypoint to default to sqlite3 ([cbf5bb3](https://github.com/l4rm4nd/VoucherVault/commit/cbf5bb31b0992664479b1a7c710cf2f20613eeeb))
+
 ## [1.2.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.4...v1.2.0) (2024-07-30)
 
 
@@ -31,11 +38,4 @@
 ### Bug Fixes
 
 * **oidc:** force https callback; fixes [#18](https://github.com/l4rm4nd/VoucherVault/issues/18) ([770cd0a](https://github.com/l4rm4nd/VoucherVault/commit/770cd0af9cfb3609e3296704c34d3bd006c8761a))
-
-## [1.1.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.0...v1.1.1) (2024-07-28)
-
-
-### Bug Fixes
-
-* **login:** add title and dynamic js exec ([0a9898d](https://github.com/l4rm4nd/VoucherVault/commit/0a9898d96dc966ad72dd04cb0592f8301ad00785))
 
