@@ -2,14 +2,15 @@ FROM python:3.12.4-slim
 
 ARG VERSION=0
 ENV VERSION=$VERSION
-ARG BRANCH=0
-ENV BRANCH=$BRANCH
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 # update and install software + create necessary dirs
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cron \
     ghostscript \
     gcc \
+    netcat-openbsd \
     mime-support \
     unzip &&\
     mkdir -p /opt/app/docker/ /opt/app/database /opt/app/logs

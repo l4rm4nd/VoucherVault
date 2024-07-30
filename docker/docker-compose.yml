@@ -31,6 +31,13 @@ services:
       #- PORT=8000 # optional; only relevant if you use a custom port; used to define CSRF_TRUSTED_ORIGINS
       #- REDIS_HOST=redis # optional; only change if you use another redis container
       #- DEBUG=True # # optional; only enable for debugging and dev environments
+      # ------- PSQL DB ENVS --------
+      #- DB_ENGINE=postgres
+      #- POSTGRES_USER=vouchervault
+      #- POSTGRES_PASSWORD=vouchervault
+      #- POSTGRES_DB=vouchervault
+      #- POSTGRES_HOST=vouchervault-psql
+      #- POSTGRES_PORT=5432
     restart: unless-stopped
     expose:
       - 8000
@@ -54,8 +61,25 @@ services:
     container_name: vouchervault-redis
     image: redis:7.2-alpine
     restart: unless-stopped
+    expose:
+      - 6379
     #networks:
     #  - proxy
+
+#  db:
+#    container_name: vouchervault-psql
+#    image: postgres:16-alpine
+#    restart: unless-stopped
+#    expose:
+#      - 5432
+#    volumes:
+#      - ./volume-data/database/psql:/var/lib/postgresql/data/
+#    environment:
+#      - POSTGRES_USER=vouchervault
+#      - POSTGRES_PASSWORD=vouchervault
+#      - POSTGRES_DB=vouchervault    
+#    #networks:
+#    #  - proxy
     
 #networks:
 #  proxy:
