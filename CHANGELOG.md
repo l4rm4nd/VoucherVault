@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.2...v1.1.3) (2024-07-30)
+
+
+### Bug Fixes
+
+* **deps:** pin latest django v5 version ([2f97166](https://github.com/l4rm4nd/VoucherVault/commit/2f971665ba8436497034fd9e503b5471b70ea529))
+
 ## [1.1.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.1...v1.1.2) (2024-07-29)
 
 
@@ -34,11 +41,4 @@
 ### Bug Fixes
 
 * **django:** disable debug mode ([8f06976](https://github.com/l4rm4nd/VoucherVault/commit/8f0697665db2424f2c727040ef617dc1579b8abb))
-
-## [1.0.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.2...v1.0.3) (2024-07-28)
-
-
-### Bug Fixes
-
-* **redis:** adjust default redis hostname ([6586785](https://github.com/l4rm4nd/VoucherVault/commit/65867854263119aaf68d00cffc803d1852b0d51d))
 
