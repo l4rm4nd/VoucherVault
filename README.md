@@ -41,7 +41,7 @@ mkdir -p ./volume-data/database
 sudo chown -R www-data:www-data volume-data/*
 
 # spawn the container stack
-docker compose -f docker/docker-compose.yml up
+docker compose -f docker/docker-compose-sqlite.yml up
 ````
 
 Once the container is up and running, you can access the web portal at http://127.0.0.1:8000. 
@@ -51,7 +51,7 @@ The default username is `admin`. The default password is auto-generated.
 You can obtain the auto-generated password via the Docker container logs:
 
 ````
-docker compose -f docker/docker-compose.yml logs -f
+docker compose -f docker/docker-compose-sqlite.yml logs -f
 ````
 
 > [!WARNING]
@@ -127,9 +127,9 @@ Finally, Single-Sign-On (SSO) via OIDC is supported. Check out the environment v
 
 All application data is stored within a Docker bind mount volume. 
 
-This volume is defined in the `docker-compose.yml` file. The default location is defined as `./volume-data/database`.
+This volume is defined in the example Docker Compose files given. The default location is defined as `./volume-data/database`.
 
 Therefore, by backing up this bind mount volume, all your application data is saved.
 
 > [!WARNING]
-> Read the official [SQLite3 documentation](https://sqlite.org/backup.html) regarding backups.
+> Read the official [SQLite3 documentation](https://sqlite.org/backup.html) or [PostgreSQL documentation](https://www.postgresql.org/docs/current/backup.html) regarding backups.
