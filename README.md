@@ -26,6 +26,7 @@
 - Expiry notifications via Apprise
 - Multi-user support via local auth
 - Multi-user support via OIDC Single-Sign-On (SSO)
+- Support for SQLite3 (default) or PostgreSQL database
 - Open-Source via GPL-3.0 license
 
 ## 🐳 Usage
