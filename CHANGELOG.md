@@ -1,3 +1,16 @@
+## [1.2.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.4...v1.2.0) (2024-07-30)
+
+
+### Features
+
+* **db:** support psql database ([17fdf37](https://github.com/l4rm4nd/VoucherVault/commit/17fdf374bbcc422d58f16fb62ad80568bb67b24a))
+
+
+### Bug Fixes
+
+* **db:** improve psql env handling ([8369507](https://github.com/l4rm4nd/VoucherVault/commit/836950742538938d124d9ce641a03fbc71746084))
+* **db:** support psql init ([1adf25a](https://github.com/l4rm4nd/VoucherVault/commit/1adf25afe61526be996f6eeb494412d168eeeb78))
+
 ## [1.1.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.3...v1.1.4) (2024-07-30)
 
 
@@ -25,20 +38,4 @@
 ### Bug Fixes
 
 * **login:** add title and dynamic js exec ([0a9898d](https://github.com/l4rm4nd/VoucherVault/commit/0a9898d96dc966ad72dd04cb0592f8301ad00785))
-
-## [1.1.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.0.4...v1.1.0) (2024-07-28)
-
-
-### Features
-
-* **auth:** add oidc support ([94c986d](https://github.com/l4rm4nd/VoucherVault/commit/94c986d55caf1e8b1fbbd90436a0fe8a1b92fb2d))
-* **login:** custom user login ([b4a5227](https://github.com/l4rm4nd/VoucherVault/commit/b4a5227aa8d2402cf129027715648840ee073a30))
-* **oidc:** implement mozilla oidc auth ([3841672](https://github.com/l4rm4nd/VoucherVault/commit/3841672b49d1e0c4736fe6022491b78836dfe3d2))
-
-
-### Bug Fixes
-
-* **login:** support next redirect parameter ([06e7300](https://github.com/l4rm4nd/VoucherVault/commit/06e73004ad102b6a85c50c18b34159d90dade19c))
-* **oidc:** adjust username generation ([b780df8](https://github.com/l4rm4nd/VoucherVault/commit/b780df810db2ac0a7ebc944e2614327b9df4f1bc))
-* **oidc:** enable local auth on /admin ([ef91c7b](https://github.com/l4rm4nd/VoucherVault/commit/ef91c7ba7036e3fcf7e48d59840ae13bbc257f87))
 
