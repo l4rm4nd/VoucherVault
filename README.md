@@ -37,7 +37,7 @@
 mkdir -p ./volume-data/database
 
 # adjust permissions
-sudo chown -R www-data:www-data volume-dir/*
+sudo chown -R www-data:www-data volume-data/*
 
 # spawn the container stack
 docker compose -f docker/docker-compose.yml up
