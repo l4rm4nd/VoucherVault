@@ -18,7 +18,7 @@
 ## ⭐ Features
 
 - Intuitive and mobile-friendly web portal
-- Support for light and dark themes
+- Support for light and dark theme
 - Support for vouchers, coupons, giftcards and loyalty cards
 - Support for giftcard transaction histories
 - Support for individual file uploads per item
