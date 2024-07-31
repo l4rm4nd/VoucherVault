@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.2.1...v1.3.0) (2024-07-31)
+
+
+### Features
+
+* **redis:** allow custom redis url ([a44732d](https://github.com/l4rm4nd/VoucherVault/commit/a44732d9a6828b2efae8dec9b41b1ecbdc980ccc)), closes [#22](https://github.com/l4rm4nd/VoucherVault/issues/22)
+
 ## [1.2.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.2.0...v1.2.1) (2024-07-30)
 
 
@@ -31,11 +38,4 @@
 ### Bug Fixes
 
 * **deps:** pin latest django v5 version ([2f97166](https://github.com/l4rm4nd/VoucherVault/commit/2f971665ba8436497034fd9e503b5471b70ea529))
-
-## [1.1.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.1...v1.1.2) (2024-07-29)
-
-
-### Bug Fixes
-
-* **oidc:** force https callback; fixes [#18](https://github.com/l4rm4nd/VoucherVault/issues/18) ([770cd0a](https://github.com/l4rm4nd/VoucherVault/commit/770cd0af9cfb3609e3296704c34d3bd006c8761a))
 
