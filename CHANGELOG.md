@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.2...v1.4.3) (2024-08-01)
+
+
+### Bug Fixes
+
+* **scanner:** display video stream to the user ([ca4dc37](https://github.com/l4rm4nd/VoucherVault/commit/ca4dc3740edd0380d26d35c93ef4518932a5d9fb))
+
 ## [1.4.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.1...v1.4.2) (2024-08-01)
 
 
@@ -30,11 +37,4 @@
 ### Features
 
 * **redis:** allow custom redis url ([a44732d](https://github.com/l4rm4nd/VoucherVault/commit/a44732d9a6828b2efae8dec9b41b1ecbdc980ccc)), closes [#22](https://github.com/l4rm4nd/VoucherVault/issues/22)
-
-## [1.2.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.2.0...v1.2.1) (2024-07-30)
-
-
-### Bug Fixes
-
-* **docker:** adjust entrypoint to default to sqlite3 ([cbf5bb3](https://github.com/l4rm4nd/VoucherVault/commit/cbf5bb31b0992664479b1a7c710cf2f20613eeeb))
 
