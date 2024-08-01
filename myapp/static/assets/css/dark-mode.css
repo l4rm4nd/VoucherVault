@@ -366,8 +366,3 @@ body.dark-mode .btn-download {
   color: #ffffff;
   background-color: #6c757d00;
 }
-
-body.dark-mode #toggle-value-type {
-  background-color: #99cbff !important;
-  color: #222 !important;
-}

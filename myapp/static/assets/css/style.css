@@ -1286,11 +1286,6 @@ input.readonly {
   background-color: #ffc9c959;
 }
 
-#toggle-value-type {
-  background-color: #cfe5ff !important;
-  color: black !important;
-}
-
 .btn-download {
   background-color: #dde9ff;
   color: black;
