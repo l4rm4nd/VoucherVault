@@ -23,7 +23,8 @@
 
                     <!-- QR Code Scanner Section -->
                     <section class="mb-2 mt-1" id="qrScannerSection" style="display:none;">
-                        <div style="color: lightgray" id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+                        <div style="color: lightgray" id="loadingMessage"></div>
+                        <video id="video" hidden></video>
                         <canvas id="canvas" hidden></canvas>
                         <div id="output" hidden>
                             <div style="color: lightgray" id="outputMessage">No QR code detected.</div>
@@ -61,7 +62,7 @@
                             <label for="redeem_code" class="col-sm-2 col-form-label">Redeem Code</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input placeholder="The redeem code of the item" value="{{ item.redeem_code }}"  type="text" class="form-control" id="redeem_code" name="redeem_code" required>
+                                    <input placeholder="The redeem code of the item" value="{{ item.redeem_code }}" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
                                     <button title="Scan QR code via camera" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
                                         <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
@@ -155,7 +156,7 @@
     }
   </style>
   
-  <script src="{% static 'assets/js/jsQR.js' %}"></script>
+  <script src="{% static 'assets/js/zxing.js' %}"></script>
   <script src="{% static 'assets/js/scanner.js' %}"></script>
 
 <script>
