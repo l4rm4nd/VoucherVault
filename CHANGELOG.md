@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.0...v1.4.1) (2024-08-01)
+
+
+### Bug Fixes
+
+* add qr code scanner to edit-item + refactor js into single file ([61c9a55](https://github.com/l4rm4nd/VoucherVault/commit/61c9a5548049210c7ad04a65c66d93326efe2ed4))
+
 ## [1.4.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.3.0...v1.4.0) (2024-08-01)
 
 
@@ -36,11 +43,4 @@
 
 * **db:** improve psql env handling ([8369507](https://github.com/l4rm4nd/VoucherVault/commit/836950742538938d124d9ce641a03fbc71746084))
 * **db:** support psql init ([1adf25a](https://github.com/l4rm4nd/VoucherVault/commit/1adf25afe61526be996f6eeb494412d168eeeb78))
-
-## [1.1.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.3...v1.1.4) (2024-07-30)
-
-
-### Bug Fixes
-
-* **logout:** fix logout http method for django v5 ([99f7e73](https://github.com/l4rm4nd/VoucherVault/commit/99f7e739476ef742d697f644c6f6f451daef96a4))
 
