@@ -27,6 +27,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Item Details</h5>
+                    
                     <!-- QR Code Scanner Section -->
                     <section class="mb-2 mt-1" id="qrScannerSection" style="display:none;">
                         <div style="color: lightgray" id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
@@ -35,6 +36,7 @@
                             <div style="color: lightgray" id="outputMessage">No QR code detected.</div>
                             <div style="color: lightgray" hidden><b>Data:</b> <span id="outputData"></span></div>
                         </div>
+
                     </section>
                     <!-- Item Form -->
                     <form method="POST" action="{% url 'create_item' %}" enctype="multipart/form-data">
@@ -301,7 +303,7 @@
               valueTypeField.value = 'percentage';
               valueTypeIcon.classList.remove('bi-cash-coin');
               valueTypeIcon.classList.add('bi-percent');
-              valueField.placeholder = "The percentage value of the item";
+              //valueField.placeholder = "The percentage value of the item";
               valueField.setAttribute('step', '0.01');
               valueField.setAttribute('min', '0.00');
               valueField.setAttribute('max', '100.00');
@@ -309,7 +311,7 @@
               valueTypeField.value = 'money';
               valueTypeIcon.classList.remove('bi-percent');
               valueTypeIcon.classList.add('bi-cash-coin');
-              valueField.placeholder = "The monetary value of the item";
+              //valueField.placeholder = "The monetary value of the item";
               valueField.setAttribute('step', '0.01');
               valueField.setAttribute('min', '0.00');
               valueField.removeAttribute('max');
