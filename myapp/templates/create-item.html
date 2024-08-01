@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Item Details</h5>
-                    
+
                     <!-- QR Code Scanner Section -->
                     <section class="mb-2 mt-1" id="qrScannerSection" style="display:none;">
                         <div style="color: lightgray" id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
@@ -71,7 +71,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <input placeholder="The redeem code of the item" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
-                                    <button title="Scan via camera" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
+                                    <button title="Scan QR code via camera" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
                                         <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
                                 </div>
@@ -113,7 +113,7 @@
                                     <input placeholder="The value of the item" type="number" class="form-control"
                                         id="value" name="value" step="0.01" min="0.00" required> 
                                     <button class="btn btn-outline-secondary btn-feature d-none" type="button" id="toggle-value-type">
-                                        <span title="Switch value type" id="value-type-icon" class="bi bi-cash-coin"></span>
+                                        <span title="Toggle value type" id="value-type-icon" class="bi bi-cash-coin"></span>
                                     </button>
                                 </div>
                                 <input type="hidden" id="value_type" name="value_type" value="money">
