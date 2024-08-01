@@ -29,9 +29,9 @@
                     <h5 class="card-title">Item Details</h5>
 
                     <!-- QR Code Scanner Section -->
-                    <section class="mb-2 mt-1" id="qrScannerSection" style="display:none;">
+                    <section class="mb-3 mt-1" id="qrScannerSection" style="display:none;">
                         <div style="color: lightgray" id="loadingMessage"></div>
-                        <video id="video" hidden></video>
+                        <video id="video" width="250" height="250" style="border: 1px solid gray"></video>
                         <canvas id="canvas" hidden></canvas>
                         <div id="output" hidden>
                             <div style="color: lightgray" id="outputMessage">No QR code detected.</div>
@@ -72,7 +72,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <input placeholder="The redeem code of the item" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
-                                    <button title="Scan QR code via camera" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
+                                    <button title="Camera Scan" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
                                         <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
                                 </div>

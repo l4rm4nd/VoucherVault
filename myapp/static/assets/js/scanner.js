@@ -15,6 +15,7 @@ function startScanning() {
     codeReader.decodeFromVideoDevice(null, 'video', (result, err) => {
         if (result) {
             redeemCodeField.value = result.text;
+            redeemCodeField.focus();
             stopStream();
         }
         if (err && !(err instanceof ZXing.NotFoundException)) {
@@ -36,25 +37,31 @@ function stopStream() {
 }
 
 startScannerButton.addEventListener("click", function () {
-    if (qrScannerSection.style.display === "none") {
-        qrScannerSection.style.display = "block";
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function (stream) {
-            videoStream = stream;
-            video.srcObject = stream;
-            video.setAttribute('playsinline', true); // required to tell iOS safari we don't want fullscreen
-            video.play().then(() => {
-                startScanning();
-                cameraIcon.classList.add("breathe-red");
+    if (location.protocol === 'https:') {
+        if (qrScannerSection.style.display === "none") {
+            qrScannerSection.style.display = "block";
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function (stream) {
+                videoStream = stream;
+                video.srcObject = stream;
+                video.setAttribute('playsinline', true); // required to tell iOS safari we don't want fullscreen
+                video.play().then(() => {
+                    startScanning();
+                    cameraIcon.classList.add("breathe-red");
+                }).catch(function (error) {
+                    console.error('Error playing video:', error);
+                    loadingMessage.style.display = 'block';  // Show the loading message if there is an error
+                    loadingMessage.innerText = "🎥 Unable to play video stream: " + error.message;
+                });
             }).catch(function (error) {
-                console.error('Error playing video:', error);
                 loadingMessage.style.display = 'block';  // Show the loading message if there is an error
-                loadingMessage.innerText = "🎥 Unable to play video stream: " + error.message;
+                loadingMessage.innerText = "🎥 Unable to access video stream: " + error.message;
             });
-        }).catch(function (error) {
-            loadingMessage.style.display = 'block';  // Show the loading message if there is an error
-            loadingMessage.innerText = "🎥 Unable to access video stream: " + error.message;
-        });
-    } else {
-        stopStream();
+        } else {
+            stopStream();
+        }
+    }
+    else{
+        alert("QR/EAN13 code scanning requires HTTPS");
     }
 });
