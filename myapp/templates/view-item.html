@@ -205,6 +205,7 @@
   </div>
 </section>
 
+{% if item.pin %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const pinInput = document.getElementById('pin-code');
@@ -220,7 +221,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+</script>
+{% endif %}
 
+{% if item.type == 'giftcard' %}
+<script>
 document.addEventListener("DOMContentLoaded", function() {
     const valueInput = document.getElementById('value');
 
@@ -232,7 +237,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+</script>
+{% endif %}
 
+<script>
 document.addEventListener("DOMContentLoaded", function() {
     // Handling QR Code and Redeem Code visibility toggle
     const qrCode = document.getElementById('qr-code');
