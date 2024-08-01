@@ -366,3 +366,12 @@ body.dark-mode .btn-download {
   color: #ffffff;
   background-color: #6c757d00;
 }
+
+body.dark-mode .btn-feature {
+  color: #76bcfa !important;
+  background-color: #414141;
+}
+
+body.dark-mode .btn-feature:hover {
+  background-color: #6c757d00;
+}

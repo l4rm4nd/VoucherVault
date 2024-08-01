@@ -69,8 +69,8 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <input placeholder="The redeem code of the item" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
-                                    <button class="btn btn-outline-secondary" type="button" class="toggle-value-type" id="startScanner">
-                                        <i class="bi bi-camera"></i>
+                                    <button title="Scan via camera" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
+                                        <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
                                 </div>
                             </div>
@@ -110,8 +110,8 @@
                                 <div class="input-group">
                                     <input placeholder="The value of the item" type="number" class="form-control"
                                         id="value" name="value" step="0.01" min="0.00" required> 
-                                    <button class="btn btn-outline-secondary d-none" type="button" id="toggle-value-type">
-                                        <span id="value-type-icon" class="bi bi-cash-coin"></span>
+                                    <button class="btn btn-outline-secondary btn-feature d-none" type="button" id="toggle-value-type">
+                                        <span title="Switch value type" id="value-type-icon" class="bi bi-cash-coin"></span>
                                     </button>
                                 </div>
                                 <input type="hidden" id="value_type" name="value_type" value="money">
@@ -146,6 +146,25 @@
     </div>
 </section>
 
+<style>
+  @keyframes breathe {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .breathe-red {
+    animation: breathe 1s infinite;
+    color: red;
+  }
+</style>
+
 <script src="{% static 'assets/js/jsQR.js' %}"></script>
 <script>
   var video = document.createElement("video");
@@ -157,6 +176,8 @@
   var outputData = document.getElementById("outputData");
   var redeemCodeField = document.getElementById("redeem_code");
   var qrScannerSection = document.getElementById("qrScannerSection");
+  var cameraIcon = document.getElementById("cameraIcon");
+  var camera_stream_enabled = 0;
 
   function drawLine(begin, end, color) {
     canvas.beginPath();
@@ -190,27 +211,50 @@
         outputData.parentElement.hidden = false;
         outputData.innerText = code.data;
         redeemCodeField.value = code.data;  // Set the redeem code field with scanned data
+
+        // Stop the camera stream
+        qrScannerSection.style.display = "none";
+        if (video.srcObject) {
+          video.srcObject.getTracks().forEach(track => track.stop());
+        }
+        video.pause();
+        camera_stream_enabled = 0;
+        cameraIcon.classList.remove("breathe-red");
       } else {
         outputMessage.hidden = false;
         outputData.parentElement.hidden = true;
       }
     }
-    requestAnimationFrame(tick);
+    if (camera_stream_enabled == 1) {
+      requestAnimationFrame(tick);
+    }
   }
 
   document.getElementById("startScanner").addEventListener("click", function() {
-    qrScannerSection.style.display = "block";
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
-      video.srcObject = stream;
-      video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-      video.play();
-      requestAnimationFrame(tick);
-    }).catch(function(error) {
-      loadingMessage.innerText = "🎥 Unable to access video stream: " + error.message;
-    });
+    if (camera_stream_enabled == 0) {
+      qrScannerSection.style.display = "block";
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
+        video.srcObject = stream;
+        video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+        video.play();
+        camera_stream_enabled = 1;
+        cameraIcon.classList.add("breathe-red");
+        requestAnimationFrame(tick);
+      }).catch(function(error) {
+        loadingMessage.innerText = "🎥 Unable to access video stream: " + error.message;
+      });
+    } else {
+      qrScannerSection.style.display = "none";
+      if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+      }
+      video.pause();
+      camera_stream_enabled = 0;
+      cameraIcon.classList.remove("breathe-red");
+    }
   });
-
 </script>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
       const typeField = document.getElementById('type');
