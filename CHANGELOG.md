@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.1...v1.4.2) (2024-08-01)
+
+
+### Bug Fixes
+
+* **scanner:** add zxing for EAN13 and QR code support instead of jsQR ([df497d8](https://github.com/l4rm4nd/VoucherVault/commit/df497d8bc70d17326ad75dd9abe5e8788ab3167b))
+
 ## [1.4.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.0...v1.4.1) (2024-08-01)
 
 
@@ -30,17 +37,4 @@
 ### Bug Fixes
 
 * **docker:** adjust entrypoint to default to sqlite3 ([cbf5bb3](https://github.com/l4rm4nd/VoucherVault/commit/cbf5bb31b0992664479b1a7c710cf2f20613eeeb))
-
-## [1.2.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.1.4...v1.2.0) (2024-07-30)
-
-
-### Features
-
-* **db:** support psql database ([17fdf37](https://github.com/l4rm4nd/VoucherVault/commit/17fdf374bbcc422d58f16fb62ad80568bb67b24a))
-
-
-### Bug Fixes
-
-* **db:** improve psql env handling ([8369507](https://github.com/l4rm4nd/VoucherVault/commit/836950742538938d124d9ce641a03fbc71746084))
-* **db:** support psql init ([1adf25a](https://github.com/l4rm4nd/VoucherVault/commit/1adf25afe61526be996f6eeb494412d168eeeb78))
 
