@@ -1286,12 +1286,17 @@ input.readonly {
   background-color: #ffc9c959;
 }
 
-#toggle-value-type {
-  background-color: #cfe5ff !important;
-  color: black !important;
-}
-
 .btn-download {
   background-color: #dde9ff;
+  color: black;
+}
+
+.btn-feature {
+  background-color: white;
+  border-color: lightgrey;
+}
+
+.btn-feature:hover {
+  background-color: rgb(238, 243, 251);
   color: black;
 }
