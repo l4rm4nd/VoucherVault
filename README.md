@@ -20,14 +20,14 @@
 - Intuitive and mobile-friendly web portal
 - Support for light and dark theme
 - Support for vouchers, coupons, giftcards and loyalty cards
-- Support for giftcard transaction histories
-- Support for individual file uploads per item
+- Support for transaction histories (giftcards only)
+- Support for file uploads per item (images and PDFs)
 - Displaying redeem codes as QR code or EAN13 barcode
+- Client-side camera scanning for 1D/2D (bar)codes during item creation
 - Expiry notifications via Apprise
-- Multi-user support via local auth
+- Multi-user support via local auth 
 - Multi-user support via OIDC Single-Sign-On (SSO)
 - Support for SQLite3 and PostgreSQL
-- Open-Source via GPL-3.0 license
 
 ## 🐳 Usage
 
