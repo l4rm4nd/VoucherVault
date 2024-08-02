@@ -37,7 +37,7 @@ function stopStream() {
 }
 
 startScannerButton.addEventListener("click", function () {
-    if (location.protocol === 'https:') {
+    if (location.protocol === 'https:' || location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
         if (qrScannerSection.style.display === "none") {
             qrScannerSection.style.display = "block";
             window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
