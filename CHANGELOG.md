@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.4...v1.4.5) (2024-08-03)
+
+
+### Bug Fixes
+
+* add timezone support via envs ([3f63f44](https://github.com/l4rm4nd/VoucherVault/commit/3f63f44d6f896ea96f9ae8a40e3cf6ff09b84c46))
+
 ## [1.4.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.3...v1.4.4) (2024-08-02)
 
 
@@ -25,16 +32,4 @@
 ### Bug Fixes
 
 * add qr code scanner to edit-item + refactor js into single file ([61c9a55](https://github.com/l4rm4nd/VoucherVault/commit/61c9a5548049210c7ad04a65c66d93326efe2ed4))
-
-## [1.4.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.3.0...v1.4.0) (2024-08-01)
-
-
-### Features
-
-* **py:** add qr code camera scanner ([1f450cd](https://github.com/l4rm4nd/VoucherVault/commit/1f450cd3f19a5b1cf8b5bc48c54404b4f5d5ca63))
-
-
-### Bug Fixes
-
-* **qr-reader:** adjust style and logic ([af2bcc0](https://github.com/l4rm4nd/VoucherVault/commit/af2bcc08219dc3e6152e87a3c6190a3313690f21))
 
