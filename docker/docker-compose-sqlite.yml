@@ -11,6 +11,8 @@ services:
       - SECURE_COOKIES=False
       # send notifications xx days prior expiry
       - EXPIRY_THRESHOLD_DAYS=90
+      # define the timezone
+      - TZ=Europe/Berlin
     expose:
       - 8000
     ports:
