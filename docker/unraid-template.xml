@@ -23,7 +23,7 @@ https://github.com/l4rm4nd/VoucherVault/wiki/01-%E2%80%90-Installation#unraid-in
 </Overview>
   <Category>Productivity: Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:8000]</WebUI>
-  <TemplateURL>https://raw.githubusercontent.com/l4rm4nd/vouchervault/main/docker/unraid-template.xml</TemplateURL>
+  <TemplateURL>https://raw.githubusercontent.com/l4rm4nd/VoucherVault/main/docker/unraid-template.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/l4rm4nd/VoucherVault/main/myapp/static/assets/img/logo.png</Icon>
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs/>
