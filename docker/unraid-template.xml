@@ -13,7 +13,7 @@
 &#xD;
 Supports expiry notifications, transaction histories, file uploads and OIDC SSO.&#xD;
 &#xD;
-Once the container is up and running, you can access the web portal at `http://<IP>:8000`.&#xD;
+Once the container is up and running, you can access the web portal at `http://YOUR-IP:8000`.&#xD;
 &#xD;
 The default username is admin. The default password is auto-generated and displayed in container logs.&#xD;
 &#xD;
