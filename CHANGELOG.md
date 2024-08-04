@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.5...v1.4.6) (2024-08-04)
+
+
+### Bug Fixes
+
+* **docker:** add volume rw checks in entrypoint ([4b8a81e](https://github.com/l4rm4nd/VoucherVault/commit/4b8a81ec6f6bb03c9eaea6610cadcfb9c844aabe)), closes [#24](https://github.com/l4rm4nd/VoucherVault/issues/24) [#19](https://github.com/l4rm4nd/VoucherVault/issues/19)
+
 ## [1.4.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.4...v1.4.5) (2024-08-03)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * **scanner:** add zxing for EAN13 and QR code support instead of jsQR ([df497d8](https://github.com/l4rm4nd/VoucherVault/commit/df497d8bc70d17326ad75dd9abe5e8788ab3167b))
-
-## [1.4.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.0...v1.4.1) (2024-08-01)
-
-
-### Bug Fixes
-
-* add qr code scanner to edit-item + refactor js into single file ([61c9a55](https://github.com/l4rm4nd/VoucherVault/commit/61c9a5548049210c7ad04a65c66d93326efe2ed4))
 
