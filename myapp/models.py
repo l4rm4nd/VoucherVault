@@ -23,6 +23,7 @@ class Item(models.Model):
     issue_date = models.DateField(default=timezone.now)
     expiry_date = models.DateField()
     description = models.TextField(blank=True, null=True)
+    logo_slug = models.CharField(max_length=50, blank=True, null=True, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=10, decimal_places=2)
     value_type = models.CharField(max_length=20, choices=VALUE_TYPES, default='money')

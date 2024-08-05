@@ -79,7 +79,7 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "https://fonts.googleapis.com")
 CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'")
 CSP_FONT_SRC = ("'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com")
-CSP_IMG_SRC = ("'self'", 'data:')
+CSP_IMG_SRC = ("'self'", 'data:', 'logo.clearbit.com')
 CSP_OBJECT_SRC = ("'none'",)
 CSP_CONNECT_SRC = ("'self'",)
 
