@@ -1,3 +1,10 @@
+## [1.5.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.6...v1.5.0) (2024-08-05)
+
+
+### Features
+
+* allow custom store logos ([0158913](https://github.com/l4rm4nd/VoucherVault/commit/0158913fb2c82552ade8720e4b14dda3a4de7269))
+
 ## [1.4.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.5...v1.4.6) (2024-08-04)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * **scanner:** display video stream to the user ([ca4dc37](https://github.com/l4rm4nd/VoucherVault/commit/ca4dc3740edd0380d26d35c93ef4518932a5d9fb))
-
-## [1.4.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.1...v1.4.2) (2024-08-01)
-
-
-### Bug Fixes
-
-* **scanner:** add zxing for EAN13 and QR code support instead of jsQR ([df497d8](https://github.com/l4rm4nd/VoucherVault/commit/df497d8bc70d17326ad75dd9abe5e8788ab3167b))
 
