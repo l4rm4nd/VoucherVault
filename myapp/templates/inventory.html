@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
 {% block content %}
+
     <div class="pagetitle">
       <h1>Inventory</h1>
       <nav>
@@ -52,7 +52,7 @@
             {% for entry in items_with_qr %}
             <div title="{{ entry.item.description }}" class="col-12 col-md-6">
               <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
-                <div class="card info-card sales-card card-available
+                <div id="card-{{ entry.item.id }}" class="card info-card sales-card card-available
                     {% if entry.item.is_used %} card-used
                     {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
                     {% endif %}">
@@ -71,7 +71,17 @@
                         </h5>
                         <h6>{{ entry.item.name }}</h6>
                       </div>
-                      <img src="data:image/png;base64,{{ entry.qr_code_base64 }}" alt="QR Code" style="width: 50px; height: 50px;">
+                      {% if entry.item.logo_slug %}
+                      <img id="logo-{{ entry.item.id }}" 
+                           src="https://logo.clearbit.com/{{ entry.item.logo_slug }}" 
+                           alt="Logo" 
+                           style="width: 50px; height: 50px; border-radius: 10px;" 
+                           onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.qr_code_base64 }}';">
+                      {% else %}
+                      <img src="data:image/png;base64,{{ entry.qr_code_base64 }}" 
+                           alt="QR Code" 
+                           style="width: 50px; height: 50px;">
+                      {% endif %}
                     </div>
                     <div class="item-details">
                       <div class="detail-item default-tile">
@@ -101,4 +111,5 @@
 
       </div>
     </section>
+
 {% endblock content %}

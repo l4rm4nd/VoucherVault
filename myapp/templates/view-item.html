@@ -22,17 +22,19 @@
 <section class="section dashboard">
   <div class="row">
 
-    <!-- Full width column -->
-    <div class="col-lg-12">
-      <div class="row">
+<!-- Full width column -->
+<div class="col-lg-12">
+  <div class="row">
 
-        <!-- Item Details Card -->
-        <div class="col-lg-8">
-          <div class="card info-card sales-card card-available
-            {% if item.is_used %} card-used
-            {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
-            {% endif %}">
-            <div class="card-body">
+    <!-- Item Details Card -->
+    <div class="col-lg-8">
+      <div class="card info-card sales-card card-available
+        {% if item.is_used %} card-used
+        {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
+        {% endif %}">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
               <h5 class="card-title">
                 <i class="bi bi-shop"></i> {{ item.issuer }} 
                 <span>&gt; {{ item.type }}
@@ -44,55 +46,60 @@
                 </span>
               </h5>
               <h6>{{ item.name }}</h6>
-              <div class="item-details pt-2">
-                <div class="detail-item default-tile">
-                  <i class="bi bi-calendar text-muted"></i> <span><b>Issue Date:</b> {{ item.issue_date }}</span>
-                </div>
-                <div class="detail-item default-tile">
-                  <i class="bi bi-calendar-x text-muted"></i> <span><b>Expiry Date:</b> {{ item.expiry_date }}</span>
-                </div>
-                {% if item.type != "loyaltycard" %}
-                <div class="detail-item default-tile">
-                  {% if item.value_type == "percentage" %}
-                  <i class="bi bi-percent text-muted"></i> <span><b>Percent:</b> {{ total_value|floatformat:2 }}</span>
-                  {% elif item.value_type == "money" %}
-                  <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ total_value|floatformat:2 }}</span>
-                  {% endif %}
-                </div>
-                {% endif %}
-                {% if item.description %}
-                <div class="default-tile" style="text-align: justify;">
-                  <b>Description:</b><br>
-                  <span class="content">{{ item.description }}</span>
-                </div>
-                {% endif %}
-                {% if item.file %}
-                <div class="default-tile" style="text-align: justify;">
-                  <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                </div>
-                {% endif %}
-              </div>
-              <div class="d-flex justify-content-end mt-3">
-                <a href="{% url 'edit_item' item.id %}" class="btn btn-primary me-2"><i class="bi bi-pencil"></i> Edit</a>
-                <form action="{% url 'delete_item' item.id %}" method="post" class="me-2">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="bi bi-trash"></i> Delete</button>
-                </form>
-                {% if item.type != "loyaltycard" %}
-                <form action="{% url 'toggle_item_status' item.id %}" method="post">
-                  {% csrf_token %}
-                  <button type="submit" class="btn {% if item.is_used %} btn-danger {% else %} btn-warning {% endif %}">
-                    <i class="bi bi-check-circle"></i>
-                    {% if item.is_used %} Mark as Available {% else %} Mark as Used {% endif %}
-                  </button>
-                </form>
-                {% endif %}
-              </div>
             </div>
+            {% if item.logo_slug %}
+            <img src="https://logo.clearbit.com/{{ item.logo_slug }}" alt="Logo" style="width: 50px; height: 50px; border-radius: 10px;" onerror="this.style.display='none'">
+            {% endif %}            
           </div>
-        </div><!-- End Item Details Card -->
+          <div class="item-details pt-2">
+            <div class="detail-item default-tile">
+              <i class="bi bi-calendar text-muted"></i> <span><b>Issue Date:</b> {{ item.issue_date }}</span>
+            </div>
+            <div class="detail-item default-tile">
+              <i class="bi bi-calendar-x text-muted"></i> <span><b>Expiry Date:</b> {{ item.expiry_date }}</span>
+            </div>
+            {% if item.type != "loyaltycard" %}
+            <div class="detail-item default-tile">
+              {% if item.value_type == "percentage" %}
+              <i class="bi bi-percent text-muted"></i> <span><b>Percent:</b> {{ total_value|floatformat:2 }}</span>
+              {% elif item.value_type == "money" %}
+              <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ total_value|floatformat:2 }}</span>
+              {% endif %}
+            </div>
+            {% endif %}
+            {% if item.description %}
+            <div class="default-tile" style="text-align: justify;">
+              <b>Description:</b><br>
+              <span class="content">{{ item.description }}</span>
+            </div>
+            {% endif %}
+            {% if item.file %}
+            <div class="default-tile" style="text-align: justify;">
+              <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
+                <i class="bi bi-download"></i> Download
+              </a>
+            </div>
+            {% endif %}
+          </div>
+          <div class="d-flex justify-content-end mt-3">
+            <a href="{% url 'edit_item' item.id %}" class="btn btn-primary me-2"><i class="bi bi-pencil"></i> Edit</a>
+            <form action="{% url 'delete_item' item.id %}" method="post" class="me-2">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="bi bi-trash"></i> Delete</button>
+            </form>
+            {% if item.type != "loyaltycard" %}
+            <form action="{% url 'toggle_item_status' item.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn {% if item.is_used %} btn-danger {% else %} btn-warning {% endif %}">
+                <i class="bi bi-check-circle"></i>
+                {% if item.is_used %} Mark as Available {% else %} Mark as Used {% endif %}
+              </button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div><!-- End Item Details Card -->
 
         <!-- QR Code and PIN Display -->
         <div class="col-lg-4">
