@@ -375,3 +375,31 @@ body.dark-mode .btn-feature {
 body.dark-mode .btn-feature:hover {
   background-color: #6c757d00;
 }
+
+body.dark-mode .dashboard-voucher {
+  background-color: #7c6128;  
+}
+
+body.dark-mode .dashboard-coupon {
+  background-color: #476439;  
+}
+
+body.dark-mode .dashboard-giftcard {
+  background-color: #7e3434;  
+}
+
+body.dark-mode .dashboard-loyalty {
+  background-color: #5470c6;  
+}
+
+body.dark-mode .dashboard-giftcard .card-body h5,
+body.dark-mode .dashboard-giftcard .card-body h6,
+body.dark-mode .dashboard-voucher .card-body h5,
+body.dark-mode .dashboard-voucher .card-body h6,
+body.dark-mode .dashboard-coupon .card-body h5,
+body.dark-mode .dashboard-coupon .card-body h6,
+body.dark-mode .dashboard-loyalty .card-body h5,
+body.dark-mode .dashboard-loyalty .card-body h6
+ {
+  color: #e0e6eb;
+}

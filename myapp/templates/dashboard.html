@@ -76,7 +76,85 @@
             </div>
 
           </div>
-        </div><!-- End Available Items Card -->
+        </div><!-- End Available Items Card -->     
+
+        <!-- Giftcards -->
+        <div class="col-6">
+          <div class="card info-card dashboard-giftcard">
+            <a href="{% url 'show_items' %}?type=giftcard" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">My Giftcards</span></h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-postcard-heart-fill"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ giftcards_count }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Giftcards Card -->   
+
+        <!-- Coupons -->
+        <div class="col-6">
+          <div class="card info-card dashboard-coupon">
+            <a href="{% url 'show_items' %}?type=coupon" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">My Coupons</span></h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-bookmarks-fill" style="transform: rotate(270deg)"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ coupons_count }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Coupons Card -->
+
+        <!-- Vouchers -->
+        <div class="col-6">
+          <div class="card info-card dashboard-voucher">
+            <a href="{% url 'show_items' %}?type=voucher" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">My Vouchers</span></h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-postcard"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ vouchers_count }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Vouchers Card -->        
+
+        <!-- Loyalty -->
+        <div class="col-6">
+          <div class="card info-card dashboard-loyalty">
+            <a href="{% url 'show_items' %}?type=loyaltycard" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">My Loyalty Cards</span></h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-person-vcard-fill"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ loyaltycards_count }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Loyalty Card --> 
+
+      </div>
+    </div><!-- End Left side columns -->
+
+    <!-- Right side columns -->
+    <div class="col-lg-4">
 
         <!-- Total Value Card -->
         <div class="col-12">
@@ -90,19 +168,11 @@
                 </div>
                 <div class="ps-3">
                   <h6>{{ total_value|floatformat:2 }}</h6>
-                  <span class="text-muted small pt-1 fw-bold">Total Value of Available Items</span>
                 </div>
               </div>
             </div>
           </div>
-        </div><!-- End Total Value Card -->        
-
-      </div>
-    </div><!-- End Left side columns -->
-
-    <!-- Right side columns -->
-    <div class="col-lg-4">
-
+        </div><!-- End Total Value Card -->         
       <!-- Item Distribution -->
       <div class="card">
 
@@ -160,8 +230,8 @@
                             itemStyle: {
                                 color: function(params) {
                                     const colors = isDarkMode 
-                                        ? ['#91cc75', '#fac858', '#ee6666', '#5470c6']
-                                        : ['#91cc75', '#fac858', '#ee6666', '#5470c6']
+                                        ? ['#476439', '#7c6128', '#7e3434', '#5470c6']
+                                        : ['#a8ea89', '#fac858', '#ff7979', '#89a6ff']
                                     return colors[params.dataIndex];
                                 }
                             }

@@ -1300,3 +1300,31 @@ input.readonly {
   background-color: rgb(238, 243, 251);
   color: black;
 }
+
+.dashboard-voucher {
+  background-color: #fac858;
+}
+
+.dashboard-coupon {
+  background-color: #a8ea89;
+}
+
+.dashboard-giftcard {
+  background-color: #ff7979;  
+}
+
+.dashboard-loyalty {
+  background-color: #89a6ff;  
+}
+
+.dashboard-giftcard .card-body h5,
+.dashboard-giftcard .card-body h6,
+.dashboard-voucher .card-body h5,
+.dashboard-voucher .card-body h6,
+.dashboard-coupon .card-body h5,
+.dashboard-coupon .card-body h6,
+.dashboard-loyalty .card-body h5,
+.dashboard-loyalty .card-body h6
+ {
+  color: rgb(48, 47, 47);
+}
