@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.0...v1.5.1) (2024-08-06)
+
+
+### Bug Fixes
+
+* **deps:** upgrade Django to fix CVEs ([f482b69](https://github.com/l4rm4nd/VoucherVault/commit/f482b695035d8f020eae6ae929ecfd765de836e0))
+
 ## [1.5.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.6...v1.5.0) (2024-08-05)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * allow camera scanning from localhost ([420414b](https://github.com/l4rm4nd/VoucherVault/commit/420414b1f240d123c4f81871e229bf31961104e4))
-
-## [1.4.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.2...v1.4.3) (2024-08-01)
-
-
-### Bug Fixes
-
-* **scanner:** display video stream to the user ([ca4dc37](https://github.com/l4rm4nd/VoucherVault/commit/ca4dc3740edd0380d26d35c93ef4518932a5d9fb))
 
