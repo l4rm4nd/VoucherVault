@@ -33,6 +33,8 @@ perform_migrations() {
     python manage.py makemigrations myapp
     python manage.py migrate
     python manage.py migrate myapp
+    django-admin makemessages --all 2>&1 > /dev/null
+    django-admin compilemessages 2>&1 > /dev/null
     echo ""
 
     if [ -z "$DB_INITIALIZED" ]; then

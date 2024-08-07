@@ -1,12 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% load static %}
 
 {% block content %}
+
 <div class="pagetitle">
   <h1>Dashboard</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active">Dashboard</li>
+      <li class="breadcrumb-item"><a href="/">{% trans "Home" %}</a></li>
+      <li class="breadcrumb-item active">{% trans "Dashboard" %}</li>
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -23,7 +26,7 @@
           <div class="card info-card revenue-card">
             <a href="{% url 'show_items' %}?status=available" class="stretched-link"></a>
             <div class="card-body">
-              <h5 class="card-title">Items <span>| Available</span></h5>
+              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Available" %}</span></h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -43,7 +46,7 @@
           <div class="card info-card customers-card">
             <a href="{% url 'show_items' %}?status=used" class="stretched-link"></a>
             <div class="card-body">
-              <h5 class="card-title">Items <span>| Used</span></h5>
+              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Used" %}</span></h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -63,7 +66,7 @@
           <div class="card info-card customers-card">
             <a href="{% url 'show_items' %}?status=expired" class="stretched-link"></a>
             <div class="card-body">
-              <h5 class="card-title">Items <span>| Expired</span></h5>
+              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Expired" %}</span></h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -83,7 +86,7 @@
           <div class="card info-card dashboard-giftcard">
             <a href="{% url 'show_items' %}?type=giftcard" class="stretched-link"></a>
             <div class="card-body">
-              <h5 class="card-title">My Giftcards</span></h5>
+              <h5 class="card-title">{% trans "My Giftcards" %}</span></h5>
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-postcard-heart-fill"></i>
@@ -101,7 +104,7 @@
           <div class="card info-card dashboard-coupon">
             <a href="{% url 'show_items' %}?type=coupon" class="stretched-link"></a>
             <div class="card-body">
-              <h5 class="card-title">My Coupons</span></h5>
+              <h5 class="card-title">{% trans "My Coupons" %}</span></h5>
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-bookmarks-fill" style="transform: rotate(270deg)"></i>
@@ -119,7 +122,7 @@
           <div class="card info-card dashboard-voucher">
             <a href="{% url 'show_items' %}?type=voucher" class="stretched-link"></a>
             <div class="card-body">
-              <h5 class="card-title">My Vouchers</span></h5>
+              <h5 class="card-title">{% trans "My Vouchers" %}</span></h5>
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-postcard"></i>
@@ -137,7 +140,7 @@
           <div class="card info-card dashboard-loyalty">
             <a href="{% url 'show_items' %}?type=loyaltycard" class="stretched-link"></a>
             <div class="card-body">
-              <h5 class="card-title">My Loyalty Cards</span></h5>
+              <h5 class="card-title">{% trans "My Loyalty Cards" %}</span></h5>
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-person-vcard-fill"></i>
@@ -160,7 +163,7 @@
         <div class="col-12">
           <div class="card info-card sales-card">
             <div class="card-body">
-              <h5 class="card-title">Total Value <span>| Available Items</span></h5>
+              <h5 class="card-title">{% trans "Total Value" %} <span>| {% trans "Available Items" %}</span></h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -177,7 +180,7 @@
       <div class="card">
 
         <div class="card-body pb-0">
-          <h5 class="card-title">Item Distribution <span>| Total</span></h5>
+          <h5 class="card-title">{% trans "Item Distribution" %} <span>| {% trans "Total" %}</span></h5>
 
           <div id="itemDistributionChart" style="min-height: 400px;" class="echart"></div>
 
@@ -222,10 +225,10 @@
                                 show: false
                             },
                             data: [
-                                { value: {{ coupons_count }}, name: 'Coupons' },
-                                { value: {{ vouchers_count }}, name: 'Vouchers' },
-                                { value: {{ giftcards_count }}, name: 'Gift Cards' },
-                                { value: {{ loyaltycards_count }}, name: 'Loyalty Cards' }
+                                { value: {{ coupons_count }}, name: '{% trans "Coupons" %}' },
+                                { value: {{ vouchers_count }}, name: '{% trans "Vouchers" %}' },
+                                { value: {{ giftcards_count }}, name: '{% trans "Gift Cards" %}' },
+                                { value: {{ loyaltycards_count }}, name: '{% trans "Loyalty Cards" %}' }
                             ],
                             itemStyle: {
                                 color: function(params) {

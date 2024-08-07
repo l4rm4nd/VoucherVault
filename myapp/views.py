@@ -17,6 +17,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
+
+apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
 
 def calculate_ean13_check_digit(code):
     # Calculate the EAN-13 check digit
@@ -289,7 +292,8 @@ def toggle_item_status(request, item_id):
         item.is_used = False
 
         # Remove the previously created "Mark as used" transaction
-        transaction = Transaction.objects.filter(item=item, description='Marked as used, removing remaining value').all()
+        desc_txt = _('Marked as used, removing remaining value')
+        transaction = Transaction.objects.filter(item=item, description=desc_txt).all()
         if transaction:
             transaction.delete()
     else:
@@ -300,7 +304,7 @@ def toggle_item_status(request, item_id):
 
         transaction = Transaction(
             item=item,
-            description='Marked as used, removing remaining value',
+            description=desc_txt,
             value=-value_to_remove  # This will be a negative value to reduce the item value
         )
         transaction.save()
@@ -315,14 +319,15 @@ def update_apprise_urls(request):
         form = UserProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
             apprise_urls = form.cleaned_data['apprise_urls']
-            if apprise_urls != 'Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.':
+            
+            if apprise_urls != apprise_txt:
                 user_profile.apprise_urls = apprise_urls
                 form.save()
             return redirect('show_items')  # Redirect to 'show_items' after saving
     else:
         # Mask the apprise_urls in the form
         initial_data = {
-            'apprise_urls': 'Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.' if user_profile.apprise_urls else ''
+            'apprise_urls': apprise_txt if user_profile.apprise_urls else ''
         }
         form = UserProfileForm(instance=user_profile, initial=initial_data)
     return render(request, 'update_apprise_urls.html', {'form': form})
@@ -332,13 +337,14 @@ def update_apprise_urls(request):
 def verify_apprise_urls(request):
     data = json.loads(request.body)
     apprise_urls = data.get('apprise_urls', '')
+    apprise_error_msg = _('No Apprise URLs provided.')
 
     # if the user sent no apprise urls
     if not apprise_urls:
-        return JsonResponse({'success': False, 'message': 'No Apprise URLs provided.'})
+        return JsonResponse({'success': False, 'message': apprise_error_msg})
 
     # if the user just wants to test the previously configured apprise urls
-    if apprise_urls == "Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.":
+    if apprise_urls == apprise_txt:
         user_settings = get_object_or_404(UserProfile, user=request.user)
         apprise_urls = user_settings.apprise_urls
 
@@ -355,18 +361,26 @@ def verify_apprise_urls(request):
             invalid_urls.append(url)
 
     if invalid_urls:
-        return JsonResponse({'success': False, 'message': f'Invalid Apprise URLs: {", ".join(invalid_urls)}'})
+        apprise_error_msg = _('Invalid Apprise URLs:')
+        return JsonResponse({'success': False, 'message': f'{apprise_error_msg}: {", ".join(invalid_urls)}'})
 
     # Send a test notification if all URLs are valid
     try:
+        msg_body = _('This is an Apprise test notification.')
+        msg_title = _('Test Notification by VoucherVault')
+        msg_success = _('Test notification to at least one Apprise URL sent successfully.')
+        msg_failure = _('Failed to send test notification for every Apprise URL given.')
+
         success = apobj.notify(
-            body='This is an Apprise test notification.',
-            title='Test Notification by VoucherVault',
+            body=msg_body,
+            title=msg_title,
             notify_type=apprise.NotifyType.INFO
         )
+
         if success:
-            return JsonResponse({'success': True, 'message': 'Test notification to at least one Apprise URL sent successfully.'})
+            return JsonResponse({'success': True, 'message': msg_success})
         else:
-            return JsonResponse({'success': False, 'message': 'Failed to send test notification for every Apprise URL given.'})
+            return JsonResponse({'success': False, 'message': msg_failure})
+        
     except Exception as e:
         return JsonResponse({'success': False, 'message': f'Failed to send test notification: {str(e)}'})

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 
-urlpatterns = [
+urlpatterns = (
     path("dashboard", views.dashboard, name="dashboard"),
     path('', views.show_items, name='show_items'),
     path('items/create/', views.create_item, name='create_item'),
@@ -19,7 +19,7 @@ urlpatterns = [
     path('transactions/delete/<uuid:transaction_id>', views.delete_transaction, name='delete_transaction'),
     path('verify-apprise-urls/', views.verify_apprise_urls, name='verify_apprise_urls'),
     path('download/<uuid:item_id>/', views.download_file, name='download_file'),
-]
+)
 
 admin.site.site_header = "VoucherVault"
 admin.site.site_title = "VoucherVault"

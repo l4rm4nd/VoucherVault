@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -7,9 +8,9 @@
     <h1>Edit Item</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'show_items' %}">Inventory</a></li>
-            <li class="breadcrumb-item active">Edit Item</li>
+            <li class="breadcrumb-item"><a href="/">{% trans "Home" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Inventory" %}</a></li>
+            <li class="breadcrumb-item active">{% trans "Edit Item" %}</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -19,7 +20,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Item Details</h5>
+                    <h5 class="card-title">{% trans "Item Details" %}</h5>
 
                     <!-- QR Code Scanner Section -->
                     <section class="mb-3 mt-1" id="qrScannerSection" style="display:none;">
@@ -27,7 +28,7 @@
                         <video id="video" width="250" height="250" style="border: 1px solid gray"></video>
                         <canvas id="canvas" hidden></canvas>
                         <div id="output" hidden>
-                            <div style="color: lightgray" id="outputMessage">No QR code detected.</div>
+                            <div style="color: lightgray" id="outputMessage">{% trans "No QR code detected" %}.</div>
                             <div style="color: lightgray" hidden><b>Data:</b> <span id="outputData"></span></div>
                         </div>
                     </section>
@@ -36,33 +37,33 @@
                     <form method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row mb-3">
-                            <label for="type" class="col-sm-2 col-form-label">Type</label>
+                            <label for="type" class="col-sm-2 col-form-label">{% trans "Type" %}</label>
                             <div class="col-sm-10">
                                 <select class="form-select" id="type" name="type" required>
-                                    <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>Gift Card</option>
-                                    <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>Voucher</option>
-                                    <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>Coupon</option>
-                                    <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>Loyalty Card</option>
+                                    <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>{% trans "Gift Card" %}</option>
+                                    <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>{% trans "Voucher" %}</option>
+                                    <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>{% trans "Coupon" %}</option>
+                                    <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Card" %}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="name" class="col-sm-2 col-form-label">Name</label>
+                            <label for="name" class="col-sm-2 col-form-label">{% trans "Name" %}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" name="name" value="{{ item.name }}" required>
+                                <input type="text" placeholder="{% trans 'The name of the item' %}" class="form-control" id="name" name="name" value="{{ item.name }}" required>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="issuer" class="col-sm-2 col-form-label">Issuer</label>
+                            <label for="issuer" class="col-sm-2 col-form-label">{% trans "Issuer" %}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control mt-2" id="issuer" name="issuer" value="{{ item.issuer }}" required>
+                                <input type="text" placeholder="{% trans 'The issuer of the item' %}" class="form-control mt-2" id="issuer" name="issuer" value="{{ item.issuer }}" required>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="redeem_code" class="col-sm-2 col-form-label">Redeem Code</label>
+                            <label for="redeem_code" class="col-sm-2 col-form-label">{% trans "Redeem Code" %}</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input placeholder="The redeem code of the item" value="{{ item.redeem_code }}" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
+                                    <input placeholder="{% trans 'The redeem code of the item' %}" value="{{ item.redeem_code }}" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
                                     <button title="Scan QR code via camera" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
                                         <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
@@ -70,31 +71,31 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="redeem_code" class="col-sm-2 col-form-label">PIN Code</label>
+                            <label for="redeem_code" class="col-sm-2 col-form-label">{% trans "PIN Code" %}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="pin" name="pin" value="{{ item.pin|default_if_none:'' }}">
+                                <input placeholder="{% trans 'The pin code of the item' %}" type="text" class="form-control" id="pin" name="pin" value="{{ item.pin|default_if_none:'' }}">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="issue_date" class="col-sm-2 col-form-label">Issue Date</label>
+                            <label for="issue_date" class="col-sm-2 col-form-label">{% trans "Issue Date" %}</label>
                             <div class="col-sm-10">
                                 <input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="expiry_date" class="col-sm-2 col-form-label">Expiry Date</label>
+                            <label for="expiry_date" class="col-sm-2 col-form-label">{% trans "Expiry Date" %}</label>
                             <div class="col-sm-10">
                                 <input type="date" class="form-control" id="expiry_date" name="expiry_date" value='{{ form.expiry_date.value|date:"Y-m-d" }}' required>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="description" class="col-sm-2 col-form-label">Description</label>
+                            <label for="description" class="col-sm-2 col-form-label">{% trans "Description" %}</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="description" name="description" rows="4">{{ item.description }}</textarea>
+                                <textarea placeholder="{% trans 'The description of the item' %}" class="form-control" id="description" name="description" rows="4">{{ item.description }}</textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="logo_slug" class="col-sm-2 col-form-label">Logo Slug
+                            <label for="logo_slug" class="col-sm-2 col-form-label">{% trans "Logo Slug" %}
                                 <a href="https://www.logo.dev/" target="_blank">
                                   <i class="bi bi-info-circle"></i>
                                 </a>
@@ -104,10 +105,10 @@
                             </div>
                         </div>  
                         <div class="row mb-3">
-                            <label for="value" class="col-sm-2 col-form-label">Value</label>
+                            <label for="value" class="col-sm-2 col-form-label">{% trans "Value" %}</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" value="{{ item.value }}" required>
+                                    <input placeholder="{% trans 'The value of the item' %}" type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" value="{{ item.value }}" required>
                                     <button class="btn btn-outline-secondary d-none" type="button" id="toggle-value-type">
                                         <span id="value-type-icon" class="bi bi-cash-coin"></span>
                                     </button>
@@ -116,14 +117,14 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="file" class="col-sm-2 col-form-label">Upload File</label>
+                            <label for="file" class="col-sm-2 col-form-label">{% trans "Upload File" %}</label>
                             <div class="col-sm-10">
                                 <input type="file" id="file" name="file" class="form-control">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-10 offset-sm-2">
-                                <button type="submit" class="btn btn-primary">Update Item</button>
+                                <button type="submit" class="btn btn-primary">{% trans "Update Item" %}</button>
                             </div>
                         </div>
                     </form><!-- End Item Form -->
@@ -188,14 +189,12 @@
           if (valueTypeField.value === 'percentage') {
               valueTypeIcon.classList.remove('bi-cash-coin');
               valueTypeIcon.classList.add('bi-percent');
-              valueField.placeholder = "The percentage value of the item";
               valueField.setAttribute('step', '0.01');
               valueField.setAttribute('min', '0.00');
               valueField.setAttribute('max', '100.00');
           } else {
               valueTypeIcon.classList.remove('bi-percent');
               valueTypeIcon.classList.add('bi-cash-coin');
-              valueField.placeholder = "The monetary value of the item";
               valueField.setAttribute('step', '0.01');
               valueField.setAttribute('min', '0.00');
               valueField.removeAttribute('max');
@@ -234,7 +233,6 @@
               valueTypeField.value = 'percentage';
               valueTypeIcon.classList.remove('bi-cash-coin');
               valueTypeIcon.classList.add('bi-percent');
-              //valueField.placeholder = "The percentage value of the item";
               valueField.setAttribute('step', '0.01');
               valueField.setAttribute('min', '0.00');
               valueField.setAttribute('max', '100.00');
@@ -242,7 +240,6 @@
               valueTypeField.value = 'money';
               valueTypeIcon.classList.remove('bi-percent');
               valueTypeIcon.classList.add('bi-cash-coin');
-              //valueField.placeholder = "The monetary value of the item";
               valueField.setAttribute('step', '0.01');
               valueField.setAttribute('min', '0.00');
               valueField.removeAttribute('max');

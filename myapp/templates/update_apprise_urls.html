@@ -1,13 +1,13 @@
-<!-- templates/update_apprise_urls.html -->
-
 {% extends "base.html" %}
+{% load i18n %}
+{% load static %}
 
 {% block content %}
 <div class="pagetitle">
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">User</li>
-      <li class="breadcrumb-item active"><a href="{% url 'update_apprise_urls' %}">Notification Settings</a></li>
+      <li class="breadcrumb-item">{% trans "User" %}</li>
+      <li class="breadcrumb-item active"><a href="{% url 'update_apprise_urls' %}">{% trans "Notification Settings" %}</a></li>
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -17,8 +17,8 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Configure Your Apprise URLs</h6>
-          <span>These URLs will be used to send out personal expiry notifications. Leave empty to disable notifications.</span><p>
+          <h6 class="card-title">{% trans "Configure Your Apprise URLs" %}</h6>
+          <span>{% trans "These URLs will be used to send out personal expiry notifications. Leave empty to disable notifications." %}</span><p>
 
           <!-- Apprise URLs Form -->
           <form method="POST" action="">
@@ -35,8 +35,8 @@
             </div>
             <div class="row mb-3">
               <div class="col-sm-10 offset-sm-2">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <button type="button" class="btn btn-secondary" id="verify-button">Test</button>
+                <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+                <button type="button" class="btn btn-secondary" id="verify-button">{% trans "Test" %}</button>
               </div>
             </div>
           </form><!-- End Apprise URLs Form -->
@@ -44,7 +44,7 @@
           <div id="verify-result"></div>
           <div id="spinner" class="text-center mt-3" style="display: none;">
             <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
+              <span class="visually-hidden">{% trans "Loading..." %}</span>
             </div>
           </div>
         </div>
