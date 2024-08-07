@@ -64,7 +64,7 @@
                       <div>
                         <h5 class="card-title">
                           <i class="bi bi-shop"></i> {{ entry.item.issuer }}
-                          <span>&gt; {{ entry.item.type }}
+                          <span>&gt; {% translate entry.item.type %}
                             {% if entry.item.is_used %}
                               <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
                             {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}

@@ -39,7 +39,7 @@
             <div>
               <h5 class="card-title">
                 <i class="bi bi-shop"></i> {{ item.issuer }} 
-                <span>&gt; {{ item.type }}
+                <span>&gt; {% trans item.type %}
                   {% if item.is_used %}
                     <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
                   {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
@@ -87,7 +87,7 @@
             <a href="{% url 'edit_item' item.id %}" class="btn btn-primary me-2"><i class="bi bi-pencil"></i> {% trans "Edit" %}</a>
             <form action="{% url 'delete_item' item.id %}" method="post" class="me-2">
               {% csrf_token %}
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="bi bi-trash"></i> {% trans "Delete" %}</button>
+              <button type="submit" class="btn btn-danger" onclick="return confirm('{% trans "Are you sure to delete?" %}');"><i class="bi bi-trash"></i> {% trans "Delete" %}</button>
             </form>
             {% if item.type != "loyaltycard" %}
             <form action="{% url 'toggle_item_status' item.id %}" method="post">
@@ -160,7 +160,7 @@
                       <td>
                         <form action="{% url 'delete_transaction' transaction.id %}" method="post" style="margin: 0;">
                           {% csrf_token %}
-                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this transaction?');"><i class="bi bi-trash"></i></button>
+                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure to delete?" %}');"><i class="bi bi-trash"></i></button>
                         </form>
                       </td>
                     </tr>
@@ -223,10 +223,10 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleButton.addEventListener('click', function() {
         if (pinInput.type === 'password') {
             pinInput.type = 'text';
-            toggleButton.textContent = 'Hide PIN';
+            toggleButton.textContent = '{% trans "Hide PIN" %}';
         } else {
             pinInput.type = 'password';
-            toggleButton.textContent = 'Show PIN';
+            toggleButton.textContent = '{% trans "Show PIN" %}';
         }
     });
 });

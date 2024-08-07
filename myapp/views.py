@@ -112,8 +112,8 @@ def show_items(request):
 
     context = {
         'items_with_qr': items_with_qr,
-        'item_type': item_type,
-        'item_status': item_status,
+        'item_type':  item_type,
+        'item_status':  item_status,
         'search_query': search_query,
         'current_date': timezone.now(),
         'container_version': settings.VERSION,
@@ -286,13 +286,13 @@ def download_file(request, item_id):
 @login_required
 def toggle_item_status(request, item_id):
     item = get_object_or_404(Item, id=item_id, user=request.user)
-    
+    desc_txt = _('Marked as used, removing remaining value')
+
     if item.is_used:
         # If item is currently marked as used, re-toggle to available
         item.is_used = False
 
         # Remove the previously created "Mark as used" transaction
-        desc_txt = _('Marked as used, removing remaining value')
         transaction = Transaction.objects.filter(item=item, description=desc_txt).all()
         if transaction:
             transaction.delete()
@@ -327,7 +327,7 @@ def update_apprise_urls(request):
     else:
         # Mask the apprise_urls in the form
         initial_data = {
-            'apprise_urls': apprise_txt if user_profile.apprise_urls else ''
+            'apprise_urls': apprise_txt if user_profile.apprise_urls else '',
         }
         form = UserProfileForm(instance=user_profile, initial=initial_data)
     return render(request, 'update_apprise_urls.html', {'form': form})

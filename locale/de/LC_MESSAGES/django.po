@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 18:36+0200\n"
+"POT-Creation-Date: 2024-08-07 22:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -290,9 +290,6 @@ msgstr "Gutscheine"
 msgid "Loyalty Cards"
 msgstr "Kundenkarten"
 
-#: myapp/templates/edit-item.html:8 myapp/templates/edit-item.html:13
-#, fuzzy
-#| msgid "Edit"
 msgid "Edit Item"
 msgstr "Bearbeiten"
 
@@ -339,7 +336,7 @@ msgstr "Prozent"
 #: venv/lib/python3.11/site-packages/apprise/plugins/synology.py:94
 #: venv/lib/python3.11/site-packages/apprise/plugins/xbmc.py:107
 msgid "Username"
-msgstr "Nutzername"
+msgstr "Benutzername"
 
 #: myapp/templates/registration/login.html:147
 #: venv/lib/python3.11/site-packages/apprise/plugins/apprise_api.py:117
@@ -457,10 +454,8 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: myapp/templates/view-item.html:97
-#, fuzzy
-#| msgid "Available"
 msgid "Mark as Available"
-msgstr "Verfügbar"
+msgstr "Als verfügbar markieren"
 
 #: myapp/templates/view-item.html:97
 msgid "Mark as Used"
@@ -520,7 +515,7 @@ msgstr ""
 "angezeigt, um Geheimnisse zu schützen. Sie können die URLs jedoch jederzeit "
 "neu konfigurieren."
 
-#: myapp/views.py:295
+#: myapp/views.py:289
 msgid "Marked as used, removing remaining value"
 msgstr "Als eingelöst markiert, Restwert entfernt"
 
@@ -3616,3 +3611,21 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/timezone_field/rest_framework.py:10
 msgid "A valid timezone is required."
 msgstr ""
+
+msgid "giftcard"
+msgstr "Gutschein"
+
+msgid "loyaltycard"
+msgstr "Kundenkarte"
+
+msgid "voucher"
+msgstr "Voucher"
+
+msgid "coupon"
+msgstr "Coupon"
+
+msgid "Hide PIN"
+msgstr "PIN verbergen"
+
+msgid "Are you sure to delete?"
+msgstr "Wollen Sie wirklich löschen?"

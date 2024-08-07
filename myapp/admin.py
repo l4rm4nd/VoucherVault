@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from django.utils.translation import gettext_lazy as _
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'apprise_urls')
