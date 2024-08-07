@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 18:25+0200\n"
+"POT-Creation-Date: 2024-08-07 18:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,12 +112,12 @@ msgid "The issuer of the item"
 msgstr "Der Aussteller des Gegenstandes"
 
 #: myapp/templates/create-item.html:72 myapp/templates/create-item.html:215
-#: myapp/templates/edit-item.html:63
+#: myapp/templates/edit-item.html:63 myapp/templates/edit-item.html:220
 msgid "Redeem Code"
 msgstr "Einlöse-Code"
 
 #: myapp/templates/create-item.html:75 myapp/templates/create-item.html:216
-#: myapp/templates/edit-item.html:66
+#: myapp/templates/edit-item.html:66 myapp/templates/edit-item.html:221
 msgid "The redeem code of the item"
 msgstr "Der Einlöse-Code des Gegenstandes"
 
@@ -171,21 +171,21 @@ msgstr "Datei hochladen"
 msgid "Create Item"
 msgstr "Gegenstand erstellen"
 
-#: myapp/templates/create-item.html:207
+#: myapp/templates/create-item.html:207 myapp/templates/edit-item.html:211
 msgid "Store"
 msgstr "Geschäft"
 
-#: myapp/templates/create-item.html:208
+#: myapp/templates/create-item.html:208 myapp/templates/edit-item.html:212
 msgid "The store of your loyalty card"
 msgstr "Das Geschäft deiner Kundenkarte"
 
-#: myapp/templates/create-item.html:209
+#: myapp/templates/create-item.html:209 myapp/templates/edit-item.html:213
 #, fuzzy
 #| msgid "Loyalty Card"
 msgid "Loyalty ID"
 msgstr "Kundenkarte"
 
-#: myapp/templates/create-item.html:210
+#: myapp/templates/create-item.html:210 myapp/templates/edit-item.html:214
 msgid "Loyalty card number or customer ID"
 msgstr "Kartennummer oder Kunden-ID"
 

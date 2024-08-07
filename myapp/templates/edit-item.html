@@ -208,17 +208,17 @@
               pinField.classList.add('readonly');
               valueField.classList.add('readonly');
               valueField.value = 0;
-              issuerCodeLabel.textContent = 'Store';
-              issuerCodeField.placeholder = 'The store of your loyalty card';
-              redeemCodeLabel.textContent = 'Loyalty ID';
-              redeemCodeField.placeholder = 'Loyalty card number or customer ID';
+              issuerCodeLabel.textContent = "{% trans 'Store' %}";
+              issuerCodeField.placeholder = "{% trans 'The store of your loyalty card' %}";
+              redeemCodeLabel.textContent = "{% trans 'Loyalty ID' %}";
+              redeemCodeField.placeholder = "{% trans 'Loyalty card number or customer ID' %}";
           } else {
               pinField.readOnly = false;
               valueField.readOnly = false;
               pinField.classList.remove('readonly');
               valueField.classList.remove('readonly');
-              redeemCodeLabel.textContent = 'Redeem Code';
-              redeemCodeField.placeholder = 'The redeem code of the item';
+              redeemCodeLabel.textContent = "{% trans 'Redeem Code' %}";
+              redeemCodeField.placeholder = "{% trans 'The redeem code of the item' %}";
           }
 
           if (typeField.value === 'coupon') {
