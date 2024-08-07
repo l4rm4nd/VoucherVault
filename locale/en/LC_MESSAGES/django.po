@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 18:17+0200\n"
+"POT-Creation-Date: 2024-08-07 18:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,12 +37,14 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-#: myapp/templates/base.html:148 myapp/templates/dashboard.html:12
+#: myapp/templates/base.html:148 myapp/templates/dashboard.html:8
+#: myapp/templates/dashboard.html:12
 msgid "Dashboard"
 msgstr ""
 
 #: myapp/templates/base.html:155 myapp/templates/edit-item.html:12
-#: myapp/templates/inventory.html:12 myapp/templates/view-item.html:18
+#: myapp/templates/inventory.html:8 myapp/templates/inventory.html:12
+#: myapp/templates/view-item.html:18
 msgid "Inventory"
 msgstr ""
 
@@ -62,7 +64,7 @@ msgid "Home"
 msgstr ""
 
 #: myapp/templates/create-item.html:30 myapp/templates/edit-item.html:23
-#: myapp/templates/view-item.html:19
+#: myapp/templates/view-item.html:14 myapp/templates/view-item.html:19
 msgid "Item Details"
 msgstr ""
 
@@ -250,7 +252,7 @@ msgstr ""
 msgid "Loyalty Cards"
 msgstr ""
 
-#: myapp/templates/edit-item.html:13
+#: myapp/templates/edit-item.html:8 myapp/templates/edit-item.html:13
 msgid "Edit Item"
 msgstr ""
 

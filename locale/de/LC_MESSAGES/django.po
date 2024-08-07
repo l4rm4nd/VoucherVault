@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 18:17+0200\n"
+"POT-Creation-Date: 2024-08-07 18:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,12 +37,14 @@ msgstr "Admin Portal"
 msgid "Sign Out"
 msgstr "Abmelden"
 
-#: myapp/templates/base.html:148 myapp/templates/dashboard.html:12
+#: myapp/templates/base.html:148 myapp/templates/dashboard.html:8
+#: myapp/templates/dashboard.html:12
 msgid "Dashboard"
 msgstr "Dashboard"
 
 #: myapp/templates/base.html:155 myapp/templates/edit-item.html:12
-#: myapp/templates/inventory.html:12 myapp/templates/view-item.html:18
+#: myapp/templates/inventory.html:8 myapp/templates/inventory.html:12
+#: myapp/templates/view-item.html:18
 msgid "Inventory"
 msgstr "Inventar"
 
@@ -62,9 +64,9 @@ msgid "Home"
 msgstr "Startseite"
 
 #: myapp/templates/create-item.html:30 myapp/templates/edit-item.html:23
-#: myapp/templates/view-item.html:19
+#: myapp/templates/view-item.html:14 myapp/templates/view-item.html:19
 msgid "Item Details"
-msgstr "Artikeldetails"
+msgstr "Details des Gegenstands"
 
 #: myapp/templates/create-item.html:38 myapp/templates/edit-item.html:31
 #, fuzzy
@@ -99,7 +101,7 @@ msgstr "Name"
 
 #: myapp/templates/create-item.html:60 myapp/templates/edit-item.html:53
 msgid "The name of the item"
-msgstr "Der Name des Artikels"
+msgstr "Der Name des Gegenstandes"
 
 #: myapp/templates/create-item.html:65 myapp/templates/edit-item.html:57
 msgid "Issuer"
@@ -107,7 +109,7 @@ msgstr "Aussteller"
 
 #: myapp/templates/create-item.html:67 myapp/templates/edit-item.html:59
 msgid "The issuer of the item"
-msgstr "Der Aussteller des Artikels"
+msgstr "Der Aussteller des Gegenstandes"
 
 #: myapp/templates/create-item.html:72 myapp/templates/create-item.html:215
 #: myapp/templates/edit-item.html:63
@@ -117,7 +119,7 @@ msgstr "Einlöse-Code"
 #: myapp/templates/create-item.html:75 myapp/templates/create-item.html:216
 #: myapp/templates/edit-item.html:66
 msgid "The redeem code of the item"
-msgstr "Der Einlöse-Code des Artikels"
+msgstr "Der Einlöse-Code des Gegenstandes"
 
 #: myapp/templates/create-item.html:83 myapp/templates/edit-item.html:74
 msgid "PIN Code"
@@ -125,7 +127,7 @@ msgstr "PIN Code"
 
 #: myapp/templates/create-item.html:85 myapp/templates/edit-item.html:76
 msgid "The pin code of the item"
-msgstr "Der PIN-Code des Artikels"
+msgstr "Der PIN-Code des Gegenstandes"
 
 #: myapp/templates/create-item.html:90 myapp/templates/edit-item.html:80
 #: myapp/templates/inventory.html:91 myapp/templates/view-item.html:58
@@ -145,7 +147,7 @@ msgstr "Beschreibung"
 
 #: myapp/templates/create-item.html:107 myapp/templates/edit-item.html:94
 msgid "The description of the item"
-msgstr "Die Beschreibung des Artikels"
+msgstr "Die Beschreibung des Gegenstandes"
 
 #: myapp/templates/create-item.html:112 myapp/templates/edit-item.html:98
 msgid "Logo Slug"
@@ -159,7 +161,7 @@ msgstr "Wert"
 
 #: myapp/templates/create-item.html:125 myapp/templates/edit-item.html:111
 msgid "The value of the item"
-msgstr "Der Wert des Artikels"
+msgstr "Der Wert des Gegenstandes"
 
 #: myapp/templates/create-item.html:135 myapp/templates/edit-item.html:120
 msgid "Upload File"
@@ -167,7 +169,7 @@ msgstr "Datei hochladen"
 
 #: myapp/templates/create-item.html:142
 msgid "Create Item"
-msgstr "Artikel erstellen"
+msgstr "Gegenstand erstellen"
 
 #: myapp/templates/create-item.html:207
 msgid "Store"
@@ -190,7 +192,7 @@ msgstr "Kartennummer oder Kunden-ID"
 #: myapp/templates/dashboard.html:29 myapp/templates/dashboard.html:49
 #: myapp/templates/dashboard.html:69
 msgid "Items"
-msgstr "Artikel"
+msgstr "Gegenstand"
 
 #: myapp/templates/dashboard.html:29 myapp/templates/inventory.html:35
 msgid "Available"
@@ -228,11 +230,11 @@ msgstr "Gesamtwert"
 
 #: myapp/templates/dashboard.html:166
 msgid "Available Items"
-msgstr "Verfügbare Artikel"
+msgstr "Verfügbare Gegenstände"
 
 #: myapp/templates/dashboard.html:183
 msgid "Item Distribution"
-msgstr "Artikelverteilung"
+msgstr "Verteilung"
 
 #: myapp/templates/dashboard.html:183
 msgid "Total"
@@ -256,21 +258,19 @@ msgstr "Gutscheine"
 msgid "Loyalty Cards"
 msgstr "Kundenkarten"
 
-#: myapp/templates/edit-item.html:13
+#: myapp/templates/edit-item.html:8 myapp/templates/edit-item.html:13
 #, fuzzy
 #| msgid "Edit"
 msgid "Edit Item"
 msgstr "Bearbeiten"
 
 #: myapp/templates/edit-item.html:127
-#, fuzzy
-#| msgid "Create Item"
 msgid "Update Item"
-msgstr "Artikel erstellen"
+msgstr "Gegenstand aktualisieren"
 
 #: myapp/templates/inventory.html:25
 msgid "All Items"
-msgstr "Alle Artikel"
+msgstr "Alle Gegenstände"
 
 #: myapp/templates/inventory.html:41
 msgid "Search keyword"
