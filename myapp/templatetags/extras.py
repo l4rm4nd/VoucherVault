@@ -8,3 +8,7 @@ register = template.Library()
 def env(key):
     if key == "OIDC_ENABLED":
         return settings.OIDC_ENABLED
+
+@register.filter()
+def comma_to_dot(value):
+    return str(value).replace(',', '.')    
