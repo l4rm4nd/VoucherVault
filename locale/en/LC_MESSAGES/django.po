@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 18:30+0200\n"
+"POT-Creation-Date: 2024-08-07 18:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: myapp/forms.py:37
+msgid "File type is not supported."
+msgstr ""
+
+#: myapp/forms.py:38
+msgid "File size is too large."
+msgstr ""
+
+#: myapp/forms.py:51
+msgid "Value must be zero for loyalty cards."
+msgstr ""
+
+#: myapp/forms.py:55
+msgid "Value must be a positive monetary amount."
+msgstr ""
+
+#: myapp/forms.py:58
+msgid "Percentage value must be between 0 and 100."
+msgstr ""
+
+#: myapp/forms.py:61
+msgid "Value must be positive."
+msgstr ""
+
+#: myapp/forms.py:77
+msgid "Transaction value must be negative."
+msgstr ""
+
+#: myapp/forms.py:84
+msgid "Transaction would result in negative item value."
+msgstr ""
 
 #: myapp/templates/base.html:95 myapp/templates/update_apprise_urls.html:10
 msgid "Notification Settings"
