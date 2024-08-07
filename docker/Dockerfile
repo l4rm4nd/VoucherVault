@@ -3,8 +3,8 @@ FROM python:3.12.4-slim
 # define environment
 ARG VERSION=0
 ENV VERSION=$VERSION
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # update and install software + create necessary dirs
 RUN apt-get update && apt-get install -y --no-install-recommends \
