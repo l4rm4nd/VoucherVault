@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 {% load extras %}
 
@@ -91,14 +92,14 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{% url 'update_apprise_urls' %}">
                 <i class="bi bi-bell"></i>
-                <span>Notification Settings</span>
+                <span>{% trans "Notification Settings" %}</span>
               </a>
             </li>
             {% if not "OIDC_ENABLED"|env %}
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{% url 'password_change' %}">
                 <i class="bi bi-key"></i>
-                <span>Change Password</span>
+                <span>{% trans "Change Password" %}</span>
               </a>
             </li>
             {% endif %}
@@ -106,7 +107,7 @@
               {% if request.user.is_superuser %}
                 <a class="dropdown-item d-flex align-items-center" href="/admin">
                   <i class="bi bi-gear"></i>
-                  <span>Admin Settings</span>
+                  <span>{% trans "Admin Settings" %}</span>
                 </a>
               {% endif %}
             </li>
@@ -119,11 +120,11 @@
             </li>
 
             <li>
-              <form method="post" action="{% if 'OIDC_ENABLED'|env == True %}{% url 'oidc_logout' %}{% else %}/logout/{% endif %}" style="display: inline;">
+              <form method="post" action="{% if 'OIDC_ENABLED'|env == True %}{% url 'oidc_logout' %}{% else %}{% url 'logout' %}{% endif %}" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="dropdown-item d-flex align-items-center">
                   <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
+                  <span>{% trans "Sign Out" %}</span>
                 </button>
               </form>
             </li>
@@ -140,30 +141,46 @@
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-
+      
       <li class="nav-item">
         <a class="nav-link " href="{% url 'dashboard' %}">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>{% trans "Dashboard" %}</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link " href="{% url 'show_items' %}">
           <i class="bi bi-menu-button-wide"></i>
-          <span>Inventory</span>
+          <span>{% trans "Inventory" %}</span>
         </a>
       </li>
 
-      <li class="nav-heading">Pages</li>
+      <li class="nav-heading">{% trans "Functions" %}</li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'create_item' %}">
           <i class="bi bi-file-earmark"></i>
-          <span>Create New Item</span>
+          <span>{% trans "Create New Item" %}</span>
         </a>
       </li><!-- End Blank Page Nav -->
-
+      <!-- Language Toggle Button -->
+      <li class="nav-item" style="position: absolute; bottom: 20px; width: 100%;">
+        <form id="languageForm" style="margin-left: 10px;" action="{% url 'set_language' %}" method="post">
+          {% csrf_token %}
+          <input name="next" type="hidden" value="{{ redirect_to }}">
+          <select name="language" id="languageSelect">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {% for language in languages %}
+                  <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                      {{ language.name_local }}
+                  </option>
+              {% endfor %}
+          </select>
+        </form>
+      </li>
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -200,6 +217,12 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+
+  <script>
+    document.getElementById('languageSelect').addEventListener('change', function() {
+      document.getElementById('languageForm').submit();
+    });
+  </script>
 
 </body>
 </html>

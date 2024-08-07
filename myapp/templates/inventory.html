@@ -1,12 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
 {% block content %}
 
     <div class="pagetitle">
-      <h1>Inventory</h1>
+      <h1>{% trans "Inventory" %}</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active">Inventory</li>
+          <li class="breadcrumb-item"><a href="/">{% trans "Home" %}</a></li>
+          <li class="breadcrumb-item active">{% trans "Inventory" %}</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -19,26 +22,26 @@
             <div class="row g-2">
               <div class="col-12 col-md-3">
                 <select name="type" onchange="this.form.submit()" class="form-select">
-                  <option value="">All Items</option>
-                  <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>Vouchers</option>
-                  <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>Gift Cards</option>
-                  <option value="coupon" {% if item_type == 'coupon' %}selected{% endif %}>Coupons</option>
-                  <option value="loyaltycard" {% if item_type == 'loyaltycard' %}selected{% endif %}>Loyalty Cards</option>
+                  <option value="">{% trans "All Items" %}</option>
+                  <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>{% trans "Vouchers" %}</option>
+                  <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>{% trans "Gift Cards" %}</option>
+                  <option value="coupon" {% if item_type == 'coupon' %}selected{% endif %}>{% trans "Coupons" %}</option>
+                  <option value="loyaltycard" {% if item_type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Cards" %}</option>
                 </select>
               </div>
               <div class="col-12 col-md-3">
                 <select name="status" onchange="this.form.submit()" class="form-select">
                   <option value="">All Status</option>
-                  <option value="available" {% if item_status == 'available' %}selected{% endif %}>Available</option>
-                  <option value="used" {% if item_status == 'used' %}selected{% endif %}>Used</option>
-                  <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>Expired</option>
+                  <option value="available" {% if item_status == 'available' %}selected{% endif %}>{% trans "Available" %}</option>
+                  <option value="used" {% if item_status == 'used' %}selected{% endif %}>{% trans "Used" %}</option>
+                  <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>{% trans "Expired" %}</option>
                 </select>
               </div>
               <div class="col-12 col-md-4">
-                <input type="text" name="query" placeholder="Search" value="{{ search_query }}" class="form-control">
+                <input type="text" name="query" placeholder="{% trans 'Search keyword' %}" value="{{ search_query }}" class="form-control">
               </div>
               <div class="col-12 col-md-2 d-grid">
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
               </div>
             </div>
           </form>
@@ -61,11 +64,11 @@
                       <div>
                         <h5 class="card-title">
                           <i class="bi bi-shop"></i> {{ entry.item.issuer }}
-                          <span>&gt; {{ entry.item.type }}
+                          <span>&gt; {% translate entry.item.type %}
                             {% if entry.item.is_used %}
-                              <span style="margin-left: 5px; color: black;" class="badge bg-info">Used</span>
+                              <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
                             {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
-                              <span style="margin-left: 5px;" class="badge bg-danger text-dark">Expired</span>
+                              <span style="margin-left: 5px;" class="badge bg-danger text-dark">{% trans "Expired" %}</span>
                             {% endif %}
                           </span>
                         </h5>
@@ -85,15 +88,15 @@
                     </div>
                     <div class="item-details">
                       <div class="detail-item default-tile">
-                        <i class="bi bi-calendar text-muted"></i> <span><b>Issue Date:</b> {{ entry.item.issue_date }}</span>
+                        <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ entry.item.issue_date }}</span>
                       </div>
                       <div class="detail-item default-tile">
-                        <i class="bi bi-calendar-x text-muted"></i> <span><b>Expiry Date:</b> {{ entry.item.expiry_date }}</span>
+                        <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ entry.item.expiry_date }}</span>
                       </div>
                       {% if entry.item.type != "loyaltycard" %}
                       <div class="detail-item default-tile">
                         {% if entry.item.value_type == "percentage" %}
-                        <i class="bi bi-percent text-muted"></i> <span><b>Percentage:</b> {{ entry.current_value|floatformat:2 }}</span>
+                        <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percentage" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
                         {% elif entry.item.value_type == "money" %}
                         <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ entry.current_value|floatformat:2 }}</span>
                         {% endif %}

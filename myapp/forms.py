@@ -6,6 +6,7 @@ from django.http import HttpResponse
 import apprise
 from django import forms
 from .models import *
+from django.utils.translation import gettext_lazy as _
 
 class ItemForm(forms.ModelForm):
     file = forms.FileField(required=False)
@@ -33,9 +34,11 @@ class ItemForm(forms.ModelForm):
         if file:
             if hasattr(file, 'content_type'):
                 if file.content_type not in ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']:
-                    raise forms.ValidationError('File type is not supported.')
+                    error_msg_filetype = _('File type is not supported.')
+                    error_msg_size = _('File size is too large.')
+                    raise forms.ValidationError(error_msg_filetype)
                 if file.size > 5*1024*1024:  # 5MB max size
-                    raise forms.ValidationError('File size is too large.')
+                    raise forms.ValidationError(error_msg_size)
                 return file
 
     def clean(self):
@@ -45,14 +48,18 @@ class ItemForm(forms.ModelForm):
         value = cleaned_data.get('value')
 
         if item_type == 'loyaltycard' and value != 0:
-            raise forms.ValidationError("Value must be zero for loyalty cards.")
+            error_msg_value = _('Value must be zero for loyalty cards.')
+            raise forms.ValidationError(error_msg_value)
         if item_type == 'coupon':
             if value_type == 'money' and (value is None or value < 0):
-                raise forms.ValidationError("Value must be a positive monetary amount.")
+                error_message_value_positive_coupon = _('Value must be a positive monetary amount.')
+                raise forms.ValidationError(error_message_value_positive_coupon)
             elif value_type == 'percentage' and (value is None or value < 0 or value > 100):
-                raise forms.ValidationError("Percentage value must be between 0 and 100.")
+                error_message_percentage = _('Percentage value must be between 0 and 100.')
+                raise forms.ValidationError(error_message_percentage)
         elif item_type != 'loyaltycard' and (value is None or value < 0):
-            raise forms.ValidationError("Value must be positive.")
+            error_message_positive = _('Value must be positive.')
+            raise forms.ValidationError(error_message_positive)
         return cleaned_data
 
 class TransactionForm(forms.ModelForm):
@@ -67,13 +74,15 @@ class TransactionForm(forms.ModelForm):
     def clean_value(self):
         value = self.cleaned_data['value']
         if value >= 0:
-            raise forms.ValidationError("Transaction value must be negative.")
+            error_msg_transaction = _('Transaction value must be negative.')
+            raise forms.ValidationError(error_msg_transaction)
         
         if self.item:
             # Calculate the total value after applying this transaction
             total_value = self.item.value + sum(t.value for t in self.item.transactions.all()) + value
             if total_value < 0:
-                raise forms.ValidationError("Transaction would result in negative item value.")
+                error_msg_value_calc = _('Transaction would result in negative item value.')
+                raise forms.ValidationError(error_msg_value_calc)
         return value     
 
 class UserProfileForm(forms.ModelForm):

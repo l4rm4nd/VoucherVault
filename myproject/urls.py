@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path("", include("myapp.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
-]
+    path("i18n/", include("django.conf.urls.i18n")),
+)
 
 # Conditionally include OIDC URLs if OIDC_ENABLED is False
 if not settings.OIDC_ENABLED:

@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     mime-support \
     postgresql-client \
     unzip &&\
-    mkdir -p /opt/app/docker/ /opt/app/database /opt/app/logs
+    mkdir -p /opt/app/docker/ /opt/app/database /opt/app/logs /opt/app/locale
 
 # define workdir
 WORKDIR /opt/app
@@ -26,6 +26,7 @@ COPY myapp /opt/app/myapp
 COPY manage.py /opt/app/manage.py
 COPY requirements.txt /opt/app/requirements.txt
 COPY /docker/entrypoint.sh /opt/app/docker/entrypoint.sh
+COPY locale /opt/app/locale
 
 # install dependencies, fix permissions
 RUN pip install --upgrade pip && \
