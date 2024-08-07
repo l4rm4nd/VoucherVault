@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.1...v1.5.2) (2024-08-07)
+
+
+### Bug Fixes
+
+* make issuer field mandatory ([3169240](https://github.com/l4rm4nd/VoucherVault/commit/316924022644d3a2e9e77f09b83c834e77273fa0)), closes [#30](https://github.com/l4rm4nd/VoucherVault/issues/30)
+
 ## [1.5.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.0...v1.5.1) (2024-08-06)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add timezone support via envs ([3f63f44](https://github.com/l4rm4nd/VoucherVault/commit/3f63f44d6f896ea96f9ae8a40e3cf6ff09b84c46))
-
-## [1.4.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.3...v1.4.4) (2024-08-02)
-
-
-### Bug Fixes
-
-* allow camera scanning from localhost ([420414b](https://github.com/l4rm4nd/VoucherVault/commit/420414b1f240d123c4f81871e229bf31961104e4))
 
