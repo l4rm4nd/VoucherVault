@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.3...v1.5.4) (2024-08-07)
+
+
+### Bug Fixes
+
+* convert comma to dot; fix bug on chrome for german localization ([3d629ab](https://github.com/l4rm4nd/VoucherVault/commit/3d629ab9428c140a30fda5ece1592408db95e07f))
+
 ## [1.5.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.2...v1.5.3) (2024-08-07)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * allow custom store logos ([0158913](https://github.com/l4rm4nd/VoucherVault/commit/0158913fb2c82552ade8720e4b14dda3a4de7269))
-
-## [1.4.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.5...v1.4.6) (2024-08-04)
-
-
-### Bug Fixes
-
-* **docker:** add volume rw checks in entrypoint ([4b8a81e](https://github.com/l4rm4nd/VoucherVault/commit/4b8a81ec6f6bb03c9eaea6610cadcfb9c844aabe)), closes [#24](https://github.com/l4rm4nd/VoucherVault/issues/24) [#19](https://github.com/l4rm4nd/VoucherVault/issues/19)
 
