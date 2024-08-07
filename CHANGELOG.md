@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.2...v1.5.3) (2024-08-07)
+
+
+### Bug Fixes
+
+* add internationalization ([aad73b2](https://github.com/l4rm4nd/VoucherVault/commit/aad73b272ba94f6c65ae68558570ffb4602d86b7)), closes [#32](https://github.com/l4rm4nd/VoucherVault/issues/32)
+
 ## [1.5.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.1...v1.5.2) (2024-08-07)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * **docker:** add volume rw checks in entrypoint ([4b8a81e](https://github.com/l4rm4nd/VoucherVault/commit/4b8a81ec6f6bb03c9eaea6610cadcfb9c844aabe)), closes [#24](https://github.com/l4rm4nd/VoucherVault/issues/24) [#19](https://github.com/l4rm4nd/VoucherVault/issues/19)
-
-## [1.4.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.4...v1.4.5) (2024-08-03)
-
-
-### Bug Fixes
-
-* add timezone support via envs ([3f63f44](https://github.com/l4rm4nd/VoucherVault/commit/3f63f44d6f896ea96f9ae8a40e3cf6ff09b84c46))
 
