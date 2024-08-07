@@ -65,7 +65,7 @@ msgstr "Passwort ändern"
 
 #: myapp/templates/base.html:110
 msgid "Admin Settings"
-msgstr "Admin Portal"
+msgstr "Adminbereich"
 
 #: myapp/templates/base.html:127
 msgid "Sign Out"
@@ -379,7 +379,7 @@ msgstr "Anmelden"
 
 #: myapp/templates/registration/login.html:162
 msgid "Admin Panel"
-msgstr "Admin Portal"
+msgstr "Adminbereich"
 
 #: myapp/templates/registration/password_change_done.html:7
 #: myapp/templates/registration/password_change_form.html:7
