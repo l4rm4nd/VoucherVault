@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 18:30+0200\n"
+"POT-Creation-Date: 2024-08-07 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,8 +180,6 @@ msgid "The store of your loyalty card"
 msgstr "Das Geschäft deiner Kundenkarte"
 
 #: myapp/templates/create-item.html:209 myapp/templates/edit-item.html:213
-#, fuzzy
-#| msgid "Loyalty Card"
 msgid "Loyalty ID"
 msgstr "Kundenkarte"
 
