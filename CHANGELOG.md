@@ -1,3 +1,10 @@
+## [1.5.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.4...v1.5.5) (2024-08-24)
+
+
+### Bug Fixes
+
+* upgrade pip packages ([c49b975](https://github.com/l4rm4nd/VoucherVault/commit/c49b9751b42cecd1ffab56241274a799b399b7f2))
+
 ## [1.5.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.3...v1.5.4) (2024-08-07)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * **deps:** upgrade Django to fix CVEs ([f482b69](https://github.com/l4rm4nd/VoucherVault/commit/f482b695035d8f020eae6ae929ecfd765de836e0))
-
-## [1.5.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.4.6...v1.5.0) (2024-08-05)
-
-
-### Features
-
-* allow custom store logos ([0158913](https://github.com/l4rm4nd/VoucherVault/commit/0158913fb2c82552ade8720e4b14dda3a4de7269))
 
