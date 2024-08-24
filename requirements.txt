@@ -1,5 +1,5 @@
 # DEFAULT LIBS
-Django==5.0.8
+Django==5.1
 pytz==2023.3.post1
 python-dotenv==1.0.0
 psycopg2-binary==2.9.9
@@ -17,4 +17,4 @@ mozilla-django-oidc==4.0.1
 
 # TASKS
 celery[redis]
-django-celery-beat==2.6.0
+django-celery-beat==2.7.0
