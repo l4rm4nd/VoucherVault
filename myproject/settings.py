@@ -58,7 +58,7 @@ SESSION_COOKIE_AGE = 30*60 # 30 minute session age
 SESSION_COOKIE_NAME = 'VVSESS'
 SESSION_COOKIE_SAMESITE = 'Lax'
 
-if SECURE_COOKIES == "False":
+if SECURE_COOKIES == "False" or SECURE_COOKIES == "false":
     # transmit cookies over unencrypted http
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
