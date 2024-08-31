@@ -69,7 +69,7 @@ The docker container takes various environment variables:
 
 | Variable                         | Description                                                                                                     | Default                    | Optional/Mandatory  |
 |----------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------|---------------------|
-| `DOMAIN`                         | Your Fully Qualified Domain Name (FQDN) or IP address. Used to define `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` for the Django framework. For multi-host sites, you may set to `*`. | `localhost` | Mandatory           |
+| `DOMAIN`                         | Your Fully Qualified Domain Name (FQDN) or IP address. Used to define `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` for the Django framework. | `localhost` | Mandatory           |
 | `SECURE_COOKIES`                 | Set to `True` if you use a reverse proxy with TLS. Enables the `secure` cookie flag and `HSTS` HTTP response header, which will only work for SSL/TLS encrypted communication channels (HTTPS). | `False`                    | Optional            |
 | `EXPIRY_THRESHOLD_DAYS`          | Defines the days prior item expiry when an Apprise expiry notification should be sent out.                      | `30`                       | Optional            |
 | `TZ`                             | Defines the `TIME_ZONE` variable in Django's settings.py.                                                       | `Europe/Berlin`            | Optional            |
