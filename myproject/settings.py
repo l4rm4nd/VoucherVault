@@ -40,7 +40,6 @@ CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000"]
 
 DOMAIN = str(os.environ.get("DOMAIN", "localhost"))
 TRUSTED_PORT = str(os.environ.get("PORT", "8000"))
-SECURE_COOKIES = str(os.environ.get("SECURE_COOKIES", "False"))
 
 if DOMAIN:
     DOMAIN = DOMAIN.rstrip('/').replace('http://', '').replace('https://', '')
@@ -58,11 +57,9 @@ SESSION_COOKIE_AGE = 30*60 # 30 minute session age
 SESSION_COOKIE_NAME = 'VVSESS'
 SESSION_COOKIE_SAMESITE = 'Lax'
 
-if SECURE_COOKIES == "False" or SECURE_COOKIES == "false":
-    # transmit cookies over unencrypted http
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-else:
+SECURE_COOKIES = os.environ.get('SECURE_COOKIES', 'False').lower() in ['true']
+
+if SECURE_COOKIES:
     # transmit cookies over encrypted https only
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
@@ -70,6 +67,10 @@ else:
     SECURE_HSTS_SECONDS = "31536000"
     SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+else:
+    # transmit cookies over unencrypted http
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
 # http security response headers
 SECURE_BROWSER_XSS_FILTER = True
