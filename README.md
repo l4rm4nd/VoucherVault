@@ -25,8 +25,9 @@
 - Displaying redeem codes as QR code or EAN13 barcode
 - Client-side camera scanning for 1D/2D (bar)codes during item creation
 - Expiry notifications via Apprise
-- Multi-user support via local auth 
+- Multi-user support via local auth
 - Multi-user support via OIDC Single-Sign-On (SSO)
+- Support for sharing items between users
 - Support for SQLite3 and PostgreSQL
 
 ## 🐳 Usage
