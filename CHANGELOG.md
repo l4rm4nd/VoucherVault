@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.1...v1.6.2) (2024-09-02)
+
+
+### Bug Fixes
+
+* adjust UI to fit new buttons on small screen sizes ([834423d](https://github.com/l4rm4nd/VoucherVault/commit/834423dfae5d2f75c2ed985187da9f23a9556659))
+
 ## [1.6.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.0...v1.6.1) (2024-09-02)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * convert comma to dot; fix bug on chrome for german localization ([3d629ab](https://github.com/l4rm4nd/VoucherVault/commit/3d629ab9428c140a30fda5ece1592408db95e07f))
-
-## [1.5.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.2...v1.5.3) (2024-08-07)
-
-
-### Bug Fixes
-
-* add internationalization ([aad73b2](https://github.com/l4rm4nd/VoucherVault/commit/aad73b272ba94f6c65ae68558570ffb4602d86b7)), closes [#32](https://github.com/l4rm4nd/VoucherVault/issues/32)
 
