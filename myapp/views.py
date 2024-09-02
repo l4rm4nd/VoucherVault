@@ -443,6 +443,7 @@ def share_item_view(request, item_id):
     users = User.objects.exclude(id=request.user.id)
     return render(request, 'share_item.html', {'item': item, 'users': users})
 
+@require_POST
 @login_required
 def unshare_item(request, item_id, user_id):
     # Get the item and ensure the current user is the owner

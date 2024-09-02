@@ -91,9 +91,12 @@
                   {% for share in item.shared_with.all %}
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                       {{ share.shared_with_user.username }} ({{ share.shared_with_user.email }})
-                      <a href="{% url 'unshare_item' item_id=item.id user_id=share.shared_with_user.id %}" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure you want to unshare this item?" %}');">
-                          {% trans "Unshare" %}
-                      </a>
+                      <form method="POST" action="{% url 'unshare_item' item_id=item.id user_id=share.shared_with_user.id %}" style="display:inline;">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure you want to unshare this item?" %}');">
+                              {% trans "Unshare" %}
+                          </button>
+                      </form>
                   </li>
                   {% empty %}
                   <li class="list-group-item">{% trans "This item is not shared with anyone." %}</li>

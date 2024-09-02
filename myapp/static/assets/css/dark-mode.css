@@ -371,7 +371,15 @@ body.dark-mode .btn-success {
   color: white;
 }
 
+body.dark-mode .btn-success:hover {
+  color: white;
+}
+
 body.dark-mode .btn-danger {
+  color: white;
+}
+
+body.dark-mode .btn-danger:hover {
   color: white;
 }
 
@@ -413,5 +421,6 @@ body.dark-mode .dashboard-loyalty .card-body h6
 }
 
 body.dark-mode .list-group-item {
-  background-color: lightgrey;
+  background-color: gray;
+  border-color:  black;
 }

@@ -501,11 +501,8 @@ msgstr "Prozent"
 msgid "Download"
 msgstr "Herunterladen"
 
-#: myapp/templates/view-item.html:89
-#, fuzzy
-#| msgid "Share Item"
 msgid "Shared With:"
-msgstr "geteilt mit:"
+msgstr "Geteilt mit:"
 
 #: myapp/templates/view-item.html:94
 msgid "Are you sure you want to unshare this item?"
