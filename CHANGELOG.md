@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.2...v1.6.3) (2024-09-02)
+
+
+### Bug Fixes
+
+* hide download button for shared items ([5cef4f8](https://github.com/l4rm4nd/VoucherVault/commit/5cef4f8c0d95b32aff9a74b3955b81c4e3a52cd1))
+
 ## [1.6.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.1...v1.6.2) (2024-09-02)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * upgrade pip packages ([c49b975](https://github.com/l4rm4nd/VoucherVault/commit/c49b9751b42cecd1ffab56241274a799b399b7f2))
-
-## [1.5.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.3...v1.5.4) (2024-08-07)
-
-
-### Bug Fixes
-
-* convert comma to dot; fix bug on chrome for german localization ([3d629ab](https://github.com/l4rm4nd/VoucherVault/commit/3d629ab9428c140a30fda5ece1592408db95e07f))
 
