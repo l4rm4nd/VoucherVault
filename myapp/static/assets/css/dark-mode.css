@@ -367,6 +367,14 @@ body.dark-mode .btn-download {
   background-color: #6c757d00;
 }
 
+body.dark-mode .btn-success {
+  color: white;
+}
+
+body.dark-mode .btn-danger {
+  color: white;
+}
+
 body.dark-mode .btn-feature {
   color: white !important;
   background-color: #414141;
@@ -402,4 +410,8 @@ body.dark-mode .dashboard-loyalty .card-body h5,
 body.dark-mode .dashboard-loyalty .card-body h6
  {
   color: #e0e6eb;
+}
+
+body.dark-mode .list-group-item {
+  background-color: lightgrey;
 }

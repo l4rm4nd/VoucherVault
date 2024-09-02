@@ -15,7 +15,7 @@
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Inventory" %}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% if not is_shared %} {% trans "Inventory" %} {% else %} {% trans "Shared Items" %} {% endif %}</a></li>
       <li class="breadcrumb-item active">{% trans "Item Details" %}</li>
     </ol>
   </nav>
@@ -83,12 +83,33 @@
             </div>
             {% endif %}
           </div>
+          {% if is_owner %}
+          {% if is_shared %}
+          <div class="shared-users mt-4">
+              <h5>{% trans "Shared With:" %}</h5>
+              <ul class="list-group">
+                  {% for share in item.shared_with.all %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                      {{ share.shared_with_user.username }} ({{ share.shared_with_user.email }})
+                      <a href="{% url 'unshare_item' item_id=item.id user_id=share.shared_with_user.id %}" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure you want to unshare this item?" %}');">
+                          {% trans "Unshare" %}
+                      </a>
+                  </li>
+                  {% empty %}
+                  <li class="list-group-item">{% trans "This item is not shared with anyone." %}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+          {% endif %}
+          {% endif %}
           <div class="d-flex justify-content-end mt-3">
+            {% if is_owner %}
             <a href="{% url 'edit_item' item.id %}" class="btn btn-primary me-2"><i class="bi bi-pencil"></i> {% trans "Edit" %}</a>
             <form action="{% url 'delete_item' item.id %}" method="post" class="me-2">
               {% csrf_token %}
               <button type="submit" class="btn btn-danger" onclick="return confirm('{% trans "Are you sure to delete?" %}');"><i class="bi bi-trash"></i> {% trans "Delete" %}</button>
             </form>
+            <a href="{% url 'share_item' item.id %}" class="btn btn-success me-2"><i class="bi bi-share"></i> {% trans "Share" %}</a>
             {% if item.type != "loyaltycard" %}
             <form action="{% url 'toggle_item_status' item.id %}" method="post">
               {% csrf_token %}
@@ -97,6 +118,7 @@
                 {% if item.is_used %} {% trans "Mark as Available" %} {% else %} {% trans "Mark as Used" %} {% endif %}
               </button>
             </form>
+            {% endif %}
             {% endif %}
           </div>
         </div>
@@ -129,6 +151,7 @@
           </div>
         </div><!-- End QR Code and PIN Display -->
 
+        {% if is_owner %}
         {% if item.type == 'giftcard' %}
         <!-- Transaction History -->
         <div class="col-lg-12">
@@ -207,7 +230,7 @@
           </div>
         </div><!-- End Transaction History -->
         {% endif %}
-
+        {% endif %}
       </div>
     </div><!-- End Full width column -->
 

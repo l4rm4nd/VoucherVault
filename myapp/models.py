@@ -31,9 +31,17 @@ class Item(models.Model):
     qr_code_base64 = models.TextField(blank=True, null=True)
     file = models.FileField(upload_to='database/', blank=True, null=True)
 
-
     def __str__(self):
         return self.name
+
+class ItemShare(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='shared_with')
+    shared_with_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_items')
+    shared_at = models.DateTimeField(auto_now_add=True)
+    shared_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shared_items')
+
+    class Meta:
+        unique_together = ('item', 'shared_with_user')
 
 class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

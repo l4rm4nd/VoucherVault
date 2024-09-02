@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="pagetitle">
+  <h1>{% trans "Share Item" %}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'view_item' item.id %}">{{ item.name }}</a></li>
+      <li class="breadcrumb-item active">{% trans "Share" %}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{% trans "Share this item with others" %}</h5>
+
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="shared_users" class="form-label">{% trans "Select Users" %}</label>
+              <select id="shared_users" name="shared_users" class="form-select" multiple>
+                {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }} ({{ user.email }})</option>
+                {% endfor %}
+              </select>
+              <small class="form-text text-muted">{% trans "Hold down the Ctrl (Windows) or Command (Mac) button to select multiple options." %}</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">{% trans "Share Item" %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

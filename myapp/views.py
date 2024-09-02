@@ -18,6 +18,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
 
 apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
 
@@ -56,6 +57,10 @@ def dashboard(request):
     giftcards_count = Item.objects.filter(user=user, type='giftcard', is_used=False, expiry_date__gte=timezone.now()).count()
     loyaltycards_count = Item.objects.filter(user=user, type='loyaltycard', is_used=False, expiry_date__gte=timezone.now()).count()
 
+    # Count the number of items shared by the user
+    shared_items_count_by_you = ItemShare.objects.filter(shared_by=user).count()
+    shared_items_count_with_you = ItemShare.objects.filter(shared_with_user=user).count()
+
     context = {
         'total_items': total_items,
         'available_items': available_items,
@@ -66,6 +71,8 @@ def dashboard(request):
         'giftcards_count': giftcards_count,
         'loyaltycards_count':loyaltycards_count,
         'expired_items': expired_items,
+        'shared_items_count_by_you': shared_items_count_by_you,
+        'shared_items_count_with_you': shared_items_count_with_you,
         'container_version': settings.VERSION,
     }
     return render(request, 'dashboard.html', context)
@@ -74,21 +81,23 @@ def dashboard(request):
 @login_required
 def show_items(request):
     user = request.user
-    item_type = request.GET.get('type')
-    item_status = request.GET.get('status', 'available')  # Default to 'available'
+    filter_value = request.GET.get('status', 'available')  # Get the combined filter value
     search_query = request.GET.get('query', '')
-
-    items = Item.objects.filter(user=user)
-
-    if item_type:
-        items = items.filter(type=item_type)
-
-    if item_status:
-        if item_status == 'available':
+    
+    # Base query
+    if filter_value == 'shared_by_me':
+        items = Item.objects.filter(shared_with__shared_by=user).distinct()
+    elif filter_value == 'shared_with_me':
+        items = Item.objects.filter(shared_with__shared_with_user=user).exclude(user=user).distinct()
+    else:
+        items = Item.objects.filter(user=user)
+        
+        # Apply additional status filters only to items owned by the user
+        if filter_value == 'available':
             items = items.filter(is_used=False, expiry_date__gte=timezone.now())
-        elif item_status == 'used':
+        elif filter_value == 'used':
             items = items.filter(is_used=True)
-        elif item_status == 'expired':
+        elif filter_value == 'expired':
             items = items.filter(expiry_date__lt=timezone.now())
 
     if search_query:
@@ -96,7 +105,7 @@ def show_items(request):
             Q(name__icontains=search_query) |
             Q(issuer__icontains=search_query)
         )
-    
+
     items_with_qr = []
 
     for item in items:       
@@ -112,8 +121,7 @@ def show_items(request):
 
     context = {
         'items_with_qr': items_with_qr,
-        'item_type':  item_type,
-        'item_status':  item_status,
+        'item_status':  filter_value,  # Reuse item_status to hold the combined filter value
         'search_query': search_query,
         'current_date': timezone.now(),
         'container_version': settings.VERSION,
@@ -122,11 +130,30 @@ def show_items(request):
 
 @login_required
 def view_item(request, item_uuid):
-    item = get_object_or_404(Item, id=item_uuid, user=request.user)
+    # Initialize owner flag
+    is_owner = False
+    
+    try:
+        # Try to get the item owned by the user
+        item = Item.objects.get(id=item_uuid, user=request.user)
+        is_owner = True  # Set flag to true if the user is the owner
+    except Item.DoesNotExist:
+        # If not found, try to get the item shared with the user
+        item_share = get_object_or_404(ItemShare, item__id=item_uuid, shared_with_user=request.user)
+        item = item_share.item
+
+
+    # Check if the item has been shared
+    is_shared = item.shared_with.exists()
+
     transactions = item.transactions.all()
     total_value = item.value + sum(t.value for t in transactions)
     
     if request.method == 'POST':
+        if not is_owner:
+            # Non-owners should not be able to make POST requests (e.g., add transactions)
+            return redirect('view_item', item_uuid=item.id)
+        
         form = TransactionForm(request.POST, item=item)
         if form.is_valid():
             transaction = form.save(commit=False)
@@ -148,10 +175,10 @@ def view_item(request, item_uuid):
         'qr_code_base64': item.qr_code_base64,
         'form': form,
         'current_date': timezone.now(),
-        'container_version': settings.VERSION,
+        'is_owner': is_owner,  # Pass the owner flag to the template
+        'is_shared': is_shared,  # Pass the shared status to the template
     }
     return render(request, 'view-item.html', context)
-
 
 @login_required
 def create_item(request):
@@ -384,3 +411,51 @@ def verify_apprise_urls(request):
         
     except Exception as e:
         return JsonResponse({'success': False, 'message': f'Failed to send test notification: {str(e)}'})
+
+@require_GET
+@login_required
+def sharing_center(request):
+    # Get the current user
+    current_user = request.user
+    
+    # Query all items shared with the current user
+    shared_items = ItemShare.objects.filter(shared_with_user=current_user)
+    
+    # Pass the items to the template
+    return render(request, 'sharing_center.html', {'shared_items': shared_items})
+
+@login_required
+def share_item_view(request, item_id):
+    item = get_object_or_404(Item, id=item_id, user=request.user)
+
+    if request.method == 'POST':
+        selected_users = request.POST.getlist('shared_users')
+        if selected_users:
+            for user_id in selected_users:
+                recipient = User.objects.get(id=user_id)
+                ItemShare.objects.get_or_create(item=item, shared_with_user=recipient, shared_by=request.user)
+            messages.success(request, 'Item shared successfully!')
+        else:
+            messages.error(request, 'Please select at least one user to share with.')
+
+        return redirect('view_item', item_uuid=item.id)
+
+    users = User.objects.exclude(id=request.user.id)
+    return render(request, 'share_item.html', {'item': item, 'users': users})
+
+@login_required
+def unshare_item(request, item_id, user_id):
+    # Get the item and ensure the current user is the owner
+    item = get_object_or_404(Item, id=item_id, user=request.user)
+    
+    # Find the ItemShare record for the specified user
+    item_share = get_object_or_404(ItemShare, item=item, shared_with_user__id=user_id)
+
+    # Delete the ItemShare record to unshare the item
+    item_share.delete()
+    
+    # Display a success message
+    messages.success(request, "Item has been unshared successfully.")
+    
+    # Redirect back to the item view page
+    return redirect('view_item', item_uuid=item.id)

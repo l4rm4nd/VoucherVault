@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="pagetitle">
+  <h1>{% trans "Shared Items" %}</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+      <li class="breadcrumb-item active">{% trans "Shared Items" %}</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+  <div class="row">
+    {% for entry in shared_items %}
+    <div title="{{ entry.item.description }}" class="col-12 col-md-6">
+      <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
+        <div id="card-{{ entry.item.id }}" class="card info-card sales-card card-available
+            {% if entry.item.is_used %} card-used
+            {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
+            {% endif %}">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="card-title">
+                  <i class="bi bi-shop"></i> {{ entry.item.issuer }}
+                  <span>&gt; {% trans entry.item.type %}
+                    {% if entry.item.is_used %}
+                      <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
+                    {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
+                      <span style="margin-left: 5px;" class="badge bg-danger text-dark">{% trans "Expired" %}</span>
+                    {% endif %}
+                  </span>
+                </h5>
+                <h6>{{ entry.item.name }}</h6>
+              </div>
+              {% if entry.item.logo_slug %}
+              <img id="logo-{{ entry.item.id }}" 
+                   src="https://logo.clearbit.com/{{ entry.item.logo_slug }}" 
+                   alt="Logo" 
+                   style="width: 50px; height: 50px; border-radius: 10px;" 
+                   onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.item.qr_code_base64 }}';">
+              {% else %}
+              <img src="data:image/png;base64,{{ entry.item.qr_code_base64 }}" 
+                   alt="QR Code" 
+                   style="width: 50px; height: 50px; border-radius: 10px;">
+              {% endif %}
+            </div>
+            <div class="item-details">
+              <div class="detail-item default-tile">
+                <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ entry.item.issue_date }}</span>
+              </div>
+              <div class="detail-item default-tile">
+                <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ entry.item.expiry_date }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div><!-- End Items Card -->
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}

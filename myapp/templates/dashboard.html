@@ -81,6 +81,44 @@
           </div>
         </div><!-- End Available Items Card -->     
 
+        <!-- Shared Items By You Tile -->
+        <div class="col-xxl-6 col-md-6">
+          <div class="card info-card shared-items-card">
+            <a href="{% url 'show_items' %}?status=shared_by_me" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Shared Items" %} <span>| {% trans "By You" %}</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-send-check"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ shared_items_count_by_you }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Shared Items By You Tile -->
+
+        <!-- Shared Items With You Tile -->
+        <div class="col-xxl-6 col-md-6">
+          <div class="card info-card shared-items-card">
+            <a href="{% url 'sharing_center' %}" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Shared Items" %} <span>| {% trans "With You" %}</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-share"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ shared_items_count_with_you }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Shared Items With You Tile -->        
+
         <!-- Giftcards -->
         <div class="col-6">
           <div class="card info-card dashboard-giftcard">
