@@ -27,132 +27,145 @@
 <!-- Full width column -->
 <div class="col-lg-12">
   <div class="row">
+      <!-- Item Details Column -->
+      <div class="col-lg-8">
+          <div class="card info-card sales-card card-available
+              {% if item.is_used %} card-used
+              {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
+              {% endif %}">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                      <div>
+                          <h5 class="card-title">
+                              <i class="bi bi-shop"></i> {{ item.issuer }} 
+                              <span>&gt; {% trans item.type %}
+                                  {% if item.is_used %}
+                                      <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
+                                  {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
+                                      <span style="margin-left: 5px;" class="badge bg-danger text-dark">{% trans "Expired" %}</span>
+                                  {% endif %}
+                              </span>
+                          </h5>
+                          <h6>{{ item.name }}</h6>
+                      </div>
+                      {% if item.logo_slug %}
+                      <img src="https://logo.clearbit.com/{{ item.logo_slug }}" alt="Logo" style="width: 50px; height: 50px; border-radius: 10px;" onerror="this.style.display='none'">
+                      {% endif %}            
+                  </div>
+                  <div class="item-details pt-2">
+                      <div class="detail-item default-tile">
+                          <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ item.issue_date }}</span>
+                      </div>
+                      <div class="detail-item default-tile">
+                          <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ item.expiry_date }}</span>
+                      </div>
+                      {% if item.type != "loyaltycard" %}
+                      <div class="detail-item default-tile">
+                          {% if item.value_type == "percentage" %}
+                          <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percent" %}:</b> {{ total_value|floatformat:2 }}</span>
+                          {% elif item.value_type == "money" %}
+                          <i class="bi bi-cash text-muted"></i> <span><b>{% trans "Value" %}:</b> {{ total_value|floatformat:2 }}</span>
+                          {% endif %}
+                      </div>
+                      {% endif %}
+                      {% if item.description %}
+                      <div class="default-tile" style="text-align: justify;">
+                          <b>{% trans "Description" %}:</b><br>
+                          <span class="content">{{ item.description }}</span>
+                      </div>
+                      {% endif %}
+                      {% if item.file %}
+                      <div class="default-tile" style="text-align: justify;">
+                          <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
+                              <i class="bi bi-download"></i> {% trans "Download" %}
+                          </a>
+                      </div>
+                      {% endif %}
+                  </div>
 
-    <!-- Item Details Card -->
-    <div class="col-lg-8">
-      <div class="card info-card sales-card card-available
-        {% if item.is_used %} card-used
-        {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
-        {% endif %}">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-              <h5 class="card-title">
-                <i class="bi bi-shop"></i> {{ item.issuer }} 
-                <span>&gt; {% trans item.type %}
-                  {% if item.is_used %}
-                    <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
-                  {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
-                    <span style="margin-left: 5px;" class="badge bg-danger text-dark">{% trans "Expired" %}</span>
+                  <!-- Buttons (For owner) -->
+                  {% if is_owner %}
+                  <div class="d-flex flex-column flex-lg-row justify-content-end mt-3">
+                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
+                          <a href="{% url 'edit_item' item.id %}" class="btn btn-primary w-100"><i class="bi bi-pencil"></i> {% trans "Edit" %}</a>
+                      </div>
+                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
+                          <form action="{% url 'delete_item' item.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-danger w-100" onclick="return confirm('{% trans "Are you sure to delete?" %}');">
+                                  <i class="bi bi-trash"></i> {% trans "Delete" %}
+                              </button>
+                          </form>
+                      </div>
+                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
+                          <a href="{% url 'share_item' item.id %}" class="btn btn-success w-100"><i class="bi bi-share"></i> {% trans "Share" %}</a>
+                      </div>
+                      {% if item.type != "loyaltycard" %}
+                      <div class="col-12 col-lg-auto">
+                          <form action="{% url 'toggle_item_status' item.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" class="btn {% if item.is_used %} btn-danger {% else %} btn-warning {% endif %} w-100">
+                                  <i class="bi bi-check-circle"></i>
+                                  {% if item.is_used %} {% trans "Mark as Available" %} {% else %} {% trans "Mark as Used" %} {% endif %}
+                              </button>
+                          </form>
+                      </div>
+                      {% endif %}
+                  </div>
                   {% endif %}
-                </span>
-              </h5>
-              <h6>{{ item.name }}</h6>
-            </div>
-            {% if item.logo_slug %}
-            <img src="https://logo.clearbit.com/{{ item.logo_slug }}" alt="Logo" style="width: 50px; height: 50px; border-radius: 10px;" onerror="this.style.display='none'">
-            {% endif %}            
-          </div>
-          <div class="item-details pt-2">
-            <div class="detail-item default-tile">
-              <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ item.issue_date }}</span>
-            </div>
-            <div class="detail-item default-tile">
-              <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ item.expiry_date }}</span>
-            </div>
-            {% if item.type != "loyaltycard" %}
-            <div class="detail-item default-tile">
-              {% if item.value_type == "percentage" %}
-              <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percent" %}:</b> {{ total_value|floatformat:2 }}</span>
-              {% elif item.value_type == "money" %}
-              <i class="bi bi-cash text-muted"></i> <span><b>{% trans "Value" %}:</b> {{ total_value|floatformat:2 }}</span>
-              {% endif %}
-            </div>
-            {% endif %}
-            {% if item.description %}
-            <div class="default-tile" style="text-align: justify;">
-              <b>{% trans "Description" %}:</b><br>
-              <span class="content">{{ item.description }}</span>
-            </div>
-            {% endif %}
-            {% if item.file %}
-            <div class="default-tile" style="text-align: justify;">
-              <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
-                <i class="bi bi-download"></i> {% trans "Download" %}
-              </a>
-            </div>
-            {% endif %}
-          </div>
-          {% if is_owner %}
-          {% if is_shared %}
-          <div class="shared-users mt-4">
-              <h5>{% trans "Shared With:" %}</h5>
-              <ul class="list-group">
-                  {% for share in item.shared_with.all %}
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                      {{ share.shared_with_user.username }} ({{ share.shared_with_user.email }})
-                      <form method="POST" action="{% url 'unshare_item' item_id=item.id user_id=share.shared_with_user.id %}" style="display:inline;">
-                          {% csrf_token %}
-                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure you want to unshare this item?" %}');">
-                              {% trans "Unshare" %}
-                          </button>
-                      </form>
-                  </li>
-                  {% empty %}
-                  <li class="list-group-item">{% trans "This item is not shared with anyone." %}</li>
-                  {% endfor %}
-              </ul>
-          </div>
-          {% endif %}
-          {% endif %}
-          <div class="d-flex justify-content-end mt-3">
-            {% if is_owner %}
-            <a href="{% url 'edit_item' item.id %}" class="btn btn-primary me-2"><i class="bi bi-pencil"></i> {% trans "Edit" %}</a>
-            <form action="{% url 'delete_item' item.id %}" method="post" class="me-2">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger" onclick="return confirm('{% trans "Are you sure to delete?" %}');"><i class="bi bi-trash"></i> {% trans "Delete" %}</button>
-            </form>
-            <a href="{% url 'share_item' item.id %}" class="btn btn-success me-2"><i class="bi bi-share"></i> {% trans "Share" %}</a>
-            {% if item.type != "loyaltycard" %}
-            <form action="{% url 'toggle_item_status' item.id %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn {% if item.is_used %} btn-danger {% else %} btn-warning {% endif %}">
-                <i class="bi bi-check-circle"></i>
-                {% if item.is_used %} {% trans "Mark as Available" %} {% else %} {% trans "Mark as Used" %} {% endif %}
-              </button>
-            </form>
-            {% endif %}
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div><!-- End Item Details Card -->
 
-        <!-- QR Code and PIN Display -->
-        <div class="col-lg-4">
+                  <!-- Shared Users Section (For owner) -->
+                  {% if is_owner and is_shared %}
+                  <div class="shared-users mt-4">
+                      <h5>{% trans "Shared With:" %}</h5>
+                      <ul class="list-group">
+                          {% for share in item.shared_with.all %}
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                              {{ share.shared_with_user.username }} ({{ share.shared_with_user.email }})
+                              <form method="POST" action="{% url 'unshare_item' item_id=item.id user_id=share.shared_with_user.id %}" style="display:inline;">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure you want to unshare this item?" %}');">
+                                      {% trans "Unshare" %}
+                                  </button>
+                              </form>
+                          </li>
+                          {% empty %}
+                          <li class="list-group-item">{% trans "This item is not shared with anyone." %}</li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+                  {% endif %}
+
+              </div>
+          </div>
+      </div><!-- End Item Details Column -->
+
+      <!-- QR Code and PIN Display Column -->
+      <div class="col-lg-4">
           <div class="card mb-3">
-            <div class="card-body text-center">
-              {% if item.type == "loyaltycard" %}
-              <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Your Identity" %}</h5>
-              {% else %}
-              <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Scan to Redeem" %}</h5>
-              {% endif %}
-              <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2 opaque" id="qr-code" style="max-width: 100%;">
-              <br>
-              <span class="opaque" id="redeem-code">{{ item.redeem_code }}</span>
-            </div>
+              <div class="card-body text-center">
+                  {% if item.type == "loyaltycard" %}
+                  <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Your Identity" %}</h5>
+                  {% else %}
+                  <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Scan to Redeem" %}</h5>
+                  {% endif %}
+                  <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2 opaque" id="qr-code" style="max-width: 100%;">
+                  <br>
+                  <span class="opaque" id="redeem-code">{{ item.redeem_code }}</span>
+              </div>
           </div>
           <div class="card">
               {% if item.pin %}
               <div class="card-body text-center" style="padding: 0px">
-                <div class="input-group">
-                  <input type="password" id="pin-code" class="form-control" value="{{ item.pin }}" readonly>
-                  <button type="button" id="toggle-pin" class="btn btn-secondary">{% trans "Show PIN" %}</button>
-                </div>
+                  <div class="input-group">
+                      <input type="password" id="pin-code" class="form-control" value="{{ item.pin }}" readonly>
+                      <button type="button" id="toggle-pin" class="btn btn-secondary">{% trans "Show PIN" %}</button>
+                  </div>
               </div>
               {% endif %}
           </div>
-        </div><!-- End QR Code and PIN Display -->
+      </div><!-- End QR Code and PIN Display Column -->
+  </div>
 
         {% if is_owner %}
         {% if item.type == 'giftcard' %}
