@@ -1,3 +1,10 @@
+## [1.6.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.5...v1.6.0) (2024-09-02)
+
+
+### Features
+
+* add sharing capability ([da5dfca](https://github.com/l4rm4nd/VoucherVault/commit/da5dfca0209a9bdf33cd91d3b94132312b07a552))
+
 ## [1.5.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.4...v1.5.5) (2024-08-24)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * make issuer field mandatory ([3169240](https://github.com/l4rm4nd/VoucherVault/commit/316924022644d3a2e9e77f09b83c834e77273fa0)), closes [#30](https://github.com/l4rm4nd/VoucherVault/issues/30)
-
-## [1.5.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.0...v1.5.1) (2024-08-06)
-
-
-### Bug Fixes
-
-* **deps:** upgrade Django to fix CVEs ([f482b69](https://github.com/l4rm4nd/VoucherVault/commit/f482b695035d8f020eae6ae929ecfd765de836e0))
 
