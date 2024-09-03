@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.3...v1.6.4) (2024-09-03)
+
+
+### Bug Fixes
+
+* adjust api calls ([73a2025](https://github.com/l4rm4nd/VoucherVault/commit/73a20252c80fc0449cfb04bcd458ff90c90ef841))
+
 ## [1.6.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.2...v1.6.3) (2024-09-02)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * add sharing capability ([da5dfca](https://github.com/l4rm4nd/VoucherVault/commit/da5dfca0209a9bdf33cd91d3b94132312b07a552))
-
-## [1.5.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.4...v1.5.5) (2024-08-24)
-
-
-### Bug Fixes
-
-* upgrade pip packages ([c49b975](https://github.com/l4rm4nd/VoucherVault/commit/c49b9751b42cecd1ffab56241274a799b399b7f2))
 
