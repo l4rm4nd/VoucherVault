@@ -1,3 +1,10 @@
+## [1.6.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.4...v1.6.5) (2024-09-18)
+
+
+### Bug Fixes
+
+* show footer version everywhere ([71ba60b](https://github.com/l4rm4nd/VoucherVault/commit/71ba60b40686d4fad352394c6d0b6799a73265cf))
+
 ## [1.6.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.3...v1.6.4) (2024-09-03)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * adjust styles and use POST method for unsharing ([e68c502](https://github.com/l4rm4nd/VoucherVault/commit/e68c5027f4fd6a75dfdb308e0143b612a4c90ea5))
-
-## [1.6.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.5.5...v1.6.0) (2024-09-02)
-
-
-### Features
-
-* add sharing capability ([da5dfca](https://github.com/l4rm4nd/VoucherVault/commit/da5dfca0209a9bdf33cd91d3b94132312b07a552))
 
