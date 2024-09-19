@@ -1,3 +1,10 @@
+## [1.6.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.5...v1.6.6) (2024-09-19)
+
+
+### Bug Fixes
+
+* remove unnecessary js libs + display expiry threshold ([8b7f8ee](https://github.com/l4rm4nd/VoucherVault/commit/8b7f8eedb6d98d3f68160ac11703c37db7deac31))
+
 ## [1.6.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.4...v1.6.5) (2024-09-18)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * adjust UI to fit new buttons on small screen sizes ([834423d](https://github.com/l4rm4nd/VoucherVault/commit/834423dfae5d2f75c2ed985187da9f23a9556659))
-
-## [1.6.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.0...v1.6.1) (2024-09-02)
-
-
-### Bug Fixes
-
-* adjust styles and use POST method for unsharing ([e68c502](https://github.com/l4rm4nd/VoucherVault/commit/e68c5027f4fd6a75dfdb308e0143b612a4c90ea5))
 
