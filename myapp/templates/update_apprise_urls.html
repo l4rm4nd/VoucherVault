@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+{% load extras %}
 
 {% block content %}
 <div class="pagetitle">
@@ -19,7 +20,7 @@
         <div class="card-body">
           <h6 class="card-title">{% trans "Configure Your Apprise URLs" %}</h6>
           <span>{% trans "These URLs will be used to send out personal expiry notifications. Leave empty to disable notifications." %}</span><p>
-
+          <p><span class="badge bg-info"><span class="badge bg-info">Expiry Threshold: {{ "EXPIRY_THRESHOLD"|env }}d</span></span></p>
           <!-- Apprise URLs Form -->
           <form method="POST" action="">
             {% csrf_token %}

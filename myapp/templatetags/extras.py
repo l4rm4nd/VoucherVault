@@ -10,6 +10,9 @@ def env(key):
         return settings.OIDC_ENABLED
     if key == "VERSION":
         return settings.VERSION
+    if key == "EXPIRY_THRESHOLD":
+        threshold_days = os.getenv('EXPIRY_THRESHOLD_DAYS', 30)
+        return threshold_days
 
 @register.filter()
 def comma_to_dot(value):
