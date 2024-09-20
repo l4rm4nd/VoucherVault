@@ -93,8 +93,6 @@ The docker container takes various environment variables:
 | `POSTGRES_PASSWORD`              | PostgreSQL database password.                                                                                   | `vouchervault`             | Optional            |
 | `POSTGRES_DB`                    | PostgreSQL database name.                                                                                       | `vouchervault`             | Optional            |
 
-More details about the OIDC environment variables can be found [here](https://mozilla-django-oidc.readthedocs.io/en/stable/settings.html).
-
 You can find detailed instructions on how to setup OIDC SSO in the [wiki](https://github.com/l4rm4nd/VoucherVault/wiki/02-%E2%80%90-Authentication#oidc-authentication).
 
 ## 🔔 Notifications
