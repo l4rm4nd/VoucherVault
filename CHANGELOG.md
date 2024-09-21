@@ -1,3 +1,10 @@
+## [1.7.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.6...v1.7.0) (2024-09-21)
+
+
+### Features
+
+* add french translation ([f8a1344](https://github.com/l4rm4nd/VoucherVault/commit/f8a1344236c44f9104d29df1517ab3dff651927f))
+
 ## [1.6.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.5...v1.6.6) (2024-09-19)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * hide download button for shared items ([5cef4f8](https://github.com/l4rm4nd/VoucherVault/commit/5cef4f8c0d95b32aff9a74b3955b81c4e3a52cd1))
-
-## [1.6.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.1...v1.6.2) (2024-09-02)
-
-
-### Bug Fixes
-
-* adjust UI to fit new buttons on small screen sizes ([834423d](https://github.com/l4rm4nd/VoucherVault/commit/834423dfae5d2f75c2ed985187da9f23a9556659))
 
