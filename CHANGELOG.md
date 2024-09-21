@@ -1,3 +1,10 @@
+## [1.6.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.0...v1.6.7) (2024-09-21)
+
+
+### Bug Fixes
+
+* revert back to minor release ([5b961b8](https://github.com/l4rm4nd/VoucherVault/commit/5b961b87bd24a4fc45cd2d7cca2d461767f810e2))
+
 ## [1.7.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.6...v1.7.0) (2024-09-21)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * adjust api calls ([73a2025](https://github.com/l4rm4nd/VoucherVault/commit/73a20252c80fc0449cfb04bcd458ff90c90ef841))
-
-## [1.6.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.2...v1.6.3) (2024-09-02)
-
-
-### Bug Fixes
-
-* hide download button for shared items ([5cef4f8](https://github.com/l4rm4nd/VoucherVault/commit/5cef4f8c0d95b32aff9a74b3955b81c4e3a52cd1))
 
