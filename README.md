@@ -29,6 +29,7 @@
 - Multi-user support via OIDC Single-Sign-On (SSO)
 - Support for sharing items between users
 - Support for SQLite3 and PostgreSQL
+- Support for multiple languages (EN/DE/FR)
 
 ## 🐳 Usage
 
