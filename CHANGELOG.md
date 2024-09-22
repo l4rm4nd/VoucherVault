@@ -1,3 +1,10 @@
+## [1.6.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.7...v1.6.8) (2024-09-22)
+
+
+### Bug Fixes
+
+* add missing translations ([d8c5743](https://github.com/l4rm4nd/VoucherVault/commit/d8c574357fd667c26a624a01ef37375f907c5f27))
+
 ## [1.6.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.0...v1.6.7) (2024-09-21)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * show footer version everywhere ([71ba60b](https://github.com/l4rm4nd/VoucherVault/commit/71ba60b40686d4fad352394c6d0b6799a73265cf))
-
-## [1.6.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.3...v1.6.4) (2024-09-03)
-
-
-### Bug Fixes
-
-* adjust api calls ([73a2025](https://github.com/l4rm4nd/VoucherVault/commit/73a20252c80fc0449cfb04bcd458ff90c90ef841))
 
