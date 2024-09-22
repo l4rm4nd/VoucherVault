@@ -99,7 +99,7 @@
                         {% if entry.item.value_type == "percentage" %}
                         <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percentage" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
                         {% elif entry.item.value_type == "money" %}
-                        <i class="bi bi-cash text-muted"></i> <span><b>Value:</b> {{ entry.current_value|floatformat:2 }}</span>
+                        <i class="bi bi-cash text-muted"></i> <span><b>{% trans "Value" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
                         {% endif %}
                       </div>
                       {% endif %}

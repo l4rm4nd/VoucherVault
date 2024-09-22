@@ -3703,3 +3703,6 @@ msgstr "Voucher"
 
 msgid "coupon"
 msgstr "Coupon"
+
+msgid "Threshold"
+msgstr "Schwellenwert"
