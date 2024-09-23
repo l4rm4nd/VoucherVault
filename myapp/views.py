@@ -73,7 +73,6 @@ def dashboard(request):
         'expired_items': expired_items,
         'shared_items_count_by_you': shared_items_count_by_you,
         'shared_items_count_with_you': shared_items_count_with_you,
-        'container_version': settings.VERSION,
     }
     return render(request, 'dashboard.html', context)
 
@@ -81,9 +80,10 @@ def dashboard(request):
 @login_required
 def show_items(request):
     user = request.user
+    item_type = request.GET.get('type')
     filter_value = request.GET.get('status', 'available')  # Get the combined filter value
     search_query = request.GET.get('query', '')
-    
+
     # Base query
     if filter_value == 'shared_by_me':
         items = Item.objects.filter(shared_with__shared_by=user).distinct()
@@ -100,11 +100,20 @@ def show_items(request):
         elif filter_value == 'expired':
             items = items.filter(expiry_date__lt=timezone.now())
 
+    # Apply the item_type filter if provided
+    if item_type:
+        items = items.filter(type=item_type)
+
+    # Apply search query filter if provided
     if search_query:
         items = items.filter(
             Q(name__icontains=search_query) |
             Q(issuer__icontains=search_query)
         )
+
+
+    # Sort by expiry date, soonest first
+    items = items.order_by('expiry_date')
 
     items_with_qr = []
 
@@ -121,10 +130,10 @@ def show_items(request):
 
     context = {
         'items_with_qr': items_with_qr,
-        'item_status':  filter_value,  # Reuse item_status to hold the combined filter value
+        'item_type': item_type,  # Add the item_type to the context
+        'item_status': filter_value,  # Reuse item_status to hold the combined filter value
         'search_query': search_query,
         'current_date': timezone.now(),
-        'container_version': settings.VERSION,
     }
     return render(request, 'inventory.html', context)
 
