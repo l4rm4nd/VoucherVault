@@ -7,6 +7,8 @@ import apprise
 from django import forms
 from .models import *
 from django.utils.translation import gettext_lazy as _
+from datetime import timedelta
+from django.utils import timezone
 
 class ItemForm(forms.ModelForm):
     file = forms.FileField(required=False)
@@ -29,6 +31,9 @@ class ItemForm(forms.ModelForm):
             else:
                 self.fields['value'].required = True
 
+        # Make expiry_date optional
+        self.fields['expiry_date'].required = False
+
     def clean_file(self):
         file = self.cleaned_data.get('file')
         if file:
@@ -46,6 +51,11 @@ class ItemForm(forms.ModelForm):
         item_type = cleaned_data.get('type')
         value_type = cleaned_data.get('value_type')
         value = cleaned_data.get('value')
+        expiry_date = cleaned_data.get('expiry_date')
+
+        # Set expiry_date to 50 years in the future if not provided
+        if not expiry_date:
+            cleaned_data['expiry_date'] = timezone.now() + timedelta(days=50*365)  # 50 years in the future
 
         if item_type == 'loyaltycard' and value != 0:
             error_msg_value = _('Value must be zero for loyalty cards.')
@@ -60,6 +70,7 @@ class ItemForm(forms.ModelForm):
         elif item_type != 'loyaltycard' and (value is None or value < 0):
             error_message_positive = _('Value must be positive.')
             raise forms.ValidationError(error_message_positive)
+        
         return cleaned_data
 
 class TransactionForm(forms.ModelForm):
