@@ -172,7 +172,7 @@
         </a>
       </li><!-- End Blank Page Nav -->
       <!-- Language Toggle Button -->
-      <li class="nav-item" style="position: absolute; bottom: 20px; width: 100%;">
+      <li class="nav-item" style="position: absolute; bottom: 20px;">
         <form id="languageForm" style="margin-left: 10px;" action="{% url 'set_language' %}" method="post">
           {% csrf_token %}
           <input name="next" type="hidden" value="{{ redirect_to }}">
