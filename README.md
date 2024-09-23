@@ -17,19 +17,19 @@
 
 ## ⭐ Features
 
-- Intuitive and mobile-friendly web portal
-- Support for light and dark theme
-- Support for vouchers, coupons, giftcards and loyalty cards
-- Support for transaction histories (giftcards only)
-- Support for file uploads per item (images and PDFs)
-- Displaying redeem codes as QR code or EAN13 barcode
-- Client-side camera scanning for 1D/2D (bar)codes during item creation
+- User-friendly, mobile-optimized web portal
+- Light and dark theme support
+- Integration of vouchers, coupons, gift cards and loyalty cards
+- Transaction history tracking (gift cards only)
+- Item-specific file uploads (images and PDFs)
+- Item sharing between users
+- Display of redeem codes as QR codes or EAN13 barcodes
+- Client-side redeem code scanning (1D/2D) during item creation
 - Expiry notifications via Apprise
 - Multi-user support
-- Support for Single-Sign-On (SSO) via OIDC
-- Support for sharing items between users
-- Support for SQLite3 and PostgreSQL
-- Support for multiple languages (EN/DE/FR)
+- Multi-language support (English, German, French)
+- Single Sign-On (SSO) via OIDC
+- Database compatibility with SQLite3 and PostgreSQL
 
 ## 🐳 Usage
 
