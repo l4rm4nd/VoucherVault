@@ -1,3 +1,10 @@
+## [1.6.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.8...v1.6.9) (2024-09-23)
+
+
+### Bug Fixes
+
+* language button css ([bf31e6e](https://github.com/l4rm4nd/VoucherVault/commit/bf31e6ec61270e1c303863de6284252e5af5776f))
+
 ## [1.6.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.7...v1.6.8) (2024-09-22)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * remove unnecessary js libs + display expiry threshold ([8b7f8ee](https://github.com/l4rm4nd/VoucherVault/commit/8b7f8eedb6d98d3f68160ac11703c37db7deac31))
-
-## [1.6.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.4...v1.6.5) (2024-09-18)
-
-
-### Bug Fixes
-
-* show footer version everywhere ([71ba60b](https://github.com/l4rm4nd/VoucherVault/commit/71ba60b40686d4fad352394c6d0b6799a73265cf))
 
