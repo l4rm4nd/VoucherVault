@@ -1,3 +1,10 @@
+## [1.6.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.9...v1.6.10) (2024-09-23)
+
+
+### Bug Fixes
+
+* filtering and sorting ([b8a1416](https://github.com/l4rm4nd/VoucherVault/commit/b8a1416ee49bb36dc511ddb62a3934283fed15e8))
+
 ## [1.6.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.8...v1.6.9) (2024-09-23)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * add french translation ([f8a1344](https://github.com/l4rm4nd/VoucherVault/commit/f8a1344236c44f9104d29df1517ab3dff651927f))
-
-## [1.6.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.5...v1.6.6) (2024-09-19)
-
-
-### Bug Fixes
-
-* remove unnecessary js libs + display expiry threshold ([8b7f8ee](https://github.com/l4rm4nd/VoucherVault/commit/8b7f8eedb6d98d3f68160ac11703c37db7deac31))
 
