@@ -1,3 +1,10 @@
+## [1.6.11](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.10...v1.6.11) (2024-09-23)
+
+
+### Bug Fixes
+
+* implement optional expiry date to fix [#25](https://github.com/l4rm4nd/VoucherVault/issues/25) ([cd6f262](https://github.com/l4rm4nd/VoucherVault/commit/cd6f2621d1e1f8d7fba757efc79b967a84e08181))
+
 ## [1.6.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.9...v1.6.10) (2024-09-23)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * revert back to minor release ([5b961b8](https://github.com/l4rm4nd/VoucherVault/commit/5b961b87bd24a4fc45cd2d7cca2d461767f810e2))
-
-## [1.7.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.6...v1.7.0) (2024-09-21)
-
-
-### Features
-
-* add french translation ([f8a1344](https://github.com/l4rm4nd/VoucherVault/commit/f8a1344236c44f9104d29df1517ab3dff651927f))
 
