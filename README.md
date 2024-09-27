@@ -98,7 +98,7 @@ You can find detailed instructions on how to setup OIDC SSO in the [wiki](https:
 
 ## 🔔 Notifications
 
-Notifications are handled by [Apprise](https://github.com/caronc/apprise). 
+Notifications are handled by [Apprise](https://github.com/caronc/apprise). May read the [wiki](https://github.com/l4rm4nd/VoucherVault/wiki/03-%E2%80%90-Notifications).
 
 You can define custom Apprise URLs in the user profile settings. The input form takes a single or a comma-separated list of multiple Apprise URLs.
 
