@@ -60,7 +60,7 @@ services:
 
   redis:
     container_name: vouchervault-redis
-    image: redis:7.2-alpine
+    image: redis:7-alpine
     restart: unless-stopped
     expose:
       - 6379
