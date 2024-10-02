@@ -1,3 +1,10 @@
+## [1.6.12](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.11...v1.6.12) (2024-10-02)
+
+
+### Bug Fixes
+
+* add italian language ([1d74bd4](https://github.com/l4rm4nd/VoucherVault/commit/1d74bd4cb17f653156d2034cdb9e6065c3413268))
+
 ## [1.6.11](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.10...v1.6.11) (2024-09-23)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add missing translations ([d8c5743](https://github.com/l4rm4nd/VoucherVault/commit/d8c574357fd667c26a624a01ef37375f907c5f27))
-
-## [1.6.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.0...v1.6.7) (2024-09-21)
-
-
-### Bug Fixes
-
-* revert back to minor release ([5b961b8](https://github.com/l4rm4nd/VoucherVault/commit/5b961b87bd24a4fc45cd2d7cca2d461767f810e2))
 
