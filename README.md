@@ -27,7 +27,7 @@
 - Client-side redeem code scanning (1D/2D) during item creation
 - Expiry notifications via Apprise
 - Multi-user support
-- Multi-language support (English, German, French)
+- Multi-language support (English, German, French, Italian)
 - Single Sign-On (SSO) via OIDC
 - Database compatibility with SQLite3 and PostgreSQL
 
