@@ -1,3 +1,10 @@
+## [1.6.13](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.12...v1.6.13) (2024-10-08)
+
+
+### Bug Fixes
+
+* upgrade django ([237871f](https://github.com/l4rm4nd/VoucherVault/commit/237871f7a61ffc9fab3e5a7b6048d29e3fbb4b0a))
+
 ## [1.6.12](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.11...v1.6.12) (2024-10-02)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * language button css ([bf31e6e](https://github.com/l4rm4nd/VoucherVault/commit/bf31e6ec61270e1c303863de6284252e5af5776f))
-
-## [1.6.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.7...v1.6.8) (2024-09-22)
-
-
-### Bug Fixes
-
-* add missing translations ([d8c5743](https://github.com/l4rm4nd/VoucherVault/commit/d8c574357fd667c26a624a01ef37375f907c5f27))
 
