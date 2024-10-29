@@ -31,6 +31,14 @@
 - Single Sign-On (SSO) via OIDC
 - Database compatibility with SQLite3 and PostgreSQL
 
+## 📷 Screenshots
+
+<details>
+<img src="screenshots/dashboard.png">
+<img src="screenshots/items.png">
+<img src="screenshots/item-details.png">
+</details>
+
 ## 🐳 Usage
 
 [READ THE WIKI](https://github.com/l4rm4nd/VoucherVault/wiki/01-%E2%80%90-Installation)
@@ -116,14 +124,6 @@ Therefore, all database model entries can be read and modified by this user. Add
 
 Finally, Single-Sign-On (SSO) via OIDC is supported. Check out the environment variables above as well as the [wiki](https://github.com/l4rm4nd/VoucherVault/wiki/02-%E2%80%90-Authentication#oidc-authentication).
 
-## 📷 Screenshots
-
-<img src="screenshots/dashboard.png">
-
-<img src="screenshots/items.png">
-
-<img src="screenshots/item-details.png">
-
 ## 💾 Backups
 
 All application data is stored within a Docker bind mount volume. 
@@ -134,3 +134,6 @@ Therefore, by backing up this bind mount volume, all your application data is sa
 
 > [!WARNING]
 > Read the official [SQLite3 documentation](https://sqlite.org/backup.html) or [PostgreSQL documentation](https://www.postgresql.org/docs/current/backup.html) regarding backups.
+
+## 🤖 Repo Statistics
+![Alt](https://repobeats.axiom.co/api/embed/a8e369506f50bb08a3295b495639d42f7e20d1ba.svg "Repobeats analytics image")
