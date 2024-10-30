@@ -1,3 +1,10 @@
+## [1.6.14](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.13...v1.6.14) (2024-10-30)
+
+
+### Bug Fixes
+
+* french translation + variable quoting ([31618ac](https://github.com/l4rm4nd/VoucherVault/commit/31618ace8f9b360632573a45b161fe326b0ce1df))
+
 ## [1.6.13](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.12...v1.6.13) (2024-10-08)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * filtering and sorting ([b8a1416](https://github.com/l4rm4nd/VoucherVault/commit/b8a1416ee49bb36dc511ddb62a3934283fed15e8))
-
-## [1.6.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.8...v1.6.9) (2024-09-23)
-
-
-### Bug Fixes
-
-* language button css ([bf31e6e](https://github.com/l4rm4nd/VoucherVault/commit/bf31e6ec61270e1c303863de6284252e5af5776f))
 
