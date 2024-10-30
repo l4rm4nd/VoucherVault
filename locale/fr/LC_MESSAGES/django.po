@@ -1,3 +1,4 @@
+
 # FR Translation for VoucherVault
 # PixPaws, 2024.
 #
@@ -117,7 +118,7 @@ msgstr "Carte cadeau"
 
 #: myapp/templates/create-item.html:51 myapp/templates/edit-item.html:44
 msgid "Voucher"
-msgstr "Bon d'achat"
+msgstr "Bon"
 
 #: myapp/templates/create-item.html:52 myapp/templates/edit-item.html:45
 msgid "Coupon"
@@ -261,7 +262,7 @@ msgstr "Mes coupons"
 
 #: myapp/templates/dashboard.html:163
 msgid "My Vouchers"
-msgstr "Mes bons d'achat"
+msgstr "Mes bons"
 
 #: myapp/templates/dashboard.html:181
 msgid "My Loyalty Cards"
@@ -289,7 +290,7 @@ msgstr "Coupons"
 
 #: myapp/templates/dashboard.html:267 myapp/templates/inventory.html:26
 msgid "Vouchers"
-msgstr "Bons d'achat"
+msgstr "Bons"
 
 #: myapp/templates/dashboard.html:268 myapp/templates/inventory.html:27
 msgid "Gift Cards"
@@ -3691,7 +3692,7 @@ msgid "loyaltycard"
 msgstr "Carte de fidélité"
 
 msgid "voucher"
-msgstr "Bon d'achat"
+msgstr "Bon"
 
 msgid "coupon"
 msgstr "Coupon"
