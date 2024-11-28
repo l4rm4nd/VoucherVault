@@ -487,29 +487,39 @@ def get_items_by_type(request, item_type):
 
 @require_authorization_header_with_api_token
 def get_stats(request):
+    # Optional filter for username
+    username = request.GET.get('user', None)
+    
+    # If a username is provided, filter by user
+    if username:
+        user = get_object_or_404(User, username=username)
+        items_query = Item.objects.filter(user=user)
+    else:
+        # If no username is provided, use all items
+        items_query = Item.objects.all()
 
     # Calculate the total value of active, unused, and non-expired items, considering transactions
     items_with_transaction_values = (
-        Item.objects.filter(is_used=False, expiry_date__gte=now())  # Exclude used and expired items
+        items_query.filter(is_used=False, expiry_date__gte=now())  # Exclude used and expired items
         .annotate(
             transaction_total=Sum('transactions__value', default=0)  # Sum of related transaction values
         )
         .annotate(net_value=ExpressionWrapper(F('value') + F('transaction_total'), output_field=models.DecimalField()))
     )
 
-    total_value = round((items_with_transaction_values.aggregate(total_value=Sum('net_value'))['total_value'] or 0),2)
+    total_value = round((items_with_transaction_values.aggregate(total_value=Sum('net_value'))['total_value'] or 0), 2)
 
     # Item stats
     item_stats = {
-        "total_items": Item.objects.count(),
+        "total_items": items_query.count(),
         "total_value": total_value,  # Net value only for valid items
-        "vouchers": Item.objects.filter(type='voucher').count(),
-        "giftcards": Item.objects.filter(type='giftcard').count(),
-        "coupons": Item.objects.filter(type='coupon').count(),
-        "loyaltycards": Item.objects.filter(type='loyaltycard').count(),
-        "used_items": Item.objects.filter(is_used=True).count(),
-        "available_items": Item.objects.filter(is_used=False).count() - Item.objects.filter(expiry_date__lt=now()).count(),
-        "expired_items": Item.objects.filter(expiry_date__lt=now()).count(),
+        "vouchers": items_query.filter(type='voucher').count(),
+        "giftcards": items_query.filter(type='giftcard').count(),
+        "coupons": items_query.filter(type='coupon').count(),
+        "loyaltycards": items_query.filter(type='loyaltycard').count(),
+        "used_items": items_query.filter(is_used=True).count(),
+        "available_items": items_query.filter(is_used=False).count() - items_query.filter(expiry_date__lt=now()).count(),
+        "expired_items": items_query.filter(expiry_date__lt=now()).count(),
     }
 
     # User stats
@@ -521,10 +531,9 @@ def get_stats(request):
         "staff_members": User.objects.filter(is_staff=True).count(),
     }
 
-
     # Calculate the total transaction values per issuer
     issuer_transaction_totals = (
-        Item.objects.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
+        items_query.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
         .values('issuer')
         .annotate(
             transaction_total=Coalesce(
@@ -539,7 +548,7 @@ def get_stats(request):
 
     # Calculate issuer stats with count and base value
     issuers = (
-        Item.objects.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
+        items_query.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
         .values('issuer')
         .annotate(
             count=Count('issuer'),
@@ -556,11 +565,10 @@ def get_stats(request):
         {
             "issuer": issuer["issuer"],
             "count": issuer["count"],
-            "total_value": round((issuer["base_value"] + issuer_transaction_map.get(issuer["issuer"], 0)),2),  # Add base and transaction totals
+            "total_value": round((issuer["base_value"] + issuer_transaction_map.get(issuer["issuer"], 0)), 2),  # Add base and transaction totals
         }
         for issuer in issuers
     ]
-
 
     # Combine both stats into one response
     return JsonResponse({
