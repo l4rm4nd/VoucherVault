@@ -508,7 +508,7 @@ def get_stats(request):
         "coupons": Item.objects.filter(type='coupon').count(),
         "loyaltycards": Item.objects.filter(type='loyaltycard').count(),
         "used_items": Item.objects.filter(is_used=True).count(),
-        "unused_items": Item.objects.filter(is_used=False).count(),
+        "available_items": Item.objects.filter(is_used=False).count() - Item.objects.filter(expiry_date__lt=now()).count(),
         "expired_items": Item.objects.filter(expiry_date__lt=now()).count(),
     }
 
