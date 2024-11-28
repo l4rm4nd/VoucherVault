@@ -22,6 +22,7 @@ urlpatterns = (
     path('verify-apprise-urls/', views.verify_apprise_urls, name='verify_apprise_urls'),
     path('download/<uuid:item_id>/', views.download_file, name='download_file'),
     path('shared-items/', views.sharing_center, name='sharing_center'),
+    path('api/get/stats', views.get_stats, name='get_stats'),
 )
 
 admin.site.site_header = "VoucherVault"

@@ -19,6 +19,12 @@ from django.views.decorators.http import require_GET, require_POST
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
+from django.utils.timezone import now
+from .decorators import require_authorization_header_with_api_token
+from django.db.models import Count, Sum, Q, F, ExpressionWrapper, DecimalField
+from django.db.models.functions import Coalesce
+from django.db.models import Value
+
 
 apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
 
@@ -469,3 +475,96 @@ def unshare_item(request, item_id, user_id):
     
     # Redirect back to the item view page
     return redirect('view_item', item_uuid=item.id)
+
+# API
+
+@require_authorization_header_with_api_token
+
+def get_items_by_type(request, item_type):
+    authenticate_general_api_key(request)
+    items = Item.objects.filter(type=item_type).values()
+    return JsonResponse(list(items), safe=False)
+
+@require_authorization_header_with_api_token
+def get_stats(request):
+
+    # Calculate the total value of active, unused, and non-expired items, considering transactions
+    items_with_transaction_values = (
+        Item.objects.filter(is_used=False, expiry_date__gte=now())  # Exclude used and expired items
+        .annotate(
+            transaction_total=Sum('transactions__value', default=0)  # Sum of related transaction values
+        )
+        .annotate(net_value=ExpressionWrapper(F('value') + F('transaction_total'), output_field=models.DecimalField()))
+    )
+
+    total_value = round((items_with_transaction_values.aggregate(total_value=Sum('net_value'))['total_value'] or 0),2)
+
+    # Item stats
+    item_stats = {
+        "total_items": Item.objects.count(),
+        "total_value": total_value,  # Net value only for valid items
+        "vouchers": Item.objects.filter(type='voucher').count(),
+        "giftcards": Item.objects.filter(type='giftcard').count(),
+        "coupons": Item.objects.filter(type='coupon').count(),
+        "loyaltycards": Item.objects.filter(type='loyaltycard').count(),
+        "used_items": Item.objects.filter(is_used=True).count(),
+        "unused_items": Item.objects.filter(is_used=False).count(),
+        "expired_items": Item.objects.filter(expiry_date__lt=now()).count(),
+    }
+
+    # User stats
+    user_stats = {
+        "total_users": User.objects.count(),
+        "active_users": User.objects.filter(is_active=True).count(),
+        "disabled_users": User.objects.filter(is_active=False).count(),
+        "superusers": User.objects.filter(is_superuser=True).count(),
+        "staff_members": User.objects.filter(is_staff=True).count(),
+    }
+
+
+    # Calculate the total transaction values per issuer
+    issuer_transaction_totals = (
+        Item.objects.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
+        .values('issuer')
+        .annotate(
+            transaction_total=Coalesce(
+                Sum('transactions__value', output_field=DecimalField()), 
+                Value(0, output_field=DecimalField())
+            )  # Sum of transaction values with output field defined
+        )
+    )
+
+    # Map issuer to transaction totals for easier lookup
+    issuer_transaction_map = {item['issuer']: item['transaction_total'] for item in issuer_transaction_totals}
+
+    # Calculate issuer stats with count and base value
+    issuers = (
+        Item.objects.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
+        .values('issuer')
+        .annotate(
+            count=Count('issuer'),
+            base_value=Coalesce(
+                Sum('value', output_field=DecimalField()), 
+                Value(0, output_field=DecimalField())
+            )  # Sum of item values with output field defined
+        )
+        .order_by('-count')  # Optional: order by count
+    )
+
+    # Combine the values and transactions for the final total
+    issuer_stats = [
+        {
+            "issuer": issuer["issuer"],
+            "count": issuer["count"],
+            "total_value": round((issuer["base_value"] + issuer_transaction_map.get(issuer["issuer"], 0)),2),  # Add base and transaction totals
+        }
+        for issuer in issuers
+    ]
+
+
+    # Combine both stats into one response
+    return JsonResponse({
+        "item_stats": item_stats,
+        "user_stats": user_stats,
+        "issuer_stats": issuer_stats,
+    })
