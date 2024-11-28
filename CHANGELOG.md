@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.1...v1.7.2) (2024-11-28)
+
+
+### Bug Fixes
+
+* add username filter for api ([865c304](https://github.com/l4rm4nd/VoucherVault/commit/865c3046af23ee26ebda5123f1300564b43b206f))
+
 ## [1.7.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.0...v1.7.1) (2024-11-28)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * french translation + variable quoting ([31618ac](https://github.com/l4rm4nd/VoucherVault/commit/31618ace8f9b360632573a45b161fe326b0ce1df))
-
-## [1.6.13](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.12...v1.6.13) (2024-10-08)
-
-
-### Bug Fixes
-
-* upgrade django ([237871f](https://github.com/l4rm4nd/VoucherVault/commit/237871f7a61ffc9fab3e5a7b6048d29e3fbb4b0a))
 
