@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.0...v1.7.1) (2024-11-28)
+
+
+### Bug Fixes
+
+* calculate available items count ([3b03192](https://github.com/l4rm4nd/VoucherVault/commit/3b0319246997a6cff871512c399fa208c92d4faf))
+
 ## [1.7.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.15...v1.7.0) (2024-11-28)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * upgrade django ([237871f](https://github.com/l4rm4nd/VoucherVault/commit/237871f7a61ffc9fab3e5a7b6048d29e3fbb4b0a))
-
-## [1.6.12](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.11...v1.6.12) (2024-10-02)
-
-
-### Bug Fixes
-
-* add italian language ([1d74bd4](https://github.com/l4rm4nd/VoucherVault/commit/1d74bd4cb17f653156d2034cdb9e6065c3413268))
 
