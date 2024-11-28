@@ -1,3 +1,10 @@
+## [1.7.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.15...v1.7.0) (2024-11-28)
+
+
+### Features
+
+* add api stats endpoint ([86f5a8e](https://github.com/l4rm4nd/VoucherVault/commit/86f5a8ef01a7e4a2fa0527e522cbe04ffb21a417))
+
 ## [1.6.15](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.14...v1.6.15) (2024-11-22)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add italian language ([1d74bd4](https://github.com/l4rm4nd/VoucherVault/commit/1d74bd4cb17f653156d2034cdb9e6065c3413268))
-
-## [1.6.11](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.10...v1.6.11) (2024-09-23)
-
-
-### Bug Fixes
-
-* implement optional expiry date to fix [#25](https://github.com/l4rm4nd/VoucherVault/issues/25) ([cd6f262](https://github.com/l4rm4nd/VoucherVault/commit/cd6f2621d1e1f8d7fba757efc79b967a84e08181))
 
