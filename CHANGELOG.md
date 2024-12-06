@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.2...v1.7.3) (2024-12-06)
+
+
+### Bug Fixes
+
+* **deps:** bump django fix cve ([b618c19](https://github.com/l4rm4nd/VoucherVault/commit/b618c190ad9637efcbc9a4869544c76ab59c2510))
+
 ## [1.7.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.1...v1.7.2) (2024-11-28)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * upgrade django ([910541e](https://github.com/l4rm4nd/VoucherVault/commit/910541e65d68e549efee9934563bcfe0d11a3d94))
-
-## [1.6.14](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.13...v1.6.14) (2024-10-30)
-
-
-### Bug Fixes
-
-* french translation + variable quoting ([31618ac](https://github.com/l4rm4nd/VoucherVault/commit/31618ace8f9b360632573a45b161fe326b0ce1df))
 
