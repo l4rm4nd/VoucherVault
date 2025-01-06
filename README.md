@@ -49,7 +49,7 @@
 mkdir -p ./volume-data/database
 
 # adjust permissions
-sudo chown -R www-data:www-data volume-data/*
+sudo chown -R 33:33 volume-data/*
 
 # spawn the container stack
 docker compose -f docker/docker-compose-sqlite.yml up
@@ -66,7 +66,7 @@ docker compose -f docker/docker-compose-sqlite.yml logs -f
 ````
 
 > [!WARNING]
-> The container runs as low-privileged `www-data` user. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R www-data:www-data <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
+> The container runs as low-privileged `www-data` user with UID/GID `33`. So you have to adjust the permissions for the persistent database bind mount volume. A command like `sudo chown -R 33:33 <path-to-volume-data-dir>` should work. Afterwards, please restart the container.
 
 > [!TIP]
 > This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
