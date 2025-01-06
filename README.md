@@ -48,7 +48,7 @@
 # create volume dir for persistence
 mkdir -p ./volume-data/database
 
-# adjust permissions
+# adjust volume ownership to www-data
 sudo chown -R 33:33 volume-data/*
 
 # spawn the container stack
