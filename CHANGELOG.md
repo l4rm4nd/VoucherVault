@@ -1,3 +1,10 @@
+## [1.7.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.3...v1.7.4) (2025-01-06)
+
+
+### Bug Fixes
+
+* add blur effect to fix [#45](https://github.com/l4rm4nd/VoucherVault/issues/45) ([3bb036b](https://github.com/l4rm4nd/VoucherVault/commit/3bb036b57f1deccb0f30ae15b138bcf7d5a86ad5))
+
 ## [1.7.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.2...v1.7.3) (2024-12-06)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * add api stats endpoint ([86f5a8e](https://github.com/l4rm4nd/VoucherVault/commit/86f5a8ef01a7e4a2fa0527e522cbe04ffb21a417))
-
-## [1.6.15](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.14...v1.6.15) (2024-11-22)
-
-
-### Bug Fixes
-
-* upgrade django ([910541e](https://github.com/l4rm4nd/VoucherVault/commit/910541e65d68e549efee9934563bcfe0d11a3d94))
 
