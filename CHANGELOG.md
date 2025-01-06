@@ -1,3 +1,10 @@
+## [1.7.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.5...v1.7.6) (2025-01-06)
+
+
+### Bug Fixes
+
+* improve logo ([679dc1d](https://github.com/l4rm4nd/VoucherVault/commit/679dc1de0e083cd313ca5f8f211cc333ceee4bd8))
+
 ## [1.7.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.4...v1.7.5) (2025-01-06)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add username filter for api ([865c304](https://github.com/l4rm4nd/VoucherVault/commit/865c3046af23ee26ebda5123f1300564b43b206f))
-
-## [1.7.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.0...v1.7.1) (2024-11-28)
-
-
-### Bug Fixes
-
-* calculate available items count ([3b03192](https://github.com/l4rm4nd/VoucherVault/commit/3b0319246997a6cff871512c399fa208c92d4faf))
 
