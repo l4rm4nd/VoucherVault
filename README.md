@@ -1,6 +1,6 @@
 <div align="center" width="100%">
     <h1>VoucherVault</h1>
-    <img width="150px" src="myapp/static/assets/img/logo.svg">
+    <img width="150px" src="myapp/static/assets/img/logo.png">
     <p>Django web application to store and manage vouchers, coupons, loyalty and gift cards digitally</p><p>
     <a target="_blank" href="https://github.com/l4rm4nd"><img src="https://img.shields.io/badge/maintainer-LRVT-orange" /></a>
     <a target="_blank" href="https://GitHub.com/l4rm4nd/VoucherVault/graphs/contributors/"><img src="https://img.shields.io/github/contributors/l4rm4nd/VoucherVault.svg" /></a>
