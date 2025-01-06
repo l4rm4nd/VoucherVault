@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.4...v1.7.5) (2025-01-06)
+
+
+### Bug Fixes
+
+* remove tinymce and use svg logo ([47f7631](https://github.com/l4rm4nd/VoucherVault/commit/47f7631daa8e9200afeb7a719ace037061d4b46a))
+
 ## [1.7.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.3...v1.7.4) (2025-01-06)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * calculate available items count ([3b03192](https://github.com/l4rm4nd/VoucherVault/commit/3b0319246997a6cff871512c399fa208c92d4faf))
-
-## [1.7.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.6.15...v1.7.0) (2024-11-28)
-
-
-### Features
-
-* add api stats endpoint ([86f5a8e](https://github.com/l4rm4nd/VoucherVault/commit/86f5a8ef01a7e4a2fa0527e522cbe04ffb21a417))
 
