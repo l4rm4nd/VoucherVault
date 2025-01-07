@@ -52,14 +52,12 @@ mkdir -p ./volume-data/database
 sudo chown -R 33:33 volume-data/*
 
 # spawn the container stack
-docker compose -f docker/docker-compose-sqlite.yml up
+docker compose -f docker/docker-compose-sqlite.yml up -d
 ````
 
 Once the container is up and running, you can access the web portal at http://127.0.0.1:8000. 
 
-The default username is `admin`. The default password is auto-generated.
-
-You can obtain the auto-generated password via the Docker container logs:
+The default username is `admin`. The default password is auto-generated. You can obtain the auto-generated password via the Docker container logs:
 
 ````
 docker compose -f docker/docker-compose-sqlite.yml logs -f
