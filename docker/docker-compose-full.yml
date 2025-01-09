@@ -10,9 +10,9 @@ services:
       # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
       - SECURE_COOKIES=False
       # define the maximum session age in minutes
-      - SESSION_COOKIE_AGE=60
+      - SESSION_COOKIE_AGE=30
       # decide whether session cookie is invalidated on browser close
-      - SESSION_EXPIRE_AT_BROWSER_CLOSE=False
+      - SESSION_EXPIRE_AT_BROWSER_CLOSE=True
       # send notifications xx days prior expiry
       - EXPIRY_THRESHOLD_DAYS=90
       # define the timezone
