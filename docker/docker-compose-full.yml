@@ -9,6 +9,10 @@ services:
       - DOMAIN=vouchervault.example.com
       # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
       - SECURE_COOKIES=False
+      # define the maximum session age in minutes
+      - SESSION_COOKIE_AGE=60
+      # decide whether session cookie is invalidated on browser close
+      - SESSION_EXPIRE_AT_BROWSER_CLOSE=False
       # send notifications xx days prior expiry
       - EXPIRY_THRESHOLD_DAYS=90
       # define the timezone
@@ -19,6 +23,8 @@ services:
       # ------- OPTIONAL OIDC AUTH --------
       # Set to 'True' to enable OIDC authentication
       #- OIDC_ENABLED=True
+      # Decide whether login area triggers automatic OIDC login flow
+      #- OIDC_AUTOLOGIN=False
       # Set to 'True' to allow the creation of new users through OIDC
       #- OIDC_CREATE_USER=True
       # The signing algorithm used by the OIDC provider (e.g., RS256, HS256)
