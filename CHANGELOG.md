@@ -1,3 +1,10 @@
+## [1.8.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.6...v1.8.0) (2025-01-09)
+
+
+### Features
+
+* support oidc autologin ([8ef1462](https://github.com/l4rm4nd/VoucherVault/commit/8ef146244e0cb5bd7ca551f95d5e164fd04b2db4))
+
 ## [1.7.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.5...v1.7.6) (2025-01-06)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * **deps:** bump django fix cve ([b618c19](https://github.com/l4rm4nd/VoucherVault/commit/b618c190ad9637efcbc9a4869544c76ab59c2510))
-
-## [1.7.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.1...v1.7.2) (2024-11-28)
-
-
-### Bug Fixes
-
-* add username filter for api ([865c304](https://github.com/l4rm4nd/VoucherVault/commit/865c3046af23ee26ebda5123f1300564b43b206f))
 
