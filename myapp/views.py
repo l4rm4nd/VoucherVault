@@ -41,6 +41,13 @@ def is_valid_ean13(code):
     return int(code[-1]) == calculate_ean13_check_digit(code)
 
 @require_GET
+def post_logout(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+        return render(request, 'registration/post-logout.html')
+
+@require_GET
 @login_required
 def dashboard(request):
     user = request.user

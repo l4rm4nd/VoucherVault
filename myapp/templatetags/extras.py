@@ -8,6 +8,8 @@ register = template.Library()
 def env(key):
     if key == "OIDC_ENABLED":
         return settings.OIDC_ENABLED
+    if key == "OIDC_AUTOLOGIN":
+        return settings.OIDC_AUTOLOGIN        
     if key == "VERSION":
         return settings.VERSION
     if key == "EXPIRY_THRESHOLD":

@@ -17,6 +17,7 @@ urlpatterns = (
     path('items/share/<uuid:item_id>', views.share_item_view, name='share_item'),
     path('items/unshare/<uuid:item_id>/<int:user_id>', views.unshare_item, name='unshare_item'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('post-logout/', views.post_logout, name='post_logout'),
     path('user/edit/notifications', views.update_apprise_urls, name='update_apprise_urls'),
     path('transactions/delete/<uuid:transaction_id>', views.delete_transaction, name='delete_transaction'),
     path('verify-apprise-urls/', views.verify_apprise_urls, name='verify_apprise_urls'),

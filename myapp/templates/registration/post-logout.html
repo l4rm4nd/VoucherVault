@@ -135,49 +135,12 @@
         <div class="logo-container">
             <a href="/"><img title="VoucherVault" src="{% static 'assets/img/logo.svg' %}" width="50px" alt=""></a>
         </div>
-        {% if not "OIDC_ENABLED"|env %}
-        <form method="post" action="{% url 'login' %}">
+        <h6 style="color: white;text-align: center;" >You successfully logged out!</h6>
+        <form method="get" action="{% url 'login' %}">
             <input type="hidden" name="next" value="{{next}}" />
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">{% trans "Username" %}:</label>
-                <input type="text" id="username" name="username" autocapitalize="none" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password">{% trans "Password" %}:</label>
-                <input type="password" id="password" autocapitalize="none" name="password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
-        </form>
-        {% endif %}
-        {% if "OIDC_ENABLED"|env == True %}
-        <form method="get" action="{% url 'oidc_authentication_init' %}">
-            <input type="hidden" name="next" value="{{next}}" />
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right toggle-sidebar-btn"></i> OIDC</button>
-        </form>
-        {% endif %}
-        <form method="get" action="/admin">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-secondary"><i class="bi bi-person-gear toggle-sidebar-btn"></i> {% trans "Admin Panel" %}</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right toggle-sidebar-btn"></i> Back to Login</button>
         </form>
     </div>
-
-    {% if not "OIDC_ENABLED"|env %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('username').focus();
-        });
-    </script>
-    {% endif %}
-
-    {% if "OIDC_AUTOLOGIN"|env %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-                window.location.href = "{% url 'oidc_authentication_init' %}?next={{next}}";
-        });
-    </script>
-    {% endif %}
 
 </body>
 </html>

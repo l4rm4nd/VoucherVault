@@ -52,8 +52,8 @@ if DOMAIN:
 
 #Session Management
 CSRF_COOKIE_HTTPONLY = True
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 30*60 # 30 minute session age
+SESSION_EXPIRE_AT_BROWSER_CLOSE = os.environ.get('SESSION_EXPIRE_AT_BROWSER_CLOSE', 'True').lower() in ['true']
+SESSION_COOKIE_AGE = int(os.environ.get('SESSION_COOKIE_AGE', '30')) * 60
 SESSION_COOKIE_NAME = 'VVSESS'
 SESSION_COOKIE_SAMESITE = 'Lax'
 
@@ -226,12 +226,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/post-logout/'
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
 # check if oidc is enabled
 OIDC_ENABLED = os.environ.get('OIDC_ENABLED', 'False').lower() in ['true']
+OIDC_AUTOLOGIN = os.environ.get('OIDC_AUTOLOGIN', 'False').lower() in ['true']
 
 if OIDC_ENABLED:
     # get oidc config from env
