@@ -50,7 +50,7 @@
                     </section>
 
                     <!-- Item Form -->
-                    <form method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
+                    <form id="myform" method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row mb-3">
                             <label for="type" class="col-sm-2 col-form-label">{% trans "Type" %}</label>
@@ -116,13 +116,23 @@
                         <div class="row mb-3">
                             <label for="issue_date" class="col-sm-2 col-form-label">{% trans "Issue Date" %}</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>
+                                {% if "-" in form.issue_date.value %}
+                                    <input type="date" class="form-control" id="issue_date" name="issue_date" value="{{ form.issue_date.value }}" required>
+                                {% else %}
+                                    <input type="date" class="form-control" id="issue_date" name="issue_date" value="{{ form.issue_date.value|date:"Y-m-d" }}" required>
+                                {% endif %}
+                                <!--<input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>-->
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="expiry_date" class="col-sm-2 col-form-label">{% trans "Expiry Date" %}</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="expiry_date" name="expiry_date" value='{{ form.expiry_date.value|date:"Y-m-d" }}' required>
+                                {% if "-" in form.expiry_date.value %}
+                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value }}">
+                                {% else %}
+                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value|date:"Y-m-d" }}">
+                                {% endif %}
+                                <!--<input type="date" class="form-control" id="expiry_date" name="expiry_date" value='{{ form.expiry_date.value|date:"Y-m-d" }}'>-->
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -161,7 +171,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-10 offset-sm-2">
-                                <button type="submit" onclick="document.getElementById('loadingOverlay').style.display = 'flex';" class="btn btn-primary">{% trans "Update Item" %}</button>
+                                <button type="submit" onclick="handleSubmitButton()" class="btn btn-primary">{% trans "Update Item" %}</button>
                             </div>
                         </div>
                     </form><!-- End Item Form -->
@@ -192,7 +202,16 @@
   
   <script src="{% static 'assets/js/zxing.js' %}"></script>
   <script src="{% static 'assets/js/scanner.js' %}"></script>
-
+<script>
+    function handleSubmitButton() {
+        var form = document.getElementById('myform'); // Direct reference to the form by its ID
+        if (form.checkValidity()) {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        } else {
+            document.getElementById('loadingOverlay').style.display = 'none'; // Hide if form is not valid
+        }
+    }
+</script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
 

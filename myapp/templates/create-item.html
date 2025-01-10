@@ -57,16 +57,16 @@
                     </section>
 
                     <!-- Item Form -->
-                    <form method="POST" action="{% url 'create_item' %}" enctype="multipart/form-data">
+                    <form id="myform" method="POST" action="{% url 'create_item' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row mb-3">
                             <label for="type" class="col-sm-2 col-form-label">{% trans "Type" %}</label>
                             <div class="col-sm-10">
                                 <select class="form-select" id="type" name="type" required>
-                                    <option value="giftcard">{% trans "Gift Card" %}</option>
-                                    <option value="voucher">{% trans "Voucher" %}</option>
-                                    <option value="coupon">{% trans "Coupon" %}</option>
-                                    <option value="loyaltycard">{% trans "Loyalty Card" %}</option>
+                                    <option value="giftcard" {% if form.type.value == "giftcard" %}selected{% endif %}>{% trans "Gift Card" %}</option>
+                                    <option value="voucher" {% if form.type.value == "voucher" %}selected{% endif %}>{% trans "Voucher" %}</option>
+                                    <option value="coupon" {% if form.type.value == "coupon" %}selected{% endif %}>{% trans "Coupon" %}</option>
+                                    <option value="loyaltycard" {% if form.type.value == "loyaltycard" %}selected{% endif %}>{% trans "Loyalty Card" %}</option>
                                 </select>
                             </div>
                         </div>
@@ -74,21 +74,21 @@
                             <label for="name" class="col-sm-2 col-form-label">{% trans "Name" %}</label>
                             <div class="col-sm-10">
                                 <input placeholder="{% trans 'The name of the item' %}" type="text" class="form-control" id="name"
-                                    name="name" required>
+                                    name="name" value='{{ form.name.value|default_if_none:"" }}' required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="issuer" class="col-sm-2 col-form-label">{% trans "Issuer" %}</label>
                             <div class="col-sm-10">
                                 <input placeholder="{% trans 'The issuer of the item' %}" type="text" class="form-control mt-2"
-                                    id="issuer" name="issuer" required>
+                                    id="issuer" name="issuer" value='{{ form.issuer.value|default_if_none:"" }}' required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="redeem_code" class="col-sm-2 col-form-label">{% trans "Redeem Code" %}</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input placeholder="{% trans 'The redeem code of the item' %}" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
+                                    <input placeholder="{% trans 'The redeem code of the item' %}" type="text" class="form-control" id="redeem_code" name="redeem_code" value='{{ form.redeem_code.value|default_if_none:"" }}' required>
                                     <button title="Camera Scan" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
                                         <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
@@ -99,20 +99,20 @@
                             <label for="code_type" class="col-sm-2 col-form-label">{% trans "Code Type" %}</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="code_type" name="code_type" required>
-                                    <option value="qrcode">QR Code</option>
-                                    <option value="ean13">EAN-13</option>
-                                    <option value="ean8">EAN-8</option>
-                                    <option value="code128">Code 128</option>
-                                    <option value="code39">Code 39</option>
-                                    <option value="upca">UPC-A</option>
-                                    <option value="upce">UPC-E</option>
-                                    <option value="isbn13">ISBN-13</option>
-                                    <option value="isbn10">ISBN-10</option>
-                                    <option value="issn">ISSN</option>
-                                    <option value="pdf417">PDF417</option>
-                                    <option value="datamatrix">Data Matrix</option>
-                                    <option value="azteccode">Aztec Code</option>
-                                    <option value="interleaved2of5">Interleaved 2 of 5</option>
+                                    <option value="qrcode" {% if form.code_type.value == "qrcode" %}selected{% endif %}>QR Code</option>
+                                    <option value="ean13" {% if form.code_type.value == "ean13" %}selected{% endif %}>EAN-13</option>
+                                    <option value="ean8" {% if form.code_type.value == "ean8" %}selected{% endif %}>EAN-8</option>
+                                    <option value="code128" {% if form.code_type.value == "code128" %}selected{% endif %}>Code 128</option>
+                                    <option value="code39" {% if form.code_type.value == "code39" %}selected{% endif %}>Code 39</option>
+                                    <option value="upca" {% if form.code_type.value == "upca" %}selected{% endif %}>UPC-A</option>
+                                    <option value="upce" {% if form.code_type.value == "upce" %}selected{% endif %}>UPC-E</option>
+                                    <option value="isbn13" {% if form.code_type.value == "isbn13" %}selected{% endif %}>ISBN-13</option>
+                                    <option value="isbn10" {% if form.code_type.value == "isbn10" %}selected{% endif %}>ISBN-10</option>
+                                    <option value="issn" {% if form.code_type.value == "issn" %}selected{% endif %}>ISSN</option>
+                                    <option value="pdf417" {% if form.code_type.value == "pdf417" %}selected{% endif %}>PDF417</option>
+                                    <option value="datamatrix" {% if form.code_type.value == "datamatrix" %}selected{% endif %}>Data Matrix</option>
+                                    <option value="azteccode" {% if form.code_type.value == "azteccode" %}selected{% endif %}>Aztec Code</option>
+                                    <option value="interleaved2of5" {% if form.code_type.value == "interleaved2of5" %}selected{% endif %}>Interleaved 2 of 5</option>
                                 </select>
                             </div>
                         </div>                     
@@ -120,29 +120,41 @@
                             <label for="pin" class="col-sm-2 col-form-label">{% trans "PIN Code" %}</label>
                             <div class="col-sm-10">
                                 <input placeholder="{% trans 'The pin code of the item' %}" type="text" class="form-control" id="pin"
-                                    name="pin">
+                                    name="pin" value='{{ form.pin.value|default_if_none:"" }}'>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="issue_date" class="col-sm-2 col-form-label">{% trans "Issue Date" %}</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="issue_date" name="issue_date" required>
+                                {% if "-" in form.issue_date.value %}
+                                    <input type="date" class="form-control" id="issue_date" name="issue_date" value="{{ form.issue_date.value }}" required>
+                                {% else %}
+                                    <input type="date" class="form-control" id="issue_date" name="issue_date" value="{{ form.issue_date.value|date:"Y-m-d" }}" required>
+                                {% endif %}
+                                <!--<input type="date" class="form-control" id="issue_date" name="issue_date" required>-->
                             </div>
+                            {% if not form.issue_date.value %}
                             <script>
                                 document.getElementById('issue_date').valueAsDate = new Date();
                             </script>
+                            {% endif %}
                         </div>
                         <div class="row mb-3">
                             <label for="expiry_date" class="col-sm-2 col-form-label">{% trans "Expiry Date" %}</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="expiry_date" name="expiry_date">
+                                {% if "-" in form.expiry_date.value %}
+                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value }}">
+                                {% else %}
+                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value|date:"Y-m-d" }}">
+                                {% endif %}
+                                <!--<input type="date" class="form-control" id="expiry_date" name="expiry_date">-->
                             </div>
                         </div>
                         <div class="row mb-3">
                           <label for="description" class="col-sm-2 col-form-label">{% trans "Description" %}</label>
                           <div class="col-sm-10">
                               <textarea placeholder="{% trans 'The description of the item' %}" class="form-control" id="description"
-                                  name="description" rows="4"></textarea>
+                                  name="description" rows="4">{{ form.description.value|default_if_none:"" }}</textarea>
                           </div>
                       </div>
                       <div class="row mb-3">
@@ -152,7 +164,7 @@
                             </a>
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="amazon.com" id="logo_slug" name="logo_slug">
+                            <input type="text" class="form-control" placeholder="amazon.com" id="logo_slug" name="logo_slug" value='{{ form.logo_slug.value|default_if_none:"" }}'>
                         </div>
                       </div>                      
                         <div class="row mb-3" id="value-field">
@@ -160,7 +172,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <input placeholder="{% trans 'The value of the item' %}" type="number" class="form-control"
-                                        id="value" name="value" step="0.01" min="0.00" required> 
+                                        id="value" name="value" step="0.01" min="0.00" value='{{ form.value.value|default_if_none:"" }}' required> 
                                     <button class="btn btn-outline-secondary btn-feature d-none" type="button" id="toggle-value-type">
                                         <span title="Toggle value type" id="value-type-icon" class="bi bi-cash-coin"></span>
                                     </button>
@@ -176,7 +188,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-10 offset-sm-2">
-                                <button type="submit" onclick="document.getElementById('loadingOverlay').style.display = 'flex';" class="btn btn-primary">{% trans "Create Item" %}</button>
+                                <button type="submit" onclick="handleSubmitButton(this)" class="btn btn-primary">{% trans "Create Item" %}</button>
                             </div>
                         </div>
                     </form><!-- End Item Form -->
@@ -207,7 +219,16 @@
 
 <script src="{% static 'assets/js/zxing.js' %}"></script>
 <script src="{% static 'assets/js/scanner.js' %}"></script>
-
+<script>
+    function handleSubmitButton() {
+        var form = document.getElementById('myform'); // Direct reference to the form by its ID
+        if (form.checkValidity()) {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        } else {
+            document.getElementById('loadingOverlay').style.display = 'none'; // Hide if form is not valid
+        }
+    }
+</script>
 <script>
 
   document.addEventListener("DOMContentLoaded", function () {

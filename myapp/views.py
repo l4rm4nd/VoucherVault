@@ -25,7 +25,6 @@ from django.db.models import Count, Sum, Q, F, ExpressionWrapper, DecimalField
 from django.db.models.functions import Coalesce
 from django.db.models import Value
 
-
 apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
 
 def calculate_ean13_check_digit(code):
@@ -237,7 +236,7 @@ def create_item(request):
             except Exception as e:
                 # Print the error for debugging and add a user-friendly error to the form
                 form.add_error(None, f'Failed to generate barcode. Error: {str(e)}')
-                form.add_error(None, f'Use the browser\'s back button to refill the forms')
+                form.add_error(None, f'Use the browser\'s back button to refill previous file uploads')
                 # Return the form filled with the user's previously entered data and errors
                 return render(request, 'create-item.html', {'form': form})
 
@@ -303,9 +302,7 @@ def edit_item(request, item_uuid):
                     item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
                     item.save()  # Save the item after generating the barcode
                 except Exception as e:
-                    # Print the error for debugging and add a user-friendly error to the form
                     form.add_error(None, f'Failed to generate barcode. Error: {str(e)}')
-                    form.add_error(None, f'Use the browser\'s back button to refill the forms')
                     # Return the form filled with the user's previously entered data and errors
                     return render(request, 'edit-item.html', {'form': form, 'item': item})
                     
