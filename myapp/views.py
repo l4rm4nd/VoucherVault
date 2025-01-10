@@ -208,7 +208,6 @@ def create_item(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.user = request.user  # Set the user from the session
-            item.save()  # Save the item to generate the ID before any further processing
 
             buffer = io.BytesIO()
             try:
@@ -216,7 +215,6 @@ def create_item(request):
                 if item.code_type != "qrcode" and is_valid_ean13(item.redeem_code):
                     code_type = "ean13"
                     item.code_type = "ean13"
-                    item.save()
                 else:
                     code_type = item.code_type
 
