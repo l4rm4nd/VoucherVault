@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.1...v1.9.2) (2025-01-10)
+
+
+### Bug Fixes
+
+* remove translation from edit-items and fix auto-fill code type ([392705b](https://github.com/l4rm4nd/VoucherVault/commit/392705bd766e50331514a8bb470006fff77fbb5d))
+
 ## [1.9.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.0...v1.9.1) (2025-01-10)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * improve logo ([679dc1d](https://github.com/l4rm4nd/VoucherVault/commit/679dc1de0e083cd313ca5f8f211cc333ceee4bd8))
-
-## [1.7.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.4...v1.7.5) (2025-01-06)
-
-
-### Bug Fixes
-
-* remove tinymce and use svg logo ([47f7631](https://github.com/l4rm4nd/VoucherVault/commit/47f7631daa8e9200afeb7a719ace037061d4b46a))
 
