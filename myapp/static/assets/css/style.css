@@ -1328,3 +1328,29 @@ input.readonly {
  {
   color: rgb(48, 47, 47);
 }
+
+/* Overlay create item */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+  }
+  @keyframes breathe {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  .breathe-red {
+    animation: breathe 1s infinite;
+    color: red;
+  }

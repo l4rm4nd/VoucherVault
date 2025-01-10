@@ -3693,3 +3693,6 @@ msgstr "coupon"
 
 msgid "Threshold"
 msgstr "Soglia"
+
+msgid "Code Type"
+msgstr "Codice tipo"

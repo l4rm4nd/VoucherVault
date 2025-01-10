@@ -209,25 +209,39 @@ def create_item(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.user = request.user  # Set the user from the session
+            item.save()  # Save the item to generate the ID before any further processing
 
-            # Save the item first to generate the ID
-            item.save()
-
-            # Generate QR code or barcode and save it as base64
             buffer = io.BytesIO()
-            if is_valid_ean13(item.redeem_code):
-                barcode = treepoem.generate_barcode(
-                    barcode_type='ean13',  # Specify the barcode type
-                    data=item.redeem_code
-                )
-                barcode.save(buffer, 'PNG')
-            else:
-                qr = qrcode.make(item.redeem_code)
-                qr.save(buffer)
+            try:
 
-            item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+                if item.code_type != "qrcode" and is_valid_ean13(item.redeem_code):
+                    code_type = "ean13"
+                    item.code_type = "ean13"
+                    item.save()
+                else:
+                    code_type = item.code_type
 
-            # Handle file upload
+                if code_type == "qrcode":
+                        qr = qrcode.make(item.redeem_code)
+                        qr.save(buffer)
+                else:
+                    barcode = treepoem.generate_barcode(
+                        barcode_type=code_type,
+                        data=item.redeem_code,
+                        scale=2
+                    )
+                    barcode.save(buffer, 'PNG')
+
+                item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+                item.save()  # Save the item after generating the barcode
+            except Exception as e:
+                # Print the error for debugging and add a user-friendly error to the form
+                form.add_error(None, f'Failed to generate barcode. Error: {str(e)}')
+                form.add_error(None, f'Use the browser\'s back button to refill the forms')
+                # Return the form filled with the user's previously entered data and errors
+                return render(request, 'create-item.html', {'form': form})
+
+            # Handle file upload if there's any
             if 'file' in request.FILES:
                 file = request.FILES['file']
                 username = request.user.username
@@ -236,11 +250,18 @@ def create_item(request):
                     os.makedirs(user_folder)
                 file_name = f"{item.id}_{file.name}"
                 file_path = os.path.join(user_folder, file_name)
-                item.file.save(file_path, file)
+                with open(file_path, 'wb+') as destination:
+                    for chunk in file.chunks():
+                        destination.write(chunk)
+                item.file.name = os.path.join('uploads', username, file_name)
+                item.save()
 
-            item.save()
             return redirect('show_items')
+        else:
+            # If form is not valid, render the form with validation errors
+            return render(request, 'create-item.html', {'form': form})
     else:
+        # If not a POST request, initialize an empty form
         form = ItemForm()
 
     return render(request, 'create-item.html', {'form': form})
@@ -248,7 +269,8 @@ def create_item(request):
 @login_required
 def edit_item(request, item_uuid):
     item = get_object_or_404(Item, id=item_uuid, user=request.user)
-    original_redeem_code = item.redeem_code  # Store the original redeem code
+    original_redeem_code = item.redeem_code # Store the original redeem code
+    original_code_type = item.code_type  # Store the original code type
     old_file_path = item.file.path if item.file else None  # Store the old file path
 
     if request.method == 'POST':
@@ -257,21 +279,36 @@ def edit_item(request, item_uuid):
             item = form.save(commit=False)
 
             # Check if redeem code has changed
-            if original_redeem_code != item.redeem_code:
+            if original_code_type != item.code_type or original_redeem_code != item.redeem_code:
                 # Generate new QR code or barcode and save it as base64
                 buffer = io.BytesIO()
-                if is_valid_ean13(item.redeem_code):
-                    barcode = treepoem.generate_barcode(
-                        barcode_type='ean13',  # Specify the barcode type
-                        data=item.redeem_code
-                    )
-                    barcode.save(buffer, 'PNG')
-                else:
-                    qr = qrcode.make(item.redeem_code)
-                    qr.save(buffer)
-                
-                item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+                try:
+                    if item.code_type != "qrcode" and is_valid_ean13(item.redeem_code):
+                        code_type = "ean13"
+                        item.code_type = "ean13"
+                        item.save()
+                    else:
+                        code_type = item.code_type
 
+                    if code_type == "qrcode":
+                        qr = qrcode.make(item.redeem_code)
+                        qr.save(buffer)
+                    else:
+                        barcode = treepoem.generate_barcode(
+                            barcode_type=code_type,
+                            data=item.redeem_code,
+                            scale=2
+                        )
+                        barcode.save(buffer, 'PNG')
+                    item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+                    item.save()  # Save the item after generating the barcode
+                except Exception as e:
+                    # Print the error for debugging and add a user-friendly error to the form
+                    form.add_error(None, f'Failed to generate barcode. Error: {str(e)}')
+                    form.add_error(None, f'Use the browser\'s back button to refill the forms')
+                    # Return the form filled with the user's previously entered data and errors
+                    return render(request, 'edit-item.html', {'form': form, 'item': item})
+                    
             # Handle file upload
             if 'file' in request.FILES:
                 file = request.FILES['file']

@@ -3702,3 +3702,6 @@ msgstr "Valeur"
 
 msgid "Threshold"
 msgstr "Seuil"
+
+msgid "Code Type"
+msgstr "Code type"

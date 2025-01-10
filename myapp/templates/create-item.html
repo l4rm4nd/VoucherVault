@@ -4,6 +4,22 @@
 
 {% block content %}
 
+<div id="loadingOverlay" class="loading-overlay">
+  <div>Redeem code type checking in progress...</div>
+</div>
+
+{% if form.errors %}
+<div id="errors" class="alert alert-danger mt-2">
+    <ul>
+        {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 <div class="pagetitle">
     <h1>{% trans "Create New Item" %}</h1>
     <nav>
@@ -80,6 +96,25 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="code_type" class="col-sm-2 col-form-label">{% trans "Code Type" %}</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="code_type" name="code_type" required>
+                                    <option value="qrcode">QR Code</option>
+                                    <option value="ean13">EAN-13</option>
+                                    <option value="ean8">EAN-8</option>
+                                    <option value="code128">Code 128</option>
+                                    <option value="code39">Code 39</option>
+                                    <option value="upca">UPC-A</option>
+                                    <option value="upce">UPC-E</option>
+                                    <option value="isbn13">ISBN-13</option>
+                                    <option value="isbn10">ISBN-10</option>
+                                    <option value="issn">ISSN</option>
+                                    <option value="pdf417">PDF417</option>
+                                    <option value="datamatrix">Data Matrix</option>
+                                </select>
+                            </div>
+                        </div>                     
+                        <div class="row mb-3">
                             <label for="pin" class="col-sm-2 col-form-label">{% trans "PIN Code" %}</label>
                             <div class="col-sm-10">
                                 <input placeholder="{% trans 'The pin code of the item' %}" type="text" class="form-control" id="pin"
@@ -139,21 +174,10 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-10 offset-sm-2">
-                                <button type="submit" class="btn btn-primary">{% trans "Create Item" %}</button>
+                                <button type="submit" onclick="document.getElementById('loadingOverlay').style.display = 'flex';" class="btn btn-primary">{% trans "Create Item" %}</button>
                             </div>
                         </div>
                     </form><!-- End Item Form -->
-                    {% if form.errors %}
-                    <div class="alert alert-danger mt-2">
-                        <ul>
-                            {% for field, errors in form.errors.items %}
-                            {% for error in errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -183,7 +207,9 @@
 <script src="{% static 'assets/js/scanner.js' %}"></script>
 
 <script>
+
   document.addEventListener("DOMContentLoaded", function () {
+
       const typeField = document.getElementById('type');
       const pinField = document.getElementById('pin');
       const valueField = document.getElementById('value');

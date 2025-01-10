@@ -3706,3 +3706,6 @@ msgstr "Coupon"
 
 msgid "Threshold"
 msgstr "Schwellenwert"
+
+msgid "Code Type"
+msgstr "Code Typ"

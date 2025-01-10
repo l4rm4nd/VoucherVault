@@ -19,6 +19,7 @@ class Item(models.Model):
     type = models.CharField(max_length=50, choices=ITEM_TYPES)
     name = models.CharField(max_length=255)
     redeem_code = models.CharField(max_length=50)
+    code_type = models.CharField(default="qrcode", max_length=50)
     pin = models.CharField(max_length=10, blank=True, null=True)
     issuer = models.CharField(max_length=50)
     issue_date = models.DateField(default=timezone.now)
