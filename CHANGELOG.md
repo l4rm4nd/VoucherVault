@@ -1,3 +1,10 @@
+## [1.9.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.8.0...v1.9.0) (2025-01-10)
+
+
+### Features
+
+* support additional barcode types (fix [#49](https://github.com/l4rm4nd/VoucherVault/issues/49)) ([1ed0e55](https://github.com/l4rm4nd/VoucherVault/commit/1ed0e55a1fc4d23e843c95363aca5543028c72a8))
+
 ## [1.8.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.6...v1.8.0) (2025-01-09)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add blur effect to fix [#45](https://github.com/l4rm4nd/VoucherVault/issues/45) ([3bb036b](https://github.com/l4rm4nd/VoucherVault/commit/3bb036b57f1deccb0f30ae15b138bcf7d5a86ad5))
-
-## [1.7.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.2...v1.7.3) (2024-12-06)
-
-
-### Bug Fixes
-
-* **deps:** bump django fix cve ([b618c19](https://github.com/l4rm4nd/VoucherVault/commit/b618c190ad9637efcbc9a4869544c76ab59c2510))
 
