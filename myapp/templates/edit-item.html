@@ -90,20 +90,20 @@
                             <label for="code_type" class="col-sm-2 col-form-label">{% trans "Code Type" %}</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="code_type" name="code_type" required>
-                                    <option value="qrcode">QR Code</option>
-                                    <option value="ean13">EAN-13</option>
-                                    <option value="ean8">EAN-8</option>
-                                    <option value="code128">Code 128</option>
-                                    <option value="code39">Code 39</option>
-                                    <option value="upca">UPC-A</option>
-                                    <option value="upce">UPC-E</option>
-                                    <option value="isbn13">ISBN-13</option>
-                                    <option value="isbn10">ISBN-10</option>
-                                    <option value="issn">ISSN</option>
-                                    <option value="pdf417">PDF417</option>
-                                    <option value="datamatrix">Data Matrix</option>
-                                    <option value="azteccode">Aztec Code</option>
-                                    <option value="interleaved2of5">Interleaved 2 of 5</option>
+                                    <option value="qrcode" {% if item.code_type == "qrcode" %}selected{% endif %}>QR Code</option>
+                                    <option value="ean13" {% if item.code_type == "ean13" %}selected{% endif %}>EAN-13</option>
+                                    <option value="ean8" {% if item.code_type == "ean8" %}selected{% endif %}>EAN-8</option>
+                                    <option value="code128" {% if item.code_type == "code128" %}selected{% endif %}>Code 128</option>
+                                    <option value="code39" {% if item.code_type == "code39" %}selected{% endif %}>Code 39</option>
+                                    <option value="upca" {% if item.code_type == "upca" %}selected{% endif %}>UPC-A</option>
+                                    <option value="upce" {% if item.code_type == "upce" %}selected{% endif %}>UPC-E</option>
+                                    <option value="isbn13" {% if item.code_type == "isbn13" %}selected{% endif %}>ISBN-13</option>
+                                    <option value="isbn10" {% if item.code_type == "isbn10" %}selected{% endif %}>ISBN-10</option>
+                                    <option value="issn" {% if item.code_type == "issn" %}selected{% endif %}>ISSN</option>
+                                    <option value="pdf417" {% if item.code_type == "pdf417" %}selected{% endif %}>PDF417</option>
+                                    <option value="datamatrix" {% if item.code_type == "datamatrix" %}selected{% endif %}>Data Matrix</option>
+                                    <option value="azteccode" {% if item.code_type == "azteccode" %}selected{% endif %}>Aztec Code</option>
+                                    <option value="interleaved2of5" {% if item.code_type == "interleaved2of5" %}selected{% endif %}>Interleaved 2 of 5</option>
                                 </select>
                             </div>
                         </div>                       
