@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.2...v1.9.3) (2025-01-10)
+
+
+### Bug Fixes
+
+* re-fill input forms when error ([0300bc7](https://github.com/l4rm4nd/VoucherVault/commit/0300bc756b6902014a7fb02923cfdc1ec64752ea))
+
 ## [1.9.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.1...v1.9.2) (2025-01-10)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * support oidc autologin ([8ef1462](https://github.com/l4rm4nd/VoucherVault/commit/8ef146244e0cb5bd7ca551f95d5e164fd04b2db4))
-
-## [1.7.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.5...v1.7.6) (2025-01-06)
-
-
-### Bug Fixes
-
-* improve logo ([679dc1d](https://github.com/l4rm4nd/VoucherVault/commit/679dc1de0e083cd313ca5f8f211cc333ceee4bd8))
 
