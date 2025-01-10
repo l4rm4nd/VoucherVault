@@ -33,7 +33,7 @@ const barcodeFormats = [
 ];
 
 const barcodeFormatMap = {
-    "AZTEC": "datamatrix", // Assuming you want to use the same for Aztec, adjust if needed
+    "AZTEC": "azteccode",
     "CODABAR": "code39", // Codabar is not specifically listed in your options; mapped to closest available
     "CODE_39": "code39",
     "CODE_93": "code39", // Code 93 is not specifically listed; mapped to closest available
@@ -41,7 +41,7 @@ const barcodeFormatMap = {
     "DATA_MATRIX": "datamatrix",
     "EAN_8": "ean8",
     "EAN_13": "ean13",
-    "ITF": "code39", // Interleaved Two of Five; mapped to closest available if specific mapping required
+    "ITF": "interleaved2of5",
     "MAXICODE": "datamatrix", // MaxiCode is not specifically listed; mapped to closest available
     "PDF_417": "pdf417",
     "QR_CODE": "qrcode",
