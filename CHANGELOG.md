@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.3...v1.9.4) (2025-01-10)
+
+
+### Bug Fixes
+
+* do not safe item if error occurs ([55e7cac](https://github.com/l4rm4nd/VoucherVault/commit/55e7caca34361c60b886f0b259200b0f1de0fd4e))
+
 ## [1.9.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.2...v1.9.3) (2025-01-10)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * support additional barcode types (fix [#49](https://github.com/l4rm4nd/VoucherVault/issues/49)) ([1ed0e55](https://github.com/l4rm4nd/VoucherVault/commit/1ed0e55a1fc4d23e843c95363aca5543028c72a8))
-
-## [1.8.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.6...v1.8.0) (2025-01-09)
-
-
-### Features
-
-* support oidc autologin ([8ef1462](https://github.com/l4rm4nd/VoucherVault/commit/8ef146244e0cb5bd7ca551f95d5e164fd04b2db4))
 
