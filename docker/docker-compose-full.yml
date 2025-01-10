@@ -1,7 +1,7 @@
 services:
 
   app:
-    image: l4rm4nd/vouchervault:1.8.x
+    image: l4rm4nd/vouchervault:1.9.x
     container_name: vouchervault
     restart: unless-stopped
     environment:
