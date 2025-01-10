@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.0...v1.9.1) (2025-01-10)
+
+
+### Bug Fixes
+
+* remap atzec and interleaved2of5 code types ([2afe27c](https://github.com/l4rm4nd/VoucherVault/commit/2afe27cee7f3f04022562dee025b578294163cc1))
+
 ## [1.9.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.8.0...v1.9.0) (2025-01-10)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * remove tinymce and use svg logo ([47f7631](https://github.com/l4rm4nd/VoucherVault/commit/47f7631daa8e9200afeb7a719ace037061d4b46a))
-
-## [1.7.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.7.3...v1.7.4) (2025-01-06)
-
-
-### Bug Fixes
-
-* add blur effect to fix [#45](https://github.com/l4rm4nd/VoucherVault/issues/45) ([3bb036b](https://github.com/l4rm4nd/VoucherVault/commit/3bb036b57f1deccb0f30ae15b138bcf7d5a86ad5))
 
