@@ -52,10 +52,66 @@ const barcodeFormatMap = {
     "UPC_EAN_EXTENSION": "ean13" // Extension of EAN
 };
 
+function requestAccessAndEnumerateDevices() {
+    // First, request access to the camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            // Access is granted. Now we can enumerate devices with full labels.
+            stream.getTracks().forEach(track => track.stop()); // Stop the stream to not use the camera yet
+
+            navigator.mediaDevices.enumerateDevices()
+                .then((devices) => {
+                    populateVideoSources(devices.filter(device => device.kind === 'videoinput'));
+                })
+                .catch((error) => {
+                    console.error('Error listing devices after granting access:', error);
+                    outputMessage.textContent = "Error listing devices: " + error.message;
+                    outputMessage.style.display = 'block';
+                });
+        })
+        .catch((error) => {
+            console.error("Access denied by user or error occurred:", error);
+            outputMessage.textContent = "Access denied or error occurred: " + error.message;
+            outputMessage.style.display = 'block';
+        });
+}
+
+// Function to populate the video sources dropdown
+function populateVideoSources(videoInputDevices) {
+    // Clear existing options first
+    sourceSelect.innerHTML = '';
+    
+    videoInputDevices.forEach((device, index) => {
+        const option = document.createElement('option');
+        option.value = device.deviceId;
+        option.text = device.label || `Camera ${index + 1}`;
+        sourceSelect.appendChild(option);
+    });
+
+    // Automatically start scanning using the first camera, if available
+    if (videoInputDevices.length > 0) {
+        sourceSelect.value = videoInputDevices[0].deviceId;
+        cameraIcon.classList.add("breathe-red");
+        startScanning();
+    }
+}
+
+// Event listener for camera selection change
+sourceSelect.addEventListener('change', () => {
+    if (videoStream) {
+        cameraIcon.classList.remove("breathe-red");
+        stopStream(); // Stop the current video stream
+    }
+    cameraIcon.classList.add("breathe-red");
+    startScanning();
+});
+
 function startScanning() {
-    codeReader.decodeFromVideoDevice(null, 'video', (result, err) => {
+    let deviceId = sourceSelect.value;  // Ensure this refers to the currently selected video source
+    codeReader.decodeFromVideoDevice(deviceId, 'video', (result, err) => {
         if (result) {
             redeemCodeField.value = result.text;
+            // Corrected the way to access the barcode format
             const formatValue = barcodeFormatMap[barcodeFormats[result.format]]; // Use the new mapping
             redeemTypeField.value = formatValue;
             redeemCodeField.focus();
@@ -80,31 +136,18 @@ function stopStream() {
 }
 
 startScannerButton.addEventListener("click", function () {
+    // Check if the protocol is HTTPS or the hostname is localhost or 127.0.0.1
     if (location.protocol === 'https:' || location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
         if (qrScannerSection.style.display === "none") {
             qrScannerSection.style.display = "block";
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function (stream) {
-                videoStream = stream;
-                video.srcObject = stream;
-                video.setAttribute('playsinline', true); // required to tell iOS safari we don't want fullscreen
-                video.play().then(() => {
-                    startScanning();
-                    cameraIcon.classList.add("breathe-red");
-                }).catch(function (error) {
-                    console.error('Error playing video:', error);
-                    loadingMessage.style.display = 'block';  // Show the loading message if there is an error
-                    loadingMessage.innerText = "🎥 Unable to play video stream: " + error.message;
-                });
-            }).catch(function (error) {
-                loadingMessage.style.display = 'block';  // Show the loading message if there is an error
-                loadingMessage.innerText = "🎥 Unable to access video stream: " + error.message;
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            requestAccessAndEnumerateDevices();  // Request access and populate sources once granted
         } else {
             stopStream();
         }
-    }
-    else{
-        alert("QR/EAN13 code scanning requires HTTPS");
+    } else {
+        // Alert the user if the protocol is not HTTPS or the hostname is not localhost/127.0.0.1
+        alert("QR/EAN13 code scanning requires a secure context (HTTPS) or localhost.");
     }
 });
+
