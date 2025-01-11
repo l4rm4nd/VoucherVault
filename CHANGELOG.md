@@ -1,3 +1,10 @@
+## [1.10.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.4...v1.10.0) (2025-01-11)
+
+
+### Features
+
+* trigger ci ([12b249d](https://github.com/l4rm4nd/VoucherVault/commit/12b249db2064a1faacbb473a729b2e5b0d627e8a))
+
 ## [1.9.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.3...v1.9.4) (2025-01-10)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * remap atzec and interleaved2of5 code types ([2afe27c](https://github.com/l4rm4nd/VoucherVault/commit/2afe27cee7f3f04022562dee025b578294163cc1))
-
-## [1.9.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.8.0...v1.9.0) (2025-01-10)
-
-
-### Features
-
-* support additional barcode types (fix [#49](https://github.com/l4rm4nd/VoucherVault/issues/49)) ([1ed0e55](https://github.com/l4rm4nd/VoucherVault/commit/1ed0e55a1fc4d23e843c95363aca5543028c72a8))
 
