@@ -49,8 +49,8 @@
               <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Used" %}</span></h5>
 
               <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-ban"></i>
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="color: #5470c6;">
+                  <i class="bi bi-bag-check"></i>
                 </div>
                 <div class="ps-3">
                   <h6>{{ used_items }}</h6>
@@ -69,8 +69,8 @@
               <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Expired" %}</span></h5>
 
               <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-clock"></i>
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="color: #7e3434;">
+                  <i class="bi bi-calendar-x"></i>
                 </div>
                 <div class="ps-3">
                   <h6>{{ expired_items }}</h6>
@@ -79,10 +79,30 @@
             </div>
 
           </div>
-        </div><!-- End Available Items Card -->     
+        </div><!-- End Available Items Card -->
+
+        <!-- Soon Expiring Items Card -->
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card customers-card">
+            <a href="{% url 'show_items' %}?status=soon_expiring" class="stretched-link"></a>
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Soon Expiring" %}</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-clock-history"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ soon_expiring_items }}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- End Available Items Card -->  
 
         <!-- Shared Items By You Tile -->
-        <div class="col-xxl-6 col-md-6">
+        <div class="col-xxl-4 col-md-6">
           <div class="card info-card shared-items-card">
             <a href="{% url 'show_items' %}?status=shared_by_me" class="stretched-link"></a>
             <div class="card-body">
@@ -101,7 +121,7 @@
         </div><!-- End Shared Items By You Tile -->
 
         <!-- Shared Items With You Tile -->
-        <div class="col-xxl-6 col-md-6">
+        <div class="col-xxl-4 col-md-6">
           <div class="card info-card shared-items-card">
             <a href="{% url 'sharing_center' %}" class="stretched-link"></a>
             <div class="card-body">

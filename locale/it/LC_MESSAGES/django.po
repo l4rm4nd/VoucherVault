@@ -3696,3 +3696,6 @@ msgstr "Soglia"
 
 msgid "Code Type"
 msgstr "Codice tipo"
+
+msgid "Soon Expiring"
+msgstr "Scadenza imminente"

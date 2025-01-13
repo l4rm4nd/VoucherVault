@@ -3709,3 +3709,6 @@ msgstr "Schwellenwert"
 
 msgid "Code Type"
 msgstr "Code Typ"
+
+msgid "Soon Expiring"
+msgstr "Bald ablaufend"

@@ -50,6 +50,7 @@ def post_logout(request):
 @login_required
 def dashboard(request):
     user = request.user
+
     total_items = Item.objects.filter(user=user, is_used=False).count()
     available_items = Item.objects.filter(user=user, is_used=False, expiry_date__gte=timezone.now()).count()
     used_items = Item.objects.filter(user=user, is_used=True).count()
@@ -59,6 +60,7 @@ def dashboard(request):
     items = Item.objects.filter(user=user, is_used=False, value_type='money', expiry_date__gte=timezone.now())
     items = items.exclude(type='loyaltycard')
     total_value = 0
+
     for item in items:
         transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
         current_value = item.value + transactions_sum
@@ -73,6 +75,13 @@ def dashboard(request):
     shared_items_count_by_you = ItemShare.objects.filter(shared_by=user).count()
     shared_items_count_with_you = ItemShare.objects.filter(shared_with_user=user).count()
 
+    # Get threshold days from environment variable or default to 30
+    threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
+    # Calculate soon-to-expire date
+    soon_expiry_date = now() + timedelta(days=threshold_days)
+    # Count the number of items soon expiring based on EXPIRY_THRESHOLD_DAYS
+    soon_expiring_items = items.filter(expiry_date__gte=now(), expiry_date__lt=soon_expiry_date).count()
+
     context = {
         'total_items': total_items,
         'available_items': available_items,
@@ -83,6 +92,7 @@ def dashboard(request):
         'giftcards_count': giftcards_count,
         'loyaltycards_count':loyaltycards_count,
         'expired_items': expired_items,
+        "soon_expiring_items": soon_expiring_items,
         'shared_items_count_by_you': shared_items_count_by_you,
         'shared_items_count_with_you': shared_items_count_with_you,
     }
@@ -101,6 +111,10 @@ def show_items(request):
         items = Item.objects.filter(shared_with__shared_by=user).distinct()
     elif filter_value == 'shared_with_me':
         items = Item.objects.filter(shared_with__shared_with_user=user).exclude(user=user).distinct()
+    elif filter_value == 'soon_expiring':
+        threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
+        soon_expiry_date = now() + timedelta(days=threshold_days)
+        items = Item.objects.filter(user=user, expiry_date__gte=now(), expiry_date__lt=soon_expiry_date)
     else:
         items = Item.objects.filter(user=user)
         
@@ -528,6 +542,12 @@ def get_items_by_type(request, item_type):
 def get_stats(request):
     # Optional filter for username
     username = request.GET.get('user', None)
+
+    # Get threshold days from environment variable or default to 30
+    threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
+
+    # Calculate soon-to-expire date
+    soon_expiry_date = now() + timedelta(days=threshold_days)
     
     # If a username is provided, filter by user
     if username:
@@ -559,6 +579,7 @@ def get_stats(request):
         "used_items": items_query.filter(is_used=True).count(),
         "available_items": items_query.filter(is_used=False).count() - items_query.filter(expiry_date__lt=now()).count(),
         "expired_items": items_query.filter(expiry_date__lt=now()).count(),
+        "soon_expiring_items": items_query.filter(expiry_date__gte=now(), expiry_date__lt=soon_expiry_date).count(),
     }
 
     # User stats
