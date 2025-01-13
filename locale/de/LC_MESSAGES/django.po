@@ -231,7 +231,7 @@ msgstr "Kartennummer oder Kunden-ID"
 #: myapp/templates/dashboard.html:29 myapp/templates/dashboard.html:49
 #: myapp/templates/dashboard.html:69
 msgid "Items"
-msgstr "Gegenstand"
+msgstr "Gegenstände"
 
 #: myapp/templates/dashboard.html:29 myapp/templates/inventory.html:35
 msgid "Available"
