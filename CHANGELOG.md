@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.1...v1.10.2) (2025-01-15)
+
+
+### Bug Fixes
+
+* bump django to fix cve ([ecfa99e](https://github.com/l4rm4nd/VoucherVault/commit/ecfa99eaeb015f933ffe75b8e98ed0526d75eea7))
+
 ## [1.10.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.0...v1.10.1) (2025-01-13)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * re-fill input forms when error ([0300bc7](https://github.com/l4rm4nd/VoucherVault/commit/0300bc756b6902014a7fb02923cfdc1ec64752ea))
-
-## [1.9.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.1...v1.9.2) (2025-01-10)
-
-
-### Bug Fixes
-
-* remove translation from edit-items and fix auto-fill code type ([392705b](https://github.com/l4rm4nd/VoucherVault/commit/392705bd766e50331514a8bb470006fff77fbb5d))
 
