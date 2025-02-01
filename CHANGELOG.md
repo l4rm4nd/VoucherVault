@@ -1,3 +1,10 @@
+## [1.10.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.3...v1.10.4) (2025-02-01)
+
+
+### Bug Fixes
+
+* trigger ci due new v4 artifact version ([332b768](https://github.com/l4rm4nd/VoucherVault/commit/332b768b8f4017e92a0656fc83cd65411dbfbae6))
+
 ## [1.10.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.2...v1.10.3) (2025-02-01)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * trigger ci ([12b249d](https://github.com/l4rm4nd/VoucherVault/commit/12b249db2064a1faacbb473a729b2e5b0d627e8a))
-
-## [1.9.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.3...v1.9.4) (2025-01-10)
-
-
-### Bug Fixes
-
-* do not safe item if error occurs ([55e7cac](https://github.com/l4rm4nd/VoucherVault/commit/55e7caca34361c60b886f0b259200b0f1de0fd4e))
 
