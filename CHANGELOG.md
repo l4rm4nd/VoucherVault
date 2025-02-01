@@ -1,3 +1,10 @@
+## [1.10.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.2...v1.10.3) (2025-02-01)
+
+
+### Bug Fixes
+
+* adjust max model lengths ([f5e223a](https://github.com/l4rm4nd/VoucherVault/commit/f5e223a8ebdd1018f3a1b9dd95dab052c39a848a)), closes [#54](https://github.com/l4rm4nd/VoucherVault/issues/54)
+
 ## [1.10.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.1...v1.10.2) (2025-01-15)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * do not safe item if error occurs ([55e7cac](https://github.com/l4rm4nd/VoucherVault/commit/55e7caca34361c60b886f0b259200b0f1de0fd4e))
-
-## [1.9.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.2...v1.9.3) (2025-01-10)
-
-
-### Bug Fixes
-
-* re-fill input forms when error ([0300bc7](https://github.com/l4rm4nd/VoucherVault/commit/0300bc756b6902014a7fb02923cfdc1ec64752ea))
 
