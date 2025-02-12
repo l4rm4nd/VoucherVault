@@ -42,13 +42,16 @@ DOMAIN = str(os.environ.get("DOMAIN", "localhost"))
 TRUSTED_PORT = str(os.environ.get("PORT", "8000"))
 
 if DOMAIN:
-    DOMAIN = DOMAIN.rstrip('/').replace('http://', '').replace('https://', '')
-    ALLOWED_HOSTS.append(DOMAIN)
-    TRUSTED_USER_DOMAIN_HTTP = f"http://{DOMAIN}:{TRUSTED_PORT}"
-    TRUSTED_USER_DOMAIN_HTTP_80_DEFAULT = f"http://{DOMAIN}"
-    TRUSTED_USER_DOMAIN_HTTPS = f"https://{DOMAIN}:{TRUSTED_PORT}"
-    TRUSTED_USER_DOMAIN_HTTPS_443_DEFAULT = f"https://{DOMAIN}"
-    CSRF_TRUSTED_ORIGINS.extend([TRUSTED_USER_DOMAIN_HTTP, TRUSTED_USER_DOMAIN_HTTPS, TRUSTED_USER_DOMAIN_HTTP_80_DEFAULT, TRUSTED_USER_DOMAIN_HTTPS_443_DEFAULT])
+    domains = DOMAIN.split(',')
+    for domain in domains:
+        domain = domain.strip().rstrip('/').replace('http://', '').replace('https://', '')
+        if domain:
+            ALLOWED_HOSTS.append(domain)
+            TRUSTED_USER_DOMAIN_HTTP = f"http://{domain}:{TRUSTED_PORT}"
+            TRUSTED_USER_DOMAIN_HTTP_80_DEFAULT = f"http://{domain}"
+            TRUSTED_USER_DOMAIN_HTTPS = f"https://{domain}:{TRUSTED_PORT}"
+            TRUSTED_USER_DOMAIN_HTTPS_443_DEFAULT = f"https://{domain}"
+            CSRF_TRUSTED_ORIGINS.extend([TRUSTED_USER_DOMAIN_HTTP, TRUSTED_USER_DOMAIN_HTTPS, TRUSTED_USER_DOMAIN_HTTP_80_DEFAULT, TRUSTED_USER_DOMAIN_HTTPS_443_DEFAULT])
 
 #Session Management
 CSRF_COOKIE_HTTPONLY = True
