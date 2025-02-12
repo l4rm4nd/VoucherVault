@@ -1,12 +1,12 @@
 services:
 
   app:
-    image: l4rm4nd/vouchervault:1.10.x
+    image: l4rm4nd/vouchervault:1.11.x
     container_name: vouchervault
     restart: unless-stopped
     environment:
-      # your FQDN or IP; used to define ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS
-      - DOMAIN=vouchervault.example.com 
+      # your FQDN or IP; multiple ones supported by comma separation
+      - DOMAIN=vouchervault.example.com
       # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
       - SECURE_COOKIES=False
       # send notifications xx days prior expiry
