@@ -1,3 +1,10 @@
+## [1.11.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.4...v1.11.0) (2025-02-12)
+
+
+### Features
+
+* support multiple domains ([27d3e2a](https://github.com/l4rm4nd/VoucherVault/commit/27d3e2afae808313c6f02fc0d53086545f932414))
+
 ## [1.10.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.3...v1.10.4) (2025-02-01)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * new filter for soon-expiring items in dashboard and api ([314e778](https://github.com/l4rm4nd/VoucherVault/commit/314e7783fa4979e9fe3d0571fd2bf335d171e749)), closes [#52](https://github.com/l4rm4nd/VoucherVault/issues/52)
-
-## [1.10.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.9.4...v1.10.0) (2025-01-11)
-
-
-### Features
-
-* trigger ci ([12b249d](https://github.com/l4rm4nd/VoucherVault/commit/12b249db2064a1faacbb473a729b2e5b0d627e8a))
 
