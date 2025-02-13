@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.11.0...v1.11.1) (2025-02-13)
+
+
+### Bug Fixes
+
+* bump django ([cb7c0ca](https://github.com/l4rm4nd/VoucherVault/commit/cb7c0ca3a08cab95943734822bc589eba0d184bb))
+
 ## [1.11.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.4...v1.11.0) (2025-02-12)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump django to fix cve ([ecfa99e](https://github.com/l4rm4nd/VoucherVault/commit/ecfa99eaeb015f933ffe75b8e98ed0526d75eea7))
-
-## [1.10.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.0...v1.10.1) (2025-01-13)
-
-
-### Bug Fixes
-
-* new filter for soon-expiring items in dashboard and api ([314e778](https://github.com/l4rm4nd/VoucherVault/commit/314e7783fa4979e9fe3d0571fd2bf335d171e749)), closes [#52](https://github.com/l4rm4nd/VoucherVault/issues/52)
 
