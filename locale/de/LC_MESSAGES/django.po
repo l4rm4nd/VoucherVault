@@ -84,7 +84,7 @@ msgstr "Inventar"
 
 #: myapp/templates/base.html:162
 msgid "Sharing Center"
-msgstr ""
+msgstr "Geteilte Gegenstände"
 
 #: myapp/templates/base.html:166
 msgid "Functions"
