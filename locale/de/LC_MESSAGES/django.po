@@ -71,20 +71,11 @@ msgstr "Adminbereich"
 msgid "Sign Out"
 msgstr "Abmelden"
 
-#: myapp/templates/base.html:148 myapp/templates/dashboard.html:8
-#: myapp/templates/dashboard.html:12
-msgid "Dashboard"
-msgstr "Dashboard"
-
 #: myapp/templates/base.html:155 myapp/templates/edit-item.html:12
 #: myapp/templates/inventory.html:8 myapp/templates/inventory.html:12
 #: myapp/templates/view-item.html:18
 msgid "Inventory"
 msgstr "Inventar"
-
-#: myapp/templates/base.html:162
-msgid "Sharing Center"
-msgstr ""
 
 #: myapp/templates/base.html:166
 msgid "Functions"
@@ -3712,3 +3703,9 @@ msgstr "Code Typ"
 
 msgid "Soon Expiring"
 msgstr "Bald ablaufend"
+
+msgid "Sharing Center"
+msgstr "Geteilte Gegenstände"
+
+msgid "Dashboard"
+msgstr "Übersicht"
