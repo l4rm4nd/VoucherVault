@@ -112,9 +112,9 @@ Notifications are handled by [Apprise](https://github.com/caronc/apprise). May r
 
 You can define custom Apprise URLs in the user profile settings. The input form takes a single or a comma-separated list of multiple Apprise URLs.
 
-The interval, how often items are checked against a potential expiry, is pre-defined (every Monday at 9AM) in the Django admin area. Here, we are utilizing Django-Celery-Beat + a Redis instance for periodic task execution. If you want to adjust the crontab interval, please head over to the admin area at `Periodic Tasks` > `Periodic Expiry Check` > `Crontab Schedule` > `Edit` and adjust to your liking.
+The interval, how often items are checked against a potential expiry, is pre-defined (daily at 9AM) in the Django admin area. Here, we are utilizing Django-Celery-Beat + a Redis instance for periodic task execution.
 
-An item will trigger an expiry notification if the expiry date is within the number of days defined by the environment variable `EXPIRY_THRESHOLD_DAYS`. By default, this threshold is set to 30 days.
+An item will trigger an expiry notification if the expiry date is within the number of days defined by the environment variable `EXPIRY_THRESHOLD_DAYS`. By default, this threshold is set to 30 days. Additionally, a final reminder is send out another time if the item expires within the next 7 days.
 
 ## 🔐 Multi-User Setup
 

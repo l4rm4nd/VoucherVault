@@ -32,6 +32,8 @@ class Item(models.Model):
     is_used = models.BooleanField(default=False)
     qr_code_base64 = models.TextField(blank=True, null=True)
     file = models.FileField(upload_to='database/', blank=True, null=True)
+    default_expiry_notification_sent = models.BooleanField(default=False)
+    final_expiry_notification_sent = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

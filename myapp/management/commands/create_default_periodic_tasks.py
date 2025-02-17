@@ -6,11 +6,11 @@ class Command(BaseCommand):
     help = 'Create default Celery Beat periodic tasks'
 
     def handle(self, *args, **options):
-        # Create a crontab schedule (run weekly on Monday at 9 o'clock)
+        # Create a crontab schedule (run daily at 9 o'clock)
         crontab_schedule, created = CrontabSchedule.objects.get_or_create(
             minute='0',
             hour='9',
-            day_of_week='1',
+            day_of_week='*',
             day_of_month='*',
             month_of_year='*'
         )
