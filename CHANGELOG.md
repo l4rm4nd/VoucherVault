@@ -1,3 +1,10 @@
+## [1.12.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.11.2...v1.12.0) (2025-02-17)
+
+
+### Features
+
+* switch to daily expiration checks ([5170e6f](https://github.com/l4rm4nd/VoucherVault/commit/5170e6fd2c26f081b59806bf5642f53809e992c3))
+
 ## [1.11.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.11.1...v1.11.2) (2025-02-14)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * trigger ci due new v4 artifact version ([332b768](https://github.com/l4rm4nd/VoucherVault/commit/332b768b8f4017e92a0656fc83cd65411dbfbae6))
-
-## [1.10.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.2...v1.10.3) (2025-02-01)
-
-
-### Bug Fixes
-
-* adjust max model lengths ([f5e223a](https://github.com/l4rm4nd/VoucherVault/commit/f5e223a8ebdd1018f3a1b9dd95dab052c39a848a)), closes [#54](https://github.com/l4rm4nd/VoucherVault/issues/54)
 
