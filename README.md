@@ -68,7 +68,7 @@ docker compose -f docker/docker-compose-sqlite.yml logs -f
 
 > [!TIP]
 > This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
-> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `1.11.x`.
+> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `1.12.x`.
 >
 > This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
 
@@ -114,7 +114,7 @@ You can define custom Apprise URLs in the user profile settings. The input form 
 
 The interval, how often items are checked against a potential expiry, is pre-defined (daily at 9AM) in the Django admin area. Here, we are utilizing Django-Celery-Beat + a Redis instance for periodic task execution.
 
-An item will trigger an expiry notification if the expiry date is within the number of days defined by the environment variable `EXPIRY_THRESHOLD_DAYS`. By default, this threshold is set to 30 days. Additionally, a final reminder is send out another time if the item expires within the next 7 days.
+An item will trigger an expiry notification if the expiry date is within the number of days defined by the environment variable `EXPIRY_THRESHOLD_DAYS`. By default, this threshold is set to 30 days. Additionally, a final reminder is sent out another time if the item expires within the next 7 days.
 
 ## 🔐 Multi-User Setup
 
