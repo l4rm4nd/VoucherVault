@@ -27,8 +27,8 @@ class Command(BaseCommand):
         threshold_date = timezone.now() + timezone.timedelta(days=threshold_days)
         current_date = timezone.now()
 
-        # Define the last chance notification threshold (7 days before expiry)
-        last_chance_threshold_days = 7
+        # Define the last chance notification threshold
+        last_chance_threshold_days = os.getenv('EXPIRY_LAST_NOTIFICATION_DAYS', 7)
         last_chance_threshold_date = timezone.now() + timezone.timedelta(days=last_chance_threshold_days)
 
         # Get all user profiles with Apprise URLs
