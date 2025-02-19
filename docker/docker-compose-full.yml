@@ -13,8 +13,10 @@ services:
       - SESSION_COOKIE_AGE=30
       # decide whether session cookie is invalidated on browser close
       - SESSION_EXPIRE_AT_BROWSER_CLOSE=True
-      # send notifications xx days prior expiry
+      # send expiry notification xx days prior expiry
       - EXPIRY_THRESHOLD_DAYS=90
+      # send a final expiry notification xx days prior expiry
+      - EXPIRY_LAST_NOTIFICATION_DAYS=7
       # define the timezone
       - TZ=Europe/Berlin
       #- SECRET_KEY=MySecureSecretKey
