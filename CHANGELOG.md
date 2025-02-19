@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.0...v1.12.1) (2025-02-19)
+
+
+### Bug Fixes
+
+* make last notification threshold configurable via env ([4b597c0](https://github.com/l4rm4nd/VoucherVault/commit/4b597c07655a9ef610cc03cd38973b37868119f6))
+
 ## [1.12.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.11.2...v1.12.0) (2025-02-17)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * support multiple domains ([27d3e2a](https://github.com/l4rm4nd/VoucherVault/commit/27d3e2afae808313c6f02fc0d53086545f932414))
-
-## [1.10.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.3...v1.10.4) (2025-02-01)
-
-
-### Bug Fixes
-
-* trigger ci due new v4 artifact version ([332b768](https://github.com/l4rm4nd/VoucherVault/commit/332b768b8f4017e92a0656fc83cd65411dbfbae6))
 
