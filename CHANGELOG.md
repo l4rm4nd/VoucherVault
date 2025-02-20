@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.1...v1.12.2) (2025-02-20)
+
+
+### Bug Fixes
+
+* disable oidc SessionRefresh ([de07517](https://github.com/l4rm4nd/VoucherVault/commit/de075171bb79c10b47b03762766a470ac6088433))
+
 ## [1.12.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.0...v1.12.1) (2025-02-19)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump django ([cb7c0ca](https://github.com/l4rm4nd/VoucherVault/commit/cb7c0ca3a08cab95943734822bc589eba0d184bb))
-
-## [1.11.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.10.4...v1.11.0) (2025-02-12)
-
-
-### Features
-
-* support multiple domains ([27d3e2a](https://github.com/l4rm4nd/VoucherVault/commit/27d3e2afae808313c6f02fc0d53086545f932414))
 
