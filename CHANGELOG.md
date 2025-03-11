@@ -1,3 +1,10 @@
+## [1.12.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.2...v1.12.3) (2025-03-11)
+
+
+### Bug Fixes
+
+* bump Django ([c017749](https://github.com/l4rm4nd/VoucherVault/commit/c01774916ef3d9d6ed71a6c93d0f8f26c9e625c3))
+
 ## [1.12.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.1...v1.12.2) (2025-02-20)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add german translation ([4dd13c7](https://github.com/l4rm4nd/VoucherVault/commit/4dd13c7ead359e986589bfd19b61c0d31b3d30b0))
-
-## [1.11.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.11.0...v1.11.1) (2025-02-13)
-
-
-### Bug Fixes
-
-* bump django ([cb7c0ca](https://github.com/l4rm4nd/VoucherVault/commit/cb7c0ca3a08cab95943734822bc589eba0d184bb))
 
