@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.0...v1.13.1) (2025-04-07)
+
+
+### Bug Fixes
+
+* bump django ([5e05dfd](https://github.com/l4rm4nd/VoucherVault/commit/5e05dfd5e9e2b085637fe8440f70c5c0a161197d))
+
 ## [1.13.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.3...v1.13.0) (2025-04-07)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * make last notification threshold configurable via env ([4b597c0](https://github.com/l4rm4nd/VoucherVault/commit/4b597c07655a9ef610cc03cd38973b37868119f6))
-
-## [1.12.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.11.2...v1.12.0) (2025-02-17)
-
-
-### Features
-
-* switch to daily expiration checks ([5170e6f](https://github.com/l4rm4nd/VoucherVault/commit/5170e6fd2c26f081b59806bf5642f53809e992c3))
 
