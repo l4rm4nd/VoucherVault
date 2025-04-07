@@ -1,3 +1,10 @@
+## [1.13.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.3...v1.13.0) (2025-04-07)
+
+
+### Features
+
+* move from soon deprecated clearbit logo api ([d8a0804](https://github.com/l4rm4nd/VoucherVault/commit/d8a0804418ecc8de7b96101ce5a72d12be8cc034)), closes [#66](https://github.com/l4rm4nd/VoucherVault/issues/66)
+
 ## [1.12.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.2...v1.12.3) (2025-03-11)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * switch to daily expiration checks ([5170e6f](https://github.com/l4rm4nd/VoucherVault/commit/5170e6fd2c26f081b59806bf5642f53809e992c3))
-
-## [1.11.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.11.1...v1.11.2) (2025-02-14)
-
-
-### Bug Fixes
-
-* add german translation ([4dd13c7](https://github.com/l4rm4nd/VoucherVault/commit/4dd13c7ead359e986589bfd19b61c0d31b3d30b0))
 
