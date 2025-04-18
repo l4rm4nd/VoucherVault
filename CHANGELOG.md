@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.1...v1.13.2) (2025-04-18)
+
+
+### Bug Fixes
+
+* **deps:** bump duango and celery-beat ([34a96ce](https://github.com/l4rm4nd/VoucherVault/commit/34a96ce2247da64cc85856d196b87ebdb552a02f))
+
 ## [1.13.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.0...v1.13.1) (2025-04-07)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * disable oidc SessionRefresh ([de07517](https://github.com/l4rm4nd/VoucherVault/commit/de075171bb79c10b47b03762766a470ac6088433))
-
-## [1.12.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.0...v1.12.1) (2025-02-19)
-
-
-### Bug Fixes
-
-* make last notification threshold configurable via env ([4b597c0](https://github.com/l4rm4nd/VoucherVault/commit/4b597c07655a9ef610cc03cd38973b37868119f6))
 
