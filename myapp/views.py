@@ -342,39 +342,31 @@ def edit_item(request, item_uuid):
 
     return render(request, 'edit-item.html', {'form': form, 'item': item})
 
+@require_GET
 @login_required
 def duplicate_item(request, item_uuid):
     original_item = get_object_or_404(Item, id=item_uuid, user=request.user)
 
-    if request.method == 'POST':
-        form = ItemForm(request.POST, request.FILES)
-        if form.is_valid():
-            return create_item(request)  # Reuse your existing view logic
-        else:
-            return render(request, 'create-item.html', {'form': form})
+    # Prepopulate the form with original item's data
+    initial_data = {
+        'name': original_item.name,
+        'issuer': original_item.issuer,
+        'redeem_code': original_item.redeem_code,
+        'pin': original_item.pin,
+        'issue_date': original_item.issue_date,
+        'expiry_date': original_item.expiry_date,
+        'description': original_item.description,
+        'logo_slug': original_item.logo_slug,
+        'type': original_item.type,
+        'value': original_item.value,
+        'value_type': original_item.value_type,
+        'code_type': original_item.code_type,
+    }
 
-    else:
-        # Prepopulate the form with original item's data
-        initial_data = {
-            'name': original_item.name,
-            'issuer': original_item.issuer,
-            'redeem_code': original_item.redeem_code,
-            'pin': original_item.pin,
-            'issue_date': original_item.issue_date,
-            'expiry_date': original_item.expiry_date,
-            'description': original_item.description,
-            'logo_slug': original_item.logo_slug,
-            'type': original_item.type,
-            'value': original_item.value,
-            'value_type': original_item.value_type,
-            'code_type': original_item.code_type,
-        }
-
-        form = ItemForm(initial=initial_data)
-        return render(request, 'create-item.html', {
-            'form': form,
-            'is_duplicate': True,  # Optional: helps you tweak UI
-        })
+    form = ItemForm(initial=initial_data)
+    return render(request, 'create-item.html', {
+        'form': form,
+    })
 
 @require_POST
 @login_required
