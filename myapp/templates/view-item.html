@@ -90,6 +90,9 @@
                           <a href="{% url 'edit_item' item.id %}" class="btn btn-primary w-100"><i class="bi bi-pencil"></i> {% trans "Edit" %}</a>
                       </div>
                       <div class="mb-2 me-lg-2 col-12 col-lg-auto">
+                          <a href="{% url 'duplicate_item' item.id %}" class="btn btn-primary w-100"><i class="bi bi-copy"></i> {% trans "Duplicate" %}</a>
+                      </div>
+                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
                           <form action="{% url 'delete_item' item.id %}" method="post">
                               {% csrf_token %}
                               <button type="submit" class="btn btn-danger w-100" onclick="return confirm('{% trans "Are you sure to delete?" %}');">
@@ -277,11 +280,10 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
     const valueInput = document.getElementById('value');
 
-    valueInput.addEventListener('input', function() {
-        if (valueInput.value && valueInput.value > 0) {
-            valueInput.value = -Math.abs(valueInput.value);
-        } else if (!valueInput.value.startsWith('-')) {
-            valueInput.value = '-' + valueInput.value;
+    valueInput.addEventListener('blur', function() {
+        const val = parseFloat(valueInput.value);
+        if (!isNaN(val) && val > 0) {
+            valueInput.value = -val.toFixed(3); // or .toFixed(2) based on precision
         }
     });
 });

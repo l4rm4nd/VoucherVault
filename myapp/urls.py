@@ -12,6 +12,7 @@ urlpatterns = (
     path('items/create/', views.create_item, name='create_item'),
     path('items/view/<uuid:item_uuid>', views.view_item, name='view_item'),
     path('items/edit/<uuid:item_uuid>', views.edit_item, name='edit_item'),
+    path('items/duplicate/<uuid:item_uuid>', views.duplicate_item, name='duplicate_item'),
     path('items/delete/<uuid:item_uuid>', views.delete_item, name='delete_item'),
     path('items/toggle_status/<uuid:item_id>', views.toggle_item_status, name='toggle_item_status'),
     path('items/share/<uuid:item_id>', views.share_item_view, name='share_item'),
