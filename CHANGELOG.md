@@ -1,3 +1,10 @@
+## [1.14.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.2...v1.14.0) (2025-04-22)
+
+
+### Features
+
+* support item duplication; fixes [#69](https://github.com/l4rm4nd/VoucherVault/issues/69) ([745e387](https://github.com/l4rm4nd/VoucherVault/commit/745e38752bbfe5e7e0d00e828facf1abdec33e14))
+
 ## [1.13.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.1...v1.13.2) (2025-04-18)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump Django ([c017749](https://github.com/l4rm4nd/VoucherVault/commit/c01774916ef3d9d6ed71a6c93d0f8f26c9e625c3))
-
-## [1.12.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.12.1...v1.12.2) (2025-02-20)
-
-
-### Bug Fixes
-
-* disable oidc SessionRefresh ([de07517](https://github.com/l4rm4nd/VoucherVault/commit/de075171bb79c10b47b03762766a470ac6088433))
 
