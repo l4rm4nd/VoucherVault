@@ -511,6 +511,9 @@ msgstr "Dieser Gegenstand ist mit keinem Konto geteilt"
 msgid "Edit"
 msgstr "Bearbeiten"
 
+msgid "Duplicate"
+msgstr "Duplizieren"
+
 #: myapp/templates/view-item.html:110 myapp/templates/view-item.html:186
 msgid "Are you sure to delete?"
 msgstr "Wollen Sie wirklich löschen?"

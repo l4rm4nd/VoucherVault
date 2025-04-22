@@ -482,6 +482,9 @@ msgstr "Télécharger"
 msgid "Edit"
 msgstr "Modifier"
 
+msgid "Duplicate"
+msgstr "Dupliquer"
+
 #: myapp/templates/view-item.html:95 myapp/templates/view-item.html:202
 msgid "Are you sure to delete?"
 msgstr "Voulez-vous vraiment supprimer ?"
