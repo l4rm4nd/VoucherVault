@@ -78,7 +78,7 @@ else:
 # http security response headers
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = str(os.environ.get("X_FRAME_OPTIONS", "DENY"))
 REFERRER_POLICY = 'same-origin'
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "https://fonts.googleapis.com")
