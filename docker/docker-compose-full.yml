@@ -19,8 +19,8 @@ services:
       - EXPIRY_LAST_NOTIFICATION_DAYS=7
       # define the timezone
       - TZ=Europe/Berlin
-      # define custom x-frame-options response header
-      #- X-FRAME-OPTIONS=other.example.tld
+      # define custom frame-ancestor csp directive
+      #- CSP_FRAME_ANCESTORS="'self', https://other.example.tld, https://abc.test.tld:5432"
       #- SECRET_KEY=MySecureSecretKey
       #- PORT=8000
       #- REDIS_URL=redis://redis:6379/0

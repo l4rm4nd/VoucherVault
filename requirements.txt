@@ -7,7 +7,7 @@ psycopg2-binary==2.9.10
 # HTTP HEADERS
 django-feature-policy==4.0.0
 django-http-referrer-policy==1.1.1
-django-csp==3.7
+django-csp==4.0
 
 # APP SPECIFIC
 qrcode==7.4.2

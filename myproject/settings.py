@@ -17,6 +17,7 @@ import pytz
 import secrets
 from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
+from csp.constants import NONE, SELF, UNSAFE_INLINE, UNSAFE_EVAL
 
 # Load environment variables from .env file
 load_dotenv()
@@ -78,15 +79,25 @@ else:
 # http security response headers
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = str(os.environ.get("X_FRAME_OPTIONS", "DENY"))
 REFERRER_POLICY = 'same-origin'
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "https://fonts.googleapis.com")
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'")
-CSP_FONT_SRC = ("'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com")
-CSP_IMG_SRC = ("'self'", 'data:', 'https://img.logo.dev')
-CSP_OBJECT_SRC = ("'none'",)
-CSP_CONNECT_SRC = ("'self'",)
+
+# Load from environment, default to "'self'"
+raw_frame_ancestors = os.environ.get("CSP_FRAME_ANCESTORS", "'none'")
+# Split by comma, strip spaces, and keep properly quoted entries
+FRAME_ANCESTORS = [item.strip() for item in raw_frame_ancestors.split(',') if item.strip()]
+
+CONTENT_SECURITY_POLICY = {
+    "DIRECTIVES": {
+        "default-src": ["'self'"],
+        "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        "font-src": ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+        "img-src": ["'self'", "data:", "https://img.logo.dev"],
+        "object-src": ["'none'"],
+        "connect-src": ["'self'"],
+        "frame-ancestors": FRAME_ANCESTORS,
+    },
+}
 
 # Application definition
 INSTALLED_APPS = [
@@ -98,6 +109,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'csp'
 ]
 
 MIDDLEWARE = [
@@ -108,9 +120,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_http_referrer_policy.middleware.ReferrerPolicyMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'csp.middleware.CSPMiddleware',
 ]
 
