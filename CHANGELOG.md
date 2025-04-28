@@ -1,3 +1,10 @@
+## [1.15.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.14.2...v1.15.0) (2025-04-28)
+
+
+### Features
+
+* remove deprecated xfo header and use django-csp v4 with CSP frame-ancestors env; fixes [#71](https://github.com/l4rm4nd/VoucherVault/issues/71) ([ff38122](https://github.com/l4rm4nd/VoucherVault/commit/ff38122bbcc5b016fc3554daaeca201805210a9f))
+
 ## [1.14.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.14.1...v1.14.2) (2025-04-27)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * **deps:** bump duango and celery-beat ([34a96ce](https://github.com/l4rm4nd/VoucherVault/commit/34a96ce2247da64cc85856d196b87ebdb552a02f))
-
-## [1.13.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.0...v1.13.1) (2025-04-07)
-
-
-### Bug Fixes
-
-* bump django ([5e05dfd](https://github.com/l4rm4nd/VoucherVault/commit/5e05dfd5e9e2b085637fe8440f70c5c0a161197d))
 
