@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.15.0...v1.15.1) (2025-05-08)
+
+
+### Bug Fixes
+
+* add free logo.dev api token ([ed75f7f](https://github.com/l4rm4nd/VoucherVault/commit/ed75f7fb0bace424893b8c2b7aeb8774d8d51c0f))
+
 ## [1.15.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.14.2...v1.15.0) (2025-04-28)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * support item duplication; fixes [#69](https://github.com/l4rm4nd/VoucherVault/issues/69) ([745e387](https://github.com/l4rm4nd/VoucherVault/commit/745e38752bbfe5e7e0d00e828facf1abdec33e14))
-
-## [1.13.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.1...v1.13.2) (2025-04-18)
-
-
-### Bug Fixes
-
-* **deps:** bump duango and celery-beat ([34a96ce](https://github.com/l4rm4nd/VoucherVault/commit/34a96ce2247da64cc85856d196b87ebdb552a02f))
 
