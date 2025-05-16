@@ -1,3 +1,10 @@
+## [1.16.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.15.1...v1.16.0) (2025-05-16)
+
+
+### Features
+
+* support ti display uploaded images; fixes [#72](https://github.com/l4rm4nd/VoucherVault/issues/72) ([06bb8aa](https://github.com/l4rm4nd/VoucherVault/commit/06bb8aab784f36245bde8363930101653f3bbee8))
+
 ## [1.15.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.15.0...v1.15.1) (2025-05-08)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * adjust new duplicate view ([23d1ff1](https://github.com/l4rm4nd/VoucherVault/commit/23d1ff155cb071e6aae58a6bb2740df9b21ab2cb))
-
-## [1.14.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.13.2...v1.14.0) (2025-04-22)
-
-
-### Features
-
-* support item duplication; fixes [#69](https://github.com/l4rm4nd/VoucherVault/issues/69) ([745e387](https://github.com/l4rm4nd/VoucherVault/commit/745e38752bbfe5e7e0d00e828facf1abdec33e14))
 
