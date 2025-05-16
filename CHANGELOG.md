@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.1...v1.16.2) (2025-05-16)
+
+
+### Bug Fixes
+
+* margin between pin code field and download/view area ([fdf7fb7](https://github.com/l4rm4nd/VoucherVault/commit/fdf7fb776863adefe89e3a8582cad64962401656))
+
 ## [1.16.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.0...v1.16.1) (2025-05-16)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * remove deprecated xfo header and use django-csp v4 with CSP frame-ancestors env; fixes [#71](https://github.com/l4rm4nd/VoucherVault/issues/71) ([ff38122](https://github.com/l4rm4nd/VoucherVault/commit/ff38122bbcc5b016fc3554daaeca201805210a9f))
-
-## [1.14.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.14.1...v1.14.2) (2025-04-27)
-
-
-### Bug Fixes
-
-* enable custom x-frame-options header values via env; fixes [#71](https://github.com/l4rm4nd/VoucherVault/issues/71) ([fec3224](https://github.com/l4rm4nd/VoucherVault/commit/fec3224e8366cfa8d06ea1bfcc408f86284b8777))
 
