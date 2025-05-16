@@ -17,6 +17,7 @@ urlpatterns = (
     path('items/toggle_status/<uuid:item_id>', views.toggle_item_status, name='toggle_item_status'),
     path('items/share/<uuid:item_id>', views.share_item_view, name='share_item'),
     path('items/unshare/<uuid:item_id>/<int:user_id>', views.unshare_item, name='unshare_item'),
+    path('items/view-image/<uuid:item_id>/', views.serve_image_file, name='serve_image_file'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('post-logout/', views.post_logout, name='post_logout'),
     path('user/edit/notifications', views.update_apprise_urls, name='update_apprise_urls'),

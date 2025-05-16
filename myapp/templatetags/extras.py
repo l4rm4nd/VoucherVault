@@ -1,5 +1,6 @@
 from django import template
 import os
+import re
 from django.conf import settings
 
 register = template.Library()
@@ -18,4 +19,10 @@ def env(key):
 
 @register.filter()
 def comma_to_dot(value):
-    return str(value).replace(',', '.')    
+    return str(value).replace(',', '.')
+
+@register.filter
+def is_image_file(filename):
+    if not filename:
+        return False
+    return bool(re.search(r'\.(jpg|jpeg|png)$', filename.lower()))

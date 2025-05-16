@@ -5,6 +5,7 @@ import os
 import json
 import treepoem
 import unicodedata
+import mimetypes
 from django.db.models import Q
 from .forms import *
 from .models import *
@@ -26,6 +27,9 @@ from django.db.models.functions import Coalesce
 from django.db.models import Value
 
 apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
+
+def has_item_access(item, user):
+    return item.user == user or item.shared_with.filter(shared_with_user=user).exists()
 
 def calculate_ean13_check_digit(code):
     # Calculate the EAN-13 check digit
@@ -394,7 +398,11 @@ def delete_transaction(request, transaction_id):
 @require_GET
 @login_required
 def download_file(request, item_id):
-    item = get_object_or_404(Item, id=item_id, user=request.user)
+    item = get_object_or_404(Item, id=item_id)
+
+    if not has_item_access(item, request.user):
+        return HttpResponse("Unauthorized", status=403)
+
     if item.file:
         file_name = os.path.basename(item.file.name)
         response = HttpResponse(item.file, content_type='application/octet-stream')
@@ -402,6 +410,23 @@ def download_file(request, item_id):
         return response
     else:
         return HttpResponse("No file found", status=404)
+
+@require_GET
+@login_required
+def serve_image_file(request, item_id):
+    item = get_object_or_404(Item, id=item_id)
+
+    if not has_item_access(item, request.user):
+        return HttpResponse("Unauthorized", status=403)
+
+    if not item.file:
+        raise Http404("No file attached.")
+
+    mime_type, _ = mimetypes.guess_type(item.file.name)
+    if not mime_type or not mime_type.startswith('image/'):
+        return HttpResponse("File is not an image", status=400)
+
+    return HttpResponse(item.file, content_type=mime_type)      
 
 @require_POST
 @login_required

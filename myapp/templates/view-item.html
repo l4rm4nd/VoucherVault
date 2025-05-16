@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+{% load extras %}
+
 
 {% block content %}
 <style>
@@ -74,13 +76,6 @@
                           <span class="content">{{ item.description }}</span>
                       </div>
                       {% endif %}
-                      {% if item.file and is_owner %}
-                      <div class="default-tile" style="text-align: justify;">
-                          <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
-                              <i class="bi bi-download"></i> {% trans "Download" %}
-                          </a>
-                      </div>
-                      {% endif %}
                   </div>
 
                   <!-- Buttons (For owner) -->
@@ -145,7 +140,7 @@
 
       <!-- QR Code and PIN Display Column -->
       <div class="col-lg-4">
-          <div class="card mb-3">
+          <div class="card mb-0">
               <div class="card-body text-center">
                   {% if item.type == "loyaltycard" %}
                   <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Your Identity" %}</h5>
@@ -170,6 +165,59 @@
       </div><!-- End QR Code and PIN Display Column -->
   </div>
 
+<!-- File display and download area -->
+{% if item.file.name|is_image_file %}
+        <div class="default-tile text-center">
+            <div class="d-flex justify-content-center gap-2" id="image-button-group">
+                <button class="btn btn-outline-primary" id="show-image-btn">
+                    <i class="bi bi-eye"></i> {% trans "Show Image" %}
+                </button>
+                <button class="btn btn-outline-secondary d-none" id="hide-image-btn">
+                    <i class="bi bi-eye-slash"></i> {% trans "Hide Image" %}
+                </button>
+                <a href="{% url 'download_file' item.id %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-download"></i> {% trans "Download" %}
+                </a>
+            </div>
+            <img id="loaded-image" src="" class="img-fluid rounded d-none mt-3" style="max-width: 100%;">
+        </div>
+    {% else %}
+        <div class="default-tile text-center">
+            <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
+                <i class="bi bi-download"></i> {% trans "Download" %}
+            </a>
+        </div>
+    {% endif %}
+
+<p>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const showBtn = document.getElementById('show-image-btn');
+    const hideBtn = document.getElementById('hide-image-btn');
+    const loadedImage = document.getElementById('loaded-image');
+
+    if (showBtn && hideBtn && loadedImage) {
+        showBtn.addEventListener('click', function() {
+            loadedImage.src = "{% url 'serve_image_file' item.id %}";
+            loadedImage.classList.remove('d-none');
+            showBtn.classList.add('d-none');
+            hideBtn.classList.remove('d-none');
+        });
+
+        hideBtn.addEventListener('click', function() {
+            loadedImage.classList.add('d-none');
+            showBtn.classList.remove('d-none');
+            hideBtn.classList.add('d-none');
+            loadedImage.src = "";  // Optional: clear image
+        });
+    }
+});
+</script>
+<!-- End of file display and download area -->
+
+
+<!-- Transaction History -->
         {% if is_owner %}
         {% if item.type == 'giftcard' %}
         <!-- Transaction History -->
