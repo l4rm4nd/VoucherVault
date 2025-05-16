@@ -3712,3 +3712,9 @@ msgstr "Geteilte Gegenstände"
 
 msgid "Dashboard"
 msgstr "Übersicht"
+
+msgid "Show Image"
+msgstr "Bild anzeigen"
+
+msgid "Hide Image"
+msgstr "Bild verstecken"

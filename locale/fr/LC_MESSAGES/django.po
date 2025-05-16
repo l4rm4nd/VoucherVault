@@ -3708,3 +3708,9 @@ msgstr "Seuil"
 
 msgid "Code Type"
 msgstr "Code type"
+
+msgid "Show Image"
+msgstr "Afficher l'image"
+
+msgid "Hide Image"
+msgstr "Cacher l'image"

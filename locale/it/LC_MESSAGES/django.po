@@ -3702,3 +3702,9 @@ msgstr "Codice tipo"
 
 msgid "Soon Expiring"
 msgstr "Scadenza imminente"
+
+msgid "Show Image"
+msgstr "Mostra immagine"
+
+msgid "Hide Image"
+msgstr "Nascondi immagine"
