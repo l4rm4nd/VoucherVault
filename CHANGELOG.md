@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.0...v1.16.1) (2025-05-16)
+
+
+### Bug Fixes
+
+* bump django fix cve ([2225cb2](https://github.com/l4rm4nd/VoucherVault/commit/2225cb20068f9a08457a761e618ea28c39766dd8))
+
 ## [1.16.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.15.1...v1.16.0) (2025-05-16)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * enable custom x-frame-options header values via env; fixes [#71](https://github.com/l4rm4nd/VoucherVault/issues/71) ([fec3224](https://github.com/l4rm4nd/VoucherVault/commit/fec3224e8366cfa8d06ea1bfcc408f86284b8777))
-
-## [1.14.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.14.0...v1.14.1) (2025-04-22)
-
-
-### Bug Fixes
-
-* adjust new duplicate view ([23d1ff1](https://github.com/l4rm4nd/VoucherVault/commit/23d1ff155cb071e6aae58a6bb2740df9b21ab2cb))
 
