@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+import os
 import qrcode
 from io import BytesIO
 from django.http import HttpResponse
@@ -36,15 +37,26 @@ class ItemForm(forms.ModelForm):
 
     def clean_file(self):
         file = self.cleaned_data.get('file')
+        
         if file:
+            allowed_content_types = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']
+            allowed_extensions = ['.jpeg', '.jpg', '.png', '.pdf']
+
+            # Check content type
             if hasattr(file, 'content_type'):
-                if file.content_type not in ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']:
-                    error_msg_filetype = _('File type is not supported.')
-                    error_msg_size = _('File size is too large.')
-                    raise forms.ValidationError(error_msg_filetype)
-                if file.size > 5*1024*1024:  # 5MB max size
-                    raise forms.ValidationError(error_msg_size)
-                return file
+                if file.content_type not in allowed_content_types:
+                    raise forms.ValidationError(_('File type is not supported.'))
+
+            # Check file extension
+            ext = os.path.splitext(file.name)[1].lower()
+            if ext not in allowed_extensions:
+                raise forms.ValidationError(_('File extension is not supported.'))
+
+            # Check file size
+            if file.size > 5 * 1024 * 1024:  # 5MB
+                raise forms.ValidationError(_('File size is too large.'))
+
+        return file
 
     def clean(self):
         cleaned_data = super().clean()
