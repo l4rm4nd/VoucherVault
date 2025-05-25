@@ -66,7 +66,7 @@ fi
 perform_migrations
 
 # Add an expiration check to the crontab
-(crontab -l; echo "*/30 * * * * python /opt/app/manage.py check_expiration >> /opt/app/database/expiration_check.log" ) | uniq | crontab -
+(crontab -l; echo "0 9 * * * python /opt/app/manage.py check_expiration >> /opt/app/database/expiration_check.log" ) | uniq | crontab -
 service cron start
 
 # Spawn the web server
