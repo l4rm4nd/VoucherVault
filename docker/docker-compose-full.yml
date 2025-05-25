@@ -52,6 +52,9 @@ services:
       #- POSTGRES_DB=vouchervault
       #- POSTGRES_HOST=db
       #- POSTGRES_PORT=5432
+      # ------- CELERY ENVS --------
+      #- CELERY_WORKER_CONCURRENCY=4
+      #- CELERY_WORKER_PREFETCH_MULTIPLIER=2
     expose:
       - 8000
     ports:

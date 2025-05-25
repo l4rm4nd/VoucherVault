@@ -213,6 +213,7 @@ LOCALE_PATHS = [
 ]
 
 # Celery configuration
+# http://docs.celeryproject.org/en/latest/configuration.html
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 
 REDIS_URL = os.environ.get('REDIS_URL')
@@ -224,6 +225,9 @@ else:
     CELERY_BROKER_URL = REDIS_URL
     CELERY_RESULT_BACKEND = REDIS_URL
 
+
+CELERY_WORKER_CONCURRENCY = int(os.environ.get('CELERY_WORKER_CONCURRENCY', '1'))
+CELERY_WORKER_PREFETCH_MULTIPLIER = int(os.environ.get('CELERY_WORKER_PREFETCH_MULTIPLIER', '1'))
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
