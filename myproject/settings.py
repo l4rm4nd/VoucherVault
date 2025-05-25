@@ -238,6 +238,7 @@ CELERY_WORKER_LOG_FILE = os.path.join(LOGS_DIR, 'celery_worker.log')
 CELERY_BEAT_LOG_FILE = os.path.join(LOGS_DIR, 'celery_beat.log')
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'myapp', 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

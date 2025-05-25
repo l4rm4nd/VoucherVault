@@ -33,6 +33,7 @@ perform_migrations() {
     python manage.py makemigrations myapp
     python manage.py migrate
     python manage.py migrate myapp
+    python manage.py collectstatic --no-input --verbosity=0
     #django-admin makemessages --all 2>&1 > /dev/null
     #django-admin compilemessages 2>&1 > /dev/null
     echo ""
@@ -73,4 +74,5 @@ celery -A myproject beat -l info --detach --scheduler django_celery_beat.schedul
 
 # Spawn the web server
 echo "[TASK] Spawning the application server"
-python manage.py runserver 0.0.0.0:8000 --insecure
+#python manage.py runserver 0.0.0.0:8000 --insecure
+uwsgi --ini docker/docker_uwsgi.ini
