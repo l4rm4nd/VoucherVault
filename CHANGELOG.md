@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.0...v1.17.1) (2025-05-25)
+
+
+### Bug Fixes
+
+* switch from runserver to uwsgi ([5b8e2b5](https://github.com/l4rm4nd/VoucherVault/commit/5b8e2b5a53267839f33b197a6355690ac6e54ddd)), closes [#74](https://github.com/l4rm4nd/VoucherVault/issues/74)
+
 ## [1.17.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.3...v1.17.0) (2025-05-25)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump django fix cve ([2225cb2](https://github.com/l4rm4nd/VoucherVault/commit/2225cb20068f9a08457a761e618ea28c39766dd8))
-
-## [1.16.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.15.1...v1.16.0) (2025-05-16)
-
-
-### Features
-
-* support ti display uploaded images; fixes [#72](https://github.com/l4rm4nd/VoucherVault/issues/72) ([06bb8aa](https://github.com/l4rm4nd/VoucherVault/commit/06bb8aab784f36245bde8363930101653f3bbee8))
 
