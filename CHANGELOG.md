@@ -1,3 +1,10 @@
+## [1.17.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.3...v1.17.0) (2025-05-25)
+
+
+### Features
+
+* adjustable celery concurrency ([62569a3](https://github.com/l4rm4nd/VoucherVault/commit/62569a33e46799e0e8afcb1d7fedfb91b7d65cda)), closes [#74](https://github.com/l4rm4nd/VoucherVault/issues/74)
+
 ## [1.16.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.2...v1.16.3) (2025-05-19)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * support ti display uploaded images; fixes [#72](https://github.com/l4rm4nd/VoucherVault/issues/72) ([06bb8aa](https://github.com/l4rm4nd/VoucherVault/commit/06bb8aab784f36245bde8363930101653f3bbee8))
-
-## [1.15.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.15.0...v1.15.1) (2025-05-08)
-
-
-### Bug Fixes
-
-* add free logo.dev api token ([ed75f7f](https://github.com/l4rm4nd/VoucherVault/commit/ed75f7fb0bace424893b8c2b7aeb8774d8d51c0f))
 
