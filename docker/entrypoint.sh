@@ -33,7 +33,7 @@ perform_migrations() {
     python manage.py makemigrations myapp
     python manage.py migrate
     python manage.py migrate myapp
-    python manage.py collectstatic --noinput
+    python manage.py collectstatic --no-input --verbosity=0
     #django-admin makemessages --all 2>&1 > /dev/null
     #django-admin compilemessages 2>&1 > /dev/null
     echo ""
@@ -71,4 +71,5 @@ service cron start
 
 # Spawn the web server
 echo "[TASK] Spawning the application server"
-gunicorn --bind 0.0.0.0:8000 --capture-output --workers 1 --access-logfile /opt/app/database/access.log myproject.wsgi:application
+#python manage.py runserver 0.0.0.0:8000 --insecure
+uwsgi --ini docker/docker_uwsgi.ini

@@ -216,7 +216,7 @@ LOCALE_PATHS = [
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'myapp', 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

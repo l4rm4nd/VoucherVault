@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cron \
     ghostscript \
     gcc \
+    libc6-dev \
     netcat-openbsd \
     mime-support \
     postgresql-client \
@@ -26,6 +27,7 @@ COPY myapp /opt/app/myapp
 COPY manage.py /opt/app/manage.py
 COPY requirements.txt /opt/app/requirements.txt
 COPY /docker/entrypoint.sh /opt/app/docker/entrypoint.sh
+COPY /docker/docker_uwsgi.ini /opt/app/docker/docker_uwsgi.ini
 COPY locale /opt/app/locale
 
 # install dependencies, fix permissions
