@@ -27,13 +27,6 @@ services:
     volumes:
       - ./volume-data/database:/opt/app/database
 
-  redis:
-    image: redis:7-alpine
-    container_name: vouchervault-redis
-    restart: unless-stopped
-    expose:
-      - 6379
-
   db:
     image: postgres:16-alpine
     container_name: vouchervault-psql

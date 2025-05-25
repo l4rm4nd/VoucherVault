@@ -3,6 +3,7 @@ Django==5.2.1
 pytz==2023.3.post1
 python-dotenv==1.0.0
 psycopg2-binary==2.9.10
+gunicorn==23.0.0
 
 # HTTP HEADERS
 django-feature-policy==4.0.0
@@ -14,7 +15,4 @@ qrcode==7.4.2
 apprise==1.8.0
 treepoem==3.24.0
 mozilla-django-oidc==4.0.1
-
-# TASKS
-celery[redis]
-django-celery-beat==2.8.0
+whitenoise==6.9.0

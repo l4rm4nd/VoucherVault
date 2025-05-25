@@ -56,6 +56,7 @@ if DOMAIN:
 
 #Session Management
 CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_NAME = "VVCSRF"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = os.environ.get('SESSION_EXPIRE_AT_BROWSER_CLOSE', 'True').lower() in ['true']
 SESSION_COOKIE_AGE = int(os.environ.get('SESSION_COOKIE_AGE', '30')) * 60
 SESSION_COOKIE_NAME = 'VVSESS'
@@ -102,7 +103,6 @@ CONTENT_SECURITY_POLICY = {
 # Application definition
 INSTALLED_APPS = [
     'myapp',
-    'django_celery_beat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -114,6 +114,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -212,32 +213,10 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
 
-# Celery configuration
-# http://docs.celeryproject.org/en/latest/configuration.html
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 
-REDIS_URL = os.environ.get('REDIS_URL')
-
-if REDIS_URL == None:
-    CELERY_BROKER_URL = 'redis://redis:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
-else:
-    CELERY_BROKER_URL = REDIS_URL
-    CELERY_RESULT_BACKEND = REDIS_URL
-
-
-CELERY_WORKER_CONCURRENCY = int(os.environ.get('CELERY_WORKER_CONCURRENCY', '1'))
-CELERY_WORKER_PREFETCH_MULTIPLIER = int(os.environ.get('CELERY_WORKER_PREFETCH_MULTIPLIER', '1'))
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Europe/Berlin'
-DJANGO_CELERY_BEAT_TZ_AWARE = True
-CELERY_ENABLE_UTC = False
-CELERY_WORKER_LOG_FILE = os.path.join(LOGS_DIR, 'celery_worker.log')
-CELERY_BEAT_LOG_FILE = os.path.join(LOGS_DIR, 'celery_beat.log')
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

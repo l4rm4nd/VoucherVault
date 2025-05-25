@@ -17,6 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # Get the threshold value from environment variable or use default (30 days)
         threshold_days = os.getenv('EXPIRY_THRESHOLD_DAYS', 30)
+        self.stdout.write(self.style.SUCCESS(f'starting expiration check'))
         try:
             threshold_days = int(threshold_days)
         except ValueError:

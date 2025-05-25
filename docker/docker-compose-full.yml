@@ -23,7 +23,6 @@ services:
       #- CSP_FRAME_ANCESTORS="'self', https://other.example.tld, https://abc.test.tld:5432"
       #- SECRET_KEY=MySecureSecretKey
       #- PORT=8000
-      #- REDIS_URL=redis://redis:6379/0
       # ------- OPTIONAL OIDC AUTH --------
       # Set to 'True' to enable OIDC authentication
       #- OIDC_ENABLED=True
@@ -70,15 +69,6 @@ services:
     #  - traefik.http.services.vouchervault.loadbalancer.server.port=8000
     #  # Optional part for traefik middlewares
     #  - traefik.http.routers.vouchervault.middlewares=local-ipwhitelist@file
-
-  redis:
-    container_name: vouchervault-redis
-    image: redis:7-alpine
-    restart: unless-stopped
-    expose:
-      - 6379
-    #networks:
-    #  - proxy
 
 #  db:
 #    container_name: vouchervault-psql
