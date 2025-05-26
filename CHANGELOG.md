@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.1...v1.17.2) (2025-05-26)
+
+
+### Bug Fixes
+
+* add message handler in base.html ([31580b4](https://github.com/l4rm4nd/VoucherVault/commit/31580b429a21947cadf6749b368910d1c44c5bca))
+
 ## [1.17.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.0...v1.17.1) (2025-05-25)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * margin between pin code field and download/view area ([fdf7fb7](https://github.com/l4rm4nd/VoucherVault/commit/fdf7fb776863adefe89e3a8582cad64962401656))
-
-## [1.16.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.0...v1.16.1) (2025-05-16)
-
-
-### Bug Fixes
-
-* bump django fix cve ([2225cb2](https://github.com/l4rm4nd/VoucherVault/commit/2225cb20068f9a08457a761e618ea28c39766dd8))
 
