@@ -424,3 +424,39 @@ body.dark-mode .list-group-item {
   background-color: gray;
   border-color:  black;
 }
+
+.dark-mode .alert {
+  background-color: #1e1e2f;
+  color: #f1f1f1;
+  border-left: 5px solid;
+  border-radius: 0.5rem;
+}
+
+.dark-mode .alert-success {
+  border-color: #28a745;
+  background-color: #243024;
+  color: #d4edda;
+}
+
+.dark-mode .alert-danger,
+.dark-mode .alert-error {
+  border-color: #dc3545;
+  background-color: #2b1f1f;
+  color: #f8d7da;
+}
+
+.dark-mode .alert-warning {
+  border-color: #ffc107;
+  background-color: #332e1b;
+  color: #fff3cd;
+}
+
+.dark-mode .alert-info {
+  border-color: #0dcaf0;
+  background-color: #1b2a32;
+  color: #cff4fc;
+}
+
+.dark-mode .btn-close {
+  filter: invert(1);
+}

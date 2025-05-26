@@ -1354,3 +1354,23 @@ input.readonly {
     animation: breathe 1s infinite;
     color: red;
   }
+
+.alert {
+  border-left: 5px solid;
+}
+
+.alert-success {
+  border-color: #198754;
+}
+
+.alert-danger, .alert-error {
+  border-color: #dc3545;
+}
+
+.alert-warning {
+  border-color: #ffc107;
+}
+
+.alert-info {
+  border-color: #0dcaf0;
+}

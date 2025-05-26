@@ -194,6 +194,24 @@
 
   <main id="main" class="main">
 
+  {% if messages %}
+    <div class="container mt-3">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible shadow-sm rounded-3 p-3 mb-3" role="alert">
+          <strong class="me-2">
+            {% if message.tags == 'success' %}✅
+            {% elif message.tags == 'error' or message.tags == 'danger' %}❌
+            {% elif message.tags == 'warning' %}⚠️
+            {% elif message.tags == 'info' %}ℹ️
+            {% endif %}
+          </strong>
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
     {% block content %}{% endblock content %}
 
   </main><!-- End #main -->
