@@ -3714,3 +3714,12 @@ msgstr "Afficher l'image"
 
 msgid "Hide Image"
 msgstr "Cacher l'image"
+
+msgid "Item has been unshared successfully."
+msgstr "Le partage de l'article a été annulé avec succès."
+
+msgid "Please select at least one user to share with."
+msgstr "Veuillez sélectionner au moins un utilisateur avec qui partager."
+
+msgid "Item shared successfully!"
+msgstr "L'article a été partagé avec succès!"

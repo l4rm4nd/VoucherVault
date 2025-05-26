@@ -3708,3 +3708,12 @@ msgstr "Mostra immagine"
 
 msgid "Hide Image"
 msgstr "Nascondi immagine"
+
+msgid "Item has been unshared successfully."
+msgstr "La condivisione dell'elemento è stata annullata con successo."
+
+msgid "Please select at least one user to share with."
+msgstr "Seleziona almeno un utente con cui condividere."
+
+msgid "Item shared successfully!"
+msgstr "L'elemento è stato condiviso con successo!"

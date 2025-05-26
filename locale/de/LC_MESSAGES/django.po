@@ -3718,3 +3718,12 @@ msgstr "Bild anzeigen"
 
 msgid "Hide Image"
 msgstr "Bild verstecken"
+
+msgid "Item has been unshared successfully."
+msgstr "Freigabe erfolgreich entfernt."
+
+msgid "Please select at least one user to share with."
+msgstr "Bitte mindestens einen Benutzer zum Teilen auswählen."
+
+msgid "Item shared successfully!"
+msgstr "Gegenstand erfolgreich geteilt."

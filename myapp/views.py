@@ -553,9 +553,9 @@ def share_item_view(request, item_id):
             for user_id in selected_users:
                 recipient = User.objects.get(id=user_id)
                 ItemShare.objects.get_or_create(item=item, shared_with_user=recipient, shared_by=request.user)
-            messages.success(request, 'Item shared successfully!')
+            messages.success(request, _('Item shared successfully!'))
         else:
-            messages.error(request, 'Please select at least one user to share with.')
+            messages.error(request, _('Please select at least one user to share with.'))
 
         return redirect('view_item', item_uuid=item.id)
 
@@ -575,7 +575,7 @@ def unshare_item(request, item_id, user_id):
     item_share.delete()
     
     # Display a success message
-    messages.success(request, "Item has been unshared successfully.")
+    messages.success(request, _("Item has been unshared successfully."))
     
     # Redirect back to the item view page
     return redirect('view_item', item_uuid=item.id)
