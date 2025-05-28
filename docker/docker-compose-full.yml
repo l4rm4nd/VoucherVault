@@ -5,6 +5,8 @@ services:
     container_name: vouchervault
     restart: unless-stopped
     environment:
+      # set to true to enable debug mode
+      - DEBUG=False
       # your FQDN or IP; multiple ones supported by comma separation
       - DOMAIN=vouchervault.example.com
       # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
