@@ -4,6 +4,7 @@ pytz==2023.3.post1
 python-dotenv==1.0.0
 psycopg2-binary==2.9.10
 uwsgi==2.0.29
+whitenoise==6.9.0
 
 # HTTP HEADERS
 django-feature-policy==4.0.0
@@ -17,5 +18,5 @@ treepoem==3.24.0
 mozilla-django-oidc==4.0.1
 
 # TASKS
-celery[redis]
-django-celery-beat==2.8.1
+#celery[redis]
+#django-celery-beat==2.8.1

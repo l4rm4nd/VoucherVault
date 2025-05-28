@@ -39,8 +39,6 @@ perform_migrations() {
     echo ""
 
     if [ -z "$DB_INITIALIZED" ]; then
-        echo "[TASK] Creating periodic tasks for expiry notifications."
-        python manage.py create_default_periodic_tasks
         echo "-------------------------------------------------"
         admin_password=$(generate_random_string)
         echo "[TASK] Creating superuser account"
@@ -67,10 +65,9 @@ fi
 # Perform database migrations
 perform_migrations
 
-# Start Django-Celery-Beat
-echo "[TASK] Starting Celery worker and beat"
-celery -A myproject worker -l info --detach
-celery -A myproject beat -l info --detach --scheduler django_celery_beat.schedulers:DatabaseScheduler
+# Add an expiration check to the crontab
+(crontab -l; echo "0 9 * * * /usr/local/bin/python /opt/app/manage.py check_expiration >> /opt/app/database/expiration_check.log 2>&1" ) | uniq | crontab -
+service cron start
 
 # Spawn the web server
 echo "[TASK] Spawning the application server"
