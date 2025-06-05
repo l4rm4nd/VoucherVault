@@ -1,3 +1,10 @@
+## [1.18.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.2...v1.18.0) (2025-06-05)
+
+
+### Features
+
+* add multiplier for coupons ([f9b0ad5](https://github.com/l4rm4nd/VoucherVault/commit/f9b0ad571ff36a46f29f31394a8e3b1dd6f0e439))
+
 ## [1.17.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.1...v1.17.2) (2025-05-26)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * improve file type checking ([c82db8d](https://github.com/l4rm4nd/VoucherVault/commit/c82db8d11b30f71c149b52439ee3d8d03499a837))
-
-## [1.16.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.1...v1.16.2) (2025-05-16)
-
-
-### Bug Fixes
-
-* margin between pin code field and download/view area ([fdf7fb7](https://github.com/l4rm4nd/VoucherVault/commit/fdf7fb776863adefe89e3a8582cad64962401656))
 
