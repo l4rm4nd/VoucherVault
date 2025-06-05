@@ -161,7 +161,7 @@
                                 <div class="input-group">
                                     <input placeholder="{% trans 'The value of the item' %}" type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" value="{{ item.value|comma_to_dot }}" required>
                                     <button class="btn btn-outline-secondary d-none" type="button" id="toggle-value-type">
-                                        <span id="value-type-icon" class="bi bi-cash-coin"></span>
+                                        <span id="value-type-icon" title="Monetary Value" class="bi bi-cash-coin"></span>
                                     </button>
                                 </div>
                                 <input type="hidden" id="value_type" name="value_type" value="{{ item.value_type }}">
@@ -276,22 +276,32 @@
       }
 
       function toggleValueInput() {
-          if (valueTypeField.value === 'money') {
-              valueTypeField.value = 'percentage';
-              valueTypeIcon.classList.remove('bi-cash-coin');
-              valueTypeIcon.classList.add('bi-percent');
-              valueField.setAttribute('step', '0.01');
-              valueField.setAttribute('min', '0.00');
-              valueField.setAttribute('max', '100.00');
-          } else {
-              valueTypeField.value = 'money';
-              valueTypeIcon.classList.remove('bi-percent');
-              valueTypeIcon.classList.add('bi-cash-coin');
-              valueField.setAttribute('step', '0.01');
-              valueField.setAttribute('min', '0.00');
-              valueField.removeAttribute('max');
-          }
-      }
+        if (valueTypeField.value === 'money') {
+            valueTypeField.value = 'percentage';
+            valueTypeIcon.className = 'bi bi-percent';
+            valueField.setAttribute('step', '0.01');
+            valueField.setAttribute('min', '0.00');
+            valueField.setAttribute('max', '100.00');
+            valueField.placeholder = "{% trans 'e.g. 20% off' %}";
+            document.getElementById('value-type-icon').title = 'Percentage Value'; 
+        } else if (valueTypeField.value === 'percentage') {
+            valueTypeField.value = 'multiplier';
+            valueTypeIcon.className = 'bi bi-dice-5';  // You can pick any icon
+            valueField.setAttribute('step', '0.1');
+            valueField.setAttribute('min', '1.0');
+            valueField.removeAttribute('max');
+            valueField.placeholder = "{% trans 'e.g. 2x payback points' %}";
+            document.getElementById('value-type-icon').title = 'Multiplier Value'; 
+        } else {
+            valueTypeField.value = 'money';
+            valueTypeIcon.className = 'bi bi-cash-coin';
+            valueField.setAttribute('step', '0.01');
+            valueField.setAttribute('min', '0.00');
+            valueField.removeAttribute('max');
+            valueField.placeholder = "{% trans 'e.g. 5€' %}";
+            document.getElementById('value-type-icon').title = 'Monetary Value'; 
+        }
+    }
 
       typeField.addEventListener('change', toggleFields);
       toggleValueTypeBtn.addEventListener('click', toggleValueInput);

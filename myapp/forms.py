@@ -73,12 +73,15 @@ class ItemForm(forms.ModelForm):
             error_msg_value = _('Value must be zero for loyalty cards.')
             raise forms.ValidationError(error_msg_value)
         if item_type == 'coupon':
-            if value_type == 'money' and (value is None or value < 0):
-                error_message_value_positive_coupon = _('Value must be a positive monetary amount.')
-                raise forms.ValidationError(error_message_value_positive_coupon)
-            elif value_type == 'percentage' and (value is None or value < 0 or value > 100):
-                error_message_percentage = _('Percentage value must be between 0 and 100.')
-                raise forms.ValidationError(error_message_percentage)
+            if value_type == 'money':
+                if value is None or value < 0:
+                    raise forms.ValidationError(_('Value must be a positive monetary amount.'))
+            elif value_type == 'percentage':
+                if value is None or value < 0 or value > 100:
+                    raise forms.ValidationError(_('Percentage value must be between 0 and 100.'))
+            elif value_type == 'multiplier':
+                if value is None or value < 1:
+                    raise forms.ValidationError(_('Multiplier must be 1 or higher.'))
         elif item_type != 'loyaltycard' and (value is None or value < 0):
             error_message_positive = _('Value must be positive.')
             raise forms.ValidationError(error_message_positive)

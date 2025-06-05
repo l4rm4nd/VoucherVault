@@ -67,6 +67,8 @@
                           <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percent" %}:</b> {{ total_value|floatformat:2 }}</span>
                           {% elif item.value_type == "money" %}
                           <i class="bi bi-cash text-muted"></i> <span><b>{% trans "Value" %}:</b> {{ total_value|floatformat:2 }}</span>
+                          {% elif item.value_type == "multiplier" %}
+                          <i class="bi bi-dice-5 text-muted"></i> <span><b>{% trans "Multiplier" %}:</b> {{ total_value|floatformat:2 }}</span>
                           {% endif %}
                       </div>
                       {% endif %}

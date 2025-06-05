@@ -14,6 +14,7 @@ class Item(models.Model):
     VALUE_TYPES = (
         ('money', 'Money'),
         ('percentage', 'Percentage'),
+        ('multiplier', 'Multiplier'),
     )    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=100, choices=ITEM_TYPES)
