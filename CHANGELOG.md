@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.18.0...v1.18.1) (2025-06-09)
+
+
+### Bug Fixes
+
+* bump django ([8f6ad59](https://github.com/l4rm4nd/VoucherVault/commit/8f6ad59073d219c11bd9a687100a07c362400d56))
+
 ## [1.18.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.2...v1.18.0) (2025-06-05)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * adjustable celery concurrency ([62569a3](https://github.com/l4rm4nd/VoucherVault/commit/62569a33e46799e0e8afcb1d7fedfb91b7d65cda)), closes [#74](https://github.com/l4rm4nd/VoucherVault/issues/74)
-
-## [1.16.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.2...v1.16.3) (2025-05-19)
-
-
-### Bug Fixes
-
-* improve file type checking ([c82db8d](https://github.com/l4rm4nd/VoucherVault/commit/c82db8d11b30f71c149b52439ee3d8d03499a837))
 
