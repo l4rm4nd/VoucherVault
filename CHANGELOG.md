@@ -1,3 +1,10 @@
+## [1.19.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.18.1...v1.19.0) (2025-06-10)
+
+
+### Features
+
+* improve sharing views ([9dfc473](https://github.com/l4rm4nd/VoucherVault/commit/9dfc473ea085365266cdc8e5879c88e81226cf9b))
+
 ## [1.18.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.18.0...v1.18.1) (2025-06-09)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * switch from runserver to uwsgi ([5b8e2b5](https://github.com/l4rm4nd/VoucherVault/commit/5b8e2b5a53267839f33b197a6355690ac6e54ddd)), closes [#74](https://github.com/l4rm4nd/VoucherVault/issues/74)
-
-## [1.17.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.16.3...v1.17.0) (2025-05-25)
-
-
-### Features
-
-* adjustable celery concurrency ([62569a3](https://github.com/l4rm4nd/VoucherVault/commit/62569a33e46799e0e8afcb1d7fedfb91b7d65cda)), closes [#74](https://github.com/l4rm4nd/VoucherVault/issues/74)
 
