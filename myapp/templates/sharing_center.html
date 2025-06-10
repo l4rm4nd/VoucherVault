@@ -39,14 +39,14 @@
               </div>
               {% if entry.item.logo_slug %}
               <img id="logo-{{ entry.item.id }}" 
-                   src="https://logo.clearbit.com/{{ entry.item.logo_slug }}" 
-                   alt="Logo" 
-                   style="width: 50px; height: 50px; border-radius: 10px;" 
-                   onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.item.qr_code_base64 }}';">
+                    src="https://img.logo.dev/{{ entry.item.logo_slug }}?token=pk_NaUHDkw4SSeHCapveLJtjg" 
+                    alt="Logo" 
+                    style="width: 50px; height: 50px; border-radius: 10px;" 
+                    onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.item.qr_code_base64 }}';this.style.filter='blur(2px)';">
               {% else %}
               <img src="data:image/png;base64,{{ entry.item.qr_code_base64 }}" 
-                   alt="QR Code" 
-                   style="width: 50px; height: 50px; border-radius: 10px;">
+                    alt="QR Code" 
+                    style="width: 50px; height: 50px; border-radius: 10px; filter: blur(2px)">
               {% endif %}
             </div>
             <div class="item-details">
@@ -56,7 +56,17 @@
               <div class="detail-item default-tile">
                 <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ entry.item.expiry_date }}</span>
               </div>
-            </div>
+              <div class="detail-item default-tile">
+                <i class="bi bi-people text-muted"></i> 
+                <span>
+                  {% if entry.shared_with_me %}
+                    <b>{% trans "Shared With Me" %}</b> ← {{ entry.shared_by.username }}
+                  {% else %}
+                    <b>{% trans "Shared By Me" %}</b>
+                  {% endif %}
+                </span>
+              </div>
+            </div>            
           </div>
         </div>
       </a>

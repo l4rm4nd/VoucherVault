@@ -37,6 +37,7 @@
                   <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>{% trans "Expired" %}</option>
                   <option value="soon_expiring" {% if item_status == 'soon_expiring' %}selected{% endif %}>{% trans "Soon Expiring" %}</option>
                   <option value="shared_by_me" {% if item_status == 'shared_by_me' %}selected{% endif %}>{% trans "Shared By Me" %}</option>
+                  <option value="shared_with_me" {% if item_status == 'shared_with_me' %}selected{% endif %}>{% trans "Shared With Me" %}</option>
                 </select>
               </div>
               <div class="col-12 col-md-4">
@@ -81,9 +82,9 @@
                            src="https://img.logo.dev/{{ entry.item.logo_slug }}?token=pk_NaUHDkw4SSeHCapveLJtjg" 
                            alt="Logo" 
                            style="width: 50px; height: 50px; border-radius: 10px;" 
-                           onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.qr_code_base64 }}';this.style.filter='blur(2px)';">
+                           onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.item.qr_code_base64 }}';this.style.filter='blur(2px)';">
                       {% else %}
-                      <img src="data:image/png;base64,{{ entry.qr_code_base64 }}" 
+                      <img src="data:image/png;base64,{{ entry.item.qr_code_base64 }}" 
                            alt="QR Code" 
                            style="width: 50px; height: 50px; border-radius: 10px; filter: blur(2px)">
                       {% endif %}

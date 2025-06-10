@@ -124,7 +124,17 @@ def show_items(request):
         
         # Apply additional status filters only to items owned by the user
         if filter_value == 'available':
-            items = items.filter(is_used=False, expiry_date__gte=timezone.now())
+            own_items = Item.objects.filter(
+                user=user,
+                is_used=False,
+                expiry_date__gte=timezone.now()
+            )
+            shared_items = Item.objects.filter(
+                shared_with__shared_with_user=user,
+                is_used=False,
+                expiry_date__gte=timezone.now()
+            ).exclude(user=user)
+            items = (own_items | shared_items).distinct()
         elif filter_value == 'used':
             items = items.filter(is_used=True)
         elif filter_value == 'expired':
@@ -534,14 +544,40 @@ def verify_apprise_urls(request):
 @require_GET
 @login_required
 def sharing_center(request):
-    # Get the current user
     current_user = request.user
-    
-    # Query all items shared with the current user
-    shared_items = ItemShare.objects.filter(shared_with_user=current_user)
-    
-    # Pass the items to the template
-    return render(request, 'sharing_center.html', {'shared_items': shared_items})
+
+    shares = ItemShare.objects.filter(
+        Q(shared_with_user=current_user) | Q(shared_by=current_user)
+    ).select_related('item', 'shared_by', 'shared_with_user') \
+     .order_by('item__expiry_date')
+
+    unique_items = {}
+
+    for share in shares:
+        item = share.item
+        if item.id not in unique_items:
+            if share.shared_with_user == current_user:
+                # You are the receiver
+                unique_items[item.id] = {
+                    'item': item,
+                    'qr_code_base64': item.qr_code_base64,
+                    'shared_by': share.shared_by,
+                    'shared_with_me': True
+                }
+            elif share.shared_by == current_user:
+                # You are the sender
+                unique_items[item.id] = {
+                    'item': item,
+                    'qr_code_base64': item.qr_code_base64,
+                    'shared_with_me': False
+                }
+
+    shared_items = list(unique_items.values())
+
+    return render(request, 'sharing_center.html', {
+        'shared_items': shared_items,
+        'current_date': timezone.now(),
+    })
 
 @login_required
 def share_item_view(request, item_id):
