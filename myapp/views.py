@@ -76,8 +76,8 @@ def dashboard(request):
     loyaltycards_count = Item.objects.filter(user=user, type='loyaltycard', is_used=False, expiry_date__gte=timezone.now()).count()
 
     # Count the number of items shared by the user
-    shared_items_count_by_you = ItemShare.objects.filter(shared_by=user).count()
-    shared_items_count_with_you = ItemShare.objects.filter(shared_with_user=user).count()
+    shared_items_count_by_you = ItemShare.objects.filter(shared_by=user).values('item').distinct().count()
+    shared_items_count_with_you = ItemShare.objects.filter(shared_with_user=user).values('item').distinct().count()
 
     # Get threshold days from environment variable or default to 30
     threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
@@ -138,7 +138,7 @@ def show_items(request):
         elif filter_value == 'used':
             items = items.filter(is_used=True)
         elif filter_value == 'expired':
-            items = items.filter(expiry_date__lt=timezone.now())
+            items = items.filter(expiry_date__lt=timezone.now(), is_used=False)
 
     # Apply the item_type filter if provided
     if item_type:
