@@ -323,10 +323,6 @@ msgstr "Tutti gli articoli"
 msgid "All Status"
 msgstr "Tutti gli stati"
 
-#: myapp/templates/inventory.html:38
-msgid "Shared By Me"
-msgstr "Condiviso da me"
-
 #: myapp/templates/inventory.html:42
 msgid "Search keyword"
 msgstr "Parola chiave di ricerca"
@@ -3717,3 +3713,9 @@ msgstr "Seleziona almeno un utente con cui condividere."
 
 msgid "Item shared successfully!"
 msgstr "L'elemento è stato condiviso con successo!"
+
+msgid "Shared By Me"
+msgstr "Condiviso da me"
+
+msgid "Shared With Me"
+msgstr "Condiviso con me"

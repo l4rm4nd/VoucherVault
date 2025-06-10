@@ -316,10 +316,6 @@ msgstr "Tous les éléments"
 msgid "All Status"
 msgstr "Tous les statuts"
 
-#: myapp/templates/inventory.html:38
-msgid "Shared By Me"
-msgstr "Partagés par moi"
-
 #: myapp/templates/inventory.html:42
 msgid "Search keyword"
 msgstr "Mot-clé à rechercher"
@@ -3687,6 +3683,9 @@ msgstr ""
 
 msgid "Shared With Me"
 msgstr "Partagé avec moi"
+
+msgid "Shared By Me"
+msgstr "Partagé par moi"
 
 msgid "giftcard"
 msgstr "Cartes-cadeaux"

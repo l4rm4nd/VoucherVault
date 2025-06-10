@@ -317,14 +317,6 @@ msgstr "Alle Gegenstände"
 msgid "All Status"
 msgstr "Alle Gegenstände"
 
-#: myapp/templates/inventory.html:38
-msgid "Shared By Me"
-msgstr "Von mir geteilt"
-
-#: myapp/templates/inventory.html:39
-msgid "Shared With Me"
-msgstr "Mit mir geteilt"
-
 #: myapp/templates/inventory.html:43
 msgid "Search keyword"
 msgstr "Suchbegriff"
@@ -3727,3 +3719,9 @@ msgstr "Bitte mindestens einen Benutzer zum Teilen auswählen."
 
 msgid "Item shared successfully!"
 msgstr "Gegenstand erfolgreich geteilt."
+
+msgid "Shared By Me"
+msgstr "Von mir geteilt"
+
+msgid "Shared With Me"
+msgstr "Mit mir geteilt"
