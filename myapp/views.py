@@ -110,6 +110,9 @@ def show_items(request):
     filter_value = request.GET.get('status', 'available')  # Get the combined filter value
     search_query = request.GET.get('query', '')
 
+    # Retrieve or create user preferences
+    preferences, _ = UserPreference.objects.get_or_create(user=user)
+
     # Base query
     if filter_value == 'shared_by_me':
         items = Item.objects.filter(shared_with__shared_by=user).distinct()
@@ -169,6 +172,7 @@ def show_items(request):
         'item_status': filter_value,  # Reuse item_status to hold the combined filter value
         'search_query': search_query,
         'current_date': timezone.now(),
+        'preferences': preferences,
     }
     return render(request, 'inventory.html', context)
 
@@ -718,3 +722,17 @@ def get_stats(request):
         "user_stats": user_stats,
         "issuer_stats": issuer_stats,
     })
+
+@login_required
+def update_user_preferences(request):
+    preferences, _ = UserPreference.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = UserPreferenceForm(request.POST, instance=preferences)
+        if form.is_valid():
+            form.save()
+            return redirect('show_items')  # or redirect to 'update_user_preferences' to stay on page
+    else:
+        form = UserPreferenceForm(instance=preferences)
+
+    return render(request, 'update_preferences.html', {'form': form})

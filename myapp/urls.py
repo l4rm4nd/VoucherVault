@@ -26,6 +26,7 @@ urlpatterns = (
     path('download/<uuid:item_id>/', views.download_file, name='download_file'),
     path('shared-items/', views.sharing_center, name='sharing_center'),
     path('api/get/stats', views.get_stats, name='get_stats'),
+    path('user/edit/preferences', views.update_user_preferences, name='update_user_preferences'),
 )
 
 admin.site.site_header = "VoucherVault"

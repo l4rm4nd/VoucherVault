@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="pagetitle">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">{% trans "User" %}</li>
+      <li class="breadcrumb-item active"><a href="{% url 'update_user_preferences' %}">{% trans "Display Preferences" %}</a></li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">{% trans "Configure Display Preferences" %}</h6>
+          <p>{% trans "Select which fields should be visible in your inventory view." %}</p>
+
+          <form method="POST" action="">
+            {% csrf_token %}
+
+            {% for field in form %}
+              <div class="mb-2 form-check">
+                {{ field }}
+                <label class="form-check-label" for="{{ field.id_for_label }}">
+                  {% trans field.label %}
+                </label>
+                {% if field.errors %}
+                  <div class="text-danger small">{{ field.errors }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+
+            <div class="mt-3">
+              <button type="submit" class="btn btn-primary">{% trans "Update Preferences" %}</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

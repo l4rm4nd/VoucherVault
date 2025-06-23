@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import uuid
 
+class UserPreference(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    show_issue_date = models.BooleanField(default=True)
+    show_expiry_date = models.BooleanField(default=True)
+    show_value = models.BooleanField(default=True)
+    show_description = models.BooleanField(default=False)
+
 class Item(models.Model):
     ITEM_TYPES = (
         ('voucher', 'Voucher'),

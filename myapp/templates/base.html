@@ -89,12 +89,18 @@
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'update_apprise_urls' %}">
-                <i class="bi bi-bell"></i>
-                <span>{% trans "Notification Settings" %}</span>
-              </a>
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'update_apprise_urls' %}">
+              <i class="bi bi-bell"></i>
+              <span>{% trans "Notification Settings" %}</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'update_user_preferences' %}">
+              <i class="bi bi-ui-checks"></i>
+              <span>{% trans "Display Preferences" %}</span>
+            </a>
+          </li>
             {% if not "OIDC_ENABLED"|env %}
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{% url 'password_change' %}">

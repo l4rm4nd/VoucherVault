@@ -61,6 +61,12 @@ class AppSettingsAdmin(admin.ModelAdmin):
             messages.error(request, "AppSettings instance not found.")
         return HttpResponseRedirect(reverse('admin:myapp_appsettings_changelist'))
 
+class UserPreferenceAdmin(admin.ModelAdmin):
+    list_display = ('user', 'show_issue_date', 'show_expiry_date')
+    list_filter = ('show_issue_date', 'show_expiry_date')
+    search_fields = ('user__username',)
+
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Transaction)
 admin.site.register(AppSettings, AppSettingsAdmin)
+admin.site.register(UserPreference, UserPreferenceAdmin)

@@ -124,3 +124,14 @@ class UserProfileForm(forms.ModelForm):
                 }
             ),
         }
+
+class UserPreferenceForm(forms.ModelForm):
+    class Meta:
+        model = UserPreference
+        fields = ['show_issue_date', 'show_expiry_date', 'show_value', 'show_description']
+        widgets = {
+            'show_issue_date': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'show_expiry_date': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'show_value': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'show_description': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
