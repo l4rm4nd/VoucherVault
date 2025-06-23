@@ -129,12 +129,7 @@ def show_items(request):
                 is_used=False,
                 expiry_date__gte=timezone.now()
             )
-            shared_items = Item.objects.filter(
-                shared_with__shared_with_user=user,
-                is_used=False,
-                expiry_date__gte=timezone.now()
-            ).exclude(user=user)
-            items = (own_items | shared_items).distinct()
+            items = (own_items).distinct()
         elif filter_value == 'used':
             items = items.filter(is_used=True)
         elif filter_value == 'expired':
