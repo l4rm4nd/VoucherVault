@@ -1,3 +1,10 @@
+## [1.21.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.1...v1.21.2) (2025-06-23)
+
+
+### Bug Fixes
+
+* correct import; fixes [#87](https://github.com/l4rm4nd/VoucherVault/issues/87) ([40e0f03](https://github.com/l4rm4nd/VoucherVault/commit/40e0f036aa257c457d479f175622570450959144))
+
 ## [1.21.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.0...v1.21.1) (2025-06-23)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * show only owned available items ([17c7036](https://github.com/l4rm4nd/VoucherVault/commit/17c70362be7ab57eacfdbd5ca05da029245b0f09)), closes [#84](https://github.com/l4rm4nd/VoucherVault/issues/84)
-
-## [1.19.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.18.1...v1.19.0) (2025-06-10)
-
-
-### Features
-
-* improve sharing views ([9dfc473](https://github.com/l4rm4nd/VoucherVault/commit/9dfc473ea085365266cdc8e5879c88e81226cf9b))
 
