@@ -62,8 +62,8 @@ class AppSettingsAdmin(admin.ModelAdmin):
         return HttpResponseRedirect(reverse('admin:myapp_appsettings_changelist'))
 
 class UserPreferenceAdmin(admin.ModelAdmin):
-    list_display = ('user', 'show_issue_date', 'show_expiry_date')
-    list_filter = ('show_issue_date', 'show_expiry_date')
+    list_display = ('user', 'show_issue_date', 'show_expiry_date', 'show_value', 'show_description')
+    list_filter = ('show_issue_date', 'show_expiry_date', 'show_value', 'show_description')
     search_fields = ('user__username',)
 
 admin.site.register(Item, ItemAdmin)
