@@ -51,12 +51,29 @@
               {% endif %}
             </div>
             <div class="item-details">
+              {% if preferences.show_issue_date %}
               <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
                 <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ entry.item.issue_date }}</span>
               </div>
+              {% endif %}
+              {% if preferences.show_expiry_date %}
               <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
                 <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ entry.item.expiry_date }}</span>
               </div>
+              {% endif %}
+              {% if entry.item.type != "loyaltycard" %}
+              {% if preferences.show_value %}
+              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
+                {% if entry.item.value_type == "percentage" %}
+                <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percentage" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
+                {% elif entry.item.value_type == "money" %}
+                <i class="bi bi-cash text-muted"></i> <span><b>{% trans "Value" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
+                {% elif entry.item.value_type == "multiplier" %}
+                <i class="bi bi-dice-5 text-muted"></i> <span><b>{% trans "Multiplier" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
+                {% endif %}
+              </div>
+              {% endif %}
+              {% endif %}
               <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
                 <i class="bi bi-people text-muted"></i> 
                 <span>

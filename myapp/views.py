@@ -544,6 +544,10 @@ def verify_apprise_urls(request):
 @login_required
 def sharing_center(request):
     current_user = request.user
+    today = now().date()
+
+    # Retrieve or create user preferences
+    preferences, _ = UserPreference.objects.get_or_create(user=current_user)
 
     shares = ItemShare.objects.filter(
         Q(shared_with_user=current_user) | Q(shared_by=current_user)
@@ -555,20 +559,24 @@ def sharing_center(request):
     for share in shares:
         item = share.item
         if item.id not in unique_items:
-            if share.shared_with_user == current_user:
+            transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
+            current_value = item.value + transactions_sum            
+            if share.shared_with_user == current_user and not item.is_used and item.expiry_date >= today:
                 # You are the receiver
                 unique_items[item.id] = {
                     'item': item,
                     'qr_code_base64': item.qr_code_base64,
                     'shared_by': share.shared_by,
-                    'shared_with_me': True
+                    'shared_with_me': True,
+                    'current_value': current_value
                 }
             elif share.shared_by == current_user:
                 # You are the sender
                 unique_items[item.id] = {
                     'item': item,
                     'qr_code_base64': item.qr_code_base64,
-                    'shared_with_me': False
+                    'shared_with_me': False,
+                    'current_value': current_value
                 }
 
     shared_items = list(unique_items.values())
@@ -576,6 +584,7 @@ def sharing_center(request):
     return render(request, 'sharing_center.html', {
         'shared_items': shared_items,
         'current_date': timezone.now(),
+        'preferences': preferences,
     })
 
 @login_required
