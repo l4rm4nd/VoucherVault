@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.0...v1.21.1) (2025-06-23)
+
+
+### Bug Fixes
+
+* default subtile color ([7977f84](https://github.com/l4rm4nd/VoucherVault/commit/7977f84ea1d7cfd356ec12aa52823e57175bad37))
+
 ## [1.21.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.20.0...v1.21.0) (2025-06-23)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * improve sharing views ([9dfc473](https://github.com/l4rm4nd/VoucherVault/commit/9dfc473ea085365266cdc8e5879c88e81226cf9b))
-
-## [1.18.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.18.0...v1.18.1) (2025-06-09)
-
-
-### Bug Fixes
-
-* bump django ([8f6ad59](https://github.com/l4rm4nd/VoucherVault/commit/8f6ad59073d219c11bd9a687100a07c362400d56))
 
