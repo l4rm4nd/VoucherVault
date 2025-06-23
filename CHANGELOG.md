@@ -1,3 +1,10 @@
+## [1.21.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.4...v1.21.5) (2025-06-23)
+
+
+### Bug Fixes
+
+* show code on top for mobile devices ([054f609](https://github.com/l4rm4nd/VoucherVault/commit/054f609d74c03c6a8db2f343e0733eac606196e4)), closes [#89](https://github.com/l4rm4nd/VoucherVault/issues/89)
+
 ## [1.21.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.3...v1.21.4) (2025-06-23)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * default subtile color ([7977f84](https://github.com/l4rm4nd/VoucherVault/commit/7977f84ea1d7cfd356ec12aa52823e57175bad37))
-
-## [1.21.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.20.0...v1.21.0) (2025-06-23)
-
-
-### Features
-
-* color picker for inventory tiles ([5d558c5](https://github.com/l4rm4nd/VoucherVault/commit/5d558c51d1424380c97933b7a78c7909c278401a)), closes [#86](https://github.com/l4rm4nd/VoucherVault/issues/86)
 
