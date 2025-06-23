@@ -1,3 +1,10 @@
+## [1.21.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.20.0...v1.21.0) (2025-06-23)
+
+
+### Features
+
+* color picker for inventory tiles ([5d558c5](https://github.com/l4rm4nd/VoucherVault/commit/5d558c51d1424380c97933b7a78c7909c278401a)), closes [#86](https://github.com/l4rm4nd/VoucherVault/issues/86)
+
 ## [1.20.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.19.1...v1.20.0) (2025-06-23)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump django ([8f6ad59](https://github.com/l4rm4nd/VoucherVault/commit/8f6ad59073d219c11bd9a687100a07c362400d56))
-
-## [1.18.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.2...v1.18.0) (2025-06-05)
-
-
-### Features
-
-* add multiplier for coupons ([f9b0ad5](https://github.com/l4rm4nd/VoucherVault/commit/f9b0ad571ff36a46f29f31394a8e3b1dd6f0e439))
 
