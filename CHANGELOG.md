@@ -1,3 +1,10 @@
+## [1.21.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.3...v1.21.4) (2025-06-23)
+
+
+### Bug Fixes
+
+* add revert button to create view ([9e13841](https://github.com/l4rm4nd/VoucherVault/commit/9e138414df81674b9f14a84d498bc80052d41535))
+
 ## [1.21.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.2...v1.21.3) (2025-06-23)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * color picker for inventory tiles ([5d558c5](https://github.com/l4rm4nd/VoucherVault/commit/5d558c51d1424380c97933b7a78c7909c278401a)), closes [#86](https://github.com/l4rm4nd/VoucherVault/issues/86)
-
-## [1.20.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.19.1...v1.20.0) (2025-06-23)
-
-
-### Features
-
-* adjust display preferences ([d851ba0](https://github.com/l4rm4nd/VoucherVault/commit/d851ba0210c3168c262727d88125c5898b2cd849)), closes [#85](https://github.com/l4rm4nd/VoucherVault/issues/85)
 
