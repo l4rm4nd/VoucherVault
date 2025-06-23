@@ -1,3 +1,10 @@
+## [1.20.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.19.1...v1.20.0) (2025-06-23)
+
+
+### Features
+
+* adjust display preferences ([d851ba0](https://github.com/l4rm4nd/VoucherVault/commit/d851ba0210c3168c262727d88125c5898b2cd849)), closes [#85](https://github.com/l4rm4nd/VoucherVault/issues/85)
+
 ## [1.19.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.19.0...v1.19.1) (2025-06-23)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * add multiplier for coupons ([f9b0ad5](https://github.com/l4rm4nd/VoucherVault/commit/f9b0ad571ff36a46f29f31394a8e3b1dd6f0e439))
-
-## [1.17.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.1...v1.17.2) (2025-05-26)
-
-
-### Bug Fixes
-
-* add message handler in base.html ([31580b4](https://github.com/l4rm4nd/VoucherVault/commit/31580b429a21947cadf6749b368910d1c44c5bca))
 
