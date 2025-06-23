@@ -1,3 +1,10 @@
+## [1.21.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.7...v1.21.8) (2025-06-23)
+
+
+### Bug Fixes
+
+* correct broken translations ([9f77b8b](https://github.com/l4rm4nd/VoucherVault/commit/9f77b8bfdf111c832d5943ca58f22dd10b07925e))
+
 ## [1.21.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.6...v1.21.7) (2025-06-23)
 
 
@@ -26,11 +33,4 @@
 ### Bug Fixes
 
 * add revert button to create view ([9e13841](https://github.com/l4rm4nd/VoucherVault/commit/9e138414df81674b9f14a84d498bc80052d41535))
-
-## [1.21.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.2...v1.21.3) (2025-06-23)
-
-
-### Bug Fixes
-
-* make color picking optional ([b8ed90d](https://github.com/l4rm4nd/VoucherVault/commit/b8ed90dd690b56707eebd1614452d288e7ab5384)), closes [#86](https://github.com/l4rm4nd/VoucherVault/issues/86)
 
