@@ -70,8 +70,13 @@
                                    class="form-control form-control-color"
                                    id="tile_color"
                                    name="tile_color"
-                                   value="{{ item.tile_color|default:'#1e1e1e' }}"
+                                   value="{{ item.tile_color|default:'#000000' }}"
+                                   {% if not item.tile_color %} data-default-color="true" {% endif %}
                                    title="{% trans 'Color' %}">
+
+                            <button type="button" class="btn btn-outline-secondary" onclick="resetTileColor()" title="{% trans 'Reset to default' %}">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </button>
                         </div>
                     </div>
                         <div class="row mb-3">
@@ -317,4 +322,26 @@
       toggleFields();  // Initial call to set the correct state on page load
   });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const colorInput = document.getElementById('tile_color');
+
+  if (colorInput && colorInput.dataset.defaultColor === "true") {
+    const isDarkMode = localStorage.getItem('darkMode') !== 'disabled';
+    const defaultColor = isDarkMode ? '#1e1e1e' : '#f3f3f3';
+
+    colorInput.value = defaultColor;
+  }
+});
+</script>
+
+<script>
+  function resetTileColor() {
+    const tileColorInput = document.getElementById('tile_color');
+    const isDarkMode = localStorage.getItem('darkMode') !== 'disabled';
+    tileColorInput.value = isDarkMode ? "#1e1e1e" : "#f3f3f3";
+  }
+</script>
+
 {% endblock content %}

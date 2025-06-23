@@ -32,23 +32,28 @@ def clamp(value, min_value=0, max_value=255):
     return max(min_value, min(value, max_value))
 
 @register.filter
+@register.filter
 def darken(hex_color, amount=20):
-    """
-    Darkens a hex color by a given integer amount (default: 20).
-    Use: {{ "#ff0000"|darken:"30" }}
-    """
     try:
+        if not hex_color:
+            return '#placeholder'
+
         hex_color = hex_color.strip().lstrip('#')
 
-        # Special case for default color
-        if hex_color in ['1e1e1e', '1E1E1E']:
+        # Propagate placeholder for frontend JS
+        if hex_color.lower() in ['placeholder']:
+            return '#placeholder'
+
+        # Special default fallbacks
+        if hex_color.lower() == '1e1e1e':
             return '#2a2a2a'
+        elif hex_color.lower() == 'f3f3f3':
+            return '#e0e0e0'
 
-        # Handle shorthand like #abc
+        # Shorthand hex like #abc
         if len(hex_color) == 3:
-            hex_color = ''.join([c*2 for c in hex_color])
+            hex_color = ''.join([c * 2 for c in hex_color])
 
-        # Strip any trailing % signs from amount
         if isinstance(amount, str):
             amount = re.sub(r'[^0-9]', '', amount)
 
@@ -64,4 +69,4 @@ def darken(hex_color, amount=20):
 
         return f'rgb({r}, {g}, {b})'
     except Exception:
-        return f'rgb(30, 30, 30)'  # fallback to a safe default
+        return '#placeholder'  # Fallback to placeholder if error

@@ -40,6 +40,15 @@ class ItemForm(forms.ModelForm):
         # Make expiry_date optional
         self.fields['expiry_date'].required = False
 
+    def clean_tile_color(self):
+        color = self.cleaned_data.get('tile_color')
+
+        # Treat UI default placeholder values as unset
+        if color in ['#1e1e1e', '#f3f3f3', '']:  # Add more fallback defaults if needed
+            return None
+
+        return color
+
     def clean_file(self):
         file = self.cleaned_data.get('file')
         
