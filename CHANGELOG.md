@@ -1,3 +1,10 @@
+## [1.21.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.6...v1.21.7) (2025-06-23)
+
+
+### Bug Fixes
+
+* hide used or expired items that were shared from filter + dashboard ([486e05d](https://github.com/l4rm4nd/VoucherVault/commit/486e05d70008a4b700a8a29cc7339b167af176f8))
+
 ## [1.21.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.5...v1.21.6) (2025-06-23)
 
 
@@ -26,11 +33,4 @@
 ### Bug Fixes
 
 * make color picking optional ([b8ed90d](https://github.com/l4rm4nd/VoucherVault/commit/b8ed90dd690b56707eebd1614452d288e7ab5384)), closes [#86](https://github.com/l4rm4nd/VoucherVault/issues/86)
-
-## [1.21.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.1...v1.21.2) (2025-06-23)
-
-
-### Bug Fixes
-
-* correct import; fixes [#87](https://github.com/l4rm4nd/VoucherVault/issues/87) ([40e0f03](https://github.com/l4rm4nd/VoucherVault/commit/40e0f036aa257c457d479f175622570450959144))
 
