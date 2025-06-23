@@ -1,3 +1,10 @@
+## [1.21.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.2...v1.21.3) (2025-06-23)
+
+
+### Bug Fixes
+
+* make color picking optional ([b8ed90d](https://github.com/l4rm4nd/VoucherVault/commit/b8ed90dd690b56707eebd1614452d288e7ab5384)), closes [#86](https://github.com/l4rm4nd/VoucherVault/issues/86)
+
 ## [1.21.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.1...v1.21.2) (2025-06-23)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * adjust display preferences ([d851ba0](https://github.com/l4rm4nd/VoucherVault/commit/d851ba0210c3168c262727d88125c5898b2cd849)), closes [#85](https://github.com/l4rm4nd/VoucherVault/issues/85)
-
-## [1.19.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.19.0...v1.19.1) (2025-06-23)
-
-
-### Bug Fixes
-
-* show only owned available items ([17c7036](https://github.com/l4rm4nd/VoucherVault/commit/17c70362be7ab57eacfdbd5ca05da029245b0f09)), closes [#84](https://github.com/l4rm4nd/VoucherVault/issues/84)
 
