@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.19.0...v1.19.1) (2025-06-23)
+
+
+### Bug Fixes
+
+* show only owned available items ([17c7036](https://github.com/l4rm4nd/VoucherVault/commit/17c70362be7ab57eacfdbd5ca05da029245b0f09)), closes [#84](https://github.com/l4rm4nd/VoucherVault/issues/84)
+
 ## [1.19.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.18.1...v1.19.0) (2025-06-10)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add message handler in base.html ([31580b4](https://github.com/l4rm4nd/VoucherVault/commit/31580b429a21947cadf6749b368910d1c44c5bca))
-
-## [1.17.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.17.0...v1.17.1) (2025-05-25)
-
-
-### Bug Fixes
-
-* switch from runserver to uwsgi ([5b8e2b5](https://github.com/l4rm4nd/VoucherVault/commit/5b8e2b5a53267839f33b197a6355690ac6e54ddd)), closes [#74](https://github.com/l4rm4nd/VoucherVault/issues/74)
 
