@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+{% load extras %}
 
 {% block content %}
 <div class="pagetitle">
@@ -18,7 +19,7 @@
     {% for entry in shared_items %}
     <div title="{{ entry.item.description }}" class="col-12 col-md-6">
       <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
-        <div id="card-{{ entry.item.id }}" style="background-color: {{ entry.item.tile_color|default:'#1e1e1e' }};" class="card info-card sales-card card-available
+        <div id="card-{{ entry.item.id }}" style="background-color: {{ entry.item.tile_color|default:'#placeholder' }}" class="card info-card sales-card card-available
             {% if entry.item.is_used %} card-used
             {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
             {% endif %}">
@@ -50,13 +51,13 @@
               {% endif %}
             </div>
             <div class="item-details">
-              <div class="detail-item default-tile">
+              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
                 <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ entry.item.issue_date }}</span>
               </div>
-              <div class="detail-item default-tile">
+              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
                 <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ entry.item.expiry_date }}</span>
               </div>
-              <div class="detail-item default-tile">
+              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
                 <i class="bi bi-people text-muted"></i> 
                 <span>
                   {% if entry.shared_with_me %}
@@ -75,3 +76,17 @@
   </div>
 </section>
 {% endblock content %}
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const defaultColor = prefersDark ? '#1e1e1e' : '#f3f3f3';
+  const darkenedDefault = prefersDark ? '#2a2a2a' : '#e0e0e0'; // Optional customization
+
+  // Replace any placeholders for background color
+  document.querySelectorAll('[style*="#placeholder"]').forEach(el => {
+    el.style.backgroundColor = el.classList.contains('detail-item') ? darkenedDefault : defaultColor;
+  });
+});
+</script>
