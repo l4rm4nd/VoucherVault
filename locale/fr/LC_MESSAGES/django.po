@@ -3722,3 +3722,27 @@ msgstr "Veuillez sélectionner au moins un utilisateur avec qui partager."
 
 msgid "Item shared successfully!"
 msgstr "L'article a été partagé avec succès!"
+
+msgid "Select which fields should be visible in your inventory view."
+msgstr "Sélectionnez les champs qui doivent être visibles dans votre vue d'inventaire."
+
+msgid "Configure Display Preferences"
+msgstr "Configurer les préférences d'affichage"
+
+msgid "Update Preferences"
+msgstr "Actualiser les préférences"
+
+msgid "Display Preferences"
+msgstr "Préférences d'affichage"
+
+msgid "Show description"
+msgstr "Afficher la description"
+
+msgid "Show value"
+msgstr "Afficher la valeur"
+
+msgid "Show issue date"
+msgstr "Afficher la date d'émission"
+
+msgid "Show expiry date"
+msgstr "Afficher la date d'expiration"

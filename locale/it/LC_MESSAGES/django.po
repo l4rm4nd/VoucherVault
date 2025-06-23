@@ -3719,3 +3719,27 @@ msgstr "Condiviso da me"
 
 msgid "Shared With Me"
 msgstr "Condiviso con me"
+
+msgid "Select which fields should be visible in your inventory view."
+msgstr "Selezionare quali campi devono essere visibili nella vista dell'inventario."
+
+msgid "Configure Display Preferences"
+msgstr "Configurazione delle preferenze di visualizzazione"
+
+msgid "Update Preferences"
+msgstr "Aggiornare le preferenze"
+
+msgid "Display Preferences"
+msgstr "Preferenze di visualizzazione"
+
+msgid "Show description"
+msgstr "Mostra descrizione"
+
+msgid "Show value"
+msgstr "Mostra valore"
+
+msgid "Show issue date"
+msgstr "Mostra la data di emissione"
+
+msgid "Show expiry date"
+msgstr "Mostra la data di scadenza"
