@@ -64,7 +64,7 @@ h6 {
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #012970;
+  color: #1e1e1e;
 }
 
 /*--------------------------------------------------------------
@@ -236,12 +236,12 @@ h6 {
   padding: 20px 0 15px 0;
   font-size: 18px;
   font-weight: 500;
-  color: #012970;
+  color: #1e1e1e;
   font-family: "Poppins", sans-serif;
 }
 
 .card-title span {
-  color: #334464;
+  color: #1e1e1e;
   font-size: 14px;
   font-weight: 400;
 }
@@ -282,7 +282,7 @@ h6 {
 }
 
 .accordion-button:not(.collapsed) {
-  color: #012970;
+  color: #1e1e1e;
   background-color: #f6f9ff;
 }
 
@@ -342,13 +342,13 @@ h6 {
 
 .nav-tabs-bordered .nav-link:hover,
 .nav-tabs-bordered .nav-link:focus {
-  color: #4154f1;
+  color: #1e1e1e;
 }
 
 .nav-tabs-bordered .nav-link.active {
   background-color: #fff;
-  color: #4154f1;
-  border-bottom: 2px solid #4154f1;
+  color: #1e1e1e;
+  border-bottom: 2px solid #1e1e1e;
 }
 
 /*--------------------------------------------------------------
@@ -372,7 +372,7 @@ h6 {
 .logo span {
   font-size: 26px;
   font-weight: 700;
-  color: #012970;
+  color: #1e1e1e;
   font-family: "Nunito", sans-serif;
 }
 
@@ -391,7 +391,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #012970;
+  color: #1e1e1e;
 }
 
 .header .search-bar {
@@ -428,7 +428,7 @@ h6 {
 .header .search-form input {
   border: 0;
   font-size: 14px;
-  color: #012970;
+  color: #1e1e1e;
   border: 1px solid rgba(1, 41, 112, 0.2);
   padding: 7px 38px 7px 8px;
   border-radius: 3px;
@@ -451,7 +451,7 @@ h6 {
 }
 
 .header .search-form button i {
-  color: #012970;
+  color: #1e1e1e;
 }
 
 /*--------------------------------------------------------------
@@ -468,13 +468,13 @@ h6 {
 
 .header-nav .nav-icon {
   font-size: 22px;
-  color: #012970;
+  color: #1e1e1e;
   margin-right: 25px;
   position: relative;
 }
 
 .header-nav .nav-profile {
-  color: #012970;
+  color: #1e1e1e;
 }
 
 .header-nav .nav-profile img {
@@ -684,7 +684,7 @@ h6 {
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: #4154f1;
+  color: #1e1e1e;
   transition: 0.3;
   background: #f6f9ff;
   padding: 10px 15px;
@@ -698,7 +698,7 @@ h6 {
 }
 
 .sidebar-nav .nav-link.collapsed {
-  color: #012970;
+  color: #1e1e1e;
   background: #fff;
 }
 
@@ -735,7 +735,7 @@ h6 {
   align-items: center;
   font-size: 14px;
   font-weight: 600;
-  color: #012970;
+  color: #1e1e1e;
   transition: 0.3;
   padding: 10px 0 10px 40px;
   transition: 0.3s;
@@ -805,7 +805,7 @@ h6 {
 
 .dashboard .info-card h6 {
   font-size: 28px;
-  color: #012970;
+  color: #1e1e1e;
   font-weight: 700;
   margin: 0;
   padding: 0;
@@ -901,7 +901,7 @@ h6 {
 }
 
 .dashboard .news h4 a {
-  color: #012970;
+  color: #1e1e1e;
   transition: 0.3s;
 }
 
@@ -973,7 +973,7 @@ h6 {
   background-color: #fff;
   border-radius: 0.25rem;
   text-align: center;
-  color: #012970;
+  color: #1e1e1e;
   padding: 15px 0;
 }
 
@@ -1022,7 +1022,7 @@ h6 {
 }
 
 .profile .profile-card .social-links a:hover {
-  color: #012970;
+  color: #1e1e1e;
 }
 
 .profile .profile-overview .row {
@@ -1031,7 +1031,7 @@ h6 {
 }
 
 .profile .profile-overview .card-title {
-  color: #012970;
+  color: #1e1e1e;
 }
 
 .profile .profile-overview .label {
@@ -1076,7 +1076,7 @@ h6 {
 
 .contact .info-box h3 {
   font-size: 20px;
-  color: #012970;
+  color: #1e1e1e;
   font-weight: 700;
   margin: 20px 0 10px 0;
 }
@@ -1190,7 +1190,7 @@ h6 {
 .error-404 h2 {
   font-size: 24px;
   font-weight: 700;
-  color: #012970;
+  color: #1e1e1e;
   margin-bottom: 30px;
 }
 
@@ -1222,14 +1222,14 @@ h6 {
 
 .footer .copyright {
   text-align: center;
-  color: #012970;
+  color: #1e1e1e;
 }
 
 .footer .credits {
   padding-top: 5px;
   text-align: center;
   font-size: 13px;
-  color: #012970;
+  color: #1e1e1e;
 }
 
 /* custom css for show-item.html */

@@ -18,7 +18,7 @@
     {% for entry in shared_items %}
     <div title="{{ entry.item.description }}" class="col-12 col-md-6">
       <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
-        <div id="card-{{ entry.item.id }}" class="card info-card sales-card card-available
+        <div id="card-{{ entry.item.id }}" style="background-color: {{ entry.item.tile_color|default:'#1e1e1e' }};" class="card info-card sales-card card-available
             {% if entry.item.is_used %} card-used
             {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
             {% endif %}">

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-
+{% load extras %}
 {% block content %}
 
     <div class="pagetitle">
@@ -58,7 +58,7 @@
             {% for entry in items_with_qr %}
             <div title="{{ entry.item.description }}" class="col-12 col-md-6">
               <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
-                <div id="card-{{ entry.item.id }}" class="card info-card sales-card card-available
+                <div id="card-{{ entry.item.id }}" style="background-color: {{ entry.item.tile_color|default:'#1e1e1e' }};" class="card info-card sales-card card-available
                     {% if entry.item.is_used %} card-used
                     {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
                     {% endif %}">
@@ -91,18 +91,18 @@
                     </div>
                     <div class="item-details">
                       {% if preferences.show_issue_date %}
-                      <div class="detail-item default-tile">
+                      <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|darken:'35%' }}">
                         <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ entry.item.issue_date }}</span>
                       </div>
                       {% endif %}
                       {% if preferences.show_expiry_date %}
-                      <div class="detail-item default-tile">
+                      <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|darken:'35%' }}">
                         <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ entry.item.expiry_date }}</span>
                       </div>
                       {% endif %}
                       {% if entry.item.type != "loyaltycard" %}
                       {% if preferences.show_value %}
-                      <div class="detail-item default-tile">
+                      <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|darken:'35%' }}">
                         {% if entry.item.value_type == "percentage" %}
                         <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percentage" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
                         {% elif entry.item.value_type == "money" %}
@@ -114,7 +114,7 @@
                       {% endif %}
                       {% if preferences.show_description %}
                       {% if entry.item.description %}
-                      <div class="default-tile" style="text-align: justify;">
+                      <div class="default-tile" style="background-color: {{ entry.item.tile_color|darken:'35%'}};text-align: justify;">
                           <b>{% trans "Description" %}:</b><br>
                           <span class="content">{{ entry.item.description }}</span>
                       </div>

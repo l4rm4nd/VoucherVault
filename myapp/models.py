@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import uuid
+from django.core.validators import RegexValidator
 
 class UserPreference(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -42,6 +43,13 @@ class Item(models.Model):
     file = models.FileField(upload_to='database/', blank=True, null=True)
     default_expiry_notification_sent = models.BooleanField(default=False)
     final_expiry_notification_sent = models.BooleanField(default=False)
+    tile_color = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        validators=[RegexValidator(regex=r'^#(?:[0-9a-fA-F]{3}){1,2}$', message='Enter a valid hex color.')],
+        help_text="Hex code like #FF5733"
+    )
 
     def __str__(self):
         return self.name

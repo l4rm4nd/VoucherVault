@@ -56,17 +56,24 @@
                     <!-- Item Form -->
                     <form id="myform" method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="row mb-3">
-                            <label for="type" class="col-sm-2 col-form-label">{% trans "Type" %}</label>
-                            <div class="col-sm-10">
-                                <select class="form-select" id="type" name="type" required>
-                                    <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>{% trans "Gift Card" %}</option>
-                                    <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>{% trans "Voucher" %}</option>
-                                    <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>{% trans "Coupon" %}</option>
-                                    <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Card" %}</option>
-                                </select>
-                            </div>
+                    <div class="row mb-3 align-items-center">
+                        <label for="type" class="col-sm-2 col-form-label">{% trans "Type" %}</label>
+                        <div class="col-sm-10 d-flex align-items-center gap-2">
+                            <select class="form-select w-auto" id="type" name="type" required>
+                                <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>{% trans "Gift Card" %}</option>
+                                <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>{% trans "Voucher" %}</option>
+                                <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>{% trans "Coupon" %}</option>
+                                <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Card" %}</option>
+                            </select>
+
+                            <input type="color"
+                                   class="form-control form-control-color"
+                                   id="tile_color"
+                                   name="tile_color"
+                                   value="{{ item.tile_color|default:'#1e1e1e' }}"
+                                   title="{% trans 'Color' %}">
                         </div>
+                    </div>
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">{% trans "Name" %}</label>
                             <div class="col-sm-10">

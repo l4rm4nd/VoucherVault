@@ -63,15 +63,22 @@
                     <!-- Item Form -->
                     <form id="myform" method="POST" action="{% url 'create_item' %}" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="row mb-3">
+                        <div class="row mb-3 align-items-center">
                             <label for="type" class="col-sm-2 col-form-label">{% trans "Type" %}</label>
-                            <div class="col-sm-10">
-                                <select class="form-select" id="type" name="type" required>
+                            <div class="col-sm-10 d-flex align-items-center gap-2">
+                                <select class="form-select w-auto" id="type" name="type" required>
                                     <option value="giftcard" {% if form.type.value == "giftcard" %}selected{% endif %}>{% trans "Gift Card" %}</option>
                                     <option value="voucher" {% if form.type.value == "voucher" %}selected{% endif %}>{% trans "Voucher" %}</option>
                                     <option value="coupon" {% if form.type.value == "coupon" %}selected{% endif %}>{% trans "Coupon" %}</option>
                                     <option value="loyaltycard" {% if form.type.value == "loyaltycard" %}selected{% endif %}>{% trans "Loyalty Card" %}</option>
                                 </select>
+
+                                <input type="color"
+                                       class="form-control form-control-color"
+                                       id="tile_color"
+                                       name="tile_color"
+                                       value="{{ form.tile_color.value|default:'#1e1e1e' }}"
+                                       title="{% trans 'Color' %}">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -311,5 +318,19 @@
   });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tileColorInput = document.getElementById('tile_color');
+  const isDarkMode = localStorage.getItem('darkMode') !== 'disabled';
+
+  // Override only if no previous color is set (default fallback)
+  if (tileColorInput && tileColorInput.value === "#1e1e1e") {
+    if (!isDarkMode) {
+      // Suggest light theme default color (e.g., a light gray or pastel)
+      tileColorInput.value = "#f3f3f3";
+    }
+  }
+});
+</script>
 
 {% endblock content %}

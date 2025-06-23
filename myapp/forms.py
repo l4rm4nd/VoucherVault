@@ -14,10 +14,15 @@ from django.utils import timezone
 class ItemForm(forms.ModelForm):
     file = forms.FileField(required=False)
     value_type = forms.CharField(widget=forms.HiddenInput(), initial='money')
+    tile_color = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={'type': 'color', 'class': 'form-control form-control-color'}),
+        label=_('Tile Color')
+    )
 
     class Meta:
         model = Item
-        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'logo_slug', 'type', 'value', 'value_type', 'file', 'code_type']
+        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'logo_slug', 'type', 'value', 'value_type', 'file', 'code_type', 'tile_color']
         widgets = {
             'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'expiry_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
