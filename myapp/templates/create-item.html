@@ -79,6 +79,10 @@
                                        name="tile_color"
                                        value="{{ form.tile_color.value|default:'#1e1e1e' }}"
                                        title="{% trans 'Color' %}">
+
+                               <button type="button" class="btn btn-outline-secondary" onclick="resetTileColor()" title="{% trans 'Reset to default' %}">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </button>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -331,6 +335,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+</script>
+
+<script>
+  function resetTileColor() {
+    const tileColorInput = document.getElementById('tile_color');
+    const isDarkMode = localStorage.getItem('darkMode') !== 'disabled';
+    tileColorInput.value = isDarkMode ? "#1e1e1e" : "#f3f3f3";
+  }
 </script>
 
 {% endblock content %}
