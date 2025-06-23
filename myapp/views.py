@@ -77,7 +77,11 @@ def dashboard(request):
 
     # Count the number of items shared by the user
     shared_items_count_by_you = ItemShare.objects.filter(shared_by=user).values('item').distinct().count()
-    shared_items_count_with_you = ItemShare.objects.filter(shared_with_user=user).values('item').distinct().count()
+    shared_items_count_with_you = ItemShare.objects.filter(
+        shared_with_user=user,
+        item__is_used=False,
+        item__expiry_date__gte=now().date()
+    ).exclude(item__user=user).values('item').distinct().count()
 
     # Get threshold days from environment variable or default to 30
     threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
@@ -117,7 +121,11 @@ def show_items(request):
     if filter_value == 'shared_by_me':
         items = Item.objects.filter(shared_with__shared_by=user).distinct()
     elif filter_value == 'shared_with_me':
-        items = Item.objects.filter(shared_with__shared_with_user=user).exclude(user=user).distinct()
+        items = Item.objects.filter(
+            shared_with__shared_with_user=user,
+            is_used=False,
+            expiry_date__gte=now().date()  # Only not expired
+        ).exclude(user=user).distinct()
     elif filter_value == 'soon_expiring':
         threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
         soon_expiry_date = now() + timedelta(days=threshold_days)
