@@ -1,3 +1,10 @@
+## [1.21.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.8...v1.21.9) (2025-06-24)
+
+
+### Bug Fixes
+
+* show desc for loyaltycards [#85](https://github.com/l4rm4nd/VoucherVault/issues/85) and enable desc display filter in sharing center ([7566355](https://github.com/l4rm4nd/VoucherVault/commit/75663552c287b7ea869573ad14ab81b8f263a9f9))
+
 ## [1.21.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.7...v1.21.8) (2025-06-23)
 
 
@@ -26,11 +33,4 @@
 ### Bug Fixes
 
 * show code on top for mobile devices ([054f609](https://github.com/l4rm4nd/VoucherVault/commit/054f609d74c03c6a8db2f343e0733eac606196e4)), closes [#89](https://github.com/l4rm4nd/VoucherVault/issues/89)
-
-## [1.21.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.3...v1.21.4) (2025-06-23)
-
-
-### Bug Fixes
-
-* add revert button to create view ([9e13841](https://github.com/l4rm4nd/VoucherVault/commit/9e138414df81674b9f14a84d498bc80052d41535))
 
