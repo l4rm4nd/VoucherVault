@@ -74,6 +74,14 @@
               </div>
               {% endif %}
               {% endif %}
+              {% if preferences.show_description %}
+              {% if entry.item.description %}
+              <div class="default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }};text-align: justify;">
+                  <b>{% trans "Description" %}:</b><br>
+                  <span class="content">{{ entry.item.description }}</span>
+              </div>
+              {% endif %}
+              {% endif %}
               <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
                 <i class="bi bi-people text-muted"></i> 
                 <span>
