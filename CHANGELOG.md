@@ -1,3 +1,10 @@
+## [1.21.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.9...v1.21.10) (2025-07-05)
+
+
+### Bug Fixes
+
+* bump django ([450003f](https://github.com/l4rm4nd/VoucherVault/commit/450003f7403c60c47c20f046c905575197c45d82))
+
 ## [1.21.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.8...v1.21.9) (2025-06-24)
 
 
@@ -26,11 +33,4 @@
 
 * correct tile color styling ([aa67154](https://github.com/l4rm4nd/VoucherVault/commit/aa671548920b2383d63e4dc6e434059247e59cf9))
 * hide used or expired items that were shared ([96cf92c](https://github.com/l4rm4nd/VoucherVault/commit/96cf92c2956b1555f7b86299499087b85b28ffd2))
-
-## [1.21.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.4...v1.21.5) (2025-06-23)
-
-
-### Bug Fixes
-
-* show code on top for mobile devices ([054f609](https://github.com/l4rm4nd/VoucherVault/commit/054f609d74c03c6a8db2f343e0733eac606196e4)), closes [#89](https://github.com/l4rm4nd/VoucherVault/issues/89)
 
