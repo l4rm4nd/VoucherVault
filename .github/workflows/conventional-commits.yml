@@ -126,7 +126,7 @@ jobs:
 
   release:
     name: Release
-    needs: [changelog, bandit]
+    needs: [changelog, bandit, deploy]
     if: github.event_name != 'pull_request' && needs.changelog.outputs.skipped == 'false'
     runs-on: ubuntu-latest
 
