@@ -1,3 +1,10 @@
+## [1.22.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.10...v1.22.0) (2025-08-04)
+
+
+### Features
+
+* improve stats api endpoint ([9a22796](https://github.com/l4rm4nd/VoucherVault/commit/9a22796e180e9efc1f77ee32c60f56fa3d84ce3a)), closes [#92](https://github.com/l4rm4nd/VoucherVault/issues/92)
+
 ## [1.21.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.9...v1.21.10) (2025-07-05)
 
 
@@ -25,12 +32,4 @@
 ### Bug Fixes
 
 * hide used or expired items that were shared from filter + dashboard ([486e05d](https://github.com/l4rm4nd/VoucherVault/commit/486e05d70008a4b700a8a29cc7339b167af176f8))
-
-## [1.21.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.5...v1.21.6) (2025-06-23)
-
-
-### Bug Fixes
-
-* correct tile color styling ([aa67154](https://github.com/l4rm4nd/VoucherVault/commit/aa671548920b2383d63e4dc6e434059247e59cf9))
-* hide used or expired items that were shared ([96cf92c](https://github.com/l4rm4nd/VoucherVault/commit/96cf92c2956b1555f7b86299499087b85b28ffd2))
 
