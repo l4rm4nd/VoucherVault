@@ -643,102 +643,122 @@ def get_items_by_type(request, item_type):
 
 @require_authorization_header_with_api_token
 def get_stats(request):
-    # Optional filter for username
-    username = request.GET.get('user', None)
+    try:
+        username = request.GET.get('user', None)
+        threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
+        soon_expiry_date = now() + timedelta(days=threshold_days)
 
-    # Get threshold days from environment variable or default to 30
-    threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
+        if username:
+            try:
+                user = User.objects.get(username=username)
+                items_query = Item.objects.filter(user=user)
+                users_filtered = True
+            except ObjectDoesNotExist:
+                return JsonResponse({"error": f"User '{username}' not found."}, status=404)
+        else:
+            items_query = Item.objects.all()
+            users_filtered = False
 
-    # Calculate soon-to-expire date
-    soon_expiry_date = now() + timedelta(days=threshold_days)
-    
-    # If a username is provided, filter by user
-    if username:
-        user = get_object_or_404(User, username=username)
-        items_query = Item.objects.filter(user=user)
-    else:
-        # If no username is provided, use all items
-        items_query = Item.objects.all()
-
-    # Calculate the total value of active, unused, and non-expired items, considering transactions
-    items_with_transaction_values = (
-        items_query.filter(is_used=False, expiry_date__gte=now())  # Exclude used and expired items
-        .annotate(
-            transaction_total=Sum('transactions__value', default=0)  # Sum of related transaction values
+        # Only valid, unused, and non-expired items are used for transaction-based value calc
+        items_with_transaction_values = (
+            items_query.filter(is_used=False, expiry_date__gte=now())
+            .annotate(
+                transaction_total=Sum('transactions__value', default=0)
+            )
+            .annotate(net_value=ExpressionWrapper(F('value') + F('transaction_total'), output_field=models.DecimalField()))
         )
-        .annotate(net_value=ExpressionWrapper(F('value') + F('transaction_total'), output_field=models.DecimalField()))
-    )
 
-    total_value = round((items_with_transaction_values.aggregate(total_value=Sum('net_value'))['total_value'] or 0), 2)
+        total_value = round((items_with_transaction_values.aggregate(
+            total_value=Sum('net_value'))['total_value'] or 0), 2)
 
-    # Item stats
-    item_stats = {
-        "total_items": items_query.count(),
-        "total_value": total_value,  # Net value only for valid items
-        "vouchers": items_query.filter(type='voucher').count(),
-        "giftcards": items_query.filter(type='giftcard').count(),
-        "coupons": items_query.filter(type='coupon').count(),
-        "loyaltycards": items_query.filter(type='loyaltycard').count(),
-        "used_items": items_query.filter(is_used=True).count(),
-        "available_items": items_query.filter(is_used=False).count() - items_query.filter(expiry_date__lt=now()).count(),
-        "expired_items": items_query.filter(expiry_date__lt=now()).count(),
-        "soon_expiring_items": items_query.filter(expiry_date__gte=now(), expiry_date__lt=soon_expiry_date).count(),
-    }
-
-    # User stats
-    user_stats = {
-        "total_users": User.objects.count(),
-        "active_users": User.objects.filter(is_active=True).count(),
-        "disabled_users": User.objects.filter(is_active=False).count(),
-        "superusers": User.objects.filter(is_superuser=True).count(),
-        "staff_members": User.objects.filter(is_staff=True).count(),
-    }
-
-    # Calculate the total transaction values per issuer
-    issuer_transaction_totals = (
-        items_query.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
-        .values('issuer')
-        .annotate(
-            transaction_total=Coalesce(
-                Sum('transactions__value', output_field=DecimalField()), 
-                Value(0, output_field=DecimalField())
-            )  # Sum of transaction values with output field defined
-        )
-    )
-
-    # Map issuer to transaction totals for easier lookup
-    issuer_transaction_map = {item['issuer']: item['transaction_total'] for item in issuer_transaction_totals}
-
-    # Calculate issuer stats with count and base value
-    issuers = (
-        items_query.filter(is_used=False, expiry_date__gte=now())  # Only active, non-expired items
-        .values('issuer')
-        .annotate(
-            count=Count('issuer'),
-            base_value=Coalesce(
-                Sum('value', output_field=DecimalField()), 
-                Value(0, output_field=DecimalField())
-            )  # Sum of item values with output field defined
-        )
-        .order_by('-count')  # Optional: order by count
-    )
-
-    # Combine the values and transactions for the final total
-    issuer_stats = [
-        {
-            "issuer": issuer["issuer"],
-            "count": issuer["count"],
-            "total_value": round((issuer["base_value"] + issuer_transaction_map.get(issuer["issuer"], 0)), 2),  # Add base and transaction totals
+        # Item stats
+        item_stats = {
+            "total_items": items_query.count(),
+            "total_value": total_value,
+            "vouchers": items_query.filter(type='voucher').count(),
+            "giftcards": items_query.filter(type='giftcard').count(),
+            "coupons": items_query.filter(type='coupon').count(),
+            "loyaltycards": items_query.filter(type='loyaltycard').count(),
+            "used_items": items_query.filter(is_used=True).count(),
+            "available_items": items_query.filter(is_used=False).count() - items_query.filter(expiry_date__lt=now()).count(),
+            "expired_items": items_query.filter(expiry_date__lt=now()).count(),
+            "soon_expiring_items": items_query.filter(expiry_date__gte=now(), expiry_date__lt=soon_expiry_date).count(),
         }
-        for issuer in issuers
-    ]
 
-    # Combine both stats into one response
-    return JsonResponse({
-        "item_stats": item_stats,
-        "user_stats": user_stats,
-        "issuer_stats": issuer_stats,
-    })
+        # Return global user_stats
+        user_stats = {
+            "total_users": User.objects.count(),
+            "active_users": User.objects.filter(is_active=True).count(),
+            "disabled_users": User.objects.filter(is_active=False).count(),
+            "superusers": User.objects.filter(is_superuser=True).count(),
+            "staff_members": User.objects.filter(is_staff=True).count(),
+        }
+
+        # Issuer stats
+        issuer_transaction_totals = (
+            items_query.filter(is_used=False, expiry_date__gte=now())
+            .values('issuer')
+            .annotate(
+                transaction_total=Coalesce(
+                    Sum('transactions__value', output_field=models.DecimalField()),
+                    Value(0, output_field=models.DecimalField())
+                )
+            )
+        )
+        issuer_transaction_map = {item['issuer']: item['transaction_total'] for item in issuer_transaction_totals}
+
+        issuers = (
+            items_query.filter(is_used=False, expiry_date__gte=now())
+            .values('issuer')
+            .annotate(
+                count=Count('issuer'),
+                base_value=Coalesce(
+                    Sum('value', output_field=models.DecimalField()),
+                    Value(0, output_field=models.DecimalField())
+                )
+            )
+            .order_by('-count')
+        )
+
+        issuer_stats = [
+            {
+                "issuer": issuer["issuer"],
+                "count": issuer["count"],
+                "total_value": round((issuer["base_value"] + issuer_transaction_map.get(issuer["issuer"], 0)), 2),
+            }
+            for issuer in issuers
+        ]
+
+        # Individual item detail dump
+        item_details = list(
+            items_query.values(
+                'id',
+                'type',
+                'name',
+                'issuer',
+                'value',
+                'value_type',
+                'issue_date',
+                'expiry_date',
+                'description',
+                'is_used',
+                'user__username'
+            )
+        )
+
+        response_data = {
+            "item_stats": item_stats,
+            "item_details": item_details,
+            "issuer_stats": issuer_stats,
+        }
+
+        if user_stats is not None:
+            response_data["user_stats"] = user_stats
+
+        return JsonResponse(response_data, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": "An unexpected error occurred.", "details": str(e)}, status=500)
 
 @login_required
 def update_user_preferences(request):
