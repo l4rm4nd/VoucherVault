@@ -1,3 +1,10 @@
+## [1.22.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.2...v1.22.3) (2025-08-19)
+
+
+### Bug Fixes
+
+* improve fullscreen [#90](https://github.com/l4rm4nd/VoucherVault/issues/90) ([aa40ce2](https://github.com/l4rm4nd/VoucherVault/commit/aa40ce2d975212031aa0fc0819899fa95a1a6fe2))
+
 ## [1.22.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.1...v1.22.2) (2025-08-19)
 
 
@@ -26,11 +33,4 @@
 ### Bug Fixes
 
 * bump django ([450003f](https://github.com/l4rm4nd/VoucherVault/commit/450003f7403c60c47c20f046c905575197c45d82))
-
-## [1.21.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.8...v1.21.9) (2025-06-24)
-
-
-### Bug Fixes
-
-* show desc for loyaltycards [#85](https://github.com/l4rm4nd/VoucherVault/issues/85) and enable desc display filter in sharing center ([7566355](https://github.com/l4rm4nd/VoucherVault/commit/75663552c287b7ea869573ad14ab81b8f263a9f9))
 
