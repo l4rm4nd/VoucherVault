@@ -1,3 +1,10 @@
+## [1.22.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.1...v1.22.2) (2025-08-19)
+
+
+### Bug Fixes
+
+* also show fullscreen for loyaltycards ([5180665](https://github.com/l4rm4nd/VoucherVault/commit/51806656b53740708e617a33f5af7077370cab7b)), closes [#99](https://github.com/l4rm4nd/VoucherVault/issues/99)
+
 ## [1.22.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.0...v1.22.1) (2025-08-19)
 
 
@@ -26,11 +33,4 @@
 ### Bug Fixes
 
 * show desc for loyaltycards [#85](https://github.com/l4rm4nd/VoucherVault/issues/85) and enable desc display filter in sharing center ([7566355](https://github.com/l4rm4nd/VoucherVault/commit/75663552c287b7ea869573ad14ab81b8f263a9f9))
-
-## [1.21.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.7...v1.21.8) (2025-06-23)
-
-
-### Bug Fixes
-
-* correct broken translations ([9f77b8b](https://github.com/l4rm4nd/VoucherVault/commit/9f77b8bfdf111c832d5943ca58f22dd10b07925e))
 
