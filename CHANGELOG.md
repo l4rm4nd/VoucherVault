@@ -1,3 +1,11 @@
+## [1.22.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.0...v1.22.1) (2025-08-19)
+
+
+### Bug Fixes
+
+* bump django ([fc6b129](https://github.com/l4rm4nd/VoucherVault/commit/fc6b129a0d863b4b0baa9ba894953b0b1ec11692))
+* hide download button if no attachment and add fullscreen option ([9432c27](https://github.com/l4rm4nd/VoucherVault/commit/9432c271f95b91f88d1253cf8fca819e58ac6009)), closes [#94](https://github.com/l4rm4nd/VoucherVault/issues/94) [#99](https://github.com/l4rm4nd/VoucherVault/issues/99)
+
 ## [1.22.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.10...v1.22.0) (2025-08-04)
 
 
@@ -25,11 +33,4 @@
 ### Bug Fixes
 
 * correct broken translations ([9f77b8b](https://github.com/l4rm4nd/VoucherVault/commit/9f77b8bfdf111c832d5943ca58f22dd10b07925e))
-
-## [1.21.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.6...v1.21.7) (2025-06-23)
-
-
-### Bug Fixes
-
-* hide used or expired items that were shared from filter + dashboard ([486e05d](https://github.com/l4rm4nd/VoucherVault/commit/486e05d70008a4b700a8a29cc7339b167af176f8))
 
