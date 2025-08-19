@@ -5,10 +5,38 @@
 
 {% block content %}
 <style>
-    .opaque {
-        filter: blur(5px); /* Blur effect for pixelated appearance */
-        cursor: pointer; /* Change cursor to pointer to indicate clickability */
-    }
+  /* Keep your .opaque rule; add vendor prefix and smoother transition */
+  .opaque {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    cursor: pointer;
+    transition: filter 120ms ease, -webkit-filter 120ms ease;
+  }
+
+  /* Fullscreen overlay */
+  .qr-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1060;
+    cursor: zoom-out;
+  }
+  .qr-overlay.show { display: flex; }
+
+  .qr-overlay img {
+    max-width: 95vw;
+    max-height: 95vh;
+    /* Make scanning easier in dim light */
+    -webkit-filter: brightness(1.5) contrast(1.2) saturate(1.05);
+    filter: brightness(1.5) contrast(1.2) saturate(1.05);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+
+  body.no-scroll { overflow: hidden; }
 </style>
 
 <div class="pagetitle">
@@ -146,7 +174,12 @@
                   {% if item.type == "loyaltycard" %}
                   <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Your Identity" %}</h5>
                   {% else %}
-                  <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Scan to Redeem" %}</h5>
+                  <h5 class="card-title ps-0 pb-0 pt-3 d-flex justify-content-center align-items-center gap-2">
+                    {% trans "Scan to Redeem" %}
+                    <button type="button" id="fullscreen-btn" class="btn btn-sm btn-outline-secondary" title="{% trans 'Fullscreen' %}">
+                      <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                  </h5>
                   {% endif %}
                   <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2 opaque" id="qr-code" style="max-width: 100%;">
                   <br>
@@ -166,6 +199,11 @@
       </div><!-- End QR Code and PIN Display Column -->
   </div>
 
+  <!-- QR Fullscreen Overlay -->
+<div id="qr-overlay" class="qr-overlay" aria-hidden="true">
+  <img id="qr-overlay-img" alt="QR Code (Fullscreen)">
+</div>
+
 <!-- File display and download area -->
 {% if item.file.name|is_image_file %}
         <div class="default-tile text-center">
@@ -182,7 +220,7 @@
             </div>
             <img id="loaded-image" src="" class="img-fluid rounded d-none mt-3" style="max-width: 100%;">
         </div>
-    {% else %}
+    {% elif item.file.name %}
         <div class="default-tile text-center">
             <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
                 <i class="bi bi-download"></i> {% trans "Download" %}
@@ -341,14 +379,81 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Handling QR Code and Redeem Code visibility toggle
-    const qrCode = document.getElementById('qr-code');
-    const redeemCode = document.getElementById('redeem-code');
+  // Elements
+  const qrCode      = document.getElementById('qr-code');
+  const redeemCode  = document.getElementById('redeem-code');
+  const fsBtn       = document.getElementById('fullscreen-btn');
+  const overlay     = document.getElementById('qr-overlay');
+  const overlayImg  = document.getElementById('qr-overlay-img');
 
-    qrCode.addEventListener('click', function() {
-        qrCode.classList.toggle('opaque');
-        redeemCode.classList.toggle('opaque');
+  // Safety: if the template rendered without the opaque class, add it so tap-to-unblur works
+  if (qrCode && !qrCode.classList.contains('opaque')) {
+    qrCode.classList.add('opaque');
+  }
+  if (redeemCode && !redeemCode.classList.contains('opaque')) {
+    redeemCode.classList.add('opaque');
+  }
+
+  // In-place unblur on QR tap (no fullscreen)
+  if (qrCode && redeemCode) {
+    qrCode.addEventListener('click', function(e) {
+      // Only toggle blur, do not open overlay here
+      qrCode.classList.toggle('opaque');
+      redeemCode.classList.toggle('opaque');
+      // Prevent any parent handlers from hijacking the click
+      e.stopPropagation();
+    }, { passive: true });
+  }
+
+  // Fullscreen overlay open/close
+  function openOverlay(src) {
+    overlayImg.src = src;
+    overlay.classList.add('show');
+    document.body.classList.add('no-scroll');
+
+    // Try Fullscreen API (graceful fallback to overlay if not supported)
+    const reqFS = overlay.requestFullscreen || overlay.webkitRequestFullscreen || overlay.msRequestFullscreen || overlay.mozRequestFullScreen;
+    if (reqFS) {
+      try { reqFS.call(overlay); } catch (_) {}
+    }
+  }
+
+  function closeOverlay() {
+    overlay.classList.remove('show');
+    document.body.classList.remove('no-scroll');
+    overlayImg.src = '';
+
+    const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen || document.mozCancelFullScreen;
+    if (exitFS && document.fullscreenElement) {
+      try { exitFS.call(document); } catch (_) {}
+    }
+  }
+
+  // Fullscreen button opens overlay with unblurred image
+  if (fsBtn && qrCode) {
+    fsBtn.addEventListener('click', function() {
+      openOverlay(qrCode.src);
     });
+  }
+
+  // Close overlay on background click or ESC
+  if (overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeOverlay();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeOverlay();
+    });
+    // If user exits true fullscreen via system controls, keep UX consistent
+    ['fullscreenchange','webkitfullscreenchange','msfullscreenchange','mozfullscreenchange'].forEach(ev => {
+      document.addEventListener(ev, () => {
+        if (!document.fullscreenElement && overlay.classList.contains('show')) {
+          closeOverlay();
+        }
+      });
+    });
+  }
 });
 </script>
+
 {% endblock content %}
