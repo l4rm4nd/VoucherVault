@@ -171,16 +171,16 @@
       <div class="col-lg-4 order-1 order-md-2">
           <div class="card mb-0">
               <div class="card-body text-center">
-                  {% if item.type == "loyaltycard" %}
-                  <h5 class="card-title ps-0 pb-0 pt-3">{% trans "Your Identity" %}</h5>
-                  {% else %}
                   <h5 class="card-title ps-0 pb-0 pt-3 d-flex justify-content-center align-items-center gap-2">
-                    {% trans "Scan to Redeem" %}
+                    {% if item.type == "loyaltycard" %}
+                      {% trans "Your Identity" %}
+                    {% else %}
+                      {% trans "Scan to Redeem" %}
+                    {% endif %}
                     <button type="button" id="fullscreen-btn" class="btn btn-sm btn-outline-secondary" title="{% trans 'Fullscreen' %}">
                       <i class="bi bi-arrows-fullscreen"></i>
                     </button>
                   </h5>
-                  {% endif %}
                   <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2 opaque" id="qr-code" style="max-width: 100%;">
                   <br>
                   <span class="opaque" id="redeem-code">{{ item.redeem_code }}</span>
