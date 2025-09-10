@@ -1,3 +1,10 @@
+## [1.22.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.3...v1.22.4) (2025-09-10)
+
+
+### Bug Fixes
+
+* bump django ([5175449](https://github.com/l4rm4nd/VoucherVault/commit/51754490d8bb13876e7050f0787c58f8d32e0f9f))
+
 ## [1.22.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.2...v1.22.3) (2025-08-19)
 
 
@@ -26,11 +33,4 @@
 ### Features
 
 * improve stats api endpoint ([9a22796](https://github.com/l4rm4nd/VoucherVault/commit/9a22796e180e9efc1f77ee32c60f56fa3d84ce3a)), closes [#92](https://github.com/l4rm4nd/VoucherVault/issues/92)
-
-## [1.21.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.21.9...v1.21.10) (2025-07-05)
-
-
-### Bug Fixes
-
-* bump django ([450003f](https://github.com/l4rm4nd/VoucherVault/commit/450003f7403c60c47c20f046c905575197c45d82))
 
