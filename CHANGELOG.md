@@ -1,3 +1,10 @@
+## [1.22.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.6...v1.22.7) (2025-09-17)
+
+
+### Bug Fixes
+
+* bump base image ([510f676](https://github.com/l4rm4nd/VoucherVault/commit/510f6760f6598c11b4b9339633675d44ade5ff02))
+
 ## [1.22.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.5...v1.22.6) (2025-09-17)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * improve fullscreen [#90](https://github.com/l4rm4nd/VoucherVault/issues/90) ([aa40ce2](https://github.com/l4rm4nd/VoucherVault/commit/aa40ce2d975212031aa0fc0819899fa95a1a6fe2))
-
-## [1.22.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.1...v1.22.2) (2025-08-19)
-
-
-### Bug Fixes
-
-* also show fullscreen for loyaltycards ([5180665](https://github.com/l4rm4nd/VoucherVault/commit/51806656b53740708e617a33f5af7077370cab7b)), closes [#99](https://github.com/l4rm4nd/VoucherVault/issues/99)
 
