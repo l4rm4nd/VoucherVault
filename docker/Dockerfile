@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libc6-dev \
     netcat-openbsd \
-    mime-support \
+    media-types \
     postgresql-client \
     unzip &&\
     mkdir -p /opt/app/docker/ /opt/app/database /opt/app/logs /opt/app/locale
