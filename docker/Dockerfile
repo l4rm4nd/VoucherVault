@@ -1,4 +1,4 @@
-FROM python:3.12.11-slim
+FROM python:3.12.4-slim
 
 # define environment
 ARG VERSION=0
@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libc6-dev \
     netcat-openbsd \
-    media-types \
+    mime-support \
     postgresql-client \
     unzip &&\
     mkdir -p /opt/app/docker/ /opt/app/database /opt/app/logs /opt/app/locale
