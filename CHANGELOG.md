@@ -1,3 +1,10 @@
+## [1.22.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.5...v1.22.6) (2025-09-17)
+
+
+### Bug Fixes
+
+* replace legacy package ([a15e941](https://github.com/l4rm4nd/VoucherVault/commit/a15e94110b5ae58f03798b80d6f5529170291e55))
+
 ## [1.22.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.4...v1.22.5) (2025-09-17)
 
 
@@ -25,12 +32,4 @@
 ### Bug Fixes
 
 * also show fullscreen for loyaltycards ([5180665](https://github.com/l4rm4nd/VoucherVault/commit/51806656b53740708e617a33f5af7077370cab7b)), closes [#99](https://github.com/l4rm4nd/VoucherVault/issues/99)
-
-## [1.22.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.0...v1.22.1) (2025-08-19)
-
-
-### Bug Fixes
-
-* bump django ([fc6b129](https://github.com/l4rm4nd/VoucherVault/commit/fc6b129a0d863b4b0baa9ba894953b0b1ec11692))
-* hide download button if no attachment and add fullscreen option ([9432c27](https://github.com/l4rm4nd/VoucherVault/commit/9432c271f95b91f88d1253cf8fca819e58ac6009)), closes [#94](https://github.com/l4rm4nd/VoucherVault/issues/94) [#99](https://github.com/l4rm4nd/VoucherVault/issues/99)
 
