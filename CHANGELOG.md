@@ -1,3 +1,10 @@
+## [1.22.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.8...v1.22.9) (2025-10-20)
+
+
+### Bug Fixes
+
+* improve file upload handling; fix [#104](https://github.com/l4rm4nd/VoucherVault/issues/104) ([eab2edc](https://github.com/l4rm4nd/VoucherVault/commit/eab2edcfd81e40b2312218a9d9c19e87f385ec7d))
+
 ## [1.22.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.7...v1.22.8) (2025-10-01)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump base python image ([af17971](https://github.com/l4rm4nd/VoucherVault/commit/af17971a0bc1293983a1accebbd3ab0e4b940b61))
-
-## [1.22.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.3...v1.22.4) (2025-09-10)
-
-
-### Bug Fixes
-
-* bump django ([5175449](https://github.com/l4rm4nd/VoucherVault/commit/51754490d8bb13876e7050f0787c58f8d32e0f9f))
 
