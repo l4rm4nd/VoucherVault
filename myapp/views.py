@@ -25,6 +25,7 @@ from .decorators import require_authorization_header_with_api_token
 from django.db.models import Count, Sum, Q, F, ExpressionWrapper, DecimalField
 from django.db.models.functions import Coalesce
 from django.db.models import Value
+from django.utils.text import get_valid_filename
 
 apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
 
@@ -265,6 +266,7 @@ def create_item(request):
                     barcode.save(buffer, 'PNG')
 
                 item.qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
+                item.file = None
                 item.save()  # Save the item after generating the barcode
             except Exception as e:
                 # Print the error for debugging and add a user-friendly error to the form
@@ -273,20 +275,17 @@ def create_item(request):
                 # Return the form filled with the user's previously entered data and errors
                 return render(request, 'create-item.html', {'form': form})
 
-            # Handle file upload if there's any
+            # Handle file upload
             if 'file' in request.FILES:
                 file = request.FILES['file']
-                username = request.user.username
-                user_folder = os.path.join(settings.MEDIA_ROOT, 'uploads', username)
-                if not os.path.exists(user_folder):
-                    os.makedirs(user_folder)
-                file_name = f"{item.id}_{file.name}"
-                file_path = os.path.join(user_folder, file_name)
-                with open(file_path, 'wb+') as destination:
-                    for chunk in file.chunks():
-                        destination.write(chunk)
-                item.file.name = os.path.join('uploads', username, file_name)
-                item.save()
+                username = str(item.user)
+                user_folder = os.path.join('uploads', username)
+                
+                raw_name = os.path.basename(file.name)
+                safe_name = get_valid_filename(raw_name)
+                file_name = f"{item.id}_{safe_name}"
+                relative_path = os.path.join(user_folder, file_name)
+                item.file.save(relative_path, file)
 
             return redirect('show_items')
         else:
@@ -342,21 +341,19 @@ def edit_item(request, item_uuid):
             # Handle file upload
             if 'file' in request.FILES:
                 file = request.FILES['file']
-                username = request.user.username
-                user_folder = os.path.join(settings.MEDIA_ROOT, 'uploads', username)
-                if not os.path.exists(user_folder):
-                    os.makedirs(user_folder)
-                file_name = f"{item.id}_{file.name}"
-                file_path = os.path.join(user_folder, file_name)
+                username = str(item.user)
+                user_folder = os.path.join('uploads', username)
+                raw_name = os.path.basename(file.name)
+                safe_name = get_valid_filename(raw_name)
+                file_name = f"{item.id}_{safe_name}"
+                relative_path = os.path.join(user_folder, file_name)
 
                 # Delete the old file if it exists and a new file is provided
                 if old_file_path and os.path.isfile(old_file_path):
                     os.remove(old_file_path)
 
-                # Save the new file
-                item.file.save(file_path, file)
+                item.file.save(relative_path, file)
 
-            item.save()
             return redirect('view_item', item_uuid=item.id)
     else:
         form = ItemForm(instance=item)
