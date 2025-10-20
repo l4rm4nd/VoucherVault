@@ -29,7 +29,12 @@ class Command(BaseCommand):
 
         # Define the last chance notification threshold
         last_chance_threshold_days = os.getenv('EXPIRY_LAST_NOTIFICATION_DAYS', 7)
-        last_chance_threshold_date = timezone.now() + timezone.timedelta(days=last_chance_threshold_days)
+        try:
+            last_chance_threshold_days = int(last_chance_threshold_days)
+            last_chance_threshold_date = timezone.now() + timezone.timedelta(days=last_chance_threshold_days)
+        except ValueError:
+            self.stdout.write(self.style.ERROR('EXPIRY_LAST_NOTIFICATION_DAYS environment variable is not a valid integer. Aborting.'))
+            return
 
         # Get all user profiles with Apprise URLs
         user_profiles = UserProfile.objects.exclude(apprise_urls__isnull=True).exclude(apprise_urls__exact='')
