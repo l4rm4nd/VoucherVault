@@ -1,3 +1,10 @@
+## [1.22.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.9...v1.22.10) (2025-10-20)
+
+
+### Bug Fixes
+
+* properly cast EXPIRY_LAST_NOTIFICATION_DAYS env; fix [#105](https://github.com/l4rm4nd/VoucherVault/issues/105) ([511c2ed](https://github.com/l4rm4nd/VoucherVault/commit/511c2ed5d181caa62b9fc640bc818955e85bd772))
+
 ## [1.22.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.8...v1.22.9) (2025-10-20)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * replace legacy package ([a15e941](https://github.com/l4rm4nd/VoucherVault/commit/a15e94110b5ae58f03798b80d6f5529170291e55))
-
-## [1.22.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.4...v1.22.5) (2025-09-17)
-
-
-### Bug Fixes
-
-* bump base python image ([af17971](https://github.com/l4rm4nd/VoucherVault/commit/af17971a0bc1293983a1accebbd3ab0e4b940b61))
 
