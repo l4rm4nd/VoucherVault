@@ -354,6 +354,7 @@ def edit_item(request, item_uuid):
 
                 item.file.save(relative_path, file)
 
+            item.save()    
             return redirect('view_item', item_uuid=item.id)
     else:
         form = ItemForm(instance=item)
