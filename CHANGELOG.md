@@ -1,3 +1,10 @@
+## [1.22.11](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.10...v1.22.11) (2025-11-05)
+
+
+### Bug Fixes
+
+* tile coloring on update; fixes [#107](https://github.com/l4rm4nd/VoucherVault/issues/107) ([8fae999](https://github.com/l4rm4nd/VoucherVault/commit/8fae9995d307f408f0b1f3123dbd089eece74dc0))
+
 ## [1.22.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.9...v1.22.10) (2025-10-20)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump base image ([510f676](https://github.com/l4rm4nd/VoucherVault/commit/510f6760f6598c11b4b9339633675d44ade5ff02))
-
-## [1.22.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.5...v1.22.6) (2025-09-17)
-
-
-### Bug Fixes
-
-* replace legacy package ([a15e941](https://github.com/l4rm4nd/VoucherVault/commit/a15e94110b5ae58f03798b80d6f5529170291e55))
 
