@@ -1,3 +1,10 @@
+## [1.22.12](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.11...v1.22.12) (2025-11-06)
+
+
+### Bug Fixes
+
+* bump django ([ff8afdf](https://github.com/l4rm4nd/VoucherVault/commit/ff8afdfa9f89f092b3ae1ee5bdfeb1d09eb89ffa))
+
 ## [1.22.11](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.10...v1.22.11) (2025-11-05)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump django fix cves ([6f2c151](https://github.com/l4rm4nd/VoucherVault/commit/6f2c15128ee35a99c3edcf28a904c1623d2a51a8))
-
-## [1.22.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.6...v1.22.7) (2025-09-17)
-
-
-### Bug Fixes
-
-* bump base image ([510f676](https://github.com/l4rm4nd/VoucherVault/commit/510f6760f6598c11b4b9339633675d44ade5ff02))
 
