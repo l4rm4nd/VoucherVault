@@ -1,3 +1,10 @@
+## [1.22.13](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.12...v1.22.13) (2025-12-04)
+
+
+### Bug Fixes
+
+* bump django ([c80aaf3](https://github.com/l4rm4nd/VoucherVault/commit/c80aaf36c680c0b324e6735b4f8b9090b70f4ff9))
+
 ## [1.22.12](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.11...v1.22.12) (2025-11-06)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * improve file upload handling; fix [#104](https://github.com/l4rm4nd/VoucherVault/issues/104) ([eab2edc](https://github.com/l4rm4nd/VoucherVault/commit/eab2edcfd81e40b2312218a9d9c19e87f385ec7d))
-
-## [1.22.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.7...v1.22.8) (2025-10-01)
-
-
-### Bug Fixes
-
-* bump django fix cves ([6f2c151](https://github.com/l4rm4nd/VoucherVault/commit/6f2c15128ee35a99c3edcf28a904c1623d2a51a8))
 
