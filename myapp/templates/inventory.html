@@ -41,7 +41,7 @@
                 </select>
               </div>
               <div class="col-12 col-md-4">
-                <input type="text" name="query" placeholder="{% trans 'Search keyword' %}" value="{{ search_query }}" class="form-control">
+                <input type="text" name="query" id="searchInput" placeholder="{% trans 'Search keyword' %}" value="{{ search_query }}" class="form-control">
               </div>
               <div class="col-12 col-md-2 d-grid">
                 <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
@@ -134,17 +134,33 @@
       </div>
     </section>
 
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const defaultColor = prefersDark ? '#1e1e1e' : '#f3f3f3';
+      const darkenedDefault = prefersDark ? '#2a2a2a' : '#e0e0e0'; // Optional customization
+
+      // Replace any placeholders for background color
+      document.querySelectorAll('[style*="#placeholder"]').forEach(el => {
+        el.style.backgroundColor = el.classList.contains('detail-item') ? darkenedDefault : defaultColor;
+      });
+
+      // Real-time search functionality
+      const searchInput = document.getElementById('searchInput');
+      let searchTimeout;
+      
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          // Clear existing timeout
+          clearTimeout(searchTimeout);
+          
+          // Set new timeout to submit form after 500ms of no typing
+          searchTimeout = setTimeout(function() {
+            searchInput.closest('form').submit();
+          }, 500);
+        });
+      }
+    });
+    </script>
+
 {% endblock content %}
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const defaultColor = prefersDark ? '#1e1e1e' : '#f3f3f3';
-  const darkenedDefault = prefersDark ? '#2a2a2a' : '#e0e0e0'; // Optional customization
-
-  // Replace any placeholders for background color
-  document.querySelectorAll('[style*="#placeholder"]').forEach(el => {
-    el.style.backgroundColor = el.classList.contains('detail-item') ? darkenedDefault : defaultColor;
-  });
-});
-</script>
