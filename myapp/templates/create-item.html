@@ -60,6 +60,20 @@
                         </div>
                     </section>
 
+                    <!-- Image Crop Section -->
+                    <section class="mb-3 mt-1" id="cropSection" style="display:none;">
+                        <div class="mb-2">
+                            <p style="color: lightgray">{% trans "Click and drag to select the barcode area" %}</p>
+                        </div>
+                        <div style="position: relative; display: inline-block;">
+                            <canvas id="cropCanvas" style="border: 2px solid #007bff; cursor: crosshair; max-width: 100%;"></canvas>
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary btn-sm" id="scanCroppedBtn">{% trans "Scan Selected Area" %}</button>
+                            <button type="button" class="btn btn-secondary btn-sm" id="cancelCropBtn">{% trans "Cancel" %}</button>
+                        </div>
+                    </section>
+
                     <!-- Item Form -->
                     <form id="myform" method="POST" action="{% url 'create_item' %}" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -107,6 +121,10 @@
                                     <button title="Camera Scan" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
                                         <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
+                                    <button title="File Scan" class="btn btn-outline-secondary btn-feature" type="button" id="scanFromFile">
+                                        <i class="bi bi-file-earmark-image" id="fileIcon"></i>
+                                    </button>
+                                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
                                 </div>
                             </div>
                         </div>

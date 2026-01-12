@@ -96,9 +96,13 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <input placeholder="{% trans 'The redeem code of the item' %}" value="{{ item.redeem_code }}" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
-                                    <button title="Scan QR code via camera" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
+                                    <button title="Camera Scan" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
                                         <i class="bi bi-camera" id="cameraIcon"></i>
                                     </button>
+                                    <button title="File Scan" class="btn btn-outline-secondary btn-feature" type="button" id="scanFromFile">
+                                        <i class="bi bi-file-earmark-image" id="fileIcon"></i>
+                                    </button>
+                                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
                                 </div>
                             </div>
                         </div>
