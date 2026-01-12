@@ -1,3 +1,16 @@
+## [1.23.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.13...v1.23.0) (2026-01-12)
+
+
+### Features
+
+* allow sorting preferences; [#113](https://github.com/l4rm4nd/VoucherVault/issues/113) ([3995111](https://github.com/l4rm4nd/VoucherVault/commit/39951116c63806acb3a23f41dba84a52cce9c4c5))
+
+
+### Bug Fixes
+
+* add asc/desc sorting ([0b71766](https://github.com/l4rm4nd/VoucherVault/commit/0b717666a364a9fd20362578b64c118d91843bf7))
+* add search while typing; [#112](https://github.com/l4rm4nd/VoucherVault/issues/112) ([44b7e01](https://github.com/l4rm4nd/VoucherVault/commit/44b7e015a840e63ee12108974de21bb37b6f231f))
+
 ## [1.22.13](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.12...v1.22.13) (2025-12-04)
 
 
@@ -25,11 +38,4 @@
 ### Bug Fixes
 
 * properly cast EXPIRY_LAST_NOTIFICATION_DAYS env; fix [#105](https://github.com/l4rm4nd/VoucherVault/issues/105) ([511c2ed](https://github.com/l4rm4nd/VoucherVault/commit/511c2ed5d181caa62b9fc640bc818955e85bd772))
-
-## [1.22.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.8...v1.22.9) (2025-10-20)
-
-
-### Bug Fixes
-
-* improve file upload handling; fix [#104](https://github.com/l4rm4nd/VoucherVault/issues/104) ([eab2edc](https://github.com/l4rm4nd/VoucherVault/commit/eab2edcfd81e40b2312218a9d9c19e87f385ec7d))
 
