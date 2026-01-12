@@ -114,12 +114,12 @@
                       {% endif %}
                       {% endif %}
                       {% if preferences.show_description %}
-                      {% if entry.item.description %}
-                      <div class="default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }};text-align: justify;">
-                          <b>{% trans "Description" %}:</b><br>
-                          <span class="content">{{ entry.item.description }}</span>
-                      </div>
-                      {% endif %}
+                        {% if entry.item.description %}
+                        <div class="default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }};text-align: justify;">
+                            <b>{% trans "Description" %}:</b><br>
+                            <span class="content">{{ entry.item.description }}</span>
+                        </div>
+                        {% endif %}
                       {% endif %}
                     </div>
                   </div>
@@ -142,7 +142,7 @@
 
       // Replace any placeholders for background color
       document.querySelectorAll('[style*="#placeholder"]').forEach(el => {
-        el.style.backgroundColor = el.classList.contains('detail-item') ? darkenedDefault : defaultColor;
+        el.style.backgroundColor = (el.classList.contains('detail-item') || el.classList.contains('default-tile')) ? darkenedDefault : defaultColor;
       });
 
       // Real-time search functionality
