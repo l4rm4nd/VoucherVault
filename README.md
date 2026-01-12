@@ -24,7 +24,7 @@
 - Item-specific file uploads (images and PDFs)
 - Item sharing between users
 - Display of redeem codes as QR codes or barcodes (many types supported)
-- Client-side redeem code scanning (1D/2D) during item creation with automatic type detection
+- Client-side redeem code scanning (1D/2D) during item creation with automatic type detection using camera or file upload
 - Expiry notifications via Apprise
 - Multi-user support
 - Multi-language support (English, German, French, Italian)
