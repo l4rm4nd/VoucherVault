@@ -1,3 +1,10 @@
+## [1.24.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.23.0...v1.24.0) (2026-01-12)
+
+
+### Features
+
+* allow file upload for code detections ([257cd56](https://github.com/l4rm4nd/VoucherVault/commit/257cd56f25da82b1fbb2c4a440d9557b02078081)), closes [#108](https://github.com/l4rm4nd/VoucherVault/issues/108)
+
 ## [1.23.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.13...v1.23.0) (2026-01-12)
 
 
@@ -31,11 +38,4 @@
 ### Bug Fixes
 
 * tile coloring on update; fixes [#107](https://github.com/l4rm4nd/VoucherVault/issues/107) ([8fae999](https://github.com/l4rm4nd/VoucherVault/commit/8fae9995d307f408f0b1f3123dbd089eece74dc0))
-
-## [1.22.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.9...v1.22.10) (2025-10-20)
-
-
-### Bug Fixes
-
-* properly cast EXPIRY_LAST_NOTIFICATION_DAYS env; fix [#105](https://github.com/l4rm4nd/VoucherVault/issues/105) ([511c2ed](https://github.com/l4rm4nd/VoucherVault/commit/511c2ed5d181caa62b9fc640bc818955e85bd772))
 
