@@ -115,7 +115,7 @@ def show_items(request):
     filter_value = request.GET.get('status', 'available')  # Get the combined filter value
     search_query = request.GET.get('query', '')
 
-    # Retrieve or create user preferences
+    # Retrieve or create user preferences (only once)
     preferences, _ = UserPreference.objects.get_or_create(user=user)
 
     # Base query
@@ -158,9 +158,17 @@ def show_items(request):
             Q(issuer__icontains=search_query)
         )
 
-
-    # Sort by expiry date, soonest first
-    items = items.order_by('expiry_date')
+    # Apply sorting based on user preference
+    sort_by = preferences.sort_by
+    
+    if sort_by == 'name':
+        items = items.order_by('name')
+    elif sort_by == 'issue_date':
+        items = items.order_by('-issue_date')  # Newest first
+    elif sort_by == 'value':
+        items = items.order_by('-value')  # Highest value first
+    else:  # Default to expiry_date
+        items = items.order_by('expiry_date')  # Soonest expiry first
 
     items_with_qr = []
 

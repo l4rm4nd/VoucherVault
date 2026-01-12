@@ -6,11 +6,19 @@ import uuid
 from django.core.validators import RegexValidator
 
 class UserPreference(models.Model):
+    SORT_CHOICES = (
+        ('expiry_date', 'Expiry Date'),
+        ('name', 'Name'),
+        ('issue_date', 'Creation Date'),
+        ('value', 'Value'),
+    )
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     show_issue_date = models.BooleanField(default=True)
     show_expiry_date = models.BooleanField(default=True)
     show_value = models.BooleanField(default=True)
     show_description = models.BooleanField(default=False)
+    sort_by = models.CharField(max_length=20, choices=SORT_CHOICES, default='expiry_date')
 
 class Item(models.Model):
     ITEM_TYPES = (

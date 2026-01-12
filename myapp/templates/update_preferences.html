@@ -24,15 +24,27 @@
             {% csrf_token %}
 
             {% for field in form %}
-              <div class="mb-2 form-check">
-                {{ field }}
-                <label class="form-check-label" for="{{ field.id_for_label }}">
-                  {% trans field.label %}
-                </label>
-                {% if field.errors %}
-                  <div class="text-danger small">{{ field.errors }}</div>
-                {% endif %}
-              </div>
+              {% if field.name == 'sort_by' %}
+                <div class="mb-3">
+                  <label for="{{ field.id_for_label }}" class="form-label">
+                    {% trans "Sort Items By" %}
+                  </label>
+                  {{ field }}
+                  {% if field.errors %}
+                    <div class="text-danger small">{{ field.errors }}</div>
+                  {% endif %}
+                </div>
+              {% else %}
+                <div class="mb-2 form-check">
+                  {{ field }}
+                  <label class="form-check-label" for="{{ field.id_for_label }}">
+                    {% trans field.label %}
+                  </label>
+                  {% if field.errors %}
+                    <div class="text-danger small">{{ field.errors }}</div>
+                  {% endif %}
+                </div>
+              {% endif %}
             {% endfor %}
 
             <div class="mt-3">

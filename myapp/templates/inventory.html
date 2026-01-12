@@ -150,6 +150,13 @@
       let searchTimeout;
       
       if (searchInput) {
+        // Auto-focus search field if it has a value or if it was focused before
+        if (searchInput.value) {
+          searchInput.focus();
+          // Set cursor at the end of the text
+          searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+        }
+        
         searchInput.addEventListener('input', function() {
           // Clear existing timeout
           clearTimeout(searchTimeout);
