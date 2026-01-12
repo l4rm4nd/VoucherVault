@@ -12,6 +12,10 @@ class UserPreference(models.Model):
         ('issue_date', 'Creation Date'),
         ('value', 'Value'),
     )
+    SORT_ORDER_CHOICES = (
+        ('asc', 'Ascending'),
+        ('desc', 'Descending'),
+    )
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     show_issue_date = models.BooleanField(default=True)
@@ -19,6 +23,7 @@ class UserPreference(models.Model):
     show_value = models.BooleanField(default=True)
     show_description = models.BooleanField(default=False)
     sort_by = models.CharField(max_length=20, choices=SORT_CHOICES, default='expiry_date')
+    sort_order = models.CharField(max_length=4, choices=SORT_ORDER_CHOICES, default='asc')
 
 class Item(models.Model):
     ITEM_TYPES = (

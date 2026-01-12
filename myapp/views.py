@@ -160,15 +160,13 @@ def show_items(request):
 
     # Apply sorting based on user preference
     sort_by = preferences.sort_by
+    sort_order = preferences.sort_order
     
-    if sort_by == 'name':
-        items = items.order_by('name')
-    elif sort_by == 'issue_date':
-        items = items.order_by('-issue_date')  # Newest first
-    elif sort_by == 'value':
-        items = items.order_by('-value')  # Highest value first
-    else:  # Default to expiry_date
-        items = items.order_by('expiry_date')  # Soonest expiry first
+    # Determine sort direction
+    order_prefix = '-' if sort_order == 'desc' else ''
+    
+    # Apply sorting
+    items = items.order_by(f'{order_prefix}{sort_by}')
 
     items_with_qr = []
 
