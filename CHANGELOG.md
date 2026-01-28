@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.0...v1.24.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* bump mozilla-oidc ([282327b](https://github.com/l4rm4nd/VoucherVault/commit/282327b1177141a1cd4ca88d977a1d068d3ca8c2))
+
 ## [1.24.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.23.0...v1.24.0) (2026-01-12)
 
 
@@ -31,11 +38,4 @@
 ### Bug Fixes
 
 * bump django ([ff8afdf](https://github.com/l4rm4nd/VoucherVault/commit/ff8afdfa9f89f092b3ae1ee5bdfeb1d09eb89ffa))
-
-## [1.22.11](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.10...v1.22.11) (2025-11-05)
-
-
-### Bug Fixes
-
-* tile coloring on update; fixes [#107](https://github.com/l4rm4nd/VoucherVault/issues/107) ([8fae999](https://github.com/l4rm4nd/VoucherVault/commit/8fae9995d307f408f0b1f3123dbd089eece74dc0))
 
