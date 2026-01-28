@@ -14,7 +14,7 @@ django-csp==4.0
 qrcode==7.4.2
 apprise==1.8.0
 treepoem==3.24.0
-mozilla-django-oidc==4.0.1
+mozilla-django-oidc==5.0.2
 
 # TASKS
 celery[redis]
