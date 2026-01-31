@@ -1,3 +1,10 @@
+## [1.24.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.1...v1.24.2) (2026-01-31)
+
+
+### Bug Fixes
+
+* improve oidc autologin; do not show index.html ([71cfc9b](https://github.com/l4rm4nd/VoucherVault/commit/71cfc9b002e9b9cf7e59bc9ec332c4075dd31f2f))
+
 ## [1.24.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.0...v1.24.1) (2026-01-28)
 
 
@@ -31,11 +38,4 @@
 ### Bug Fixes
 
 * bump django ([c80aaf3](https://github.com/l4rm4nd/VoucherVault/commit/c80aaf36c680c0b324e6735b4f8b9090b70f4ff9))
-
-## [1.22.12](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.11...v1.22.12) (2025-11-06)
-
-
-### Bug Fixes
-
-* bump django ([ff8afdf](https://github.com/l4rm4nd/VoucherVault/commit/ff8afdfa9f89f092b3ae1ee5bdfeb1d09eb89ffa))
 
