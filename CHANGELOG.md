@@ -1,10 +1,3 @@
-## [1.24.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.1...v1.24.2) (2026-01-31)
-
-
-### Bug Fixes
-
-* improve oidc autologin; do not show index.html ([71cfc9b](https://github.com/l4rm4nd/VoucherVault/commit/71cfc9b002e9b9cf7e59bc9ec332c4075dd31f2f))
-
 ## [1.24.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.0...v1.24.1) (2026-01-28)
 
 
