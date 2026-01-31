@@ -18,14 +18,11 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
-from myapp import views as myapp_views
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path("", include("myapp.urls")),
-    # Override login BEFORE including django.contrib.auth.urls
-    path("accounts/login/", myapp_views.smart_login, name="login"),
-    path('accounts/', include('django.contrib.auth.urls')),  # This now won't override your custom login
+    path('accounts/', include('django.contrib.auth.urls')),
     path("i18n/", include("django.conf.urls.i18n")),
 )
 
