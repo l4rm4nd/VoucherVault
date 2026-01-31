@@ -26,8 +26,35 @@ from django.db.models import Count, Sum, Q, F, ExpressionWrapper, DecimalField
 from django.db.models.functions import Coalesce
 from django.db.models import Value
 from django.utils.text import get_valid_filename
+from django.contrib.auth import views as auth_views
+from django.urls import reverse
+from urllib.parse import quote
+from django.utils.http import url_has_allowed_host_and_scheme
 
 apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
+
+def smart_login(request):
+    next_url = request.GET.get('next', '')
+    
+    # Validate the next URL
+    if next_url and not url_has_allowed_host_and_scheme(
+        url=next_url,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure()
+    ):
+        next_url = settings.LOGIN_REDIRECT_URL  # Fallback to safe default
+    
+    # Set default if still empty
+    if not next_url:
+        next_url = settings.LOGIN_REDIRECT_URL or '/'
+    
+    # If OIDC autologin is enabled, redirect immediately
+    if getattr(settings, 'OIDC_AUTOLOGIN', False):
+        oidc_url = reverse('oidc_authentication_init')
+        return redirect(f"{oidc_url}?next={next_url}")
+    
+    # Otherwise, render the login page normally
+    return render(request, 'registration/login.html', {'next': next_url})
 
 def has_item_access(item, user):
     return item.user == user or item.shared_with.filter(shared_with_user=user).exists()

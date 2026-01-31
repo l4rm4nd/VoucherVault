@@ -171,13 +171,5 @@
     </script>
     {% endif %}
 
-    {% if "OIDC_AUTOLOGIN"|env %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-                window.location.href = "{% url 'oidc_authentication_init' %}?next={{next}}";
-        });
-    </script>
-    {% endif %}
-
 </body>
 </html>
