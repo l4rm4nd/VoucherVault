@@ -1,3 +1,12 @@
+## [1.24.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.1...v1.24.2) (2026-02-03)
+
+
+### Bug Fixes
+
+* bump Django ([631dbe4](https://github.com/l4rm4nd/VoucherVault/commit/631dbe4d354c3744c826ff90ce57614c6a66f874))
+* trigger ci ([39b95de](https://github.com/l4rm4nd/VoucherVault/commit/39b95de0aab8a25cf02a9f97e0acccb03f0ca08c))
+* trigger ci ([8fb3c68](https://github.com/l4rm4nd/VoucherVault/commit/8fb3c6872568b05032d12b330b8c6aa60ad216e8))
+
 ## [1.24.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.0...v1.24.1) (2026-01-28)
 
 
