@@ -1,4 +1,4 @@
-# DEFAULT LIBS 
+# DEFAULT LIBS
 Django==5.2.11
 pytz==2023.3.post1
 python-dotenv==1.0.0
