@@ -2,8 +2,8 @@
 Django==5.2.11
 pytz==2023.3.post1
 python-dotenv==1.0.0
-psycopg2-binary==2.9.10
-uwsgi==2.0.29
+psycopg2-binary==2.9.11
+uwsgi==2.0.31
 
 # HTTP HEADERS
 django-feature-policy==4.0.0
@@ -11,9 +11,9 @@ django-http-referrer-policy==1.1.1
 django-csp==4.0
 
 # APP SPECIFIC
-qrcode==7.4.2
-apprise==1.8.0
-treepoem==3.24.0
+qrcode==8.2
+apprise==1.9.7
+treepoem==3.28.0
 mozilla-django-oidc==5.0.2
 
 # TASKS
