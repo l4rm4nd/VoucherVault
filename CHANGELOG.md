@@ -1,3 +1,10 @@
+## [1.24.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.2...v1.24.3) (2026-02-08)
+
+
+### Bug Fixes
+
+* bump packages ([f2f44a9](https://github.com/l4rm4nd/VoucherVault/commit/f2f44a9d93462905b84eca383bfed9ad68dc2a9f))
+
 ## [1.24.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.1...v1.24.2) (2026-02-03)
 
 
@@ -33,11 +40,4 @@
 
 * add asc/desc sorting ([0b71766](https://github.com/l4rm4nd/VoucherVault/commit/0b717666a364a9fd20362578b64c118d91843bf7))
 * add search while typing; [#112](https://github.com/l4rm4nd/VoucherVault/issues/112) ([44b7e01](https://github.com/l4rm4nd/VoucherVault/commit/44b7e015a840e63ee12108974de21bb37b6f231f))
-
-## [1.22.13](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.12...v1.22.13) (2025-12-04)
-
-
-### Bug Fixes
-
-* bump django ([c80aaf3](https://github.com/l4rm4nd/VoucherVault/commit/c80aaf36c680c0b324e6735b4f8b9090b70f4ff9))
 
