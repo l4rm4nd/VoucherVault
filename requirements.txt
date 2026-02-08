@@ -12,7 +12,7 @@ django-csp==4.0
 
 # APP SPECIFIC
 qrcode==7.4.2
-apprise==1.8.0
+apprise==1.9.7
 treepoem==3.24.0
 mozilla-django-oidc==5.0.2
 
