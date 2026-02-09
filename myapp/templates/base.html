@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% load extras %}
+{% load pwa %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +33,7 @@
   <title>VoucherVault</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  {% progressive_web_app_meta %}
 
   <!-- Favicons -->
   <link href="{% static 'assets/img/favicon.ico' %}" rel="shortcut icon">

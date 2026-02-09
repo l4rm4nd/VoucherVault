@@ -9,6 +9,7 @@ uwsgi==2.0.31
 django-feature-policy==4.0.0
 django-http-referrer-policy==1.1.1
 django-csp==4.0
+django-pwa==2.0.1
 
 # APP SPECIFIC
 qrcode==8.2

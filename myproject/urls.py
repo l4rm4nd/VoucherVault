@@ -26,6 +26,8 @@ urlpatterns = i18n_patterns(
     path("i18n/", include("django.conf.urls.i18n")),
 )
 
+urlpatterns.append(path("", include("pwa.urls")))
+
 # Conditionally include OIDC URLs if OIDC_ENABLED is False
 if not settings.OIDC_ENABLED:
     urlpatterns.append(path('accounts/password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'))

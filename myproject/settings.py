@@ -93,6 +93,8 @@ CONTENT_SECURITY_POLICY = {
         "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
         "font-src": ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
         "img-src": ["'self'", "data:", "https://img.logo.dev"],
+        "manifest-src": ["'self'"],
+        "worker-src": ["'self'"],
         "object-src": ["'none'"],
         "connect-src": ["'self'"],
         "frame-ancestors": FRAME_ANCESTORS,
@@ -109,7 +111,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'csp'
+    'csp',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -239,6 +242,49 @@ CELERY_BEAT_LOG_FILE = os.path.join(LOGS_DIR, 'celery_beat.log')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'myapp', 'static')
+
+PWA_APP_NAME = 'VoucherVault'
+PWA_APP_DESCRIPTION = 'VoucherVault voucher and loyalty card management.'
+PWA_APP_THEME_COLOR = '#4154f1'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+  {
+    'src': '/static/assets/img/manifest-icon-192.png',
+    'sizes': '192x192',
+    'type': 'image/png',
+    'purpose': 'any'
+  },
+  {
+    'src': '/static/assets/img/manifest-icon-192.maskable.png',
+    'sizes': '192x192',
+    'type': 'image/png',
+    'purpose': 'maskable'
+  },
+  {
+    'src': '/static/assets/img/manifest-icon-512.png',
+    'sizes': '512x512',
+    'type': 'image/png',
+    'purpose': 'any'
+  },
+  {
+    'src': '/static/assets/img/manifest-icon-512.maskable.png',
+    'sizes': '512x512',
+    'type': 'image/png',
+    'purpose': 'maskable'
+  }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/assets/img/apple-icon-180.png',
+        'sizes': '180x180',
+    },
+]
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'myapp', 'serviceworker.js')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
