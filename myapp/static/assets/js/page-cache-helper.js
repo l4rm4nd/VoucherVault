@@ -12,19 +12,13 @@ class PageCacheHelper {
      * Setup automatic page caching
      */
     setupPageCaching() {
-        // Cache current page data on load
-        this.cacheCurrentPageData();
-
-        // Intercept link clicks to pre-cache pages
-        this.interceptNavigation();
-
-        // Cache items list when on inventory page
-        this.cacheItemsList();
-        
-        // NOTE: Automatic pre-caching disabled - users must manually cache via button
+        // DISABLED: All automatic caching disabled - users must manually cache via button
+        // this.cacheCurrentPageData();
+        // this.interceptNavigation();
+        // this.cacheItemsList();
         // setTimeout(() => this.preCacheEssentialPages(), 2000);
 
-        console.log('[PageCache] Initialized (manual caching mode)');
+        console.log('[PageCache] Initialized (manual caching mode - automatic caching disabled)');
     }
 
     /**
@@ -414,20 +408,20 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         window.pageCacheHelper = new PageCacheHelper();
         
-        // Pre-cache visible items after a short delay
-        setTimeout(() => {
-            if (window.pageCacheHelper && navigator.onLine) {
-                window.pageCacheHelper.preCacheVisibleItems();
-            }
-        }, 2000);
+        // DISABLED: Automatic pre-caching - user must trigger via cache button
+        // setTimeout(() => {
+        //     if (window.pageCacheHelper && navigator.onLine) {
+        //         window.pageCacheHelper.preCacheVisibleItems();
+        //     }
+        // }, 2000);
     });
 } else {
     window.pageCacheHelper = new PageCacheHelper();
     
-    // Pre-cache visible items after a short delay
-    setTimeout(() => {
-        if (window.pageCacheHelper && navigator.onLine) {
-            window.pageCacheHelper.preCacheVisibleItems();
-        }
-    }, 2000);
+    // DISABLED: Automatic pre-caching - user must trigger via cache button
+    // setTimeout(() => {
+    //     if (window.pageCacheHelper && navigator.onLine) {
+    //         window.pageCacheHelper.preCacheVisibleItems();
+    //     }
+    // }, 2000);
 }
