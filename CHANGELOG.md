@@ -1,3 +1,11 @@
+## [1.25.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.1...v1.25.2) (2026-02-10)
+
+
+### Bug Fixes
+
+* add purge cache button ([d7b694f](https://github.com/l4rm4nd/VoucherVault/commit/d7b694f5fc8057e74e5f0ebc49652fd230b9b2c9))
+* exclude oidc flow from caching ([f6185ad](https://github.com/l4rm4nd/VoucherVault/commit/f6185ad62352b1f0331bebf1dcb1b8b9455fc4eb))
+
 ## [1.25.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.0...v1.25.1) (2026-02-10)
 
 
@@ -32,11 +40,4 @@
 * bump Django ([631dbe4](https://github.com/l4rm4nd/VoucherVault/commit/631dbe4d354c3744c826ff90ce57614c6a66f874))
 * trigger ci ([39b95de](https://github.com/l4rm4nd/VoucherVault/commit/39b95de0aab8a25cf02a9f97e0acccb03f0ca08c))
 * trigger ci ([8fb3c68](https://github.com/l4rm4nd/VoucherVault/commit/8fb3c6872568b05032d12b330b8c6aa60ad216e8))
-
-## [1.24.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.0...v1.24.1) (2026-01-28)
-
-
-### Bug Fixes
-
-* bump mozilla-oidc ([282327b](https://github.com/l4rm4nd/VoucherVault/commit/282327b1177141a1cd4ca88d977a1d068d3ca8c2))
 
