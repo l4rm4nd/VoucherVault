@@ -18,6 +18,7 @@
 ## ⭐ Features
 
 - User-friendly, mobile-optimized web portal
+- PWA support with manual offline caching
 - Light and dark theme support
 - Integration of vouchers, coupons, gift cards and loyalty cards
 - Transaction history tracking (gift cards only)
@@ -68,7 +69,7 @@ docker compose -f docker/docker-compose-sqlite.yml logs -f
 
 > [!TIP]
 > This repository follows the Conventional Commits standard. Therefore, you will find `patch`, `minor` and `major` release version tags on DockerHub.
-> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `1.24.x`.
+> No one stops you from using the `latest` image tag but I recommend pinning a minor version series tag such as `1.25.x`.
 >
 > This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
 
