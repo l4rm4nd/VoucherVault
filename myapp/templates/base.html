@@ -296,7 +296,16 @@
           <span>{% trans "Create New Item" %}</span>
         </a>
       </li><!-- End Blank Page Nav -->
-      <!-- Language Toggle Button -->
+      
+      <!-- Cache and Language Toggle at Bottom -->
+      <li class="nav-item" style="position: absolute; bottom: 60px;">
+        <a class="nav-link collapsed" href="#" onclick="event.preventDefault(); manualCacheManager.cacheData();">
+          <i class="bi bi-download"></i>
+          <span id="cache-button-text">{% trans "Cache for Offline" %}</span>
+          <span id="cache-status" class="badge bg-secondary ms-2" style="font-size: 0.7rem;">Not cached</span>
+        </a>
+      </li><!-- End Cache Nav -->
+      
       <li class="nav-item" style="position: absolute; bottom: 20px;">
         <form id="languageForm" style="margin-left: 10px;" action="{% url 'set_language' %}" method="post">
           {% csrf_token %}
@@ -368,6 +377,7 @@
   
   <!-- Page Cache Helper -->
   <script src="{% static 'assets/js/page-cache-helper.js' %}"></script>
+  <script src="{% static 'assets/js/manual-cache.js' %}"></script>
 
   <script>
     document.getElementById('languageSelect').addEventListener('change', function() {

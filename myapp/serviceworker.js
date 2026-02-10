@@ -1,4 +1,4 @@
-const VERSION = "v1.3.8";
+const VERSION = "v2.0.0";
 const CACHE_NAME = `vouchervault-${VERSION}`;
 const RUNTIME_CACHE = `vouchervault-runtime-${VERSION}`;
 const DATA_CACHE = `vouchervault-data-${VERSION}`;
@@ -20,6 +20,7 @@ const STATIC_CACHE_URLS = [
     '/static/assets/img/manifest-icon-512.png',
     '/static/assets/js/offline-sync.js',
     '/static/assets/js/page-cache-helper.js',
+    '/static/assets/js/manual-cache.js',
     '/static/assets/js/main.js',
     '/static/assets/vendor/bootstrap/css/bootstrap.min.css',
     '/static/assets/vendor/bootstrap-icons/bootstrap-icons.css',

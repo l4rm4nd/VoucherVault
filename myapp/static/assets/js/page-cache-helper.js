@@ -21,10 +21,10 @@ class PageCacheHelper {
         // Cache items list when on inventory page
         this.cacheItemsList();
         
-        // Pre-cache essential navigation pages (dashboard and language root)
-        setTimeout(() => this.preCacheEssentialPages(), 2000);
+        // NOTE: Automatic pre-caching disabled - users must manually cache via button
+        // setTimeout(() => this.preCacheEssentialPages(), 2000);
 
-        console.log('[PageCache] Initialized');
+        console.log('[PageCache] Initialized (manual caching mode)');
     }
 
     /**
