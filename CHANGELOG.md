@@ -1,3 +1,10 @@
+## [1.25.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.0...v1.25.1) (2026-02-10)
+
+
+### Bug Fixes
+
+* remove legacy caching when online ([3c309cd](https://github.com/l4rm4nd/VoucherVault/commit/3c309cdb53b911bbe59eb4ea66ed5f89110dc6e4))
+
 ## [1.25.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.3...v1.25.0) (2026-02-10)
 
 
@@ -32,11 +39,4 @@
 ### Bug Fixes
 
 * bump mozilla-oidc ([282327b](https://github.com/l4rm4nd/VoucherVault/commit/282327b1177141a1cd4ca88d977a1d068d3ca8c2))
-
-## [1.24.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.23.0...v1.24.0) (2026-01-12)
-
-
-### Features
-
-* allow file upload for code detections ([257cd56](https://github.com/l4rm4nd/VoucherVault/commit/257cd56f25da82b1fbb2c4a440d9557b02078081)), closes [#108](https://github.com/l4rm4nd/VoucherVault/issues/108)
 
