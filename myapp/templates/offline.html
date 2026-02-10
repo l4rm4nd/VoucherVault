@@ -1,0 +1,249 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{% trans "Offline" %} - VoucherVault</title>
+    
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.ico' %}" rel="shortcut icon">
+    
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    
+    <!-- Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/dark-mode.css' %}" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            font-family: "Open Sans", sans-serif;
+        }
+        
+        .offline-container {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .offline-icon {
+            font-size: 6rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .feature-list {
+            text-align: left;
+            margin: 2rem 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: #555;
+        }
+        
+        .feature-list i {
+            color: #28a745;
+            margin-right: 0.5rem;
+        }
+        
+        .retry-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .retry-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .inventory-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .inventory-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            color: white;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #dc3545;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+        
+        .cached-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <i class="bi bi-wifi-off"></i>
+        </div>
+        
+        <h1>
+            <span class="status-indicator"></span>
+            {% trans "You're Offline" %}
+        </h1>
+        
+        <p>
+            {% trans "You are currently not connected to the Internet. But don't worry, VoucherVault works offline too!" %}
+        </p>
+        
+        <div class="cached-info">
+            <i class="bi bi-info-circle"></i>
+            {% trans "Your previously viewed data is still available for offline reading. Creating and editing is not supported though." %}
+        </div>
+        
+        <ul class="feature-list">
+            <li>
+                <i class="bi bi-check-circle-fill"></i>
+                {% trans "Browse your dashboard and inventory" %}
+            </li>
+            <li>
+                <i class="bi bi-check-circle-fill"></i>
+                {% trans "View cached inventory items and details" %}
+            </li>
+        </ul>
+        
+        <div class="button-group">
+            <a href="#" class="inventory-button" onclick="event.preventDefault(); goToInventory();">
+                <i class="bi bi-box-seam"></i>
+                {% trans "View Cached Data" %}
+            </a>
+            <button class="retry-button" onclick="checkConnection()">
+                <i class="bi bi-arrow-clockwise"></i>
+                {% trans "Try Again" %}
+            </button>
+        </div>
+        
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: #999;">
+            {% trans "The connection will be checked automatically when available." %}
+        </p>
+    </div>
+    
+    <script>
+        function goToInventory() {
+            // Get the current language from the URL
+            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)/);
+            const currentLang = langMatch ? langMatch[1] : 'en';
+            window.location.href = `/${currentLang}/`;
+        }
+        
+        function checkConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                alert('{% trans "Still offline. Please check your internet connection." %}');
+            }
+        }
+        
+        // Auto-reload when connection is restored
+        window.addEventListener('online', function() {
+            console.log('Connection restored!');
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+        });
+        
+        // Update UI when offline
+        window.addEventListener('offline', function() {
+            console.log('Connection lost');
+        });
+        
+        // Check connection status every 5 seconds
+        setInterval(function() {
+            if (navigator.onLine) {
+                console.log('Connection detected, reloading...');
+                window.location.reload();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

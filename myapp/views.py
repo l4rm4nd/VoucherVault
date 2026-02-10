@@ -52,6 +52,11 @@ def post_logout(request):
         return render(request, 'registration/post-logout.html')
 
 @require_GET
+def offline(request):
+    """Offline page for PWA"""
+    return render(request, 'offline.html')
+
+@require_GET
 @login_required
 def dashboard(request):
     user = request.user

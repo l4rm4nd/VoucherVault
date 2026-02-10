@@ -9,6 +9,7 @@ from django.contrib import admin
 urlpatterns = (
     path("dashboard", views.dashboard, name="dashboard"),
     path('', views.show_items, name='show_items'),
+    path('offline/', views.offline, name='offline'),
     path('items/create/', views.create_item, name='create_item'),
     path('items/view/<uuid:item_uuid>', views.view_item, name='view_item'),
     path('items/edit/<uuid:item_uuid>', views.edit_item, name='edit_item'),

@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% load extras %}
+{% load pwa %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +33,7 @@
   <title>VoucherVault</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  {% progressive_web_app_meta %}
 
   <!-- Favicons -->
   <link href="{% static 'assets/img/favicon.ico' %}" rel="shortcut icon">
@@ -54,6 +56,115 @@
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
   <link href="{% static 'assets/css/dark-mode.css' %}" rel="stylesheet">  
 
+  <style>
+    /* Network status indicator styles */
+    .network-status {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .network-status.online {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .network-status.offline {
+      background-color: #dc3545;
+      color: white;
+      animation: pulse-red 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-red {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    .network-status i {
+      font-size: 1.2rem;
+    }
+
+    /* Offline content banner */
+    .offline-content-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .offline-content-banner i {
+      font-size: 1.2rem;
+    }
+
+    .offline-content-banner button {
+      margin-left: 8px;
+      padding: 4px 12px;
+      font-size: 12px;
+    }
+
+    @keyframes slideUp {
+      from {
+        bottom: -100px;
+        opacity: 0;
+      }
+      to {
+        bottom: 20px;
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .offline-content-banner {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        font-size: 12px;
+        padding: 10px 16px;
+      }
+      
+      .offline-content-banner span {
+        flex: 1;
+      }
+      
+      .network-status {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        padding: 10px 12px;
+        font-size: 12px;
+      }
+      
+      .network-status span {
+        display: inline;
+      }
+    }
+  </style>
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -65,11 +176,19 @@
 
 <body class="dark-mode">
 
+  <!-- Network Status Indicator -->
+  <div id="network-status" class="network-status" style="display: none;">
+    <i class="bi bi-wifi"></i> Online
+  </div>
+
+  <!-- Toast Container for Notifications -->
+  <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div>
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/" class="logo d-flex align-items-center">
+      <a href="{% url 'show_items' %}" class="logo d-flex align-items-center">
         <img src="{% static 'assets/img/logo.svg' %}" alt="">
         <span class="d-none d-lg-block">VoucherVault</span>
       </a>
@@ -177,7 +296,16 @@
           <span>{% trans "Create New Item" %}</span>
         </a>
       </li><!-- End Blank Page Nav -->
-      <!-- Language Toggle Button -->
+      
+      <!-- Cache and Language Toggle at Bottom -->
+      <li class="nav-item" style="position: absolute; bottom: 60px;">
+        <a class="nav-link collapsed" href="#" onclick="event.preventDefault(); manualCacheManager.cacheData();">
+          <i class="bi bi-download"></i>
+          <span id="cache-button-text">{% trans "Cache for Offline" %}</span>
+          <span id="cache-status" class="badge bg-secondary ms-2" style="font-size: 0.7rem;">Not cached</span>
+        </a>
+      </li><!-- End Cache Nav -->
+      
       <li class="nav-item" style="position: absolute; bottom: 20px;">
         <form id="languageForm" style="margin-left: 10px;" action="{% url 'set_language' %}" method="post">
           {% csrf_token %}
@@ -243,6 +371,13 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+
+  <!-- Offline Sync Manager -->
+  <script src="{% static 'assets/js/offline-sync.js' %}"></script>
+  
+  <!-- Page Cache Helper -->
+  <script src="{% static 'assets/js/page-cache-helper.js' %}"></script>
+  <script src="{% static 'assets/js/manual-cache.js' %}"></script>
 
   <script>
     document.getElementById('languageSelect').addEventListener('change', function() {
