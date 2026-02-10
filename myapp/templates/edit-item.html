@@ -24,7 +24,7 @@
     <h1>{% trans "Edit Item" %}</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">{% trans "Home" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Home" %}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Inventory" %}</a></li>
             <li class="breadcrumb-item active">{% trans "Edit Item" %}</li>
         </ol>
@@ -50,6 +50,25 @@
                         <div id="sourceSelectPanel" style="display:block">
                             <select id="sourceSelect" style="min-width: 250px; max-width:250px">
                             </select>
+                        </div>
+                    </section>
+
+                    <!-- Image Crop Section -->
+                    <section class="mb-3 mt-1" id="cropSection" style="display:none;">
+                        <div class="mb-2">
+                            <p style="color: lightgray">{% trans "Click and drag to select the barcode area" %}</p>
+                        </div>
+                        <div style="position: relative; display: inline-block;">
+                            <canvas id="cropCanvas" style="border: 2px solid #007bff; cursor: crosshair; max-width: 100%;"></canvas>
+                        </div>
+                        <div class="mt-2" id="cropPreviewSection" style="display:none;">
+                            <p style="color: lightgray">{% trans "Cropped image to be scanned:" %}</p>
+                            <canvas id="cropPreviewCanvas" style="border: 1px solid #6c757d; max-width: 100%; max-height: 200px;"></canvas>
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary btn-sm" id="scanCroppedBtn">{% trans "Scan Selected Area" %}</button>
+                            <button type="button" class="btn btn-warning btn-sm" id="resetSelectionBtn">{% trans "Reset Selection" %}</button>
+                            <button type="button" class="btn btn-secondary btn-sm" id="cancelCropBtn">{% trans "Cancel" %}</button>
                         </div>
                     </section>
 

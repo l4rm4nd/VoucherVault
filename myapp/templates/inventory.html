@@ -8,7 +8,7 @@
       <h1>{% trans "Inventory" %}</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">{% trans "Home" %}</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Home" %}</a></li>
           <li class="breadcrumb-item active">{% trans "Inventory" %}</li>
         </ol>
       </nav>
@@ -18,10 +18,10 @@
       <div class="row">
         <!-- Filter Dropdown -->
         <div class="col-12 mb-3">
-          <form method="GET" action="">
+          <form method="GET" action="" id="filterForm">
             <div class="row g-2">
               <div class="col-12 col-md-3">
-                <select name="type" onchange="this.form.submit()" class="form-select">
+                <select name="type" onchange="submitFilterForm()" class="form-select">
                   <option value="">{% trans "All Items" %}</option>
                   <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>{% trans "Vouchers" %}</option>
                   <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>{% trans "Gift Cards" %}</option>
@@ -30,7 +30,7 @@
                 </select>
               </div>
               <div class="col-12 col-md-3">
-                <select name="status" onchange="this.form.submit()" class="form-select">
+                <select name="status" onchange="submitFilterForm()" class="form-select">
                   <option value="">{% trans "All Status" %}</option>
                   <option value="available" {% if item_status == 'available' %}selected{% endif %}>{% trans "Available" %}</option>
                   <option value="used" {% if item_status == 'used' %}selected{% endif %}>{% trans "Used" %}</option>
@@ -145,6 +145,34 @@
         el.style.backgroundColor = (el.classList.contains('detail-item') || el.classList.contains('default-tile')) ? darkenedDefault : defaultColor;
       });
 
+      // Function to remove empty parameters before form submission
+      window.submitFilterForm = function() {
+        const form = document.getElementById('filterForm');
+        const inputs = form.querySelectorAll('input, select');
+        
+        // Remove empty values before submitting
+        inputs.forEach(input => {
+          if (!input.value || input.value === '') {
+            input.removeAttribute('name');
+          }
+        });
+        
+        form.submit();
+      };
+      
+      // Handle form submission to clean up empty params
+      const filterForm = document.getElementById('filterForm');
+      if (filterForm) {
+        filterForm.addEventListener('submit', function(e) {
+          const inputs = this.querySelectorAll('input, select');
+          inputs.forEach(input => {
+            if (!input.value || input.value === '') {
+              input.removeAttribute('name');
+            }
+          });
+        });
+      }
+
       // Real-time search functionality
       const searchInput = document.getElementById('searchInput');
       let searchTimeout;
@@ -163,7 +191,7 @@
           
           // Set new timeout to submit form after 500ms of no typing
           searchTimeout = setTimeout(function() {
-            searchInput.closest('form').submit();
+            submitFilterForm();
           }, 500);
         });
       }
