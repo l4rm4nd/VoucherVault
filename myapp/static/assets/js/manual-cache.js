@@ -212,22 +212,35 @@ class ManualCacheManager {
      * Clear all cached data
      */
     async clearCache() {
+        const buttonTextElement = document.getElementById('purge-button-text');
+        const originalText = buttonTextElement ? buttonTextElement.textContent : '';
+        
+        if (buttonTextElement) {
+            buttonTextElement.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Purging...';
+        }
+
         try {
             const cacheNames = await caches.keys();
+            const vaultCaches = cacheNames.filter(name => name.includes('vouchervault'));
+            
+            console.log(`[ManualCache] Purging ${vaultCaches.length} caches:`, vaultCaches);
+            
             await Promise.all(
-                cacheNames
-                    .filter(name => name.includes('vouchervault'))
-                    .map(name => caches.delete(name))
+                vaultCaches.map(name => caches.delete(name))
             );
             
             localStorage.removeItem(this.CACHE_KEY);
-            this.updateCacheStatus();
+            await this.updateCacheStatus();
             
-            this.showToast('Success', 'Cache cleared', 'success');
+            this.showToast('Success', `Cache purged successfully (${vaultCaches.length} cache${vaultCaches.length !== 1 ? 's' : ''} cleared)`, 'success');
             console.log('[ManualCache] Cache cleared');
         } catch (error) {
             console.error('[ManualCache] Failed to clear cache:', error);
             this.showToast('Error', 'Failed to clear cache', 'danger');
+        } finally {
+            if (buttonTextElement) {
+                buttonTextElement.textContent = originalText;
+            }
         }
     }
 
