@@ -1,3 +1,15 @@
+## [1.25.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.3...v1.25.0) (2026-02-10)
+
+
+### Features
+
+* adjust pwa for offline caching ([4f37c08](https://github.com/l4rm4nd/VoucherVault/commit/4f37c084806557bd48c390af03b6032798dd71a0))
+
+
+### Bug Fixes
+
+* add cache button and cache for 48h max ([5cccacb](https://github.com/l4rm4nd/VoucherVault/commit/5cccacb3c46646cde9424d85de620b387dd3d9ad))
+
 ## [1.24.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.2...v1.24.3) (2026-02-08)
 
 
@@ -27,17 +39,4 @@
 ### Features
 
 * allow file upload for code detections ([257cd56](https://github.com/l4rm4nd/VoucherVault/commit/257cd56f25da82b1fbb2c4a440d9557b02078081)), closes [#108](https://github.com/l4rm4nd/VoucherVault/issues/108)
-
-## [1.23.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.22.13...v1.23.0) (2026-01-12)
-
-
-### Features
-
-* allow sorting preferences; [#113](https://github.com/l4rm4nd/VoucherVault/issues/113) ([3995111](https://github.com/l4rm4nd/VoucherVault/commit/39951116c63806acb3a23f41dba84a52cce9c4c5))
-
-
-### Bug Fixes
-
-* add asc/desc sorting ([0b71766](https://github.com/l4rm4nd/VoucherVault/commit/0b717666a364a9fd20362578b64c118d91843bf7))
-* add search while typing; [#112](https://github.com/l4rm4nd/VoucherVault/issues/112) ([44b7e01](https://github.com/l4rm4nd/VoucherVault/commit/44b7e015a840e63ee12108974de21bb37b6f231f))
 
