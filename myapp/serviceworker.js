@@ -137,6 +137,16 @@ self.addEventListener("fetch", event => {
         return;
     }
 
+    // CRITICAL: Skip caching for OIDC authentication URLs to preserve session state
+    // OIDC flow requires server-side session state which breaks with cached responses
+    if (url.pathname.includes('/oidc/') || 
+        url.pathname.includes('/accounts/login') || 
+        url.pathname.includes('/accounts/logout')) {
+        console.log('[ServiceWorker] Bypassing cache for auth URL:', url.pathname);
+        // Let the request go through normally without service worker intervention
+        return;
+    }
+
     // Handle API requests and page data - Network First, persistent cache fallback
     if (API_CACHE_PATTERNS.some(pattern => pattern.test(url.pathname))) {
         event.respondWith(
