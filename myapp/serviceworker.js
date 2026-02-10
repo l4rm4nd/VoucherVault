@@ -7,6 +7,18 @@ const PAGE_CACHE = `vouchervault-pages-${VERSION}`;
 // Static assets to cache on install (only truly static assets, not dynamic pages)
 const STATIC_CACHE_URLS = [
     '/offline/',
+    '/en/offline/',
+    '/de/offline/',
+    '/fr/offline/',
+    '/it/offline/',
+    '/es/offline/',
+    '/pt/offline/',
+    '/nl/offline/',
+    '/pl/offline/',
+    '/ru/offline/',
+    '/zh/offline/',
+    '/ja/offline/',
+    '/ko/offline/',
     '/static/assets/css/dark-mode.css',
     '/static/assets/css/style.css',
     '/static/assets/img/apple-icon-180.png',
@@ -253,19 +265,33 @@ self.addEventListener("fetch", event => {
                     
                     // Network failed and no cache - show offline page  
                     console.log('[ServiceWorker] ✗ No cached page, showing offline page');
-                    return caches.match('/offline/').then(offlinePage => {
+                    
+                    // Try to get language-specific offline page first
+                    const langMatch = url.pathname.match(/^\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)/);
+                    const offlineUrl = langMatch ? `/${langMatch[1]}/offline/` : '/offline/';
+                    
+                    return caches.match(offlineUrl).then(offlinePage => {
                         if (offlinePage) {
+                            console.log('[ServiceWorker] ✓ Serving offline page:', offlineUrl);
                             return offlinePage;
                         }
-                        // Fallback: return a basic offline response if offline page isn't cached
-                        return new Response(
-                            '<html><body><h1>Offline</h1><p>You are currently offline and this page is not cached.</p></body></html>',
-                            { 
-                                status: 503,
-                                statusText: 'Service Unavailable',
-                                headers: new Headers({ 'Content-Type': 'text/html' })
+                        // Try generic offline page as fallback
+                        return caches.match('/offline/').then(genericOffline => {
+                            if (genericOffline) {
+                                console.log('[ServiceWorker] ✓ Serving generic offline page');
+                                return genericOffline;
                             }
-                        );
+                            // Last resort: return a basic offline response
+                            console.log('[ServiceWorker] ✗ No offline page cached, using fallback HTML');
+                            return new Response(
+                                '<html><body><h1>Offline</h1><p>You are currently offline and this page is not cached.</p></body></html>',
+                                { 
+                                    status: 503,
+                                    statusText: 'Service Unavailable',
+                                    headers: new Headers({ 'Content-Type': 'text/html' })
+                                }
+                            );
+                        });
                     });
                 });
             })

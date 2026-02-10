@@ -7,6 +7,8 @@ class ManualCacheManager {
     constructor() {
         this.CACHE_DURATION = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
         this.CACHE_KEY = 'offline_cache_timestamp';
+        this.VERSION = 'v2.0.0';
+        this.PAGE_CACHE_NAME = `vouchervault-pages-${this.VERSION}`;
         this.init();
     }
 
@@ -33,7 +35,7 @@ class ManualCacheManager {
         
         // Also verify cache actually exists
         try {
-            const cache = await caches.open('PAGE_CACHE');
+            const cache = await caches.open(this.PAGE_CACHE_NAME);
             const keys = await cache.keys();
             return keys.length > 0;
         } catch (error) {
@@ -42,15 +44,26 @@ class ManualCacheManager {
     }
 
     /**
-     * Get remaining cache time in hours
+     * Get remaining cache time in hours and minutes
      */
-    getRemainingHours() {
+    getRemainingTime() {
         const timestamp = localStorage.getItem(this.CACHE_KEY);
-        if (!timestamp) return 0;
+        if (!timestamp) return { hours: 0, minutes: 0 };
         
         const age = Date.now() - parseInt(timestamp);
-        const remaining = this.CACHE_DURATION - age;
-        return Math.max(0, Math.ceil(remaining / (60 * 60 * 1000)));
+        const remaining = Math.max(0, this.CACHE_DURATION - age);
+        
+        const hours = Math.floor(remaining / (60 * 60 * 1000));
+        const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+        
+        return { hours, minutes };
+    }
+
+    /**
+     * Get remaining cache time in hours (for backwards compatibility)
+     */
+    getRemainingHours() {
+        return this.getRemainingTime().hours;
     }
 
     /**
@@ -69,8 +82,8 @@ class ManualCacheManager {
         console.log('[ManualCache] Updating status, valid:', isValid);
 
         if (isValid) {
-            const hours = this.getRemainingHours();
-            statusElement.textContent = `${hours}h left`;
+            const { hours, minutes } = this.getRemainingTime();
+            statusElement.textContent = `${hours}h ${minutes}m left`;
             statusElement.className = 'badge bg-success ms-2';
             if (buttonTextElement) {
                 buttonTextElement.textContent = 'Refresh Cache';
@@ -116,6 +129,7 @@ class ManualCacheManager {
             urlsToCache.push(`/${currentLang}/`);
             urlsToCache.push(`/${currentLang}/dashboard`);
             urlsToCache.push(`/${currentLang}/shared-items/`);
+            urlsToCache.push(`/${currentLang}/offline/`);
 
             // Add all filter combinations
             const types = ['giftcard', 'coupon', 'voucher', 'loyaltycard'];
@@ -145,7 +159,7 @@ class ManualCacheManager {
             console.log(`[ManualCache] Caching ${urlsToCache.length} URLs...`);
 
             // Cache all URLs
-            const cache = await caches.open('PAGE_CACHE');
+            const cache = await caches.open(this.PAGE_CACHE_NAME);
             let cached = 0;
             let failed = 0;
 

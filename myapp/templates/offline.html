@@ -94,12 +94,41 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin: 0.5rem;
         }
         
         .retry-button:hover {
             background: #5568d3;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .inventory-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .inventory-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            color: white;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
         
         .status-indicator {
@@ -149,28 +178,30 @@
         
         <div class="cached-info">
             <i class="bi bi-info-circle"></i>
-            {% trans "Your previously viewed data is still available, and any changes you make will be synced automatically when you reconnect." %}
+            {% trans "Your previously viewed data is still available for offline reading. Creating and editing is not supported though." %}
         </div>
         
         <ul class="feature-list">
             <li>
                 <i class="bi bi-check-circle-fill"></i>
-                {% trans "View cached vouchers and gift cards" %}
-            </li>
-            <li>
-                <i class="bi bi-check-circle-fill"></i>
-                {% trans "Make changes offline - they'll sync when online" %}
-            </li>
-            <li>
-                <i class="bi bi-check-circle-fill"></i>
                 {% trans "Browse your dashboard and inventory" %}
+            </li>
+            <li>
+                <i class="bi bi-check-circle-fill"></i>
+                {% trans "View cached inventory items and details" %}
             </li>
         </ul>
         
-        <button class="retry-button" onclick="checkConnection()">
-            <i class="bi bi-arrow-clockwise"></i>
-            {% trans "Try Again" %}
-        </button>
+        <div class="button-group">
+            <a href="#" class="inventory-button" onclick="event.preventDefault(); goToInventory();">
+                <i class="bi bi-box-seam"></i>
+                {% trans "View Cached Data" %}
+            </a>
+            <button class="retry-button" onclick="checkConnection()">
+                <i class="bi bi-arrow-clockwise"></i>
+                {% trans "Try Again" %}
+            </button>
+        </div>
         
         <p style="margin-top: 2rem; font-size: 0.9rem; color: #999;">
             {% trans "The connection will be checked automatically when available." %}
@@ -178,6 +209,13 @@
     </div>
     
     <script>
+        function goToInventory() {
+            // Get the current language from the URL
+            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)/);
+            const currentLang = langMatch ? langMatch[1] : 'en';
+            window.location.href = `/${currentLang}/`;
+        }
+        
         function checkConnection() {
             if (navigator.onLine) {
                 window.location.reload();
