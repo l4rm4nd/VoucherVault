@@ -28,6 +28,14 @@
       });
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const langMatch = window.location.pathname.match(/^\/(en|de|fr|it)(\/|$)/);
+      if (langMatch) {
+        localStorage.setItem('vv_last_lang', langMatch[1]);
+      }
+    });
+  </script>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>VoucherVault</title>
@@ -182,7 +190,7 @@
   </div>
 
   <!-- Toast Container for Notifications -->
-  <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div>
+  <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 10001"></div>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">

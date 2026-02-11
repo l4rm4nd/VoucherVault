@@ -57,6 +57,10 @@ def offline(request):
     return render(request, 'offline.html')
 
 @require_GET
+def ping(request):
+    return HttpResponse('', status=204)
+
+@require_GET
 @login_required
 def dashboard(request):
     user = request.user

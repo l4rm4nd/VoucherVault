@@ -120,10 +120,11 @@ class ManualCacheManager {
 
         try {
             // Get current language
-            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)/);
+            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it)/);
             const currentLang = langMatch ? langMatch[1] : 'en';
 
             const urlsToCache = [];
+            const itemUrls = new Set();
 
             // Add essential pages
             urlsToCache.push(`/${currentLang}/`);
@@ -152,9 +153,65 @@ class ManualCacheManager {
             // Extract all item URLs from the current page
             const itemLinks = document.querySelectorAll('a[href*="/items/view/"]');
             itemLinks.forEach(link => {
-                const url = new URL(link.href);
-                urlsToCache.push(url.pathname);
+                const url = new URL(link.href, window.location.origin);
+                itemUrls.add(url.pathname);
             });
+
+            // Fetch inventory and filter pages to collect ALL item detail URLs
+            const pagesToScan = new Set();
+            pagesToScan.add(`/${currentLang}/`);
+            pagesToScan.add(`/${currentLang}/shared-items/`);
+
+            types.forEach(type => {
+                pagesToScan.add(`/${currentLang}/?type=${type}`);
+            });
+
+            statuses.forEach(status => {
+                pagesToScan.add(`/${currentLang}/?status=${status}`);
+            });
+
+            types.forEach(type => {
+                statuses.forEach(status => {
+                    pagesToScan.add(`/${currentLang}/?type=${type}&status=${status}`);
+                });
+            });
+
+            const collectItemUrlsFromHtml = (html) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const links = doc.querySelectorAll('a[href*="/items/view/"]');
+                links.forEach(link => {
+                    try {
+                        const url = new URL(link.getAttribute('href'), window.location.origin);
+                        itemUrls.add(url.pathname);
+                    } catch (e) {
+                        // Ignore invalid URLs
+                    }
+                });
+            };
+
+            for (const pageUrl of pagesToScan) {
+                try {
+                    const response = await fetch(pageUrl, {
+                        method: 'GET',
+                        credentials: 'same-origin',
+                        cache: 'no-store',
+                        headers: {
+                            'X-Manual-Cache': '1',
+                            'Cache-Control': 'no-store'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const html = await response.text();
+                        collectItemUrlsFromHtml(html);
+                    }
+                } catch (error) {
+                    console.warn(`[ManualCache] Failed to scan ${pageUrl}:`, error);
+                }
+            }
+
+            itemUrls.forEach(url => urlsToCache.push(url));
 
             console.log(`[ManualCache] Caching ${urlsToCache.length} URLs...`);
 
@@ -167,7 +224,12 @@ class ManualCacheManager {
                 try {
                     const response = await fetch(url, {
                         method: 'GET',
-                        credentials: 'same-origin'
+                        credentials: 'same-origin',
+                        cache: 'no-store',
+                        headers: {
+                            'X-Manual-Cache': '1',
+                            'Cache-Control': 'no-store'
+                        }
                     });
 
                     if (response.ok) {

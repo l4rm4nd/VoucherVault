@@ -125,7 +125,8 @@ class OfflineSyncManager {
      */
     showOfflinePageBanner() {
         // Don't show on the offline page itself
-        if (window.location.pathname === '/offline/') return;
+        if (/^\/(en|de|fr|it)?\/offline\/$/.test(window.location.pathname)) return;
+        if (document.getElementById('offline-content-banner')) return;
 
         const banner = document.createElement('div');
         banner.id = 'offline-content-banner';
@@ -133,11 +134,30 @@ class OfflineSyncManager {
         banner.innerHTML = `
             <i class="bi bi-database"></i>
             <span>Viewing cached content. Some data may not be up to date.</span>
-            <button onclick="window.location.reload()" class="btn btn-sm btn-light">
+            <button type="button" data-action="refresh" class="btn btn-sm btn-light">
                 <i class="bi bi-arrow-clockwise"></i> Refresh
             </button>
         `;
         document.body.insertBefore(banner, document.body.firstChild);
+
+        const refreshButton = banner.querySelector('[data-action="refresh"]');
+        if (refreshButton) {
+            refreshButton.addEventListener('click', () => this.refreshFromNetwork());
+        }
+    }
+
+    /**
+     * Force a network refresh (bypass service worker cache)
+     */
+    refreshFromNetwork() {
+        if (!navigator.onLine) {
+            this.showNotification('Still offline. Please check your internet connection.', 'warning');
+            return;
+        }
+
+        const url = new URL(window.location.href);
+        url.searchParams.set('sw-bypass', '1');
+        window.location.href = url.toString();
     }
 
     /**

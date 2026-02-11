@@ -5,20 +5,11 @@ const DATA_CACHE = `vouchervault-data-${VERSION}`;
 const PAGE_CACHE = `vouchervault-pages-${VERSION}`;
 
 // Static assets to cache on install (only truly static assets, not dynamic pages)
+const SUPPORTED_LANGS = ['en', 'de', 'fr', 'it'];
+
 const STATIC_CACHE_URLS = [
     '/offline/',
-    '/en/offline/',
-    '/de/offline/',
-    '/fr/offline/',
-    '/it/offline/',
-    '/es/offline/',
-    '/pt/offline/',
-    '/nl/offline/',
-    '/pl/offline/',
-    '/ru/offline/',
-    '/zh/offline/',
-    '/ja/offline/',
-    '/ko/offline/',
+    ...SUPPORTED_LANGS.map(lang => `/${lang}/offline/`),
     '/static/assets/css/dark-mode.css',
     '/static/assets/css/style.css',
     '/static/assets/img/apple-icon-180.png',
@@ -48,29 +39,29 @@ const STATIC_CACHE_URLS = [
 const API_CACHE_PATTERNS = [
     /\/api\/get\/stats/,
     /\/api\//,
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/dashboard$/,
+    /\/(en|de|fr|it)\/dashboard$/,
     /\/dashboard$/,
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/shared-items/,
+    /\/(en|de|fr|it)\/shared-items/,
     /\/shared-items/,
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/items\/view\/.+/,
+    /\/(en|de|fr|it)\/items\/view\/.+/, 
     /\/items\/view\/.+/,
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/items\/edit\/.+/,
+    /\/(en|de|fr|it)\/items\/edit\/.+/, 
     /\/items\/edit\/.+/,
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/items\/view-image\/.+/,
+    /\/(en|de|fr|it)\/items\/view-image\/.+/, 
     /\/items\/view-image\/.+/,
-    /^\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/?$/,
+    /^\/(en|de|fr|it)\/?$/,
     /^\/$/
 ];
 
 // Pages that should always be cached when visited
 const CACHE_PAGE_PATTERNS = [
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/items\//,
+    /\/(en|de|fr|it)\/items\//,
     /\/items\//,
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/dashboard/,
+    /\/(en|de|fr|it)\/dashboard/,
     /\/dashboard/,
-    /\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/shared-items/,
+    /\/(en|de|fr|it)\/shared-items/,
     /\/shared-items/,
-    /^\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)\/?$/,
+    /^\/(en|de|fr|it)\/?$/,
     /^\/$/
 ];
 
@@ -137,62 +128,127 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // CRITICAL: Skip caching for OIDC authentication URLs to preserve session state
-    // OIDC flow requires server-side session state which breaks with cached responses
-    if (url.pathname.includes('/oidc/') || 
-        url.pathname.includes('/accounts/login') || 
-        url.pathname.includes('/accounts/logout')) {
-        console.log('[ServiceWorker] Bypassing cache for auth URL:', url.pathname);
-        // Let the request go through normally without service worker intervention
+    // Only handle GET requests for caching
+    if (request.method !== 'GET') {
+        event.respondWith(fetch(request));
         return;
     }
 
-    // Handle API requests and page data - Network First, persistent cache fallback
-    if (API_CACHE_PATTERNS.some(pattern => pattern.test(url.pathname))) {
+    // CRITICAL: Skip caching for OIDC authentication URLs to preserve session state
+    // OIDC flow requires server-side session state which breaks with cached responses
+    if (url.pathname.includes('/oidc/') ||
+        url.pathname.includes('/accounts/login') ||
+        url.pathname.includes('/accounts/logout')) {
+        console.log('[ServiceWorker] Bypassing cache for auth URL:', url.pathname);
+        event.respondWith(fetch(request));
+        return;
+    }
+
+    // Manual cache requests should always hit the network (fresh data)
+    if (request.headers.get('X-Manual-Cache') === '1') {
+        event.respondWith(fetch(request));
+        return;
+    }
+
+    // Connectivity check: always go to network and never serve from cache
+    const isPingPath = /^(\/((en|de|fr|it))\/)?ping\/$/.test(url.pathname);
+    if (isPingPath || url.searchParams.has('ping')) {
         event.respondWith(
-            fetch(request)
-                .then(response => {
-                    // Cache ONLY if successful (replaces old cache)
-                    if (response && response.status === 200) {
-                        const responseClone = response.clone();
-                        caches.open(DATA_CACHE).then(cache => {
-                            cache.put(request, responseClone);
-                        });
-                    }
-                    return response;
-                })
-                .catch(() => {
-                    // Network failed - serve from cache (no expiration)
-                    return caches.match(request)
-                        .then(cachedResponse => {
-                            if (cachedResponse) {
-                                console.log('[ServiceWorker] Serving from cache (offline):', url.pathname);
-                                return cachedResponse;
-                            }
-                            if (request.mode === 'navigate') {
-                                return caches.match('/offline/');
-                            }
-                            return new Response('Offline', { status: 503 });
-                        });
-                })
+            fetch(request).catch(() => new Response('', {
+                status: 503,
+                statusText: 'Service Unavailable'
+            }))
         );
         return;
     }
 
-    // Handle navigation requests - Cache First with Network Update
+    const skipCachePaths = [
+        '/items/create',
+        '/items/edit',
+        '/items/duplicate',
+        '/items/delete',
+        '/items/toggle_status',
+        '/items/share',
+        '/items/unshare',
+        '/transactions/delete',
+        '/user/edit/notifications',
+        '/user/edit/preferences',
+        '/verify-apprise-urls',
+        '/download',
+        '/logout',
+        '/post-logout'
+    ];
+
+    const shouldSkipCache = skipCachePaths.some(path => url.pathname.includes(path));
+
+    // Handle API requests and page data - Cache First (no automatic cache updates)
+    if (API_CACHE_PATTERNS.some(pattern => pattern.test(url.pathname))) {
+        event.respondWith(
+            caches.match(request).then(cachedResponse => {
+                if (cachedResponse) {
+                    console.log('[ServiceWorker] ✓ Serving API/page from cache:', url.pathname + url.search);
+                    return cachedResponse;
+                }
+
+                // No cache, go to network
+                return fetch(request).then(response => {
+                    return response;
+                }).catch(() => {
+                    if (request.mode === 'navigate') {
+                        return caches.match('/offline/');
+                    }
+                    return new Response('Offline', { status: 503 });
+                });
+            })
+        );
+        return;
+    }
+
+    // Handle navigation requests - Cache First
     if (request.mode === 'navigate') {
         console.log('[ServiceWorker] Navigation request:', url.pathname + url.search);
-        
+
+        const bypassCache = url.searchParams.has('sw-bypass');
+        const normalizedUrl = (() => {
+            const normalized = new URL(request.url);
+            normalized.searchParams.delete('sw-bypass');
+            const normalizedString = normalized.toString();
+            return normalizedString.endsWith('?') ? normalizedString.slice(0, -1) : normalizedString;
+        })();
+
+        if (bypassCache) {
+            event.respondWith(
+                fetch(request).then(response => {
+                    return response;
+                }).catch(() => {
+                    return caches.match(normalizedUrl).then(cachedResponse => {
+                        if (cachedResponse) {
+                            console.log('[ServiceWorker] ✓ Bypass fallback to cache:', url.pathname + url.search);
+                            return cachedResponse;
+                        }
+                        const langMatch = url.pathname.match(/^\/(en|de|fr|it)/);
+                        const offlineUrl = langMatch ? `/${langMatch[1]}/offline/` : '/offline/';
+                        return caches.match(offlineUrl);
+                    });
+                })
+            );
+            return;
+        }
+
         event.respondWith(
             // Try to match with full URL (including query params)
             caches.match(request.url).then(cachedResponse => {
                 if (cachedResponse) {
-                    console.log('[ServiceWorker] ✓ Found in cache:', url.pathname + url.search);
-                    return cachedResponse;
+                    const isRedirect = cachedResponse.type === 'opaqueredirect' || (cachedResponse.status >= 300 && cachedResponse.status < 400);
+                    if (!isRedirect) {
+                        console.log('[ServiceWorker] ✓ Found in cache:', url.pathname + url.search);
+                        return cachedResponse;
+                    }
+                    console.log('[ServiceWorker] ⊘ Ignoring cached redirect:', url.pathname + url.search);
                 }
-                
+
                 console.log('[ServiceWorker] ✗ Not in cache:', url.pathname + url.search);
-                
+
                 // If URL has trailing ? with no params, try without it
                 if (request.url.endsWith('?')) {
                     const urlWithoutQuestion = request.url.slice(0, -1);
@@ -205,16 +261,16 @@ self.addEventListener("fetch", event => {
                         return null;
                     });
                 }
-                
+
                 // For root page requests, check language-specific roots too
                 if (url.pathname === '/' || url.pathname === '') {
                     console.log('[ServiceWorker] Root page requested, searching for language-specific root...');
-                    
-                    const langCodes = ['de', 'en', 'fr', 'it', 'es', 'pt', 'nl', 'pl', 'ru', 'zh', 'ja', 'ko'];
-                    const langPromises = langCodes.map(lang => 
+
+                    const langCodes = [...SUPPORTED_LANGS];
+                    const langPromises = langCodes.map(lang =>
                         caches.match(`/${lang}/`).then(res => ({ lang, res }))
                     );
-                    
+
                     return Promise.all(langPromises).then(results => {
                         const cached = results.find(r => r.res);
                         if (cached) {
@@ -224,62 +280,22 @@ self.addEventListener("fetch", event => {
                         return null;
                     });
                 }
-                
+
                 return null;
             }).then(cachedResponse => {
-                // Try network with timeout, but return cache immediately if available
-                const networkPromise = Promise.race([
-                    fetch(request)
-                        .then(response => {
-                            // Cache successful navigation responses using URL string
-                            // BUT skip caching create/edit pages
-                            if (response && response.status === 200) {
-                                const skipPaths = ['/items/create', '/items/edit'];
-                                const shouldCache = !skipPaths.some(path => url.pathname.includes(path));
-                                
-                                if (shouldCache) {
-                                    const responseClone = response.clone();
-                                    caches.open(PAGE_CACHE).then(cache => {
-                                        cache.put(request.url, responseClone);
-                                    });
-                                    console.log('[ServiceWorker] ✓ Updated cache:', url.pathname + url.search);
-                                } else {
-                                    console.log('[ServiceWorker] ⊘ Skipped caching (create/edit page):', url.pathname);
-                                }
-                            }
-                            return response;
-                        }),
-                    // Timeout after 3 seconds
-                    new Promise((_, reject) => 
-                        setTimeout(() => reject(new Error('Timeout')), 3000)
-                    )
-                ]).catch(error => {
-                    console.log('[ServiceWorker] Network failed/timeout:', error.message);
-                    return null;
-                });
-
-                // If we have cache, return it immediately and update in background
                 if (cachedResponse) {
-                    console.log('[ServiceWorker] ✓ Serving from cache:', url.pathname + url.search);
-                    // Update cache in background (don't wait)
-                    networkPromise;
                     return cachedResponse;
                 }
 
-                // No cache - must wait for network
-                console.log('[ServiceWorker] No cache, waiting for network:', url.pathname + url.search);
-                return networkPromise.then(response => {
-                    if (response) {
-                        return response;
-                    }
-                    
-                    // Network failed and no cache - show offline page  
+                return fetch(request).then(response => {
+                    return response;
+                }).catch(() => {
                     console.log('[ServiceWorker] ✗ No cached page, showing offline page');
-                    
+
                     // Try to get language-specific offline page first
-                    const langMatch = url.pathname.match(/^\/(en|de|fr|it|es|pt|nl|pl|ru|zh|ja|ko)/);
+                    const langMatch = url.pathname.match(/^\/(en|de|fr|it)/);
                     const offlineUrl = langMatch ? `/${langMatch[1]}/offline/` : '/offline/';
-                    
+
                     return caches.match(offlineUrl).then(offlinePage => {
                         if (offlinePage) {
                             console.log('[ServiceWorker] ✓ Serving offline page:', offlineUrl);
@@ -295,7 +311,7 @@ self.addEventListener("fetch", event => {
                             console.log('[ServiceWorker] ✗ No offline page cached, using fallback HTML');
                             return new Response(
                                 '<html><body><h1>Offline</h1><p>You are currently offline and this page is not cached.</p></body></html>',
-                                { 
+                                {
                                     status: 503,
                                     statusText: 'Service Unavailable',
                                     headers: new Headers({ 'Content-Type': 'text/html' })
@@ -340,23 +356,23 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // Default: Network First with cache fallback
+    // Default: Cache First with network fallback
     event.respondWith(
-        fetch(request)
-            .then(response => response)
-            .catch(() => {
-                return caches.match(request).then(cached => {
-                    if (cached) {
-                        return cached;
-                    }
-                    // Return a basic 503 response for uncached resources when offline
-                    console.log('[ServiceWorker] Resource not cached and offline:', url.pathname);
-                    return new Response('', { 
-                        status: 503,
-                        statusText: 'Service Unavailable'
-                    });
+        caches.match(request).then(cached => {
+            if (cached) {
+                return cached;
+            }
+            return fetch(request).then(response => {
+                return response;
+            }).catch(() => {
+                // Return a basic 503 response for uncached resources when offline
+                console.log('[ServiceWorker] Resource not cached and offline:', url.pathname);
+                return new Response('', {
+                    status: 503,
+                    statusText: 'Service Unavailable'
                 });
-            })
+            });
+        })
     );
 });
 
