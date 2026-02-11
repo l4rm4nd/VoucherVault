@@ -1,3 +1,10 @@
+## [1.25.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.3...v1.25.4) (2026-02-11)
+
+
+### Bug Fixes
+
+* light theme switching (fixes [#117](https://github.com/l4rm4nd/VoucherVault/issues/117)) ([c125199](https://github.com/l4rm4nd/VoucherVault/commit/c125199816cdef514ff6ceee8a220c6ccd3c1983))
+
 ## [1.25.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.2...v1.25.3) (2026-02-11)
 
 
@@ -31,11 +38,4 @@
 ### Bug Fixes
 
 * add cache button and cache for 48h max ([5cccacb](https://github.com/l4rm4nd/VoucherVault/commit/5cccacb3c46646cde9424d85de620b387dd3d9ad))
-
-## [1.24.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.2...v1.24.3) (2026-02-08)
-
-
-### Bug Fixes
-
-* bump packages ([f2f44a9](https://github.com/l4rm4nd/VoucherVault/commit/f2f44a9d93462905b84eca383bfed9ad68dc2a9f))
 
