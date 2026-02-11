@@ -17,8 +17,8 @@
 
 ## ⭐ Features
 
-- User-friendly, mobile-optimized web portal
-- PWA support with manual offline caching
+- User-friendly, mobile-optimized web portal with PWA support
+- Manual offline mode with 48h caching supported
 - Light and dark theme support
 - Integration of vouchers, coupons, gift cards and loyalty cards
 - Transaction history tracking (gift cards only)
