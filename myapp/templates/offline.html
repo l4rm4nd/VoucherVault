@@ -279,7 +279,8 @@
             const langMatch = window.location.pathname.match(/^\/(en|de|fr|it)/);
             if (langMatch) return langMatch[1];
             const stored = localStorage.getItem('vv_last_lang');
-            return stored || 'en';
+            const allowed = new Set(['en', 'de', 'fr', 'it']);
+            return allowed.has(stored) ? stored : 'en';
         }
 
         function goToInventory() {
