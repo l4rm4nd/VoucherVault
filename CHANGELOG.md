@@ -1,3 +1,10 @@
+## [1.25.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.2...v1.25.3) (2026-02-11)
+
+
+### Bug Fixes
+
+* improve caching logic; fixes [#118](https://github.com/l4rm4nd/VoucherVault/issues/118) ([5825e5e](https://github.com/l4rm4nd/VoucherVault/commit/5825e5e678c0b83a7edf1bc17e5baaa422fd507d))
+
 ## [1.25.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.1...v1.25.2) (2026-02-10)
 
 
@@ -31,13 +38,4 @@
 ### Bug Fixes
 
 * bump packages ([f2f44a9](https://github.com/l4rm4nd/VoucherVault/commit/f2f44a9d93462905b84eca383bfed9ad68dc2a9f))
-
-## [1.24.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.1...v1.24.2) (2026-02-03)
-
-
-### Bug Fixes
-
-* bump Django ([631dbe4](https://github.com/l4rm4nd/VoucherVault/commit/631dbe4d354c3744c826ff90ce57614c6a66f874))
-* trigger ci ([39b95de](https://github.com/l4rm4nd/VoucherVault/commit/39b95de0aab8a25cf02a9f97e0acccb03f0ca08c))
-* trigger ci ([8fb3c68](https://github.com/l4rm4nd/VoucherVault/commit/8fb3c6872568b05032d12b330b8c6aa60ad216e8))
 
