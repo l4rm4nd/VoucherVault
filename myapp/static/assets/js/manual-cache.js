@@ -131,6 +131,7 @@ class ManualCacheManager {
             urlsToCache.push(`/${currentLang}/dashboard`);
             urlsToCache.push(`/${currentLang}/shared-items/`);
             urlsToCache.push(`/${currentLang}/offline/`);
+            urlsToCache.push('/offline/');
 
             // Add all filter combinations
             const types = ['giftcard', 'coupon', 'voucher', 'loyaltycard'];
