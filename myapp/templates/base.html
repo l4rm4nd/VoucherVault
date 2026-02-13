@@ -253,7 +253,7 @@
             </li>
 
             <li>
-              <form method="post" action="{% if 'OIDC_ENABLED'|env == True %}{% url 'oidc_logout' %}{% else %}{% url 'logout' %}{% endif %}" style="display: inline;">
+              <form method="post" action="{% if 'OIDC_ENABLED'|env == True %}{% url 'oidc_logout' %}{% else %}{% url 'logout' %}{% endif %}" style="display: inline;" id="logout-form">
                 {% csrf_token %}
                 <button type="submit" class="dropdown-item d-flex align-items-center">
                   <i class="bi bi-box-arrow-right"></i>
@@ -398,6 +398,44 @@
     document.getElementById('languageSelect').addEventListener('change', function() {
       document.getElementById('languageForm').submit();
     });
+
+    // CSRF Fix: Force page reload before logout to get fresh CSRF token
+    const logoutForm = document.getElementById('logout-form');
+    if (logoutForm) {
+      logoutForm.addEventListener('submit', function(e) {
+        // Check if we just reloaded (to avoid infinite loop)
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (!urlParams.has('sw-bypass')) {
+          // First click: reload page with sw-bypass to get fresh content
+          e.preventDefault();
+          console.log('[Logout] Reloading page to get fresh CSRF token...');
+          
+          // Store logout intent in sessionStorage
+          sessionStorage.setItem('pending-logout', 'true');
+          
+          // Reload with cache bypass
+          const url = new URL(window.location.href);
+          url.searchParams.set('sw-bypass', '1');
+          window.location.href = url.toString();
+        } else {
+          // Second click after reload: proceed with logout
+          console.log('[Logout] Fresh page loaded, proceeding with logout');
+          sessionStorage.removeItem('pending-logout');
+          // Let form submit normally
+        }
+      });
+      
+      // Auto-submit logout if we just reloaded for logout
+      if (sessionStorage.getItem('pending-logout') === 'true') {
+        console.log('[Logout] Auto-submitting after page refresh');
+        sessionStorage.removeItem('pending-logout');
+        // Small delay to ensure page is fully loaded
+        setTimeout(() => {
+          logoutForm.submit();
+        }, 100);
+      }
+    }
   </script>
 
 </body>
