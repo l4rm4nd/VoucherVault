@@ -44,19 +44,20 @@ class ManualCacheManager {
     }
 
     /**
-     * Get remaining cache time in hours and minutes
+     * Get remaining cache time in hours, minutes, and seconds
      */
     getRemainingTime() {
         const timestamp = localStorage.getItem(this.CACHE_KEY);
-        if (!timestamp) return { hours: 0, minutes: 0 };
+        if (!timestamp) return { hours: 0, minutes: 0, seconds: 0 };
         
         const age = Date.now() - parseInt(timestamp);
         const remaining = Math.max(0, this.CACHE_DURATION - age);
         
         const hours = Math.floor(remaining / (60 * 60 * 1000));
         const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((remaining % (60 * 1000)) / 1000);
         
-        return { hours, minutes };
+        return { hours, minutes, seconds };
     }
 
     /**
@@ -82,8 +83,8 @@ class ManualCacheManager {
         console.log('[ManualCache] Updating status, valid:', isValid);
 
         if (isValid) {
-            const { hours, minutes } = this.getRemainingTime();
-            statusElement.textContent = `${hours}h ${minutes}m left`;
+            const { hours, minutes, seconds } = this.getRemainingTime();
+            statusElement.textContent = `${hours}h ${minutes}m ${seconds}s left`;
             statusElement.className = 'badge bg-success ms-2';
             if (buttonTextElement) {
                 buttonTextElement.textContent = 'Refresh Cache';
