@@ -1,3 +1,10 @@
+## [1.25.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.5...v1.25.6) (2026-02-13)
+
+
+### Bug Fixes
+
+* service worker adheres to cache expiry date; fixes [#120](https://github.com/l4rm4nd/VoucherVault/issues/120) ([e13b50f](https://github.com/l4rm4nd/VoucherVault/commit/e13b50f064c801bb0c48ae88dc30915f725b96b6))
+
 ## [1.25.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.4...v1.25.5) (2026-02-13)
 
 
@@ -26,11 +33,4 @@
 
 * add purge cache button ([d7b694f](https://github.com/l4rm4nd/VoucherVault/commit/d7b694f5fc8057e74e5f0ebc49652fd230b9b2c9))
 * exclude oidc flow from caching ([f6185ad](https://github.com/l4rm4nd/VoucherVault/commit/f6185ad62352b1f0331bebf1dcb1b8b9455fc4eb))
-
-## [1.25.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.0...v1.25.1) (2026-02-10)
-
-
-### Bug Fixes
-
-* remove legacy caching when online ([3c309cd](https://github.com/l4rm4nd/VoucherVault/commit/3c309cdb53b911bbe59eb4ea66ed5f89110dc6e4))
 
