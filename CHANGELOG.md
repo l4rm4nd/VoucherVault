@@ -1,3 +1,10 @@
+## [1.25.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.4...v1.25.5) (2026-02-13)
+
+
+### Bug Fixes
+
+* CSRF error when logging out from cached page ([5b868b0](https://github.com/l4rm4nd/VoucherVault/commit/5b868b0efc1d399891df4f26653c89a05bb43d4c))
+
 ## [1.25.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.3...v1.25.4) (2026-02-11)
 
 
@@ -26,16 +33,4 @@
 ### Bug Fixes
 
 * remove legacy caching when online ([3c309cd](https://github.com/l4rm4nd/VoucherVault/commit/3c309cdb53b911bbe59eb4ea66ed5f89110dc6e4))
-
-## [1.25.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.24.3...v1.25.0) (2026-02-10)
-
-
-### Features
-
-* adjust pwa for offline caching ([4f37c08](https://github.com/l4rm4nd/VoucherVault/commit/4f37c084806557bd48c390af03b6032798dd71a0))
-
-
-### Bug Fixes
-
-* add cache button and cache for 48h max ([5cccacb](https://github.com/l4rm4nd/VoucherVault/commit/5cccacb3c46646cde9424d85de620b387dd3d9ad))
 
