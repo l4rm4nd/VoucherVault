@@ -1,3 +1,10 @@
+## [1.25.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.6...v1.25.7) (2026-02-28)
+
+
+### Bug Fixes
+
+* bump celery beat ([1e4635f](https://github.com/l4rm4nd/VoucherVault/commit/1e4635f87cea06bb77b05af1c0a4c0e9144394db))
+
 ## [1.25.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.5...v1.25.6) (2026-02-13)
 
 
@@ -25,12 +32,4 @@
 ### Bug Fixes
 
 * improve caching logic; fixes [#118](https://github.com/l4rm4nd/VoucherVault/issues/118) ([5825e5e](https://github.com/l4rm4nd/VoucherVault/commit/5825e5e678c0b83a7edf1bc17e5baaa422fd507d))
-
-## [1.25.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.1...v1.25.2) (2026-02-10)
-
-
-### Bug Fixes
-
-* add purge cache button ([d7b694f](https://github.com/l4rm4nd/VoucherVault/commit/d7b694f5fc8057e74e5f0ebc49652fd230b9b2c9))
-* exclude oidc flow from caching ([f6185ad](https://github.com/l4rm4nd/VoucherVault/commit/f6185ad62352b1f0331bebf1dcb1b8b9455fc4eb))
 
