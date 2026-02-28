@@ -19,4 +19,4 @@ mozilla-django-oidc==5.0.2
 
 # TASKS
 celery[redis]
-django-celery-beat==2.8.1
+django-celery-beat==2.9.0
