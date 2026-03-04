@@ -1,3 +1,10 @@
+## [1.25.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.7...v1.25.8) (2026-03-04)
+
+
+### Bug Fixes
+
+* bump Django ([6eeb47d](https://github.com/l4rm4nd/VoucherVault/commit/6eeb47db60aba7db7774ad1b2cdfd7a64decccdf))
+
 ## [1.25.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.6...v1.25.7) (2026-02-28)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * light theme switching (fixes [#117](https://github.com/l4rm4nd/VoucherVault/issues/117)) ([c125199](https://github.com/l4rm4nd/VoucherVault/commit/c125199816cdef514ff6ceee8a220c6ccd3c1983))
-
-## [1.25.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.2...v1.25.3) (2026-02-11)
-
-
-### Bug Fixes
-
-* improve caching logic; fixes [#118](https://github.com/l4rm4nd/VoucherVault/issues/118) ([5825e5e](https://github.com/l4rm4nd/VoucherVault/commit/5825e5e678c0b83a7edf1bc17e5baaa422fd507d))
 
