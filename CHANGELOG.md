@@ -1,3 +1,10 @@
+## [1.26.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.8...v1.26.0) (2026-03-14)
+
+
+### Features
+
+* add redeem_code, code_type, and pin fields to get_stats response ([7a70675](https://github.com/l4rm4nd/VoucherVault/commit/7a706752b9fbf1b26304f640e93b6668850c55a5))
+
 ## [1.25.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.7...v1.25.8) (2026-03-04)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * CSRF error when logging out from cached page ([5b868b0](https://github.com/l4rm4nd/VoucherVault/commit/5b868b0efc1d399891df4f26653c89a05bb43d4c))
-
-## [1.25.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.3...v1.25.4) (2026-02-11)
-
-
-### Bug Fixes
-
-* light theme switching (fixes [#117](https://github.com/l4rm4nd/VoucherVault/issues/117)) ([c125199](https://github.com/l4rm4nd/VoucherVault/commit/c125199816cdef514ff6ceee8a220c6ccd3c1983))
 
