@@ -1,3 +1,10 @@
+## [1.27.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.1...v1.27.2) (2026-04-07)
+
+
+### Bug Fixes
+
+* bump base image ([a843dcb](https://github.com/l4rm4nd/VoucherVault/commit/a843dcb83599974eb611f41ec05b5e30a42f0368)), closes [#127](https://github.com/l4rm4nd/VoucherVault/issues/127)
+
 ## [1.27.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.0...v1.27.1) (2026-04-07)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * add redeem_code, code_type, and pin fields to get_stats response ([7a70675](https://github.com/l4rm4nd/VoucherVault/commit/7a706752b9fbf1b26304f640e93b6668850c55a5))
-
-## [1.25.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.7...v1.25.8) (2026-03-04)
-
-
-### Bug Fixes
-
-* bump Django ([6eeb47d](https://github.com/l4rm4nd/VoucherVault/commit/6eeb47db60aba7db7774ad1b2cdfd7a64decccdf))
 
