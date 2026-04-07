@@ -1,3 +1,10 @@
+## [1.27.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.26.1...v1.27.0) (2026-04-07)
+
+
+### Features
+
+* ui redesign ([89ee69d](https://github.com/l4rm4nd/VoucherVault/commit/89ee69d4894a04b6631c4fb63ed0579f7931a5d6)), closes [#88](https://github.com/l4rm4nd/VoucherVault/issues/88) [#116](https://github.com/l4rm4nd/VoucherVault/issues/116)
+
 ## [1.26.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.26.0...v1.26.1) (2026-04-07)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump celery beat ([1e4635f](https://github.com/l4rm4nd/VoucherVault/commit/1e4635f87cea06bb77b05af1c0a4c0e9144394db))
-
-## [1.25.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.5...v1.25.6) (2026-02-13)
-
-
-### Bug Fixes
-
-* service worker adheres to cache expiry date; fixes [#120](https://github.com/l4rm4nd/VoucherVault/issues/120) ([e13b50f](https://github.com/l4rm4nd/VoucherVault/commit/e13b50f064c801bb0c48ae88dc30915f725b96b6))
 
