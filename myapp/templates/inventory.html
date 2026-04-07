@@ -868,10 +868,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById('searchInput');
   const filterForm = document.getElementById('filterForm');
   let searchTimeout;
+  const isDesktop = window.innerWidth > 768;
 
   if (searchInput) {
-    // Auto-focus if has value
-    if (searchInput.value) {
+    // Auto-focus on desktop or if has value (to maintain cursor position after search)
+    if (isDesktop || searchInput.value) {
       searchInput.focus();
       searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
     }

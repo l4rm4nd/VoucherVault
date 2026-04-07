@@ -628,10 +628,35 @@ body.dark-mode .status-badge.shared-by-me {
 </section>
 
 <script>
-// Search on enter
-document.getElementById('searchInput').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    document.getElementById('filterForm').submit();
+document.addEventListener("DOMContentLoaded", function () {
+  // Real-time search with debounce
+  const searchInput = document.getElementById('searchInput');
+  let searchTimeout;
+  const isDesktop = window.innerWidth > 768;
+
+  if (searchInput) {
+    // Auto-focus on desktop or if has value (to maintain cursor position after search)
+    if (isDesktop || searchInput.value) {
+      searchInput.focus();
+      searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+    }
+
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function() {
+        // Get current URL params
+        const url = new URL(window.location.href);
+        const query = searchInput.value.trim();
+        
+        if (query) {
+          url.searchParams.set('query', query);
+        } else {
+          url.searchParams.delete('query');
+        }
+        
+        window.location.href = url.toString();
+      }, 400);
+    });
   }
 });
 
