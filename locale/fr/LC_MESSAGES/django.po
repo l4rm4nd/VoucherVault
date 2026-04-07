@@ -499,8 +499,8 @@ msgid "Mark as Used"
 msgstr "Marquer comme utilisé"
 
 #: myapp/templates/view-item.html:120
-msgid "Shared With:"
-msgstr "Partagé avec :"
+msgid "Shared With"
+msgstr "Partagé avec"
 
 #: myapp/templates/view-item.html:127
 msgid "Are you sure you want to unshare this item?"
@@ -3746,3 +3746,95 @@ msgstr "Afficher la date d'émission"
 
 msgid "Show expiry date"
 msgstr "Afficher la date d'expiration"
+
+msgid "New"
+msgstr "Nouveau"
+
+msgid "Compact"
+msgstr "Compact"
+
+msgid "No items found"
+msgstr "Aucun résultat trouvé"
+
+msgid "Try adjusting your filters or create a new item."
+msgstr "Essayez de modifier vos critères de recherche ou créez un nouvel élément."
+
+msgid "Tap to reveal"
+msgstr "Appuyez pour afficher"
+
+msgid "Tap"
+msgstr "Appuyez"
+
+msgid "Search users..."
+msgstr "Rechercher des utilisateurs..."
+
+msgid "No users found"
+msgstr "Aucun utilisateur trouvé"
+
+msgid "Click to select multiple users"
+msgstr "Cliquez pour sélectionner plusieurs utilisateurs"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "No other users available to share with"
+msgstr "Aucun autre utilisateur disponible pour le partage"
+
+msgid "From"
+msgstr "De"
+
+msgid "You shared this item"
+msgstr "Vous avez partagé cet élément"
+
+msgid "No shared items"
+msgstr "Aucun élément partagé"
+
+msgid "Items shared with you or by you will appear here."
+msgstr "Les éléments partagés avec vous ou par vous apparaîtront ici."
+
+msgid "shared item"
+msgid_plural "shared items"
+msgstr[0] "élément partagé"
+msgstr[1] "éléments partagés"
+
+msgid "Copy code"
+msgstr "Copier le code"
+
+msgid "Dates"
+msgstr "Dates"
+
+msgid "Code Information"
+msgstr "Informations sur le code"
+
+msgid "Additional Information"
+msgstr "Informations supplémentaires"
+
+msgid "Overview of your collection"
+msgstr "Aperçu de votre collection"
+
+msgid "My Collection"
+msgstr "Ma collection"
+
+msgid "Status Overview"
+msgstr "Aperçu du statut"
+
+msgid "Shared by You"
+msgstr "Partagé par vous"
+
+msgid "Shared with You"
+msgstr "Partagé avec vous"
+
+msgid "By type"
+msgstr "Par type"
+
+msgid "No items yet"
+msgstr "Aucun élément encore"
+
+#, python-format
+msgid "%(counter)s item found"
+msgid_plural "%(counter)s items found"
+msgstr[0] "%(counter)s élément trouvé"
+msgstr[1] "%(counter)s éléments trouvés"
+
+msgid "Search by name or issuer..."
+msgstr "Rechercher par nom ou émetteur..."

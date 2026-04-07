@@ -98,7 +98,12 @@ def dashboard(request):
     # Calculate soon-to-expire date
     soon_expiry_date = now() + timedelta(days=threshold_days)
     # Count the number of items soon expiring based on EXPIRY_THRESHOLD_DAYS
-    soon_expiring_items = items.filter(expiry_date__gte=now(), expiry_date__lt=soon_expiry_date).count()
+    soon_expiring_items = Item.objects.filter(
+        user=user, 
+        is_used=False,
+        expiry_date__gte=now(), 
+        expiry_date__lt=soon_expiry_date
+    ).count()
 
     context = {
         'total_items': total_items,
@@ -139,7 +144,7 @@ def show_items(request):
     elif filter_value == 'soon_expiring':
         threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
         soon_expiry_date = now() + timedelta(days=threshold_days)
-        items = Item.objects.filter(user=user, expiry_date__gte=now(), expiry_date__lt=soon_expiry_date)
+        items = Item.objects.filter(user=user, is_used=False, expiry_date__gte=now(), expiry_date__lt=soon_expiry_date)
     else:
         items = Item.objects.filter(user=user)
         
@@ -174,8 +179,8 @@ def show_items(request):
     # Determine sort direction
     order_prefix = '-' if sort_order == 'desc' else ''
     
-    # Apply sorting
-    items = items.order_by(f'{order_prefix}{sort_by}')
+    # Apply sorting - pinned items first, then by user preference
+    items = items.order_by('-is_pinned', f'{order_prefix}{sort_by}')
 
     items_with_qr = []
 
@@ -567,6 +572,9 @@ def verify_apprise_urls(request):
 def sharing_center(request):
     current_user = request.user
     today = now().date()
+    
+    # Get filter parameter
+    filter_type = request.GET.get('filter', 'all')
 
     # Retrieve or create user preferences
     preferences, _ = UserPreference.objects.get_or_create(user=current_user)
@@ -602,11 +610,24 @@ def sharing_center(request):
                 }
 
     shared_items = list(unique_items.values())
+    total_count = len(shared_items)
+    with_me_count = len([item for item in shared_items if item.get('shared_with_me', False)])
+    by_me_count = len([item for item in shared_items if not item.get('shared_with_me', False)])
+    
+    # Apply filter
+    if filter_type == 'with_me':
+        shared_items = [item for item in shared_items if item.get('shared_with_me', False)]
+    elif filter_type == 'by_me':
+        shared_items = [item for item in shared_items if not item.get('shared_with_me', False)]
 
     return render(request, 'sharing_center.html', {
         'shared_items': shared_items,
         'current_date': timezone.now(),
         'preferences': preferences,
+        'current_filter': filter_type,
+        'total_count': total_count,
+        'with_me_count': with_me_count,
+        'by_me_count': by_me_count,
     })
 
 @login_required
@@ -790,3 +811,31 @@ def update_user_preferences(request):
         form = UserPreferenceForm(instance=preferences)
 
     return render(request, 'update_preferences.html', {'form': form})
+
+
+@require_POST
+@login_required
+def toggle_pin_item(request, item_uuid):
+    """Toggle the pinned status of an item"""
+    item = get_object_or_404(Item, id=item_uuid, user=request.user)
+    item.is_pinned = not item.is_pinned
+    item.save()
+    
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'success': True, 'is_pinned': item.is_pinned})
+    
+    return redirect('show_items')
+
+
+@require_POST
+@login_required  
+def toggle_view_mode(request):
+    """Toggle between compact and standard view modes"""
+    preferences, _ = UserPreference.objects.get_or_create(user=request.user)
+    preferences.view_mode = 'standard' if preferences.view_mode == 'compact' else 'compact'
+    preferences.save()
+    
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'success': True, 'view_mode': preferences.view_mode})
+    
+    return redirect('show_items')

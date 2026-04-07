@@ -4,331 +4,717 @@
 
 {% block content %}
 
-<div class="pagetitle">
-  <h1>{% trans "Dashboard" %}</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Home" %}</a></li>
-      <li class="breadcrumb-item active">{% trans "Dashboard" %}</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
+<style>
+/* Modern Dashboard Styles */
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
-<section class="section dashboard">
-  <div class="row">
+.dashboard-header {
+  margin-bottom: 2rem;
+}
 
-    <!-- Left side columns -->
-    <div class="col-lg-8">
-      <div class="row">
+.dashboard-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-color, #212529);
+}
 
-        <!-- Giftcards -->
-        <div class="col-6">
-          <div class="card info-card dashboard-giftcard">
-            <a href="{% url 'show_items' %}?type=giftcard" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "My Giftcards" %}</span></h5>
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-postcard-heart-fill"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ giftcards_count }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End Giftcards Card -->   
+.dashboard-subtitle {
+  color: var(--text-muted, #6c757d);
+  font-size: 0.95rem;
+  margin: 0;
+}
 
-        <!-- Coupons -->
-        <div class="col-6">
-          <div class="card info-card dashboard-coupon">
-            <a href="{% url 'show_items' %}?type=coupon" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "My Coupons" %}</span></h5>
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-bookmarks-fill" style="transform: rotate(270deg)"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ coupons_count }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End Coupons Card -->
+/* Section Headers */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-color, #dee2e6);
+}
 
-        <!-- Vouchers -->
-        <div class="col-6">
-          <div class="card info-card dashboard-voucher">
-            <a href="{% url 'show_items' %}?type=voucher" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "My Vouchers" %}</span></h5>
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-postcard"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ vouchers_count }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End Vouchers Card -->        
+.section-header i {
+  font-size: 1.25rem;
+  color: var(--primary-color, #4154f1);
+}
 
-        <!-- Loyalty -->
-        <div class="col-6">
-          <div class="card info-card dashboard-loyalty">
-            <a href="{% url 'show_items' %}?type=loyaltycard" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "My Loyalty Cards" %}</span></h5>
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-person-vcard-fill"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ loyaltycards_count }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End Loyalty Card -->         
+.section-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color, #212529);
+}
 
-        <!-- Total Items Card -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card revenue-card">
-            <a href="{% url 'show_items' %}?status=available" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Available" %}</span></h5>
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-boxes"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ available_items }}</h6>
-                </div>
-              </div>
-            </div>
+.stats-grid.two-col {
+  grid-template-columns: repeat(2, 1fr);
+}
 
-          </div>
-        </div><!-- End Total Items Card -->
+@media (max-width: 576px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-        <!-- Available Items Card -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card customers-card">
-            <a href="{% url 'show_items' %}?status=used" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Used" %}</span></h5>
+/* Stat Card */
+.stat-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="color: #5470c6;">
-                  <i class="bi bi-bag-check"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ used_items }}</h6>
-                </div>
-              </div>
-            </div>
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
 
-          </div>
-        </div><!-- End Available Items Card -->
+.stat-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
 
-        <!-- Available Items Card -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card customers-card">
-            <a href="{% url 'show_items' %}?status=expired" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Expired" %}</span></h5>
+.stat-card-content {
+  flex: 1;
+}
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="color: #7e3434;">
-                  <i class="bi bi-calendar-x"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ expired_items }}</h6>
-                </div>
-              </div>
-            </div>
+.stat-card-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted, #6c757d);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 
-          </div>
-        </div><!-- End Available Items Card -->
+.stat-card-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-color, #212529);
+  line-height: 1.2;
+}
 
-        <!-- Soon Expiring Items Card -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card customers-card">
-            <a href="{% url 'show_items' %}?status=soon_expiring" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Items" %} <span>| {% trans "Soon Expiring" %}</span></h5>
+/* Color Variants */
+.stat-card.giftcard .stat-card-icon {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-clock-history"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ soon_expiring_items }}</h6>
-                </div>
-              </div>
-            </div>
+.stat-card.coupon .stat-card-icon {
+  background: rgba(168, 234, 137, 0.2);
+  color: #22c55e;
+}
 
-          </div>
-        </div><!-- End Available Items Card -->  
+.stat-card.voucher .stat-card-icon {
+  background: rgba(250, 200, 88, 0.2);
+  color: #eab308;
+}
 
-        <!-- Shared Items By You Tile -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card shared-items-card">
-            <a href="{% url 'show_items' %}?status=shared_by_me" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Shared Items" %} <span>| {% trans "By You" %}</span></h5>
+.stat-card.loyalty .stat-card-icon {
+  background: rgba(137, 166, 255, 0.2);
+  color: #3b82f6;
+}
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-send-check"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ shared_items_count_by_you }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End Shared Items By You Tile -->
+.stat-card.available .stat-card-icon {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
 
-        <!-- Shared Items With You Tile -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card shared-items-card">
-            <a href="{% url 'show_items' %}?status=shared_with_me" class="stretched-link"></a>
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Shared Items" %} <span>| {% trans "With You" %}</span></h5>
+.stat-card.used .stat-card-icon {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-share"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ shared_items_count_with_you }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End Shared Items With You Tile -->        
+.stat-card.expired .stat-card-icon {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
 
-      </div>
-    </div><!-- End Left side columns -->
+.stat-card.soon-expiring .stat-card-icon {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
 
-    <!-- Right side columns -->
-    <div class="col-lg-4">
+.stat-card.shared .stat-card-icon {
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+}
 
-        <!-- Total Value Card -->
-        <div class="col-12">
-          <div class="card info-card sales-card">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Total Value" %} <span>| {% trans "Available Items" %}</span></h5>
+.stat-card.total-value .stat-card-icon {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-cash-coin"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>{{ total_value|floatformat:2 }}</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- End Total Value Card -->         
-      <!-- Item Distribution -->
-      <div class="card">
+/* Dashboard Layout */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+  align-items: start;
+}
 
-        <div class="card-body pb-0">
-          <h5 class="card-title">{% trans "Item Distribution" %} <span>| {% trans "Total" %}</span></h5>
+@media (max-width: 1024px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-sidebar {
+    order: -1;
+  }
+  
+  .dashboard-sidebar .chart-card {
+    display: none;
+  }
+}
 
-          <div id="itemDistributionChart" style="min-height: 400px;" class="echart"></div>
+.dashboard-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
-          <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Function to set chart options
-                const setChartOptions = (isDarkMode) => {
-                    return {
-                        tooltip: {
-                            trigger: 'item',
-                            backgroundColor: isDarkMode ? '#333' : '#fff',
-                            borderColor: isDarkMode ? '#aaa' : '#ccc',
-                            textStyle: {
-                                color: isDarkMode ? '#fff' : '#333'
-                            }
-                        },
-                        legend: {
-                            top: '5%',
-                            left: 'center',
-                            textStyle: {
-                                color: isDarkMode ? '#fff' : '#333'
-                            }
-                        },
-                        series: [{
-                            name: 'Item Distribution',
-                            type: 'pie',
-                            radius: ['45%', '70%'],
-                            avoidLabelOverlap: false,
-                            label: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                label: {
-                                    show: true,
-                                    fontSize: '18',
-                                    fontWeight: 'bold',
-                                    color: isDarkMode ? '#fff' : '#333'
-                                }
-                            },
-                            labelLine: {
-                                show: false
-                            },
-                            data: [
-                                { value: {{ coupons_count }}, name: "{% trans "Coupons" %}" },
-                                { value: {{ vouchers_count }}, name: "{% trans "Vouchers" %}" },
-                                { value: {{ giftcards_count }}, name: "{% trans "Gift Cards" %}" },
-                                { value: {{ loyaltycards_count }}, name: "{% trans "Loyalty Cards" %}" }
-                            ],
-                            itemStyle: {
-                                color: function(params) {
-                                    const colors = isDarkMode 
-                                        ? ['#476439', '#7c6128', '#7e3434', '#5470c6']
-                                        : ['#a8ea89', '#fac858', '#ff7979', '#89a6ff']
-                                    return colors[params.dataIndex];
-                                }
-                            }
-                        }]
-                    };
-                };
-        
-                // Initialize the chart
-                const initializeChart = () => {
-                    const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-                    const chart = echarts.init(document.querySelector("#itemDistributionChart"));
-                    const chartOptions = setChartOptions(isDarkMode);
-                    chart.setOption(chartOptions);
-                    return chart;
-                };
-        
-                // Create the initial chart
-                let chart = initializeChart();
-        
-                // Add event listener for the dark mode toggle button
-                document.getElementById('darkModeToggle').addEventListener('click', () => {
-                    setTimeout(() => {
-                        chart.dispose(); // Dispose of the current chart instance
-                        chart = initializeChart(); // Reinitialize the chart
-                    }, 100);
-                });
-            });
-        </script>
-        
+.dashboard-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
-        </div>
-      </div><!-- End Item Distribution -->
+/* Chart Card */
+.chart-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
 
-    </div><!-- End Right side columns -->
+.chart-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
 
+.chart-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color, #212529);
+  margin: 0;
+}
+
+.chart-card-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted, #6c757d);
+}
+
+/* Value Display Card */
+.value-display {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: white;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.value-display-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.value-display-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.value-display-subtitle {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+/* Quick Stats Row */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.quick-stat {
+  text-align: center;
+}
+
+.quick-stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.quick-stat-label {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Section */
+.dashboard-section {
+  margin-bottom: 0;
+}
+
+/* Empty State */
+.empty-chart {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted, #6c757d);
+}
+
+.empty-chart i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+}
+
+.empty-chart p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode {
+  --card-bg: #1e1e1e;
+  --border-color: #333;
+  --text-color: #e0e0e0;
+  --text-muted: #999;
+}
+
+body.dark-mode .stat-card,
+body.dark-mode .chart-card {
+  background: var(--card-bg, #1e1e1e);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .stat-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .stat-card-label {
+  color: #999;
+}
+
+body.dark-mode .stat-card-value {
+  color: #e0e0e0;
+}
+
+body.dark-mode .value-display {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+body.dark-mode .section-header {
+  border-color: #333;
+}
+
+body.dark-mode .section-header h2 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .chart-card-title {
+  color: #e0e0e0;
+}
+
+body.dark-mode .stat-card.giftcard .stat-card-icon {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+body.dark-mode .stat-card.coupon .stat-card-icon {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+body.dark-mode .stat-card.voucher .stat-card-icon {
+  background: rgba(234, 179, 8, 0.2);
+}
+
+body.dark-mode .stat-card.loyalty .stat-card-icon {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+body.dark-mode .stat-card.available .stat-card-icon,
+body.dark-mode .stat-card.used .stat-card-icon,
+body.dark-mode .stat-card.expired .stat-card-icon,
+body.dark-mode .stat-card.soon-expiring .stat-card-icon,
+body.dark-mode .stat-card.shared .stat-card-icon,
+body.dark-mode .stat-card.total-value .stat-card-icon {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .stat-card-value {
+    font-size: 1.5rem;
+  }
+  
+  .stat-card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+  
+  .value-display-value {
+    font-size: 1.75rem;
+  }
+  
+  .quick-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .quick-stat-value {
+    font-size: 1rem;
+  }
+}
+</style>
+
+<div class="dashboard-container">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1>{% trans "Dashboard" %}</h1>
+    <p class="dashboard-subtitle">{% trans "Overview of your collection" %}</p>
   </div>
-</section>
+
+  <div class="dashboard-layout">
+    <!-- Main Content -->
+    <div class="dashboard-main">
+      
+      <!-- Item Types Section -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <i class="bi bi-collection"></i>
+          <h2>{% trans "My Collection" %}</h2>
+        </div>
+        <div class="stats-grid">
+          <a href="{% url 'show_items' %}?type=giftcard" class="stat-card giftcard">
+            <div class="stat-card-icon">
+              <i class="bi bi-gift"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Gift Cards" %}</div>
+              <div class="stat-card-value">{{ giftcards_count }}</div>
+            </div>
+          </a>
+          
+          <a href="{% url 'show_items' %}?type=coupon" class="stat-card coupon">
+            <div class="stat-card-icon">
+              <i class="bi bi-ticket-perforated"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Coupons" %}</div>
+              <div class="stat-card-value">{{ coupons_count }}</div>
+            </div>
+          </a>
+          
+          <a href="{% url 'show_items' %}?type=voucher" class="stat-card voucher">
+            <div class="stat-card-icon">
+              <i class="bi bi-postcard"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Vouchers" %}</div>
+              <div class="stat-card-value">{{ vouchers_count }}</div>
+            </div>
+          </a>
+          
+          <a href="{% url 'show_items' %}?type=loyaltycard" class="stat-card loyalty">
+            <div class="stat-card-icon">
+              <i class="bi bi-person-vcard"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Loyalty Cards" %}</div>
+              <div class="stat-card-value">{{ loyaltycards_count }}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Status Section -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <i class="bi bi-bar-chart"></i>
+          <h2>{% trans "Status Overview" %}</h2>
+        </div>
+        <div class="stats-grid">
+          <a href="{% url 'show_items' %}?status=available" class="stat-card available">
+            <div class="stat-card-icon">
+              <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Available" %}</div>
+              <div class="stat-card-value">{{ available_items }}</div>
+            </div>
+          </a>
+          
+          <a href="{% url 'show_items' %}?status=used" class="stat-card used">
+            <div class="stat-card-icon">
+              <i class="bi bi-bag-check"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Used" %}</div>
+              <div class="stat-card-value">{{ used_items }}</div>
+            </div>
+          </a>
+          
+          <a href="{% url 'show_items' %}?status=expired" class="stat-card expired">
+            <div class="stat-card-icon">
+              <i class="bi bi-x-circle"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Expired" %}</div>
+              <div class="stat-card-value">{{ expired_items }}</div>
+            </div>
+          </a>
+          
+          <a href="{% url 'show_items' %}?status=soon_expiring" class="stat-card soon-expiring">
+            <div class="stat-card-icon">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Soon Expiring" %}</div>
+              <div class="stat-card-value">{{ soon_expiring_items }}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Shared Items Section -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <i class="bi bi-share"></i>
+          <h2>{% trans "Shared Items" %}</h2>
+        </div>
+        <div class="stats-grid two-col">
+          <a href="{% url 'show_items' %}?status=shared_by_me" class="stat-card shared">
+            <div class="stat-card-icon">
+              <i class="bi bi-send"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Shared by You" %}</div>
+              <div class="stat-card-value">{{ shared_items_count_by_you }}</div>
+            </div>
+          </a>
+          
+          <a href="{% url 'show_items' %}?status=shared_with_me" class="stat-card shared">
+            <div class="stat-card-icon">
+              <i class="bi bi-inbox"></i>
+            </div>
+            <div class="stat-card-content">
+              <div class="stat-card-label">{% trans "Shared with You" %}</div>
+              <div class="stat-card-value">{{ shared_items_count_with_you }}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+      
+      <!-- Total Value Card -->
+      <div class="value-display">
+        <div class="value-display-label">{% trans "Total Value" %}</div>
+        <div class="value-display-value">{{ total_value|floatformat:2 }}</div>
+        <div class="value-display-subtitle">{% trans "Available Items" %}</div>
+        
+        <div class="quick-stats">
+          <div class="quick-stat">
+            <div class="quick-stat-value">{{ giftcards_count }}</div>
+            <div class="quick-stat-label">{% trans "Gift Cards" %}</div>
+          </div>
+          <div class="quick-stat">
+            <div class="quick-stat-value">{{ vouchers_count }}</div>
+            <div class="quick-stat-label">{% trans "Vouchers" %}</div>
+          </div>
+          <div class="quick-stat">
+            <div class="quick-stat-value">{{ coupons_count }}</div>
+            <div class="quick-stat-label">{% trans "Coupons" %}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Distribution Chart -->
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <div>
+            <h3 class="chart-card-title">{% trans "Item Distribution" %}</h3>
+            <span class="chart-card-subtitle">{% trans "By type" %}</span>
+          </div>
+        </div>
+        
+        {% if giftcards_count or coupons_count or vouchers_count or loyaltycards_count %}
+        <div id="itemDistributionChart" style="height: 280px;"></div>
+        {% else %}
+        <div class="empty-chart">
+          <i class="bi bi-pie-chart"></i>
+          <p>{% trans "No items yet" %}</p>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% if giftcards_count or coupons_count or vouchers_count or loyaltycards_count %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const setChartOptions = (isDarkMode) => {
+    return {
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: isDarkMode ? '#2d2d2d' : '#fff',
+        borderColor: isDarkMode ? '#404040' : '#e5e7eb',
+        borderWidth: 1,
+        textStyle: {
+          color: isDarkMode ? '#e5e7eb' : '#374151'
+        },
+        formatter: '{b}: {c} ({d}%)'
+      },
+      legend: {
+        orient: 'horizontal',
+        bottom: 0,
+        left: 'center',
+        itemGap: 16,
+        itemWidth: 12,
+        itemHeight: 12,
+        textStyle: {
+          color: isDarkMode ? '#9ca3af' : '#6b7280',
+          fontSize: 12
+        },
+        formatter: function(name) {
+          const data = {
+            "{% trans "Gift Cards" %}": {{ giftcards_count }},
+            "{% trans "Coupons" %}": {{ coupons_count }},
+            "{% trans "Vouchers" %}": {{ vouchers_count }},
+            "{% trans "Loyalty Cards" %}": {{ loyaltycards_count }}
+          };
+          return name + ' (' + data[name] + ')';
+        }
+      },
+      series: [{
+        name: '{% trans "Item Distribution" %}',
+        type: 'pie',
+        radius: ['40%', '65%'],
+        center: ['50%', '40%'],
+        avoidLabelOverlap: true,
+        itemStyle: {
+          borderRadius: 6,
+          borderColor: isDarkMode ? '#1e1e1e' : '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: '{c}',
+          fontSize: 13,
+          fontWeight: '600',
+          color: isDarkMode ? '#e5e7eb' : '#374151'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 14,
+            fontWeight: '700',
+            color: isDarkMode ? '#f3f4f6' : '#111827'
+          },
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.2)'
+          }
+        },
+        labelLine: {
+          show: true,
+          length: 10,
+          length2: 10,
+          lineStyle: {
+            color: isDarkMode ? '#6b7280' : '#9ca3af'
+          }
+        },
+        data: [
+          { value: {{ giftcards_count }}, name: "{% trans "Gift Cards" %}", itemStyle: { color: '#ef4444' } },
+          { value: {{ coupons_count }}, name: "{% trans "Coupons" %}", itemStyle: { color: '#22c55e' } },
+          { value: {{ vouchers_count }}, name: "{% trans "Vouchers" %}", itemStyle: { color: '#eab308' } },
+          { value: {{ loyaltycards_count }}, name: "{% trans "Loyalty Cards" %}", itemStyle: { color: '#3b82f6' } }
+        ].filter(item => item.value > 0)
+      }]
+    };
+  };
+
+  const initializeChart = () => {
+    const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+    const chartEl = document.querySelector("#itemDistributionChart");
+    if (!chartEl) return null;
+    
+    const chart = echarts.init(chartEl);
+    chart.setOption(setChartOptions(isDarkMode));
+    
+    // Handle resize
+    window.addEventListener('resize', () => chart.resize());
+    
+    return chart;
+  };
+
+  let chart = initializeChart();
+
+  // Dark mode toggle listener
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  if (darkModeToggle && chart) {
+    darkModeToggle.addEventListener('click', () => {
+      setTimeout(() => {
+        chart.dispose();
+        chart = initializeChart();
+      }, 100);
+    });
+  }
+});
+</script>
+{% endif %}
 
 {% endblock content %}

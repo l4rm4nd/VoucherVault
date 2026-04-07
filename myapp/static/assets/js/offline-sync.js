@@ -85,6 +85,7 @@ class OfflineSyncManager {
             console.log('[OfflineSync] Connection restored');
             this.isOnline = true;
             this.updateOnlineStatus(true);
+            this.hideOfflinePageBanner();
             this.syncPendingChanges();
         });
 
@@ -92,31 +93,39 @@ class OfflineSyncManager {
             console.log('[OfflineSync] Connection lost');
             this.isOnline = false;
             this.updateOnlineStatus(false);
+            // Show banner when going offline
+            this.showOfflinePageBanner();
         });
 
-        // Check if page was loaded from cache
-        this.checkIfOfflineResponse();
+        // Check if page was served from service worker cache
+        this.checkIfServedFromCache();
 
         // Initial status check
         this.updateOnlineStatus(navigator.onLine);
     }
 
     /**
-     * Check if the current page response is from cache (offline)
+     * Check if current page was served from service worker cache
      */
-    checkIfOfflineResponse() {
-        // Check if the page was served from cache
-        if (performance && performance.getEntriesByType) {
-            const navEntries = performance.getEntriesByType('navigation');
-            if (navEntries.length > 0 && navEntries[0].transferSize === 0) {
-                // Page loaded from cache
-                this.showOfflinePageBanner();
-            }
-        }
-        
-        // Also check for offline response header from service worker
+    checkIfServedFromCache() {
+        // If offline, definitely show the banner
         if (!navigator.onLine) {
             this.showOfflinePageBanner();
+            return;
+        }
+        
+        // Use Performance API to detect service worker cache
+        if (performance && performance.getEntriesByType) {
+            const navEntries = performance.getEntriesByType('navigation');
+            if (navEntries.length > 0) {
+                const entry = navEntries[0];
+                // workerStart > 0 means service worker was involved
+                // transferSize === 0 means no network transfer (served from cache)
+                if (entry.workerStart > 0 && entry.transferSize === 0) {
+                    console.log('[OfflineSync] Page served from service worker cache');
+                    this.showOfflinePageBanner();
+                }
+            }
         }
     }
 
@@ -143,6 +152,16 @@ class OfflineSyncManager {
         const refreshButton = banner.querySelector('[data-action="refresh"]');
         if (refreshButton) {
             refreshButton.addEventListener('click', () => this.refreshFromNetwork());
+        }
+    }
+
+    /**
+     * Hide the offline banner (when coming back online)
+     */
+    hideOfflinePageBanner() {
+        const banner = document.getElementById('offline-content-banner');
+        if (banner) {
+            banner.remove();
         }
     }
 

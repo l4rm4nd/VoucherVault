@@ -3,41 +3,539 @@
 {% load static %}
 
 {% block content %}
-<div class="pagetitle">
-  <h1>{% trans "Share Item" %}</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'view_item' item.id %}">{{ item.name }}</a></li>
-      <li class="breadcrumb-item active">{% trans "Share" %}</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
+<style>
+/* Share Page Styles */
+.share-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.share-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.share-container {
+  max-width: 700px;
+}
+
+.share-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-color, #eee);
+}
+
+.share-card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color, #eee);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.share-card-header i {
+  font-size: 1.25rem;
+  color: var(--primary-color, #4154f1);
+}
+
+.share-card-header h5 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color, #1e1e1e);
+}
+
+.share-card-body {
+  padding: 1.5rem;
+}
+
+/* Item Preview */
+.item-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--field-bg, #f8f9fa);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.item-preview-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--primary-color, #4154f1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.item-preview-info h6 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color, #1e1e1e);
+}
+
+.item-preview-info span {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+/* User Selection */
+.user-selection-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-color, #1e1e1e);
+  margin-bottom: 0.75rem;
+}
+
+.user-selection-label i {
+  color: var(--primary-color, #4154f1);
+}
+
+.user-search {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.user-search-input {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.5rem;
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #1e1e1e);
+  transition: border-color 0.15s ease;
+}
+
+.user-search-input:focus {
+  outline: none;
+  border-color: var(--primary-color, #4154f1);
+}
+
+.user-search-input::placeholder {
+  color: #999;
+}
+
+.user-search-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.user-item.hidden {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 1.5rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.user-list {
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color, #eee);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.user-item:last-child {
+  border-bottom: none;
+}
+
+.user-item:hover {
+  background: var(--hover-bg, #f8f9fa);
+}
+
+.user-item.selected {
+  background: rgba(65, 84, 241, 0.08);
+}
+
+.user-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--border-color, #dee2e6);
+  margin-right: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.user-item.selected .user-checkbox {
+  background: var(--primary-color, #4154f1);
+  border-color: var(--primary-color, #4154f1);
+  color: white;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 0.85rem;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color, #1e1e1e);
+  margin: 0;
+}
+
+.user-email {
+  font-size: 0.75rem;
+  color: #6c757d;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selection-hint {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.selection-hint i {
+  font-size: 0.9rem;
+}
+
+/* Empty State */
+.empty-users {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.empty-users i {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.5;
+}
+
+.empty-users p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Action Buttons */
+.share-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color, #eee);
+}
+
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-share-primary {
+  background: var(--primary-color, #4154f1);
+  color: white;
+}
+
+.btn-share-primary:hover {
+  background: #3344d1;
+  transform: translateY(-1px);
+}
+
+.btn-share-secondary {
+  background: var(--field-bg, #f8f9fa);
+  color: var(--text-color, #495057);
+  border: 1px solid var(--border-color, #dee2e6);
+}
+
+.btn-share-secondary:hover {
+  background: var(--hover-bg, #e9ecef);
+  color: var(--text-color, #495057);
+}
+
+/* Selected count badge */
+.selected-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.25);
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --card-bg: #1e1e1e;
+  --border-color: #333;
+  --text-color: #e0e0e0;
+  --field-bg: #2a2a2a;
+  --hover-bg: #333;
+  --primary-color: #5a6cf1;
+}
+
+body.dark-mode .user-item.selected {
+  background: rgba(90, 108, 241, 0.15);
+}
+
+body.dark-mode .user-avatar {
+  background: linear-gradient(135deg, #5a6cf1 0%, #8b5cf6 100%);
+}
+
+body.dark-mode .selection-hint {
+  color: #888;
+}
+
+body.dark-mode .user-search-input {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .user-search-input::placeholder {
+  color: #666;
+}
+</style>
+
+<div class="share-header">
+  <div>
+    <h1>{% trans "Share Item" %}</h1>
+    <nav>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'view_item' item.id %}">{{ item.name }}</a></li>
+        <li class="breadcrumb-item active">{% trans "Share" %}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
 
 <section class="section">
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Share this item with others" %}</h5>
-
-          <form method="POST">
-            {% csrf_token %}
-            <div class="mb-3">
-              <label for="shared_users" class="form-label">{% trans "Select Users" %}</label>
-              <select id="shared_users" name="shared_users" class="form-select" multiple>
-                {% for user in users %}
-                <option value="{{ user.id }}">{{ user.username }} ({{ user.email }})</option>
-                {% endfor %}
-              </select>
-              <small class="form-text text-muted">{% trans "Hold down the Ctrl (Windows) or Command (Mac) button to select multiple options." %}</small>
-            </div>
-
-            <button type="submit" class="btn btn-primary">{% trans "Share Item" %}</button>
-          </form>
+  <div class="share-container">
+    <div class="share-card">
+      <div class="share-card-header">
+        <i class="bi bi-share"></i>
+        <h5>{% trans "Share this item with others" %}</h5>
+      </div>
+      
+      <div class="share-card-body">
+        <!-- Item Preview -->
+        <div class="item-preview">
+          <div class="item-preview-icon">
+            {% if item.type == "giftcard" %}
+            <i class="bi bi-gift"></i>
+            {% elif item.type == "coupon" %}
+            <i class="bi bi-percent"></i>
+            {% elif item.type == "loyaltycard" %}
+            <i class="bi bi-person-badge"></i>
+            {% elif item.type == "ticket" %}
+            <i class="bi bi-ticket-perforated"></i>
+            {% else %}
+            <i class="bi bi-credit-card"></i>
+            {% endif %}
+          </div>
+          <div class="item-preview-info">
+            <h6>{{ item.name }}</h6>
+            <span>{{ item.issuer|default:"—" }} · {% if item.type == "giftcard" %}{% trans "Gift Card" %}{% elif item.type == "coupon" %}{% trans "Coupon" %}{% elif item.type == "loyaltycard" %}{% trans "Loyalty Card" %}{% elif item.type == "voucher" %}{% trans "Voucher" %}{% elif item.type == "ticket" %}{% trans "Ticket" %}{% else %}{{ item.get_type_display }}{% endif %}</span>
+          </div>
         </div>
+        
+        <form method="POST" id="share-form">
+          {% csrf_token %}
+          
+          <div class="user-selection-label">
+            <i class="bi bi-people"></i>
+            {% trans "Select Users" %}
+          </div>
+          
+          {% if users %}
+          <div class="user-search">
+            <i class="bi bi-search user-search-icon"></i>
+            <input type="text" class="user-search-input" id="user-search" placeholder="{% trans 'Search users...' %}" autocomplete="off">
+          </div>
+          
+          <div class="user-list" id="user-list">
+            {% for user in users %}
+            <div class="user-item" data-user-id="{{ user.id }}">
+              <div class="user-checkbox">
+                <i class="bi bi-check2" style="display: none;"></i>
+              </div>
+              <div class="user-avatar">{{ user.username|slice:":1"|upper }}</div>
+              <div class="user-info">
+                <p class="user-name">{{ user.username }}</p>
+                <p class="user-email">{{ user.email }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="no-results" id="no-results">
+            <i class="bi bi-search"></i> {% trans "No users found" %}
+          </div>
+          
+          <div class="selection-hint">
+            <i class="bi bi-info-circle"></i>
+            {% trans "Click to select multiple users" %}
+          </div>
+          
+          <!-- Hidden select for form submission -->
+          <select id="shared_users" name="shared_users" multiple style="display: none;">
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+          </select>
+          {% else %}
+          <div class="empty-users">
+            <i class="bi bi-people"></i>
+            <p>{% trans "No other users available to share with" %}</p>
+          </div>
+          {% endif %}
+          
+          <div class="share-actions">
+            <button type="submit" class="btn-share btn-share-primary" {% if not users %}disabled{% endif %}>
+              <i class="bi bi-share"></i>
+              {% trans "Share Item" %}
+              <span class="selected-count" id="selected-count" style="display: none;">0</span>
+            </button>
+            <a href="{% url 'view_item' item.id %}" class="btn-share btn-share-secondary">
+              <i class="bi bi-arrow-left"></i>
+              {% trans "Cancel" %}
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const userList = document.getElementById('user-list');
+  const hiddenSelect = document.getElementById('shared_users');
+  const selectedCountBadge = document.getElementById('selected-count');
+  const searchInput = document.getElementById('user-search');
+  const noResults = document.getElementById('no-results');
+  
+  if (!userList) return;
+  
+  const userItems = userList.querySelectorAll('.user-item');
+  
+  // Click to select
+  userItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const userId = this.dataset.userId;
+      const checkIcon = this.querySelector('.bi-check2');
+      const option = hiddenSelect.querySelector(`option[value="${userId}"]`);
+      
+      this.classList.toggle('selected');
+      
+      if (this.classList.contains('selected')) {
+        checkIcon.style.display = 'block';
+        option.selected = true;
+      } else {
+        checkIcon.style.display = 'none';
+        option.selected = false;
+      }
+      
+      updateSelectedCount();
+    });
+  });
+  
+  // Search filter
+  searchInput?.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    let visibleCount = 0;
+    
+    userItems.forEach(item => {
+      const username = item.querySelector('.user-name').textContent.toLowerCase();
+      const email = item.querySelector('.user-email').textContent.toLowerCase();
+      
+      if (username.includes(query) || email.includes(query)) {
+        item.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+    
+    // Show/hide no results message
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 && query ? 'block' : 'none';
+    }
+  });
+  
+  function updateSelectedCount() {
+    const count = userList.querySelectorAll('.user-item.selected').length;
+    if (count > 0) {
+      selectedCountBadge.textContent = count;
+      selectedCountBadge.style.display = 'inline-flex';
+    } else {
+      selectedCountBadge.style.display = 'none';
+    }
+  }
+});
+</script>
 {% endblock content %}

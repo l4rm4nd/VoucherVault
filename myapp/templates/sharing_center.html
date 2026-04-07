@@ -4,114 +4,516 @@
 {% load extras %}
 
 {% block content %}
-<div class="pagetitle">
-  <h1>{% trans "Shared Items" %}</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
-      <li class="breadcrumb-item active">{% trans "Shared Items" %}</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
+<style>
+/* Shared Items Styles - Matching Inventory */
+.sharing-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
 
-<section class="section dashboard">
-  <div class="row">
+.sharing-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-tab {
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--border-color, #dee2e6);
+  background: var(--card-bg, #fff);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: var(--text-color, #495057);
+  text-decoration: none;
+}
+
+.filter-tab:hover {
+  background: var(--hover-bg, #f8f9fa);
+  color: var(--text-color, #495057);
+}
+
+.filter-tab.active {
+  background: var(--primary-color, #4154f1);
+  color: white;
+  border-color: var(--primary-color, #4154f1);
+}
+
+.filter-tab .count {
+  background: rgba(0,0,0,0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+}
+
+.filter-tab.active .count {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Items Count */
+.items-count {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+/* Items Grid */
+.items-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+@media (max-width: 640px) {
+  .items-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Item Card */
+.item-card {
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  border: 1px solid var(--border-color, #eee);
+  position: relative;
+}
+
+.item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.item-card.is-used {
+  opacity: 0.7;
+}
+
+.item-card.is-expired {
+  opacity: 0.65;
+}
+
+.item-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Card Header with Color Strip */
+.card-color-strip {
+  height: 4px;
+  width: 100%;
+}
+
+/* Card Content */
+.item-card-content {
+  padding: 1rem;
+}
+
+/* Card Top Row */
+.card-top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.item-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #f5f5f5;
+}
+
+.item-main-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-issuer {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color, #1e1e1e);
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Status Badges */
+.status-badges {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+}
+
+.status-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.status-badge.used {
+  background: #cfe2ff;
+  color: #084298;
+}
+
+.status-badge.expired {
+  background: #f8d7da;
+  color: #842029;
+}
+
+.status-badge.shared-with-me {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-badge.shared-by-me {
+  background: #e2e3e5;
+  color: #41464b;
+}
+
+/* Card Meta Row */
+.card-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color, #eee);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.meta-item i {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.meta-item.value-highlight {
+  font-weight: 600;
+  color: var(--success-color, #198754);
+}
+
+.meta-item.expiry-danger {
+  color: var(--danger-color, #dc3545);
+}
+
+/* Shared Info Badge */
+.shared-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--field-bg, #f8f9fa);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.shared-info i {
+  font-size: 1rem;
+  color: var(--primary-color, #4154f1);
+}
+
+.shared-info .shared-label {
+  color: #6c757d;
+}
+
+.shared-info .shared-user {
+  font-weight: 600;
+  color: var(--text-color, #1e1e1e);
+}
+
+/* Item Description */
+.item-description {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color, #eee);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-muted, #6c757d);
+}
+
+.item-description small {
+  display: block;
+  color: inherit;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  margin-bottom: 0.5rem;
+  color: var(--text-color, #1e1e1e);
+}
+
+.empty-state p {
+  margin-bottom: 1.5rem;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --card-bg: #1e1e1e;
+  --border-color: #333;
+  --text-color: #e0e0e0;
+  --field-bg: #2a2a2a;
+  --hover-bg: #2a2a2a;
+  --primary-color: #5a6cf1;
+}
+
+body.dark-mode .item-issuer,
+body.dark-mode .meta-item,
+body.dark-mode .shared-info .shared-label {
+  color: #999;
+}
+
+body.dark-mode .item-description {
+  color: #999;
+}
+
+body.dark-mode .empty-state h3 {
+  color: #e0e0e0;
+}
+
+body.dark-mode .status-badge.shared-with-me {
+  background: #1a3a2a;
+  color: #6ee7b7;
+}
+
+body.dark-mode .status-badge.shared-by-me {
+  background: #333;
+  color: #ccc;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.item-card {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.items-grid .item-card:nth-child(1) { animation-delay: 0.02s; }
+.items-grid .item-card:nth-child(2) { animation-delay: 0.04s; }
+.items-grid .item-card:nth-child(3) { animation-delay: 0.06s; }
+.items-grid .item-card:nth-child(4) { animation-delay: 0.08s; }
+.items-grid .item-card:nth-child(5) { animation-delay: 0.10s; }
+.items-grid .item-card:nth-child(6) { animation-delay: 0.12s; }
+</style>
+
+<div class="sharing-header">
+  <div>
+    <h1>{% trans "Shared Items" %}</h1>
+    <nav>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item active">{% trans "Shared Items" %}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="section">
+  <!-- Filter Tabs -->
+  <div class="filter-tabs">
+    <a href="?filter=all" class="filter-tab {% if not current_filter or current_filter == 'all' %}active{% endif %}">
+      <i class="bi bi-grid-3x3-gap"></i>
+      {% trans "All" %}
+      <span class="count">{{ total_count }}</span>
+    </a>
+    <a href="?filter=with_me" class="filter-tab {% if current_filter == 'with_me' %}active{% endif %}">
+      <i class="bi bi-box-arrow-in-down"></i>
+      {% trans "Shared With Me" %}
+      <span class="count">{{ with_me_count }}</span>
+    </a>
+    <a href="?filter=by_me" class="filter-tab {% if current_filter == 'by_me' %}active{% endif %}">
+      <i class="bi bi-box-arrow-up"></i>
+      {% trans "Shared By Me" %}
+      <span class="count">{{ by_me_count }}</span>
+    </a>
+  </div>
+
+  <!-- Items Count -->
+  <div class="items-count">
+    {% blocktrans count counter=shared_items|length %}{{ counter }} shared item{% plural %}{{ counter }} shared items{% endblocktrans %}
+  </div>
+
+  <!-- Items Grid -->
+  {% if shared_items %}
+  <div class="items-grid">
     {% for entry in shared_items %}
-    <div title="{{ entry.item.description }}" class="col-12 col-md-6">
-      <a href="{% url 'view_item' item_uuid=entry.item.id %}" style="text-decoration: none; color: inherit;">
-        <div id="card-{{ entry.item.id }}" style="background-color: {{ entry.item.tile_color|default:'#placeholder' }}" class="card info-card sales-card card-available
-            {% if entry.item.is_used %} card-used
-            {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
-            {% endif %}">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <h5 class="card-title">
-                  <i class="bi bi-shop"></i> {{ entry.item.issuer }}
-                  <span>&gt; {% trans entry.item.type %}
-                    {% if entry.item.is_used %}
-                      <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
-                    {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
-                      <span style="margin-left: 5px;" class="badge bg-danger text-dark">{% trans "Expired" %}</span>
-                    {% endif %}
-                  </span>
-                </h5>
-                <h6>{{ entry.item.name }}</h6>
-              </div>
-              {% if entry.item.logo_slug %}
-              <img id="logo-{{ entry.item.id }}" 
-                    src="https://img.logo.dev/{{ entry.item.logo_slug }}?token=pk_NaUHDkw4SSeHCapveLJtjg" 
-                    alt="Logo" 
-                    style="width: 50px; height: 50px; border-radius: 10px;" 
-                    onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.item.qr_code_base64 }}';this.style.filter='blur(2px)';">
-              {% else %}
-              <img src="data:image/png;base64,{{ entry.item.qr_code_base64 }}" 
-                    alt="QR Code" 
-                    style="width: 50px; height: 50px; border-radius: 10px; filter: blur(2px)">
-              {% endif %}
-            </div>
-            <div class="item-details">
-              {% if preferences.show_issue_date %}
-              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
-                <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ entry.item.issue_date }}</span>
-              </div>
-              {% endif %}
-              {% if preferences.show_expiry_date %}
-              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
-                <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ entry.item.expiry_date }}</span>
-              </div>
-              {% endif %}
-              {% if entry.item.type != "loyaltycard" %}
-              {% if preferences.show_value %}
-              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
-                {% if entry.item.value_type == "percentage" %}
-                <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percentage" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
-                {% elif entry.item.value_type == "money" %}
-                <i class="bi bi-cash text-muted"></i> <span><b>{% trans "Value" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
-                {% elif entry.item.value_type == "multiplier" %}
-                <i class="bi bi-dice-5 text-muted"></i> <span><b>{% trans "Multiplier" %}:</b> {{ entry.current_value|floatformat:2 }}</span>
+    <div class="item-card 
+                {% if entry.item.is_used %}is-used{% endif %}
+                {% if entry.item.expiry_date|date:'Y-m-d' < current_date|date:'Y-m-d' and not entry.item.is_used %}is-expired{% endif %}">
+      
+      <!-- Color Strip -->
+      <div class="card-color-strip" style="background-color: {{ entry.item.tile_color|default:'#4154f1' }};"></div>
+      
+      <!-- Card Link -->
+      <a href="{% url 'view_item' item_uuid=entry.item.id %}" class="item-card-link">
+        <div class="item-card-content">
+          <!-- Top Row: Logo + Info -->
+          <div class="card-top-row">
+            {% if entry.item.logo_slug %}
+            <img class="item-logo" 
+                 src="https://img.logo.dev/{{ entry.item.logo_slug }}?token=pk_NaUHDkw4SSeHCapveLJtjg" 
+                 alt="{{ entry.item.issuer }}"
+                 onerror="this.onerror=null;this.src='data:image/png;base64,{{ entry.qr_code_base64 }}';this.style.filter='blur(2px)';">
+            {% else %}
+            <img class="item-logo" 
+                 src="data:image/png;base64,{{ entry.qr_code_base64 }}" 
+                 alt="QR Code" 
+                 style="filter: blur(2px);">
+            {% endif %}
+            
+            <div class="item-main-info">
+              <div class="item-issuer">{{ entry.item.issuer }}</div>
+              <h3 class="item-name">{{ entry.item.name }}</h3>
+              
+              <div class="status-badges">
+                {% if entry.shared_with_me %}
+                <span class="status-badge shared-with-me">
+                  <i class="bi bi-box-arrow-in-down"></i> {% trans "Shared With Me" %}
+                </span>
+                {% else %}
+                <span class="status-badge shared-by-me">
+                  <i class="bi bi-box-arrow-up"></i> {% trans "Shared By Me" %}
+                </span>
+                {% endif %}
+                
+                {% if entry.item.is_used %}
+                <span class="status-badge used">{% trans "Used" %}</span>
+                {% elif entry.item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
+                <span class="status-badge expired">{% trans "Expired" %}</span>
                 {% endif %}
               </div>
-              {% endif %}
-              {% endif %}
-              {% if preferences.show_description %}
-              {% if entry.item.description %}
-              <div class="default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }};text-align: justify;">
-                  <b>{% trans "Description" %}:</b><br>
-                  <span class="content">{{ entry.item.description }}</span>
-              </div>
-              {% endif %}
-              {% endif %}
-              <div class="detail-item default-tile" style="background-color: {{ entry.item.tile_color|default:'#placeholder'|darken }}">
-                <i class="bi bi-people text-muted"></i> 
-                <span>
-                  {% if entry.shared_with_me %}
-                    <b>{% trans "Shared With Me" %}</b> ← {{ entry.shared_by.username }}
-                  {% else %}
-                    <b>{% trans "Shared By Me" %}</b>
-                  {% endif %}
-                </span>
-              </div>
-            </div>            
+            </div>
           </div>
+          
+          <!-- Meta Row -->
+          <div class="card-meta-row">
+            {% if entry.item.type != "loyaltycard" and preferences.show_value %}
+            <div class="meta-item value-highlight">
+              {% if entry.item.value_type == "percentage" %}
+              <i class="bi bi-percent"></i> {{ entry.current_value|floatformat:0 }}%
+              {% elif entry.item.value_type == "multiplier" %}
+              <i class="bi bi-x-lg"></i> {{ entry.current_value|floatformat:1 }}
+              {% else %}
+              <i class="bi bi-wallet2"></i> {{ entry.current_value|floatformat:2 }}
+              {% endif %}
+            </div>
+            {% endif %}
+            
+            {% if preferences.show_issue_date %}
+            <div class="meta-item">
+              <i class="bi bi-calendar-plus"></i> 
+              {{ entry.item.issue_date|date:"M d, Y" }}
+            </div>
+            {% endif %}
+            
+            {% if preferences.show_expiry_date %}
+            <div class="meta-item {% if entry.item.expiry_date|date:'Y-m-d' < current_date|date:'Y-m-d' %}expiry-danger{% endif %}">
+              <i class="bi bi-calendar-x"></i> 
+              {{ entry.item.expiry_date|date:"M d, Y" }}
+            </div>
+            {% endif %}
+            
+            <div class="meta-item">
+              {% if entry.item.type == 'voucher' %}
+              <i class="bi bi-ticket-perforated"></i>
+              {% elif entry.item.type == 'giftcard' %}
+              <i class="bi bi-gift"></i>
+              {% elif entry.item.type == 'coupon' %}
+              <i class="bi bi-percent"></i>
+              {% elif entry.item.type == 'loyaltycard' %}
+              <i class="bi bi-star"></i>
+              {% endif %}
+              {% if entry.item.type == "giftcard" %}{% trans "Gift Card" %}{% elif entry.item.type == "coupon" %}{% trans "Coupon" %}{% elif entry.item.type == "loyaltycard" %}{% trans "Loyalty Card" %}{% elif entry.item.type == "voucher" %}{% trans "Voucher" %}{% else %}{{ entry.item.get_type_display }}{% endif %}
+            </div>
+          </div>
+          
+          <!-- Shared Info -->
+          <div class="shared-info">
+            <i class="bi bi-people"></i>
+            {% if entry.shared_with_me %}
+            <span class="shared-label">{% trans "From" %}:</span>
+            <span class="shared-user">{{ entry.shared_by.username }}</span>
+            {% else %}
+            <span class="shared-label">{% trans "You shared this item" %}</span>
+            {% endif %}
+          </div>
+          
+          <!-- Description -->
+          {% if preferences.show_description and entry.item.description %}
+          <div class="item-description">
+            <small>{{ entry.item.description|truncatewords:15 }}</small>
+          </div>
+          {% endif %}
         </div>
       </a>
-    </div><!-- End Items Card -->
+    </div>
     {% endfor %}
   </div>
+  {% else %}
+  <!-- Empty State -->
+  <div class="empty-state">
+    <i class="bi bi-share"></i>
+    <h3>{% trans "No shared items" %}</h3>
+    <p>{% trans "Items shared with you or by you will appear here." %}</p>
+  </div>
+  {% endif %}
 </section>
 {% endblock content %}
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const defaultColor = prefersDark ? '#1e1e1e' : '#f3f3f3';
-  const darkenedDefault = prefersDark ? '#2a2a2a' : '#e0e0e0'; // Optional customization
-
-  // Replace any placeholders for background color
-  document.querySelectorAll('[style*="#placeholder"]').forEach(el => {
-    el.style.backgroundColor = el.classList.contains('detail-item') ? darkenedDefault : defaultColor;
-  });
-});
-</script>

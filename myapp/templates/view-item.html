@@ -5,383 +5,1269 @@
 
 {% block content %}
 <style>
-  /* Blur effect toggle */
-  .opaque {
-    -webkit-filter: blur(5px);
-    filter: blur(5px);
-    cursor: pointer;
-    transition: filter 120ms ease, -webkit-filter 120ms ease;
-  }
+/* Modern Item Detail Styles */
+.detail-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
 
-  /* Fullscreen overlay */
-  .qr-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    display: none;
-    align-items: center;      /* center horizontally */
-    justify-content: center;  /* center vertically   */
-    z-index: 9998;            /* high enough to top everything */
-  }
-  .qr-overlay.show {
+.detail-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Main Layout */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
     display: flex;
+    flex-direction: column;
   }
+  
+  .qr-section {
+    order: -1;
+    position: static !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: auto;
+    top: auto !important;
+  }
+  
+  .main-content {
+    order: 0;
+  }
+  
+  .qr-card {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .pin-card {
+    max-width: 400px;
+    width: 100%;
+    margin: 1rem auto 0;
+  }
+}
 
-  /* Prevent background scroll when overlay open */
-  body.no-scroll {
-    overflow: hidden;
-  }
+/* Item Card */
+.item-detail-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-color, #eee);
+}
 
-  /* QR image */
-  .qr-overlay img {
-    width: 100vw;             /* fill viewport width */
-    height: auto;
-    max-height: 100vh;        /* never exceed viewport height */
-    object-fit: contain;      /* always keep QR visible */
-    -webkit-filter: brightness(1.5) contrast(1.2) saturate(1.05);
-    filter: brightness(1.5) contrast(1.2) saturate(1.05);
-    border-radius: 12px;
-    z-index: 9999;            /* below close button */
-  }
+.card-color-banner {
+  height: 6px;
+  width: 100%;
+}
 
-  /* Close (X) button */
-  #qr-close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10000;           /* above QR image */
-    pointer-events: auto;     /* ensure it’s clickable */
-  }
+.item-detail-content {
+  padding: 1.5rem;
+}
 
-  body:not(.dark-mode) .default-tile {
-    background-color: #e0e0e0;
+/* Item Header */
+.item-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.item-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #f5f5f5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.item-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-issuer {
+  font-size: 0.8rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.item-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-color, #1e1e1e);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.item-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #e9ecef;
+  color: #495057;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+}
+
+.status-badge.used {
+  background: #cfe2ff;
+  color: #084298;
+}
+
+.status-badge.expired {
+  background: #f8d7da;
+  color: #842029;
+}
+
+/* Detail Fields */
+.detail-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-field {
+  background: var(--field-bg, #f8f9fa);
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #eee);
+}
+
+.detail-field-label {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.detail-field-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color, #1e1e1e);
+}
+
+.detail-field-value.value-highlight {
+  color: var(--success-color, #198754);
+}
+
+/* Description */
+.item-description-section {
+  background: var(--field-bg, #f8f9fa);
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #eee);
+  margin-bottom: 1.5rem;
+}
+
+.item-description-section h6 {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.item-description-section p {
+  margin: 0;
+  color: var(--text-color, #1e1e1e);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.action-btn i {
+  font-size: 1rem;
+}
+
+a.action-btn,
+button.action-btn {
+  text-decoration: none;
+}
+
+.action-btn-primary,
+a.action-btn-primary {
+  background: var(--primary-color, #4154f1);
+  color: white !important;
+}
+
+.action-btn-primary:hover,
+a.action-btn-primary:hover {
+  background: #3344d1;
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+.action-btn-danger,
+a.action-btn-danger {
+  background: #dc3545;
+  color: white !important;
+}
+
+.action-btn-danger:hover,
+a.action-btn-danger:hover {
+  background: #bb2d3b;
+  color: white !important;
+}
+
+.action-btn-success,
+a.action-btn-success {
+  background: #198754;
+  color: white !important;
+}
+
+.action-btn-success:hover,
+a.action-btn-success:hover {
+  background: #157347;
+  color: white !important;
+}
+
+.action-btn-warning,
+a.action-btn-warning {
+  background: #ffc107;
+  color: #000 !important;
+}
+
+.action-btn-warning:hover,
+a.action-btn-warning:hover {
+  background: #ffca2c;
+  color: #000 !important;
+}
+
+.action-btn-secondary,
+a.action-btn-secondary {
+  background: #6c757d;
+  color: white !important;
+}
+
+.action-btn-secondary:hover,
+a.action-btn-secondary:hover {
+  background: #5c636a;
+  color: white !important;
+}
+
+/* QR Section */
+.qr-section {
+  position: sticky;
+  top: 80px;
+}
+
+.qr-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-color, #eee);
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.qr-card-title {
+  font-size: 0.85rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.qr-image-wrapper {
+  position: relative;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+.qr-image {
+  max-width: 220px;
+  width: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.qr-image.opaque {
+  filter: blur(6px);
+}
+
+/* Tap to reveal overlay */
+.tap-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.tap-hint.hidden {
+  opacity: 0;
+}
+
+.tap-hint i {
+  font-size: 1rem;
+}
+
+.fullscreen-btn {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255,255,255,0.95);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+
+.fullscreen-btn:hover {
+  transform: scale(1.1);
+  background: #fff;
+}
+
+.redeem-code-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.redeem-code {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  background: var(--field-bg, #f8f9fa);
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+  word-break: break-all;
+  user-select: all;
+}
+
+.redeem-code.opaque {
+  filter: blur(5px);
+  user-select: none;
+}
+
+.copy-code-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #dee2e6);
+  background: var(--card-bg, #fff);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color, #495057);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.copy-code-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.copy-code-btn:hover {
+  background: var(--hover-bg, #f8f9fa);
+  border-color: var(--primary-color, #4154f1);
+  color: var(--primary-color, #4154f1);
+}
+
+.copy-code-btn.copied {
+  background: #198754;
+  border-color: #198754;
+  color: white;
+}
+
+/* PIN Card */
+.pin-card {
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid var(--border-color, #eee);
+  margin-top: 1rem;
+}
+
+.pin-input-group {
+  display: flex;
+  gap: 0;
+}
+
+.pin-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  border: none;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #1e1e1e);
+  border-radius: 12px 0 0 12px;
+}
+
+.pin-input:focus {
+  outline: none;
+}
+
+.pin-toggle-btn {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: var(--primary-color, #4154f1);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-overflow: clip;
+  overflow: visible;
+  border-radius: 0 12px 12px 0;
+}
+
+.pin-toggle-btn:hover {
+  background: #3344d1;
+}
+
+@media (max-width: 400px) {
+  .pin-input-group {
+    flex-direction: column;
   }
+  
+  .pin-toggle-btn {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+  }
+  
+  .pin-input {
+    border-radius: 8px 8px 0 0;
+  }
+}
+
+/* Shared Users */
+.shared-users-card {
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color, #eee);
+  margin-top: 1.5rem;
+}
+
+.shared-users-card h5 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-color, #1e1e1e);
+}
+
+.shared-user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: var(--field-bg, #f8f9fa);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.shared-user-item:last-child {
+  margin-bottom: 0;
+}
+
+.shared-user-info {
+  font-size: 0.9rem;
+  color: var(--text-color, #1e1e1e);
+}
+
+.unshare-btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+}
+
+/* File Section */
+.file-section {
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color, #eee);
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.file-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.file-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border-color, #dee2e6);
+  background: var(--card-bg, #fff);
+  color: var(--text-color, #495057);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.file-btn:hover {
+  background: var(--hover-bg, #f8f9fa);
+  color: var(--text-color, #495057);
+}
+
+.loaded-image {
+  margin-top: 1rem;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Transaction Section */
+.transaction-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-color, #eee);
+  margin-top: 1.5rem;
+}
+
+.transaction-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.transaction-header h5 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.transaction-body {
+  padding: 1.5rem;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.transaction-table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.transaction-table tr:last-child td {
+  border-bottom: none;
+}
+
+.transaction-total {
+  font-weight: 700;
+  background: var(--field-bg, #f8f9fa);
+}
+
+.transaction-form {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color, #eee);
+}
+
+.transaction-form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .transaction-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-bottom: 0.35rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #1e1e1e);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color, #4154f1);
+}
+
+/* QR Overlay */
+.qr-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+}
+
+.qr-overlay.show {
+  display: flex;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.qr-overlay img {
+  width: 100vw;
+  height: auto;
+  max-height: 100vh;
+  object-fit: contain;
+  filter: brightness(1.5) contrast(1.2);
+  border-radius: 12px;
+}
+
+#qr-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10000;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.95);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --card-bg: #1e1e1e;
+  --border-color: #333;
+  --text-color: #e0e0e0;
+  --field-bg: #2a2a2a;
+  --input-bg: #2a2a2a;
+  --hover-bg: #333;
+  --primary-color: #5a6cf1;
+  --success-color: #28a745;
+}
+
+body.dark-mode .item-issuer,
+body.dark-mode .detail-field-label,
+body.dark-mode .qr-card-title,
+body.dark-mode .item-description-section h6 {
+  color: #999;
+}
+
+body.dark-mode .item-title,
+body.dark-mode .detail-field-value,
+body.dark-mode .item-description-section p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .detail-field-value.value-highlight {
+  color: #4ade80;
+}
+
+body.dark-mode .item-type-badge {
+  background: #333;
+  color: #ccc;
+}
+
+body.dark-mode .status-badge.used {
+  background: #1e3a5f;
+  color: #7dd3fc;
+}
+
+body.dark-mode .status-badge.expired {
+  background: #5c2626;
+  color: #fca5a5;
+}
+
+body.dark-mode .pin-input {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .pin-toggle-btn {
+  background: #5a6cf1;
+  color: #fff;
+}
+
+body.dark-mode .pin-toggle-btn:hover {
+  background: #4a5cd1;
+}
+
+body.dark-mode .redeem-code {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .transaction-table th {
+  color: #999;
+}
+
+body.dark-mode .transaction-table td {
+  color: #e0e0e0;
+}
+
+body.dark-mode .transaction-total {
+  background: #2a2a2a;
+}
+
+body.dark-mode .form-group label {
+  color: #999;
+}
+
+body.dark-mode .form-group input {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .form-group input::placeholder {
+  color: #666;
+}
+
+body.dark-mode .file-btn {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .file-btn:hover {
+  background: #333;
+  color: #fff;
+}
+
+body.dark-mode .shared-user-info {
+  color: #e0e0e0;
+}
+
+body.dark-mode .fullscreen-btn {
+  background: rgba(40, 40, 40, 0.95);
+  color: #e0e0e0;
+}
+
+body.dark-mode .fullscreen-btn:hover {
+  background: #333;
+}
+
+body.dark-mode .copy-code-btn {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .copy-code-btn:hover {
+  background: #333;
+  border-color: #5a6cf1;
+  color: #5a6cf1;
+}
+
+body.dark-mode #qr-close-btn {
+  background: rgba(40, 40, 40, 0.95);
+  color: #e0e0e0;
+}
+
+body.dark-mode .action-btn-primary {
+  background: #5a6cf1;
+}
+
+body.dark-mode .action-btn-primary:hover {
+  background: #4a5cd1;
+}
+
+body.dark-mode .action-btn-secondary {
+  background: #4a5568;
+}
+
+body.dark-mode .action-btn-secondary:hover {
+  background: #5a6578;
+}
 </style>
 
-<div class="pagetitle">
-  <h1>{% trans "Item Details" %}</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% if not is_shared %} {% trans "Inventory" %} {% else %} {% trans "Shared Items" %} {% endif %}</a></li>
-      <li class="breadcrumb-item active">{% trans "Item Details" %}</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
-
-<section class="section dashboard">
-  <div class="row">
-
-<!-- Full width column -->
-<div class="col-lg-12">
-  <div class="row">
-      <!-- Item Details Column -->
-      <div class="col-lg-8 order-2 order-md-1">
-          <div class="card info-card sales-card card-available
-              {% if item.is_used %} card-used
-              {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %} card-expired 
-              {% endif %}">
-              <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                      <div>
-                          <h5 class="card-title">
-                              <i class="bi bi-shop"></i> {{ item.issuer }} 
-                              <span>&gt; {% trans item.type %}
-                                  {% if item.is_used %}
-                                      <span style="margin-left: 5px; color: black;" class="badge bg-info">{% trans "Used" %}</span>
-                                  {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
-                                      <span style="margin-left: 5px;" class="badge bg-danger text-dark">{% trans "Expired" %}</span>
-                                  {% endif %}
-                              </span>
-                          </h5>
-                          <h6>{{ item.name }}</h6>
-                      </div>
-                      {% if item.logo_slug %}
-                      <img src="https://img.logo.dev/{{ item.logo_slug }}" alt="Logo" style="width: 50px; height: 50px; border-radius: 10px;" onerror="this.style.display='none'">
-                      {% endif %}            
-                  </div>
-                  <div class="item-details pt-2">
-                      <div class="detail-item default-tile">
-                          <i class="bi bi-calendar text-muted"></i> <span><b>{% trans "Issue Date" %}:</b> {{ item.issue_date }}</span>
-                      </div>
-                      <div class="detail-item default-tile">
-                          <i class="bi bi-calendar-x text-muted"></i> <span><b>{% trans "Expiry Date" %}:</b> {{ item.expiry_date }}</span>
-                      </div>
-                      {% if item.type != "loyaltycard" %}
-                      <div class="detail-item default-tile">
-                          {% if item.value_type == "percentage" %}
-                          <i class="bi bi-percent text-muted"></i> <span><b>{% trans "Percent" %}:</b> {{ total_value|floatformat:2 }}</span>
-                          {% elif item.value_type == "money" %}
-                          <i class="bi bi-cash text-muted"></i> <span><b>{% trans "Value" %}:</b> {{ total_value|floatformat:2 }}</span>
-                          {% elif item.value_type == "multiplier" %}
-                          <i class="bi bi-dice-5 text-muted"></i> <span><b>{% trans "Multiplier" %}:</b> {{ total_value|floatformat:2 }}</span>
-                          {% endif %}
-                      </div>
-                      {% endif %}
-                      {% if item.description %}
-                      <div class="default-tile" style="text-align: justify;">
-                          <b>{% trans "Description" %}:</b><br>
-                          <span class="content">{{ item.description }}</span>
-                      </div>
-                      {% endif %}
-                  </div>
-
-                  <!-- Buttons (For owner) -->
-                  {% if is_owner %}
-                  <div class="d-flex flex-column flex-lg-row justify-content-end mt-3">
-                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
-                          <a href="{% url 'edit_item' item.id %}" class="btn btn-primary w-100"><i class="bi bi-pencil"></i> {% trans "Edit" %}</a>
-                      </div>
-                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
-                          <a href="{% url 'duplicate_item' item.id %}" class="btn btn-primary w-100"><i class="bi bi-copy"></i> {% trans "Duplicate" %}</a>
-                      </div>
-                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
-                          <form action="{% url 'delete_item' item.id %}" method="post">
-                              {% csrf_token %}
-                              <button type="submit" class="btn btn-danger w-100" onclick="return confirm('{% trans "Are you sure to delete?" %}');">
-                                  <i class="bi bi-trash"></i> {% trans "Delete" %}
-                              </button>
-                          </form>
-                      </div>
-                      <div class="mb-2 me-lg-2 col-12 col-lg-auto">
-                          <a href="{% url 'share_item' item.id %}" class="btn btn-success w-100"><i class="bi bi-share"></i> {% trans "Share" %}</a>
-                      </div>
-                      {% if item.type != "loyaltycard" %}
-                      <div class="col-12 col-lg-auto">
-                          <form action="{% url 'toggle_item_status' item.id %}" method="post">
-                              {% csrf_token %}
-                              <button type="submit" class="btn {% if item.is_used %} btn-danger {% else %} btn-warning {% endif %} w-100">
-                                  <i class="bi bi-check-circle"></i>
-                                  {% if item.is_used %} {% trans "Mark as Available" %} {% else %} {% trans "Mark as Used" %} {% endif %}
-                              </button>
-                          </form>
-                      </div>
-                      {% endif %}
-                  </div>
-                  {% endif %}
-
-                  <!-- Shared Users Section (For owner) -->
-                  {% if is_owner and is_shared %}
-                  <div class="shared-users mt-4">
-                      <h5>{% trans "Shared With:" %}</h5>
-                      <ul class="list-group">
-                          {% for share in item.shared_with.all %}
-                          <li class="list-group-item d-flex justify-content-between align-items-center">
-                              {{ share.shared_with_user.username }} ({{ share.shared_with_user.email }})
-                              <form method="POST" action="{% url 'unshare_item' item_id=item.id user_id=share.shared_with_user.id %}" style="display:inline;">
-                                  {% csrf_token %}
-                                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure you want to unshare this item?" %}');">
-                                      {% trans "Unshare" %}
-                                  </button>
-                              </form>
-                          </li>
-                          {% empty %}
-                          <li class="list-group-item">{% trans "This item is not shared with anyone." %}</li>
-                          {% endfor %}
-                      </ul>
-                  </div>
-                  {% endif %}
-
-              </div>
-          </div>
-      </div><!-- End Item Details Column -->
-
-      <!-- QR Code and PIN Display Column -->
-      <div class="col-lg-4 order-1 order-md-2">
-          <div class="card mb-0">
-              <div class="card-body text-center">
-                  <h5 class="card-title ps-0 pb-0 pt-3 d-flex justify-content-center align-items-center gap-2">
-                    {% if item.type == "loyaltycard" %}
-                      {% trans "Your Identity" %}
-                    {% else %}
-                      {% trans "Scan to Redeem" %}
-                    {% endif %}
-                    <button type="button" id="fullscreen-btn" class="btn btn-sm btn-outline-secondary" title="{% trans 'Fullscreen' %}">
-                      <i class="bi bi-arrows-fullscreen"></i>
-                    </button>
-                  </h5>
-                  <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code" class="img-fluid mb-2 mt-2 opaque" id="qr-code" style="max-width: 100%;">
-                  <br>
-                  <span class="opaque" id="redeem-code">{{ item.redeem_code }}</span>
-              </div>
-          </div>
-          <div class="card mt-2 mb-4">
-              {% if item.pin %}
-              <div class="card-body text-center" style="padding: 0px">
-                  <div class="input-group">
-                      <input type="password" id="pin-code" class="form-control" value="{{ item.pin }}" readonly>
-                      <button type="button" id="toggle-pin" class="btn btn-secondary">{% trans "Show PIN" %}</button>
-                  </div>
-              </div>
-              {% endif %}
-          </div>
-      </div><!-- End QR Code and PIN Display Column -->
+<div class="detail-header">
+  <div>
+    <h1>{% trans "Item Details" %}</h1>
+    <nav>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% if not is_shared %}{% trans "Inventory" %}{% else %}{% trans "Shared Items" %}{% endif %}</a></li>
+        <li class="breadcrumb-item active">{% trans "Item Details" %}</li>
+      </ol>
+    </nav>
   </div>
+</div>
+
+<section class="section">
+  <div class="detail-grid">
+    
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="item-detail-card">
+        <div class="card-color-banner" style="background-color: {{ item.tile_color|default:'#4154f1' }};"></div>
+        
+        <div class="item-detail-content">
+          <!-- Item Header -->
+          <div class="item-header">
+            {% if item.logo_slug %}
+            <img class="item-logo" 
+                 src="https://img.logo.dev/{{ item.logo_slug }}?token=pk_NaUHDkw4SSeHCapveLJtjg" 
+                 alt="{{ item.issuer }}"
+                 onerror="this.onerror=null;this.src='data:image/png;base64,{{ qr_code_base64 }}';this.style.filter='blur(3px)';">
+            {% else %}
+            <img class="item-logo" 
+                 src="data:image/png;base64,{{ qr_code_base64 }}" 
+                 alt="QR Code" 
+                 style="filter: blur(3px);">
+            {% endif %}
+            
+            <div class="item-header-info">
+              <div class="item-issuer">{{ item.issuer }}</div>
+              <h2 class="item-title">{{ item.name }}</h2>
+              <div>
+                <span class="item-type-badge">
+                  {% if item.type == 'voucher' %}
+                  <i class="bi bi-ticket-perforated"></i>
+                  {% elif item.type == 'giftcard' %}
+                  <i class="bi bi-gift"></i>
+                  {% elif item.type == 'coupon' %}
+                  <i class="bi bi-percent"></i>
+                  {% elif item.type == 'loyaltycard' %}
+                  <i class="bi bi-star"></i>
+                  {% endif %}
+                  {% translate item.type %}
+                </span>
+                {% if item.is_used %}
+                <span class="status-badge used">{% trans "Used" %}</span>
+                {% elif item.expiry_date|date:"Y-m-d" < current_date|date:"Y-m-d" %}
+                <span class="status-badge expired">{% trans "Expired" %}</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Detail Fields -->
+          <div class="detail-fields">
+            <div class="detail-field">
+              <div class="detail-field-label">
+                <i class="bi bi-calendar-plus"></i> {% trans "Issue Date" %}
+              </div>
+              <div class="detail-field-value">{{ item.issue_date|date:"M d, Y" }}</div>
+            </div>
+            
+            <div class="detail-field">
+              <div class="detail-field-label">
+                <i class="bi bi-calendar-x"></i> {% trans "Expiry Date" %}
+              </div>
+              <div class="detail-field-value {% if item.expiry_date|date:'Y-m-d' < current_date|date:'Y-m-d' %}text-danger{% endif %}">
+                {{ item.expiry_date|date:"M d, Y" }}
+              </div>
+            </div>
+            
+            {% if item.type != "loyaltycard" %}
+            <div class="detail-field">
+              <div class="detail-field-label">
+                {% if item.value_type == "percentage" %}
+                <i class="bi bi-percent"></i> {% trans "Percentage" %}
+                {% elif item.value_type == "multiplier" %}
+                <i class="bi bi-x-lg"></i> {% trans "Multiplier" %}
+                {% else %}
+                <i class="bi bi-wallet2"></i> {% trans "Value" %}
+                {% endif %}
+              </div>
+              <div class="detail-field-value value-highlight">
+                {% if item.value_type == "percentage" %}
+                {{ total_value|floatformat:0 }}%
+                {% elif item.value_type == "multiplier" %}
+                {{ total_value|floatformat:1 }}x
+                {% else %}
+                {{ total_value|floatformat:2 }}
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          
+          <!-- Description -->
+          {% if item.description %}
+          <div class="item-description-section">
+            <h6><i class="bi bi-text-left"></i> {% trans "Description" %}</h6>
+            <p>{{ item.description }}</p>
+          </div>
+          {% endif %}
+          
+          <!-- Action Buttons (Owner only) -->
+          {% if is_owner %}
+          <div class="action-buttons">
+            <a href="{% url 'edit_item' item.id %}" class="action-btn action-btn-primary">
+              <i class="bi bi-pencil"></i> {% trans "Edit" %}
+            </a>
+            <a href="{% url 'duplicate_item' item.id %}" class="action-btn action-btn-secondary">
+              <i class="bi bi-copy"></i> {% trans "Duplicate" %}
+            </a>
+            <a href="{% url 'share_item' item.id %}" class="action-btn action-btn-success">
+              <i class="bi bi-share"></i> {% trans "Share" %}
+            </a>
+            {% if item.type != "loyaltycard" %}
+            <form action="{% url 'toggle_item_status' item.id %}" method="post" style="display:contents;">
+              {% csrf_token %}
+              <button type="submit" class="action-btn {% if item.is_used %}action-btn-success{% else %}action-btn-warning{% endif %}">
+                <i class="bi bi-check-circle"></i>
+                {% if item.is_used %}{% trans "Mark Available" %}{% else %}{% trans "Mark Used" %}{% endif %}
+              </button>
+            </form>
+            {% endif %}
+            <form action="{% url 'delete_item' item.id %}" method="post" style="display:contents;">
+              {% csrf_token %}
+              <button type="submit" class="action-btn action-btn-danger" onclick="return confirm('{% trans "Are you sure to delete?" %}');">
+                <i class="bi bi-trash"></i> {% trans "Delete" %}
+              </button>
+            </form>
+          </div>
+          {% endif %}
+          
+          <!-- Shared Users Section (Owner only) -->
+          {% if is_owner and is_shared %}
+          <div class="shared-users-card">
+            <h5><i class="bi bi-people"></i> {% trans "Shared With" %}</h5>
+            {% for share in item.shared_with.all %}
+            <div class="shared-user-item">
+              <span class="shared-user-info">
+                <i class="bi bi-person"></i> {{ share.shared_with_user.username }}
+                {% if share.shared_with_user.email %}
+                <small class="text-muted">({{ share.shared_with_user.email }})</small>
+                {% endif %}
+              </span>
+              <form method="POST" action="{% url 'unshare_item' item_id=item.id user_id=share.shared_with_user.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger unshare-btn" onclick="return confirm('{% trans "Are you sure you want to unshare this item?" %}');">
+                  {% trans "Unshare" %}
+                </button>
+              </form>
+            </div>
+            {% empty %}
+            <p class="text-muted mb-0">{% trans "This item is not shared with anyone." %}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      
+      <!-- File Section -->
+      {% if item.file.name|is_image_file %}
+      <div class="file-section">
+        <div class="file-buttons" id="image-button-group">
+          <button class="file-btn" id="show-image-btn">
+            <i class="bi bi-eye"></i> {% trans "Show Image" %}
+          </button>
+          <button class="file-btn d-none" id="hide-image-btn">
+            <i class="bi bi-eye-slash"></i> {% trans "Hide Image" %}
+          </button>
+          <a href="{% url 'download_file' item.id %}" class="file-btn">
+            <i class="bi bi-download"></i> {% trans "Download" %}
+          </a>
+        </div>
+        <img id="loaded-image" src="" class="loaded-image d-none">
+      </div>
+      {% elif item.file.name %}
+      <div class="file-section">
+        <a href="{% url 'download_file' item.id %}" class="file-btn">
+          <i class="bi bi-download"></i> {% trans "Download File" %}
+        </a>
+      </div>
+      {% endif %}
+      
+      <!-- Transaction History (Gift Cards only) -->
+      {% if is_owner and item.type == 'giftcard' %}
+      <div class="transaction-card">
+        <div class="transaction-header">
+          <h5><i class="bi bi-receipt"></i> {% trans "Transaction History" %}</h5>
+        </div>
+        <div class="transaction-body">
+          <table class="transaction-table">
+            <thead>
+              <tr>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Description" %}</th>
+                <th>{% trans "Value" %}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ item.issue_date|date:"Y-m-d" }}</td>
+                <td>{% trans "Initial Value" %}</td>
+                <td>{{ item.value }}</td>
+                <td></td>
+              </tr>
+              {% for transaction in transactions %}
+              <tr>
+                <td>{{ transaction.date|date:"Y-m-d H:i" }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.value }}</td>
+                <td>
+                  <form action="{% url 'delete_transaction' transaction.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('{% trans "Are you sure to delete?" %}');">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% empty %}
+              {% endfor %}
+              <tr class="transaction-total">
+                <td colspan="2"><strong>{% trans "Total Value" %}</strong></td>
+                <td colspan="2"><strong>{{ total_value }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <form method="post" class="transaction-form">
+            {% csrf_token %}
+            <div class="transaction-form-row">
+              <div class="form-group">
+                <label for="description">{% trans "Description" %}</label>
+                <input type="text" id="description" name="description" placeholder="{% trans 'Enter description' %}" required>
+              </div>
+              <div class="form-group">
+                <label for="value">{% trans "Value" %}</label>
+                <input type="number" id="value" name="value" step="0.01" max="0" placeholder="-0.00" required>
+              </div>
+              <button type="submit" class="action-btn action-btn-primary" style="height: fit-content;">
+                <i class="bi bi-plus-lg"></i> {% trans "Add" %}
+              </button>
+            </div>
+          </form>
+          
+          {% if form.errors %}
+          <div class="alert alert-danger mt-3">
+            <ul class="mb-0">
+              {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+              {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    
+    <!-- QR Section (Sidebar) -->
+    <div class="qr-section">
+      <div class="qr-card">
+        <div class="qr-card-title">
+          {% if item.type == "loyaltycard" %}
+          <i class="bi bi-person-badge"></i> {% trans "Your Identity" %}
+          {% else %}
+          <i class="bi bi-qr-code"></i> {% trans "Scan to Redeem" %}
+          {% endif %}
+        </div>
+        
+        <div class="qr-image-wrapper">
+          <img src="data:image/png;base64,{{ qr_code_base64 }}" 
+               alt="QR Code" 
+               class="qr-image opaque" 
+               id="qr-code">
+          <div class="tap-hint" id="qr-tap-hint">
+            <i class="bi bi-hand-index"></i> {% trans "Tap to reveal" %}
+          </div>
+          <button type="button" id="fullscreen-btn" class="fullscreen-btn" title="{% trans 'Fullscreen' %}">
+            <i class="bi bi-arrows-fullscreen"></i>
+          </button>
+        </div>
+        
+        <div class="redeem-code-wrapper">
+          <div class="redeem-code opaque" id="redeem-code">{{ item.redeem_code }}</div>
+          <button type="button" class="copy-code-btn" id="copy-code-btn" title="{% trans 'Copy code' %}">
+            <i class="bi bi-clipboard"></i>
+          </button>
+        </div>
+      </div>
+      
+      {% if item.pin %}
+      <div class="pin-card">
+        <div class="pin-input-group">
+          <input type="password" id="pin-code" class="pin-input" value="{{ item.pin }}" readonly>
+          <button type="button" id="toggle-pin" class="pin-toggle-btn">{% trans "Show PIN" %}</button>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
 
 <!-- QR Fullscreen Overlay -->
 <div id="qr-overlay" class="qr-overlay" aria-hidden="true">
-  <button id="qr-close-btn"
-          class="btn btn-light position-absolute top-0 end-0 m-3"
-          aria-label="{% trans 'Close' %}">
+  <button id="qr-close-btn" aria-label="{% trans 'Close' %}">
     <i class="bi bi-x-lg"></i>
   </button>
   <img id="qr-overlay-img" alt="QR Code (Fullscreen)">
 </div>
 
-<!-- File display and download area -->
-{% if item.file.name|is_image_file %}
-        <div class="default-tile text-center">
-            <div class="d-flex justify-content-center gap-2" id="image-button-group">
-                <button class="btn btn-outline-primary" id="show-image-btn">
-                    <i class="bi bi-eye"></i> {% trans "Show Image" %}
-                </button>
-                <button class="btn btn-outline-secondary d-none" id="hide-image-btn">
-                    <i class="bi bi-eye-slash"></i> {% trans "Hide Image" %}
-                </button>
-                <a href="{% url 'download_file' item.id %}" class="btn btn-outline-secondary">
-                    <i class="bi bi-download"></i> {% trans "Download" %}
-                </a>
-            </div>
-            <img id="loaded-image" src="" class="img-fluid rounded d-none mt-3" style="max-width: 100%;">
-        </div>
-    {% elif item.file.name %}
-        <div class="default-tile text-center">
-            <a href="{% url 'download_file' item.id %}" class="btn btn-secondary btn-download mt-0">
-                <i class="bi bi-download"></i> {% trans "Download" %}
-            </a>
-        </div>
-    {% endif %}
-
-<p>
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const showBtn = document.getElementById('show-image-btn');
-    const hideBtn = document.getElementById('hide-image-btn');
-    const loadedImage = document.getElementById('loaded-image');
+  // Image show/hide
+  const showBtn = document.getElementById('show-image-btn');
+  const hideBtn = document.getElementById('hide-image-btn');
+  const loadedImage = document.getElementById('loaded-image');
 
-    if (showBtn && hideBtn && loadedImage) {
-        showBtn.addEventListener('click', function() {
-            loadedImage.src = "{% url 'serve_image_file' item.id %}";
-            loadedImage.classList.remove('d-none');
-            showBtn.classList.add('d-none');
-            hideBtn.classList.remove('d-none');
-        });
+  if (showBtn && hideBtn && loadedImage) {
+    showBtn.addEventListener('click', function() {
+      loadedImage.src = "{% url 'serve_image_file' item.id %}";
+      loadedImage.classList.remove('d-none');
+      showBtn.classList.add('d-none');
+      hideBtn.classList.remove('d-none');
+    });
 
-        hideBtn.addEventListener('click', function() {
-            loadedImage.classList.add('d-none');
-            showBtn.classList.remove('d-none');
-            hideBtn.classList.add('d-none');
-            loadedImage.src = "";  // Optional: clear image
-        });
-    }
+    hideBtn.addEventListener('click', function() {
+      loadedImage.classList.add('d-none');
+      showBtn.classList.remove('d-none');
+      hideBtn.classList.add('d-none');
+      loadedImage.src = "";
+    });
+  }
 });
 </script>
-<!-- End of file display and download area -->
-
-
-<!-- Transaction History -->
-        {% if is_owner %}
-        {% if item.type == 'giftcard' %}
-        <!-- Transaction History -->
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Transaction History" %}</h5>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">{% trans "Date" %}</th>
-                    <th scope="col">{% trans "Description" %}</th>
-                    <th scope="col">{% trans "Value" %}</th>
-                    <th scope="col">{% trans "Actions" %}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                      <td>{{ item.issue_date|date:"Y-m-d" }}</td>
-                      <td>{% trans "Initial Value" %}</td>
-                      <td>{{ item.value }}</td>
-                      <td>
-                      </td>
-                    </tr>                  
-                  {% for transaction in transactions %}
-                    <tr>
-                      <td>{{ transaction.date|date:"Y-m-d H:i" }}</td>
-                      <td>{{ transaction.description }}</td>
-                      <td>{{ transaction.value }}</td>
-                      <td>
-                        <form action="{% url 'delete_transaction' transaction.id %}" method="post" style="margin: 0;">
-                          {% csrf_token %}
-                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{% trans "Are you sure to delete?" %}');"><i class="bi bi-trash"></i></button>
-                        </form>
-                      </td>
-                    </tr>
-                  {% empty %}
-                    <tr>
-                      <td colspan="4">{% trans "No transactions yet." %}</td>
-                    </tr>
-                  {% endfor %}
-                  <tr>
-                    <td colspan="2"><strong>{% trans "Total Value" %}:</strong></td>
-                    <td colspan="2"><strong>{{ total_value }}</strong></td>
-                  </tr>
-                </tbody>
-              </table>
-              <form method="post">
-                {% csrf_token %}
-                <div class="row g-3">
-                  <div class="col-md-8">
-                    <label for="description" class="form-label">{% trans "Description" %}</label>
-                    <input type="text" class="form-control" id="description" name="description" placeholder="{% trans 'Enter description' %}" required>
-                  </div>
-                  <div class="col-md-4">
-                    <label for="value" class="form-label">{% trans "Value" %}</label>
-                    <input type="number" class="form-control" id="value" name="value" step="0.01" max="0" placeholder="{% trans 'Enter value' %}" required>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3">{% trans "Add Transaction" %}</button>
-              </form>
-              {% if form.errors %}
-                <div class="alert alert-danger mt-2">
-                  <ul>
-                    {% for error in form.non_field_errors %}
-                      <li>{{ error }}</li>
-                    {% endfor %}
-                    {% for field, errors in form.errors.items %}
-                      {% for error in errors %}
-                        <li>{{ error }}</li>
-                      {% endfor %}
-                    {% endfor %}
-                  </ul>
-                </div>
-              {% endif %}
-            </div>
-          </div>
-        </div><!-- End Transaction History -->
-        {% endif %}
-        {% endif %}
-      </div>
-    </div><!-- End Full width column -->
-
-  </div>
-</section>
 
 {% if item.pin %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const pinInput = document.getElementById('pin-code');
-    const toggleButton = document.getElementById('toggle-pin');
-    
-    toggleButton.addEventListener('click', function() {
-        if (pinInput.type === 'password') {
-            pinInput.type = 'text';
-            toggleButton.textContent = '{% trans "Hide PIN" %}';
-        } else {
-            pinInput.type = 'password';
-            toggleButton.textContent = '{% trans "Show PIN" %}';
-        }
-    });
+  const pinInput = document.getElementById('pin-code');
+  const toggleButton = document.getElementById('toggle-pin');
+  
+  toggleButton.addEventListener('click', function() {
+    if (pinInput.type === 'password') {
+      pinInput.type = 'text';
+      toggleButton.textContent = '{% trans "Hide PIN" %}';
+    } else {
+      pinInput.type = 'password';
+      toggleButton.textContent = '{% trans "Show PIN" %}';
+    }
+  });
 });
 </script>
 {% endif %}
@@ -389,39 +1275,69 @@ document.addEventListener("DOMContentLoaded", function() {
 {% if item.type == 'giftcard' %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const valueInput = document.getElementById('value');
-
+  const valueInput = document.getElementById('value');
+  if (valueInput) {
     valueInput.addEventListener('blur', function() {
-        const val = parseFloat(valueInput.value);
-        if (!isNaN(val) && val > 0) {
-            valueInput.value = -val.toFixed(3); // or .toFixed(2) based on precision
-        }
+      const val = parseFloat(valueInput.value);
+      if (!isNaN(val) && val > 0) {
+        valueInput.value = -val.toFixed(2);
+      }
     });
+  }
 });
 </script>
 {% endif %}
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const qrCode     = document.getElementById('qr-code');
+  const qrCode = document.getElementById('qr-code');
   const redeemCode = document.getElementById('redeem-code');
-  const fsBtn      = document.getElementById('fullscreen-btn');
-  const overlay    = document.getElementById('qr-overlay');
+  const qrTapHint = document.getElementById('qr-tap-hint');
+  const copyBtn = document.getElementById('copy-code-btn');
+  const fsBtn = document.getElementById('fullscreen-btn');
+  const overlay = document.getElementById('qr-overlay');
   const overlayImg = document.getElementById('qr-overlay-img');
-  const closeBtn   = document.getElementById('qr-close-btn'); // NEW
+  const closeBtn = document.getElementById('qr-close-btn');
 
-  // Ensure blur starts applied
-  if (qrCode && !qrCode.classList.contains('opaque')) qrCode.classList.add('opaque');
-  if (redeemCode && !redeemCode.classList.contains('opaque')) redeemCode.classList.add('opaque');
-
-  // 1) Tap image: just toggle blur, no overlay
+  // Toggle blur on QR click - reveals both QR and redeem code
   qrCode?.addEventListener('click', (e) => {
     qrCode.classList.toggle('opaque');
     redeemCode?.classList.toggle('opaque');
+    
+    // Show/hide copy button and hints based on blur state
+    if (!qrCode.classList.contains('opaque')) {
+      qrTapHint?.classList.add('hidden');
+      copyBtn?.classList.add('visible');
+    } else {
+      qrTapHint?.classList.remove('hidden');
+      copyBtn?.classList.remove('visible');
+    }
     e.stopPropagation();
   }, { passive: true });
 
-  // 2) Click fullscreen icon: open overlay
+  // Copy code button
+  copyBtn?.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    
+    // Copy to clipboard
+    try {
+      const code = redeemCode?.textContent?.trim();
+      if (code) {
+        await navigator.clipboard.writeText(code);
+        copyBtn.classList.add('copied');
+        copyBtn.innerHTML = '<i class="bi bi-check"></i>';
+        
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>';
+        }, 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  });
+
+  // Fullscreen button
   fsBtn?.addEventListener('click', () => {
     overlayImg.src = qrCode.src;
     overlay.classList.add('show');
@@ -434,17 +1350,17 @@ document.addEventListener("DOMContentLoaded", function() {
     overlayImg.src = '';
   }
 
-  // Background click
+  // Close on background click
   overlay?.addEventListener('click', (e) => {
     if (e.target === overlay) closeOverlay();
   });
 
-  // ESC key
+  // Close on ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('show')) closeOverlay();
   });
 
-  // ❌ button
+  // Close button
   closeBtn?.addEventListener('click', closeOverlay);
 });
 </script>

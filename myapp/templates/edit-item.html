@@ -2,369 +2,862 @@
 {% load i18n %}
 {% load static %}
 {% load extras %}
+
 {% block content %}
+<style>
+/* Modern Edit Item Styles */
+.edit-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.edit-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.edit-container {
+  max-width: 800px;
+}
+
+/* Form Card */
+.form-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-color, #eee);
+}
+
+.form-card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color, #eee);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-card-header i {
+  font-size: 1.25rem;
+  color: var(--primary-color, #4154f1);
+}
+
+.form-card-header h5 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color, #1e1e1e);
+}
+
+.form-card-body {
+  padding: 1.5rem;
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
+.form-section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color, #eee);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-section-title i {
+  font-size: 1rem;
+  color: var(--primary-color, #4154f1);
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-color, #1e1e1e);
+  margin-bottom: 0.5rem;
+}
+
+.form-label .required {
+  color: #dc3545;
+  margin-left: 2px;
+}
+
+.form-label a {
+  color: var(--primary-color, #4154f1);
+  margin-left: 0.25rem;
+}
+
+/* Modern Input Styling */
+.modern-input,
+.modern-select,
+.modern-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #1e1e1e);
+  transition: all 0.2s ease;
+}
+
+.modern-input:focus,
+.modern-select:focus,
+.modern-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color, #4154f1);
+  box-shadow: 0 0 0 3px rgba(65, 84, 241, 0.1);
+}
+
+.modern-input::placeholder,
+.modern-textarea::placeholder {
+  color: #999;
+}
+
+.modern-input.readonly {
+  background: var(--field-bg, #f8f9fa);
+  cursor: not-allowed;
+}
+
+.modern-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Input with Addon */
+.input-with-addon {
+  display: flex;
+  gap: 0;
+}
+
+.input-with-addon .modern-input {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-addon-btn {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color, #dee2e6);
+  background: var(--field-bg, #f8f9fa);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--text-color, #495057);
+}
+
+.input-addon-btn:first-of-type {
+  border-left: none;
+}
+
+.input-addon-btn:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.input-addon-btn:hover {
+  background: var(--hover-bg, #e9ecef);
+}
+
+.input-addon-btn i {
+  font-size: 1rem;
+}
+
+/* Type Selector Row */
+.type-selector-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.type-select {
+  flex: 1;
+  min-width: 150px;
+}
+
+.color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color-picker {
+  width: 44px;
+  height: 44px;
+  padding: 2px;
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 10px;
+  cursor: pointer;
+  background: var(--input-bg, #fff);
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+
+.color-reset-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #dee2e6);
+  background: var(--field-bg, #f8f9fa);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--text-color, #495057);
+}
+
+.color-reset-btn:hover {
+  background: var(--hover-bg, #e9ecef);
+}
+
+/* Row Grid */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 576px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Scanner Section */
+.scanner-section {
+  background: var(--field-bg, #f8f9fa);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color, #eee);
+}
+
+.scanner-section video {
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+.scanner-section select {
+  margin-top: 0.75rem;
+}
+
+/* Crop Section */
+.crop-section {
+  background: var(--field-bg, #f8f9fa);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color, #eee);
+}
+
+.crop-section canvas {
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+.crop-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.crop-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.crop-btn-primary {
+  background: var(--primary-color, #4154f1);
+  color: white;
+}
+
+.crop-btn-warning {
+  background: #ffc107;
+  color: #000;
+}
+
+.crop-btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+/* Submit Button */
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background: var(--primary-color, #4154f1);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #3344d1;
+  transform: translateY(-1px);
+}
+
+.submit-btn i {
+  font-size: 1.1rem;
+}
+
+/* Error Alert */
+.error-alert {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #842029;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.error-alert ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.error-alert li {
+  margin-bottom: 0.25rem;
+}
+
+.error-alert li:last-child {
+  margin-bottom: 0;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  font-size: 1.1rem;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --card-bg: #1e1e1e;
+  --border-color: #333;
+  --text-color: #e0e0e0;
+  --field-bg: #2a2a2a;
+  --input-bg: #2a2a2a;
+  --hover-bg: #333;
+  --primary-color: #5a6cf1;
+}
+
+body.dark-mode .modern-input,
+body.dark-mode .modern-select,
+body.dark-mode .modern-textarea {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .modern-input::placeholder,
+body.dark-mode .modern-textarea::placeholder {
+  color: #666;
+}
+
+body.dark-mode .form-section-title {
+  color: #999;
+}
+
+body.dark-mode .input-addon-btn {
+  background: #333;
+  border-color: #444;
+  color: #ccc;
+}
+
+body.dark-mode .input-addon-btn:hover {
+  background: #3a3a3a;
+}
+
+body.dark-mode .color-picker {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark-mode .color-reset-btn {
+  background: #333;
+  border-color: #444;
+  color: #ccc;
+}
+
+body.dark-mode .scanner-section,
+body.dark-mode .crop-section {
+  background: #2a2a2a;
+  border-color: #333;
+}
+
+body.dark-mode .error-alert {
+  background: #5c2626;
+  border-color: #7c3636;
+  color: #fca5a5;
+}
+
+/* Breathe Animation */
+@keyframes breathe {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.breathe-red {
+  animation: breathe 1s infinite;
+  color: #dc3545;
+}
+</style>
 
 <div id="loadingOverlay" class="loading-overlay">
-  <div>Redeem code type checking in progress...</div>
+  <div><i class="bi bi-arrow-repeat spin"></i> {% trans "Processing..." %}</div>
+</div>
+
+<div class="edit-header">
+  <div>
+    <h1>{% trans "Edit Item" %}</h1>
+    <nav>
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'view_item' item.id %}">{{ item.name }}</a></li>
+        <li class="breadcrumb-item active">{% trans "Edit" %}</li>
+      </ol>
+    </nav>
+  </div>
 </div>
 
 {% if form.errors %}
-<div id="errors" class="alert alert-danger mt-2">
-    <ul>
-        {% for field, errors in form.errors.items %}
-        {% for error in errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-        {% endfor %}
-    </ul>
+<div class="error-alert">
+  <ul>
+    {% for field, errors in form.errors.items %}
+    {% for error in errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+    {% endfor %}
+  </ul>
 </div>
 {% endif %}
 
-<div class="pagetitle">
-    <h1>{% trans "Edit Item" %}</h1>
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Home" %}</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'show_items' %}">{% trans "Inventory" %}</a></li>
-            <li class="breadcrumb-item active">{% trans "Edit Item" %}</li>
-        </ol>
-    </nav>
-</div><!-- End Page Title -->
-
 <section class="section">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{% trans "Item Details" %}</h5>
-
-                    <!-- QR Code Scanner Section -->
-                    <section class="mb-3 mt-1" id="qrScannerSection" style="display:none;">
-                        <div style="color: lightgray" id="loadingMessage"></div>
-                        <video id="video" width="250" height="250" style="border: 1px solid gray"></video>
-                        <canvas id="canvas" hidden></canvas>
-                        <div id="output" hidden>
-                            <div style="color: lightgray" id="outputMessage">{% trans "No QR code detected" %}.</div>
-                            <div style="color: lightgray" hidden><b>Data:</b> <span id="outputData"></span></div>
-                        </div>
-                        <div id="sourceSelectPanel" style="display:block">
-                            <select id="sourceSelect" style="min-width: 250px; max-width:250px">
-                            </select>
-                        </div>
-                    </section>
-
-                    <!-- Image Crop Section -->
-                    <section class="mb-3 mt-1" id="cropSection" style="display:none;">
-                        <div class="mb-2">
-                            <p style="color: lightgray">{% trans "Click and drag to select the barcode area" %}</p>
-                        </div>
-                        <div style="position: relative; display: inline-block;">
-                            <canvas id="cropCanvas" style="border: 2px solid #007bff; cursor: crosshair; max-width: 100%;"></canvas>
-                        </div>
-                        <div class="mt-2" id="cropPreviewSection" style="display:none;">
-                            <p style="color: lightgray">{% trans "Cropped image to be scanned:" %}</p>
-                            <canvas id="cropPreviewCanvas" style="border: 1px solid #6c757d; max-width: 100%; max-height: 200px;"></canvas>
-                        </div>
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-primary btn-sm" id="scanCroppedBtn">{% trans "Scan Selected Area" %}</button>
-                            <button type="button" class="btn btn-warning btn-sm" id="resetSelectionBtn">{% trans "Reset Selection" %}</button>
-                            <button type="button" class="btn btn-secondary btn-sm" id="cancelCropBtn">{% trans "Cancel" %}</button>
-                        </div>
-                    </section>
-
-                    <!-- Item Form -->
-                    <form id="myform" method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                    <div class="row mb-3 align-items-center">
-                        <label for="type" class="col-sm-2 col-form-label">{% trans "Type" %}</label>
-                        <div class="col-sm-10 d-flex align-items-center gap-2">
-                            <select class="form-select w-auto" id="type" name="type" required>
-                                <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>{% trans "Gift Card" %}</option>
-                                <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>{% trans "Voucher" %}</option>
-                                <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>{% trans "Coupon" %}</option>
-                                <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Card" %}</option>
-                            </select>
-
-                            <input type="color"
-                                   class="form-control form-control-color"
-                                   id="tile_color"
-                                   name="tile_color"
-                                   value="{{ item.tile_color|default:'#000000' }}"
-                                   {% if not item.tile_color %} data-default-color="true" {% endif %}
-                                   title="{% trans 'Color' %}">
-
-                            <button type="button" class="btn btn-outline-secondary" onclick="resetTileColor()" title="{% trans 'Reset to default' %}">
-                                <i class="bi bi-arrow-counterclockwise"></i>
-                            </button>
-                        </div>
-                    </div>
-                        <div class="row mb-3">
-                            <label for="name" class="col-sm-2 col-form-label">{% trans "Name" %}</label>
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="{% trans 'The name of the item' %}" class="form-control" id="name" name="name" value="{{ item.name }}" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="issuer" class="col-sm-2 col-form-label">{% trans "Issuer" %}</label>
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="{% trans 'The issuer of the item' %}" class="form-control mt-2" id="issuer" name="issuer" value="{{ item.issuer }}" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="redeem_code" class="col-sm-2 col-form-label">{% trans "Redeem Code" %}</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <input placeholder="{% trans 'The redeem code of the item' %}" value="{{ item.redeem_code }}" type="text" class="form-control" id="redeem_code" name="redeem_code" required>
-                                    <button title="Camera Scan" class="btn btn-outline-secondary btn-feature" type="button" id="startScanner">
-                                        <i class="bi bi-camera" id="cameraIcon"></i>
-                                    </button>
-                                    <button title="File Scan" class="btn btn-outline-secondary btn-feature" type="button" id="scanFromFile">
-                                        <i class="bi bi-file-earmark-image" id="fileIcon"></i>
-                                    </button>
-                                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="code_type" class="col-sm-2 col-form-label">{% trans "Code Type" %}</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" id="code_type" name="code_type" required>
-                                    <option value="qrcode" {% if item.code_type == "qrcode" %}selected{% endif %}>QR Code</option>
-                                    <option value="ean13" {% if item.code_type == "ean13" %}selected{% endif %}>EAN-13</option>
-                                    <option value="ean8" {% if item.code_type == "ean8" %}selected{% endif %}>EAN-8</option>
-                                    <option value="code128" {% if item.code_type == "code128" %}selected{% endif %}>Code 128</option>
-                                    <option value="code39" {% if item.code_type == "code39" %}selected{% endif %}>Code 39</option>
-                                    <option value="upca" {% if item.code_type == "upca" %}selected{% endif %}>UPC-A</option>
-                                    <option value="upce" {% if item.code_type == "upce" %}selected{% endif %}>UPC-E</option>
-                                    <option value="isbn13" {% if item.code_type == "isbn13" %}selected{% endif %}>ISBN-13</option>
-                                    <option value="isbn10" {% if item.code_type == "isbn10" %}selected{% endif %}>ISBN-10</option>
-                                    <option value="issn" {% if item.code_type == "issn" %}selected{% endif %}>ISSN</option>
-                                    <option value="pdf417" {% if item.code_type == "pdf417" %}selected{% endif %}>PDF417</option>
-                                    <option value="datamatrix" {% if item.code_type == "datamatrix" %}selected{% endif %}>Data Matrix</option>
-                                    <option value="azteccode" {% if item.code_type == "azteccode" %}selected{% endif %}>Aztec Code</option>
-                                    <option value="interleaved2of5" {% if item.code_type == "interleaved2of5" %}selected{% endif %}>Interleaved 2 of 5</option>
-                                </select>
-                            </div>
-                        </div>                       
-                        <div class="row mb-3">
-                            <label for="redeem_code" class="col-sm-2 col-form-label">{% trans "PIN Code" %}</label>
-                            <div class="col-sm-10">
-                                <input placeholder="{% trans 'The pin code of the item' %}" type="text" class="form-control" id="pin" name="pin" value="{{ item.pin|default_if_none:'' }}">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="issue_date" class="col-sm-2 col-form-label">{% trans "Issue Date" %}</label>
-                            <div class="col-sm-10">
-                                {% if "-" in form.issue_date.value %}
-                                    <input type="date" class="form-control" id="issue_date" name="issue_date" value="{{ form.issue_date.value }}" required>
-                                {% else %}
-                                    <input type="date" class="form-control" id="issue_date" name="issue_date" value="{{ form.issue_date.value|date:"Y-m-d" }}" required>
-                                {% endif %}
-                                <!--<input type="date" class="form-control" id="issue_date" name="issue_date" value='{{ form.issue_date.value|date:"Y-m-d" }}' required>-->
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="expiry_date" class="col-sm-2 col-form-label">{% trans "Expiry Date" %}</label>
-                            <div class="col-sm-10">
-                                {% if "-" in form.expiry_date.value %}
-                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value }}">
-                                {% else %}
-                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value|date:"Y-m-d" }}">
-                                {% endif %}
-                                <!--<input type="date" class="form-control" id="expiry_date" name="expiry_date" value='{{ form.expiry_date.value|date:"Y-m-d" }}'>-->
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="description" class="col-sm-2 col-form-label">{% trans "Description" %}</label>
-                            <div class="col-sm-10">
-                                <textarea placeholder="{% trans 'The description of the item' %}" class="form-control" id="description" name="description" rows="4">{{ item.description }}</textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="logo_slug" class="col-sm-2 col-form-label">{% trans "Logo Slug" %}
-                                <a href="https://www.logo.dev/" target="_blank">
-                                  <i class="bi bi-info-circle"></i>
-                                </a>
-                              </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" value="{{ item.logo_slug }}" placeholder="amazon.com" id="logo_slug" name="logo_slug">
-                            </div>
-                        </div>  
-                        <div class="row mb-3">
-                            <label for="value" class="col-sm-2 col-form-label">{% trans "Value" %}</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <input placeholder="{% trans 'The value of the item' %}" type="number" class="form-control" id="value" name="value" step="0.01" min="0.00" value="{{ item.value|comma_to_dot }}" required>
-                                    <button class="btn btn-outline-secondary d-none" type="button" id="toggle-value-type">
-                                        <span id="value-type-icon" title="Monetary Value" class="bi bi-cash-coin"></span>
-                                    </button>
-                                </div>
-                                <input type="hidden" id="value_type" name="value_type" value="{{ item.value_type }}">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="file" class="col-sm-2 col-form-label">{% trans "Upload File" %}</label>
-                            <div class="col-sm-10">
-                                <input type="file" id="file" name="file" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-10 offset-sm-2">
-                                <button type="submit" onclick="handleSubmitButton()" class="btn btn-primary">{% trans "Update Item" %}</button>
-                            </div>
-                        </div>
-                    </form><!-- End Item Form -->
-                </div>
-            </div>
+  <div class="edit-container">
+    <div class="form-card">
+      <div class="form-card-header">
+        <i class="bi bi-pencil"></i>
+        <h5>{% trans "Item Details" %}</h5>
+      </div>
+      
+      <div class="form-card-body">
+        <!-- QR Code Scanner Section -->
+        <div class="scanner-section" id="qrScannerSection" style="display:none;">
+          <div style="color: #6c757d" id="loadingMessage"></div>
+          <video id="video" width="250" height="250"></video>
+          <canvas id="canvas" hidden></canvas>
+          <div id="output" hidden>
+            <div style="color: #6c757d" id="outputMessage">{% trans "No QR code detected" %}.</div>
+            <div style="color: #6c757d" hidden><b>Data:</b> <span id="outputData"></span></div>
+          </div>
+          <div id="sourceSelectPanel">
+            <select id="sourceSelect" class="modern-select" style="max-width: 250px;"></select>
+          </div>
         </div>
+
+        <!-- Image Crop Section -->
+        <div class="crop-section" id="cropSection" style="display:none;">
+          <p style="color: #6c757d; margin-bottom: 0.75rem;">{% trans "Click and drag to select the barcode area" %}</p>
+          <canvas id="cropCanvas" style="cursor: crosshair;"></canvas>
+          <div id="cropPreviewSection" style="display:none; margin-top: 1rem;">
+            <p style="color: #6c757d; margin-bottom: 0.5rem;">{% trans "Cropped image to be scanned:" %}</p>
+            <canvas id="cropPreviewCanvas" style="max-height: 200px;"></canvas>
+          </div>
+          <div class="crop-buttons">
+            <button type="button" class="crop-btn crop-btn-primary" id="scanCroppedBtn">
+              <i class="bi bi-qr-code-scan"></i> {% trans "Scan Selected Area" %}
+            </button>
+            <button type="button" class="crop-btn crop-btn-warning" id="resetSelectionBtn">
+              <i class="bi bi-arrow-counterclockwise"></i> {% trans "Reset Selection" %}
+            </button>
+            <button type="button" class="crop-btn crop-btn-secondary" id="cancelCropBtn">
+              {% trans "Cancel" %}
+            </button>
+          </div>
+        </div>
+
+        <!-- Item Form -->
+        <form id="myform" method="POST" action="{% url 'edit_item' item.id %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          
+          <!-- Basic Info Section -->
+          <div class="form-section">
+            <div class="form-section-title">
+              <i class="bi bi-info-circle"></i>
+              {% trans "Basic Information" %}
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">{% trans "Type" %} <span class="required">*</span></label>
+              <div class="type-selector-row">
+                <select class="modern-select type-select" id="type" name="type" required>
+                  <option value="giftcard" {% if item.type == 'giftcard' %}selected{% endif %}>{% trans "Gift Card" %}</option>
+                  <option value="voucher" {% if item.type == 'voucher' %}selected{% endif %}>{% trans "Voucher" %}</option>
+                  <option value="coupon" {% if item.type == 'coupon' %}selected{% endif %}>{% trans "Coupon" %}</option>
+                  <option value="loyaltycard" {% if item.type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Card" %}</option>
+                </select>
+                <div class="color-picker-wrapper">
+                  <input type="color"
+                         class="color-picker"
+                         id="tile_color"
+                         name="tile_color"
+                         value="{{ item.tile_color|default:'#000000' }}"
+                         {% if not item.tile_color %}data-default-color="true"{% endif %}
+                         title="{% trans 'Tile Color' %}">
+                  <button type="button" class="color-reset-btn" onclick="resetTileColor()" title="{% trans 'Reset to default' %}">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="name">{% trans "Name" %} <span class="required">*</span></label>
+              <input type="text" class="modern-input" id="name" name="name" 
+                     placeholder="{% trans 'The name of the item' %}" 
+                     value="{{ item.name }}" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="issuer">{% trans "Issuer" %} <span class="required">*</span></label>
+              <input type="text" class="modern-input" id="issuer" name="issuer" 
+                     placeholder="{% trans 'The issuer of the item' %}" 
+                     value="{{ item.issuer }}" required>
+            </div>
+          </div>
+          
+          <!-- Code Section -->
+          <div class="form-section">
+            <div class="form-section-title">
+              <i class="bi bi-qr-code"></i>
+              {% trans "Code Information" %}
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="redeem_code">{% trans "Redeem Code" %} <span class="required">*</span></label>
+              <div class="input-with-addon">
+                <input type="text" class="modern-input" id="redeem_code" name="redeem_code" 
+                       placeholder="{% trans 'The redeem code of the item' %}" 
+                       value="{{ item.redeem_code }}" required>
+                <button title="{% trans 'Camera Scan' %}" class="input-addon-btn" type="button" id="startScanner">
+                  <i class="bi bi-camera" id="cameraIcon"></i>
+                </button>
+                <button title="{% trans 'File Scan' %}" class="input-addon-btn" type="button" id="scanFromFile">
+                  <i class="bi bi-file-earmark-image" id="fileIcon"></i>
+                </button>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="code_type">{% trans "Code Type" %} <span class="required">*</span></label>
+                <select class="modern-select" id="code_type" name="code_type" required>
+                  <option value="qrcode" {% if item.code_type == "qrcode" %}selected{% endif %}>QR Code</option>
+                  <option value="ean13" {% if item.code_type == "ean13" %}selected{% endif %}>EAN-13</option>
+                  <option value="ean8" {% if item.code_type == "ean8" %}selected{% endif %}>EAN-8</option>
+                  <option value="code128" {% if item.code_type == "code128" %}selected{% endif %}>Code 128</option>
+                  <option value="code39" {% if item.code_type == "code39" %}selected{% endif %}>Code 39</option>
+                  <option value="upca" {% if item.code_type == "upca" %}selected{% endif %}>UPC-A</option>
+                  <option value="upce" {% if item.code_type == "upce" %}selected{% endif %}>UPC-E</option>
+                  <option value="isbn13" {% if item.code_type == "isbn13" %}selected{% endif %}>ISBN-13</option>
+                  <option value="isbn10" {% if item.code_type == "isbn10" %}selected{% endif %}>ISBN-10</option>
+                  <option value="issn" {% if item.code_type == "issn" %}selected{% endif %}>ISSN</option>
+                  <option value="pdf417" {% if item.code_type == "pdf417" %}selected{% endif %}>PDF417</option>
+                  <option value="datamatrix" {% if item.code_type == "datamatrix" %}selected{% endif %}>Data Matrix</option>
+                  <option value="azteccode" {% if item.code_type == "azteccode" %}selected{% endif %}>Aztec Code</option>
+                  <option value="interleaved2of5" {% if item.code_type == "interleaved2of5" %}selected{% endif %}>Interleaved 2 of 5</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="pin">{% trans "PIN Code" %}</label>
+                <input type="text" class="modern-input" id="pin" name="pin" 
+                       placeholder="{% trans 'The pin code of the item' %}" 
+                       value="{{ item.pin|default_if_none:'' }}">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Dates Section -->
+          <div class="form-section">
+            <div class="form-section-title">
+              <i class="bi bi-calendar-event"></i>
+              {% trans "Dates" %}
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="issue_date">{% trans "Issue Date" %} <span class="required">*</span></label>
+                {% if "-" in form.issue_date.value %}
+                <input type="date" class="modern-input" id="issue_date" name="issue_date" value="{{ form.issue_date.value }}" required>
+                {% else %}
+                <input type="date" class="modern-input" id="issue_date" name="issue_date" value="{{ form.issue_date.value|date:'Y-m-d' }}" required>
+                {% endif %}
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="expiry_date">{% trans "Expiry Date" %}</label>
+                {% if "-" in form.expiry_date.value %}
+                <input type="date" class="modern-input" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value }}">
+                {% else %}
+                <input type="date" class="modern-input" id="expiry_date" name="expiry_date" value="{{ form.expiry_date.value|date:'Y-m-d' }}">
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Value Section -->
+          <div class="form-section" id="value-field">
+            <div class="form-section-title">
+              <i class="bi bi-wallet2"></i>
+              {% trans "Value" %}
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="value">{% trans "Value" %} <span class="required">*</span></label>
+              <div class="input-with-addon">
+                <input type="number" class="modern-input" id="value" name="value" 
+                       placeholder="{% trans 'The value of the item' %}" 
+                       step="0.01" min="0.00" 
+                       value="{{ item.value|comma_to_dot }}" required>
+                <button class="input-addon-btn d-none" type="button" id="toggle-value-type">
+                  <span title="{% trans 'Monetary Value' %}" id="value-type-icon" class="bi bi-cash-coin"></span>
+                </button>
+              </div>
+              <input type="hidden" id="value_type" name="value_type" value="{{ item.value_type }}">
+            </div>
+          </div>
+          
+          <!-- Additional Info Section -->
+          <div class="form-section">
+            <div class="form-section-title">
+              <i class="bi bi-card-text"></i>
+              {% trans "Additional Information" %}
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="description">{% trans "Description" %}</label>
+              <textarea class="modern-textarea" id="description" name="description" 
+                        placeholder="{% trans 'The description of the item' %}" 
+                        rows="3">{{ item.description }}</textarea>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="logo_slug">
+                {% trans "Logo Slug" %}
+                <a href="https://www.logo.dev/" target="_blank" title="{% trans 'Learn more about logo.dev' %}">
+                  <i class="bi bi-info-circle"></i>
+                </a>
+              </label>
+              <input type="text" class="modern-input" id="logo_slug" name="logo_slug" 
+                     placeholder="amazon.com" 
+                     value="{{ item.logo_slug|default_if_none:'' }}">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="file">{% trans "Upload File" %}</label>
+              <input type="file" id="file" name="file" class="modern-input">
+            </div>
+          </div>
+          
+          <!-- Submit Button -->
+          <button type="submit" onclick="handleSubmitButton()" class="submit-btn">
+            <i class="bi bi-check-lg"></i>
+            {% trans "Update Item" %}
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </section>
 
-<style>
-    @keyframes breathe {
-      0% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-  
-    .breathe-red {
-      animation: breathe 1s infinite;
-      color: red;
-    }
-  </style>
-  
-  <script src="{% static 'assets/js/zxing.js' %}"></script>
-  <script src="{% static 'assets/js/scanner.js' %}"></script>
-<script>
-    function handleSubmitButton() {
-        var form = document.getElementById('myform'); // Direct reference to the form by its ID
-        if (form.checkValidity()) {
-            document.getElementById('loadingOverlay').style.display = 'flex';
-        } else {
-            document.getElementById('loadingOverlay').style.display = 'none'; // Hide if form is not valid
-        }
-    }
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-
-      const typeField = document.getElementById('type');
-      const pinField = document.getElementById('pin');
-      const valueField = document.getElementById('value');
-      const issuerCodeField = document.getElementById('issuer');
-      const redeemCodeField = document.getElementById('redeem_code');
-      const pinFieldContainer = pinField.closest('.row');
-      const valueFieldContainer = valueField.closest('.row');
-      const issuerCodeLabel = document.querySelector('label[for="issuer"]');
-      const redeemCodeLabel = document.querySelector('label[for="redeem_code"]');
-      const valueTypeIcon = document.getElementById('value-type-icon');
-      const toggleValueTypeBtn = document.getElementById('toggle-value-type');
-      const valueTypeField = document.getElementById('value_type');
-
-      function setInitialValueType() {
-          if (valueTypeField.value === 'percentage') {
-              valueTypeIcon.classList.remove('bi-cash-coin');
-              valueTypeIcon.classList.add('bi-percent');
-              valueField.setAttribute('step', '0.01');
-              valueField.setAttribute('min', '0.00');
-              valueField.setAttribute('max', '100.00');
-          } else {
-              valueTypeIcon.classList.remove('bi-percent');
-              valueTypeIcon.classList.add('bi-cash-coin');
-              valueField.setAttribute('step', '0.01');
-              valueField.setAttribute('min', '0.00');
-              valueField.removeAttribute('max');
-          }
-      }
-
-      function toggleFields() {
-          if (typeField.value === 'loyaltycard') {
-              pinField.readOnly = true;
-              valueField.readOnly = true;
-              pinField.classList.add('readonly');
-              valueField.classList.add('readonly');
-              valueField.value = 0;
-              issuerCodeLabel.textContent = "{% trans 'Store' %}";
-              issuerCodeField.placeholder = "{% trans 'The store of your loyalty card' %}";
-              redeemCodeLabel.textContent = "{% trans 'Loyalty ID' %}";
-              redeemCodeField.placeholder = "{% trans 'Loyalty card number or customer ID' %}";
-          } else {
-              pinField.readOnly = false;
-              valueField.readOnly = false;
-              pinField.classList.remove('readonly');
-              valueField.classList.remove('readonly');
-              redeemCodeLabel.textContent = "{% trans 'Redeem Code' %}";
-              redeemCodeField.placeholder = "{% trans 'The redeem code of the item' %}";
-          }
-
-          if (typeField.value === 'coupon') {
-              toggleValueTypeBtn.classList.remove('d-none');
-          } else {
-              toggleValueTypeBtn.classList.add('d-none');
-          }
-      }
-
-      function toggleValueInput() {
-        if (valueTypeField.value === 'money') {
-            valueTypeField.value = 'percentage';
-            valueTypeIcon.className = 'bi bi-percent';
-            valueField.setAttribute('step', '0.01');
-            valueField.setAttribute('min', '0.00');
-            valueField.setAttribute('max', '100.00');
-            valueField.placeholder = "{% trans 'e.g. 20% off' %}";
-            document.getElementById('value-type-icon').title = 'Percentage Value'; 
-        } else if (valueTypeField.value === 'percentage') {
-            valueTypeField.value = 'multiplier';
-            valueTypeIcon.className = 'bi bi-dice-5';  // You can pick any icon
-            valueField.setAttribute('step', '0.1');
-            valueField.setAttribute('min', '1.0');
-            valueField.removeAttribute('max');
-            valueField.placeholder = "{% trans 'e.g. 2x payback points' %}";
-            document.getElementById('value-type-icon').title = 'Multiplier Value'; 
-        } else {
-            valueTypeField.value = 'money';
-            valueTypeIcon.className = 'bi bi-cash-coin';
-            valueField.setAttribute('step', '0.01');
-            valueField.setAttribute('min', '0.00');
-            valueField.removeAttribute('max');
-            valueField.placeholder = "{% trans 'e.g. 5€' %}";
-            document.getElementById('value-type-icon').title = 'Monetary Value'; 
-        }
-    }
-
-      typeField.addEventListener('change', toggleFields);
-      toggleValueTypeBtn.addEventListener('click', toggleValueInput);
-
-      setInitialValueType(); // Set the initial state based on the value_type field value
-      toggleFields();  // Initial call to set the correct state on page load
-  });
-</script>
+<script src="{% static 'assets/js/zxing.js' %}"></script>
+<script src="{% static 'assets/js/scanner.js' %}"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const colorInput = document.getElementById('tile_color');
-
-  if (colorInput && colorInput.dataset.defaultColor === "true") {
-    const isDarkMode = localStorage.getItem('darkMode') !== 'disabled';
-    const defaultColor = isDarkMode ? '#1e1e1e' : '#f3f3f3';
-
-    colorInput.value = defaultColor;
+function handleSubmitButton() {
+  var form = document.getElementById('myform');
+  if (form.checkValidity()) {
+    document.getElementById('loadingOverlay').style.display = 'flex';
+  } else {
+    document.getElementById('loadingOverlay').style.display = 'none';
   }
-});
-</script>
+}
 
-<script>
-  function resetTileColor() {
-    const tileColorInput = document.getElementById('tile_color');
+function resetTileColor() {
+  const tileColorInput = document.getElementById('tile_color');
+  const isDarkMode = localStorage.getItem('darkMode') !== 'disabled';
+  tileColorInput.value = isDarkMode ? "#1e1e1e" : "#f3f3f3";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const typeField = document.getElementById('type');
+  const pinField = document.getElementById('pin');
+  const valueField = document.getElementById('value');
+  const issuerCodeField = document.getElementById('issuer');
+  const redeemCodeField = document.getElementById('redeem_code');
+  const pinFieldContainer = pinField.closest('.form-group');
+  const valueFieldContainer = valueField.closest('.form-section');
+  const issuerLabel = document.querySelector('label[for="issuer"]');
+  const redeemCodeLabel = document.querySelector('label[for="redeem_code"]');
+  const valueTypeIcon = document.getElementById('value-type-icon');
+  const toggleValueTypeBtn = document.getElementById('toggle-value-type');
+  const valueTypeField = document.getElementById('value_type');
+  const tileColorInput = document.getElementById('tile_color');
+
+  // Set default tile color based on theme if data-default-color is set
+  if (tileColorInput && tileColorInput.dataset.defaultColor === "true") {
     const isDarkMode = localStorage.getItem('darkMode') !== 'disabled';
     tileColorInput.value = isDarkMode ? "#1e1e1e" : "#f3f3f3";
   }
+
+  function setInitialValueType() {
+    if (valueTypeField.value === 'percentage') {
+      valueTypeIcon.classList.remove('bi-cash-coin');
+      valueTypeIcon.classList.add('bi-percent');
+      valueField.setAttribute('step', '0.01');
+      valueField.setAttribute('min', '0.00');
+      valueField.setAttribute('max', '100.00');
+    } else if (valueTypeField.value === 'multiplier') {
+      valueTypeIcon.classList.remove('bi-cash-coin');
+      valueTypeIcon.classList.add('bi-dice-5');
+      valueField.setAttribute('step', '0.1');
+      valueField.setAttribute('min', '1.0');
+      valueField.removeAttribute('max');
+    } else {
+      valueTypeIcon.classList.remove('bi-percent');
+      valueTypeIcon.classList.remove('bi-dice-5');
+      valueTypeIcon.classList.add('bi-cash-coin');
+      valueField.setAttribute('step', '0.01');
+      valueField.setAttribute('min', '0.00');
+      valueField.removeAttribute('max');
+    }
+  }
+
+  function toggleFields() {
+    if (typeField.value === 'loyaltycard') {
+      pinField.readOnly = true;
+      valueField.readOnly = true;
+      pinField.classList.add('readonly');
+      valueField.classList.add('readonly');
+      valueField.value = 0;
+      issuerLabel.innerHTML = "{% trans 'Store' %} <span class='required'>*</span>";
+      issuerCodeField.placeholder = "{% trans 'The store of your loyalty card' %}";
+      redeemCodeLabel.innerHTML = "{% trans 'Loyalty ID' %} <span class='required'>*</span>";
+      redeemCodeField.placeholder = "{% trans 'Loyalty card number or customer ID' %}";
+    } else {
+      pinField.readOnly = false;
+      valueField.readOnly = false;
+      pinField.classList.remove('readonly');
+      valueField.classList.remove('readonly');
+      issuerLabel.innerHTML = "{% trans 'Issuer' %} <span class='required'>*</span>";
+      issuerCodeField.placeholder = "{% trans 'The issuer of the item' %}";
+      redeemCodeLabel.innerHTML = "{% trans 'Redeem Code' %} <span class='required'>*</span>";
+      redeemCodeField.placeholder = "{% trans 'The redeem code of the item' %}";
+    }
+
+    if (typeField.value === 'coupon') {
+      toggleValueTypeBtn.classList.remove('d-none');
+    } else {
+      toggleValueTypeBtn.classList.add('d-none');
+    }
+  }
+
+  function toggleValueInput() {
+    if (valueTypeField.value === 'money') {
+      valueTypeField.value = 'percentage';
+      valueTypeIcon.className = 'bi bi-percent';
+      valueField.setAttribute('step', '0.01');
+      valueField.setAttribute('min', '0.00');
+      valueField.setAttribute('max', '100.00');
+      valueField.placeholder = "{% trans 'e.g. 20% off' %}";
+      valueTypeIcon.title = "{% trans 'Percentage Value' %}";
+    } else if (valueTypeField.value === 'percentage') {
+      valueTypeField.value = 'multiplier';
+      valueTypeIcon.className = 'bi bi-dice-5';
+      valueField.setAttribute('step', '0.1');
+      valueField.setAttribute('min', '1.0');
+      valueField.removeAttribute('max');
+      valueField.placeholder = "{% trans 'e.g. 2x payback points' %}";
+      valueTypeIcon.title = "{% trans 'Multiplier Value' %}";
+    } else {
+      valueTypeField.value = 'money';
+      valueTypeIcon.className = 'bi bi-cash-coin';
+      valueField.setAttribute('step', '0.01');
+      valueField.setAttribute('min', '0.00');
+      valueField.removeAttribute('max');
+      valueField.placeholder = "{% trans 'e.g. 5€' %}";
+      valueTypeIcon.title = "{% trans 'Monetary Value' %}";
+    }
+  }
+
+  typeField.addEventListener('change', toggleFields);
+  toggleValueTypeBtn.addEventListener('click', toggleValueInput);
+
+  setInitialValueType();
+  toggleFields();
+});
 </script>
 
 {% endblock content %}

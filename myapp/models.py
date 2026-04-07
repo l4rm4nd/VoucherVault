@@ -16,6 +16,10 @@ class UserPreference(models.Model):
         ('asc', 'Ascending'),
         ('desc', 'Descending'),
     )
+    VIEW_MODE_CHOICES = (
+        ('compact', 'Compact'),
+        ('standard', 'Standard'),
+    )
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     show_issue_date = models.BooleanField(default=True)
@@ -24,6 +28,7 @@ class UserPreference(models.Model):
     show_description = models.BooleanField(default=False)
     sort_by = models.CharField(max_length=20, choices=SORT_CHOICES, default='expiry_date')
     sort_order = models.CharField(max_length=4, choices=SORT_ORDER_CHOICES, default='asc')
+    view_mode = models.CharField(max_length=10, choices=VIEW_MODE_CHOICES, default='compact')
 
 class Item(models.Model):
     ITEM_TYPES = (
@@ -63,6 +68,7 @@ class Item(models.Model):
         validators=[RegexValidator(regex=r'^#(?:[0-9a-fA-F]{3}){1,2}$', message='Enter a valid hex color.')],
         help_text="Hex code like #FF5733"
     )
+    is_pinned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
