@@ -838,7 +838,72 @@ document.addEventListener("DOMContentLoaded", function () {
   toggleValueTypeBtn.addEventListener('click', toggleValueInput);
 
   toggleFields();
-});
-</script>
+  
+  // Prefill form from GET parameters (for import links)
+  function prefillFromUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    const fieldMappings = {
+      'name': 'name',
+      'issuer': 'issuer',
+      'type': 'type',
+      'code': 'redeem_code',
+      'redeem_code': 'redeem_code',
+      'code_type': 'code_type',
+      'pin': 'pin',
+      'value': 'value',
+      'value_type': 'value_type',
+      'issue_date': 'issue_date',
+      'expiry_date': 'expiry_date',
+      'description': 'description',
+      'logo_slug': 'logo_slug',
+      'logo': 'logo_slug',
+      'tile_color': 'tile_color',
+      'color': 'tile_color'
+    };
+    
+    let hasParams = false;
+    
+    for (const [param, fieldId] of Object.entries(fieldMappings)) {
+      const value = urlParams.get(param);
+      if (value) {
+        const field = document.getElementById(fieldId);
+        if (field) {
+          if (field.tagName === 'SELECT') {
+            // For select elements, check if the value is a valid option
+            const option = field.querySelector(`option[value="${value}"]`);
+            if (option) {
+              field.value = value;
+              hasParams = true;
+            }
+          } else {
+            field.value = value;
+            hasParams = true;
+          }
+        }
+      }
+    }
+    
+    // Handle value_type specially - need to cycle through toggle
+    const valueTypeParam = urlParams.get('value_type');
+    if (valueTypeParam && ['money', 'percentage', 'multiplier'].includes(valueTypeParam)) {
+      // Set starting point and cycle to target
+      valueTypeField.value = 'money';
+      if (valueTypeParam === 'percentage') {
+        toggleValueInput();
+      } else if (valueTypeParam === 'multiplier') {
+        toggleValueInput();
+        toggleValueInput();
+      }
+    }
+    
+    // Re-run toggle fields if type was changed
+    if (urlParams.get('type')) {
+      toggleFields();
+    }
+  }
+  
+  prefillFromUrlParams();
+});</script>
 
 {% endblock content %}
