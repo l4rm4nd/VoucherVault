@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.26.0...v1.26.1) (2026-04-07)
+
+
+### Bug Fixes
+
+* reuse item's tile color during duplication ([cd94d61](https://github.com/l4rm4nd/VoucherVault/commit/cd94d610154b31be6cb37e20d1cf4cd981954d9f)), closes [#126](https://github.com/l4rm4nd/VoucherVault/issues/126)
+
 ## [1.26.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.8...v1.26.0) (2026-03-14)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * service worker adheres to cache expiry date; fixes [#120](https://github.com/l4rm4nd/VoucherVault/issues/120) ([e13b50f](https://github.com/l4rm4nd/VoucherVault/commit/e13b50f064c801bb0c48ae88dc30915f725b96b6))
-
-## [1.25.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.4...v1.25.5) (2026-02-13)
-
-
-### Bug Fixes
-
-* CSRF error when logging out from cached page ([5b868b0](https://github.com/l4rm4nd/VoucherVault/commit/5b868b0efc1d399891df4f26653c89a05bb43d4c))
 
