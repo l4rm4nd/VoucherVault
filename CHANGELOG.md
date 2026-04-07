@@ -1,3 +1,10 @@
+## [1.27.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.0...v1.27.1) (2026-04-07)
+
+
+### Bug Fixes
+
+* sharing center search and autofocus ([8ddb6cf](https://github.com/l4rm4nd/VoucherVault/commit/8ddb6cf8508a920ddb6116ceab2899c929c95f27))
+
 ## [1.27.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.26.1...v1.27.0) (2026-04-07)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump Django ([6eeb47d](https://github.com/l4rm4nd/VoucherVault/commit/6eeb47db60aba7db7774ad1b2cdfd7a64decccdf))
-
-## [1.25.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.25.6...v1.25.7) (2026-02-28)
-
-
-### Bug Fixes
-
-* bump celery beat ([1e4635f](https://github.com/l4rm4nd/VoucherVault/commit/1e4635f87cea06bb77b05af1c0a4c0e9144394db))
 
