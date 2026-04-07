@@ -85,7 +85,7 @@ This will redirect to: `https://myvault.example.com/items/create/?name=Amazon&ty
 
 Full example:
 ```
-https://vouchervault-linker.lrvt.red/create-item#name=Amazon+Gift+Card&issuer=Amazon&type=giftcard&code=ABC-1234-XYZ&code_type=qrcode&value=25&value_type=money&expiry_date=2026-12-31&logo=amazon
+https://vouchervault-linker.lrvt.red/create-item#name=Amazon+Gift+Card&issuer=Amazon&type=giftcard&code=ABC-1234-XYZ&code_type=qrcode&value=25&description=Giftcard%20from%20grandma%20for%20my%2018th%20birthday&expiry_date=2026-12-31&logo_slug=amazon.com&pin=12345&tile_color=%234154f1
 ```
 
 > **Note:** URL-encode special characters in values. Spaces can be `+` or `%20`. The `#` character in a hex colour must be encoded as `%23`.
