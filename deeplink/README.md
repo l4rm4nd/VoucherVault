@@ -11,7 +11,7 @@ It lets anyone craft a special URL that, when opened, guides the recipient throu
 ```
 Link creator
     │
-    │  https://vouchervault-linker.lrvt.red/create-item
+    │  https://vouchervault-linker.lrvt.de/create-item
     │                                 #name=Foo&code=ABC123&type=giftcard
     │                                 └─── hash fragment (never sent to server) ───┘
     ▼
@@ -45,14 +45,14 @@ URL **fragments** (the `#...` part) are a browser-only concept. They are **never
 
 ## Crafting a deep-link
 
-The base URL is the public worker URL (e.g. `https://import.vouchervault.app`).
+The base URL is the public worker URL (e.g. `https://vouchervault-linker.lrvt.de`).
 
 The path can be anything (e.g. `/create-item`) — the worker always redirects to `/items/create/` on the target instance regardless.
 
 All voucher data goes into the **hash fragment** as URL-encoded query parameters:
 
 ```
-https://import.vouchervault.app/create-item#<param>=<value>&<param>=<value>
+https://vouchervault-linker.lrvt.de/create-item#<param>=<value>&<param>=<value>
 ```
 
 ### Supported parameters
@@ -79,13 +79,13 @@ These map directly to the VoucherVault create-item form fields:
 
 Minimal — just a gift card code:
 ```
-https://vouchervault-linker.lrvt.red/create-item#name=Amazon&type=giftcard&code=ABC-1234-XYZ
+https://vouchervault-linker.lrvt.de/create-item#name=Amazon&type=giftcard&code=ABC-1234-XYZ
 ```
 This will redirect to: `https://myvault.example.com/items/create/?name=Amazon&type=giftcard&code=ABC-1234-XYZ`
 
 Full example:
 ```
-https://vouchervault-linker.lrvt.red/create-item#name=Amazon+Gift+Card&issuer=Amazon&type=giftcard&code=ABC-1234-XYZ&code_type=qrcode&value=25&description=Giftcard%20from%20grandma%20for%20my%2018th%20birthday&expiry_date=2026-12-31&logo_slug=amazon.com&pin=12345&tile_color=%234154f1
+https://vouchervault-linker.lrvt.de/create-item#name=Amazon+Gift+Card&issuer=Amazon&type=giftcard&code=ABC-1234-XYZ&code_type=qrcode&value=25&description=Giftcard%20from%20grandma%20for%20my%2018th%20birthday&expiry_date=2026-12-31&logo_slug=amazon.com&pin=12345&tile_color=%234154f1
 ```
 
 > **Note:** URL-encode special characters in values. Spaces can be `+` or `%20`. The `#` character in a hex colour must be encoded as `%23`.
