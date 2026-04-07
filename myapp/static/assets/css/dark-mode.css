@@ -289,30 +289,39 @@ body.dark-mode .footer .credits {
 }
 
 body.dark-mode .form-control {
-  background-color: lightgrey !important;
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #444 !important;
 }
 
 body.dark-mode .form-select {
-  background-color: lightgrey !important;
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #444 !important;
 }
 
-body.dark-mode #id_old_password {
-  background-color: lightgrey !important;
+body.dark-mode #id_old_password,
+body.dark-mode #id_new_password1,
+body.dark-mode #id_new_password2 {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
 }
 
 body.dark-mode {
   background-color: #121212;
-  color: #000000;
+  color: #e0e0e0;
 }
 
 body.dark-mode input[type="password"] {
-  background-color: lightgrey !important;
-  color: #000000 !important;
-  border: 1px solid #444444 !important;
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+  border: 1px solid #444 !important;
 }
 
 body.dark-mode input[type="password"]::placeholder {
-  color: #bbbbbb !important;
+  color: #888 !important;
 }
 
 /* custom css for show-item.html */

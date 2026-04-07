@@ -5,7 +5,7 @@
 
 {% block content %}
 <style>
-/* Shared Items Styles - Matching Inventory */
+/* Sharing Center Styles - Matching Inventory */
 .sharing-header {
   display: flex;
   flex-wrap: wrap;
@@ -21,49 +21,124 @@
   font-weight: 600;
 }
 
-/* Filter Tabs */
-.filter-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.filter-tab {
-  padding: 0.6rem 1.25rem;
-  border: 1px solid var(--border-color, #dee2e6);
+/* Search and Filter Bar */
+.filter-bar {
   background: var(--card-bg, #fff);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.search-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.search-wrapper i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  border: 1px solid var(--border-color, #dee2e6);
   border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.95rem;
   transition: all 0.2s ease;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #1e1e1e);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color, #4154f1);
+  box-shadow: 0 0 0 3px rgba(65, 84, 241, 0.1);
+}
+
+/* Filter Chips */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-chip {
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border-color, #dee2e6);
+  background: var(--chip-bg, #f8f9fa);
   color: var(--text-color, #495057);
+  transition: all 0.2s ease;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
-.filter-tab:hover {
-  background: var(--hover-bg, #f8f9fa);
+.filter-chip:hover {
+  background: var(--chip-hover, #e9ecef);
+  transform: translateY(-1px);
   color: var(--text-color, #495057);
 }
 
-.filter-tab.active {
+.filter-chip.active {
   background: var(--primary-color, #4154f1);
   color: white;
   border-color: var(--primary-color, #4154f1);
 }
 
-.filter-tab .count {
-  background: rgba(0,0,0,0.1);
-  padding: 0.15rem 0.5rem;
-  border-radius: 10px;
-  font-size: 0.75rem;
+.filter-chip i {
+  font-size: 0.85rem;
 }
 
-.filter-tab.active .count {
+.filter-chip .count {
+  background: rgba(0,0,0,0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+.filter-chip.active .count {
   background: rgba(255,255,255,0.2);
+}
+
+/* Mobile Filter Dropdowns */
+.mobile-filters {
+  display: none;
+}
+
+.mobile-filter-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mobile-filter-select {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #495057);
+}
+
+@media (max-width: 768px) {
+  .filter-chips {
+    display: none;
+  }
+  .mobile-filters {
+    display: block;
+  }
 }
 
 /* Items Count */
@@ -307,9 +382,16 @@ body.dark-mode {
   --card-bg: #1e1e1e;
   --border-color: #333;
   --text-color: #e0e0e0;
+  --input-bg: #2a2a2a;
+  --chip-bg: #2a2a2a;
+  --chip-hover: #333;
   --field-bg: #2a2a2a;
   --hover-bg: #2a2a2a;
   --primary-color: #5a6cf1;
+}
+
+body.dark-mode .search-input {
+  color: #e0e0e0;
 }
 
 body.dark-mode .item-issuer,
@@ -367,23 +449,51 @@ body.dark-mode .status-badge.shared-by-me {
 </div>
 
 <section class="section">
-  <!-- Filter Tabs -->
-  <div class="filter-tabs">
-    <a href="?filter=all" class="filter-tab {% if not current_filter or current_filter == 'all' %}active{% endif %}">
-      <i class="bi bi-grid-3x3-gap"></i>
-      {% trans "All" %}
-      <span class="count">{{ total_count }}</span>
-    </a>
-    <a href="?filter=with_me" class="filter-tab {% if current_filter == 'with_me' %}active{% endif %}">
-      <i class="bi bi-box-arrow-in-down"></i>
-      {% trans "Shared With Me" %}
-      <span class="count">{{ with_me_count }}</span>
-    </a>
-    <a href="?filter=by_me" class="filter-tab {% if current_filter == 'by_me' %}active{% endif %}">
-      <i class="bi bi-box-arrow-up"></i>
-      {% trans "Shared By Me" %}
-      <span class="count">{{ by_me_count }}</span>
-    </a>
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <form method="GET" action="" id="filterForm">
+      <div class="search-wrapper">
+        <i class="bi bi-search"></i>
+        <input type="text" 
+               name="query" 
+               id="searchInput" 
+               class="search-input" 
+               placeholder="{% trans 'Search by name or issuer...' %}" 
+               value="{{ search_query }}"
+               autocomplete="off">
+        <input type="hidden" name="filter" value="{{ current_filter|default:'all' }}">
+      </div>
+      
+      <!-- Mobile Filters (Dropdowns) -->
+      <div class="mobile-filters">
+        <div class="mobile-filter-row">
+          <select class="mobile-filter-select" id="mobileFilterSelect" onchange="applyMobileFilter()">
+            <option value="all" {% if not current_filter or current_filter == 'all' %}selected{% endif %}>{% trans "All" %} ({{ total_count }})</option>
+            <option value="with_me" {% if current_filter == 'with_me' %}selected{% endif %}>{% trans "Shared With Me" %} ({{ with_me_count }})</option>
+            <option value="by_me" {% if current_filter == 'by_me' %}selected{% endif %}>{% trans "Shared By Me" %} ({{ by_me_count }})</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Desktop Filter Chips -->
+      <div class="filter-chips">
+        <a href="?filter=all{% if search_query %}&query={{ search_query }}{% endif %}" 
+           class="filter-chip {% if not current_filter or current_filter == 'all' %}active{% endif %}">
+          <i class="bi bi-grid-3x3-gap"></i> {% trans "All" %}
+          <span class="count">{{ total_count }}</span>
+        </a>
+        <a href="?filter=with_me{% if search_query %}&query={{ search_query }}{% endif %}" 
+           class="filter-chip {% if current_filter == 'with_me' %}active{% endif %}">
+          <i class="bi bi-box-arrow-in-down"></i> {% trans "Shared With Me" %}
+          <span class="count">{{ with_me_count }}</span>
+        </a>
+        <a href="?filter=by_me{% if search_query %}&query={{ search_query }}{% endif %}" 
+           class="filter-chip {% if current_filter == 'by_me' %}active{% endif %}">
+          <i class="bi bi-box-arrow-up"></i> {% trans "Shared By Me" %}
+          <span class="count">{{ by_me_count }}</span>
+        </a>
+      </div>
+    </form>
   </div>
 
   <!-- Items Count -->
@@ -516,4 +626,24 @@ body.dark-mode .status-badge.shared-by-me {
   </div>
   {% endif %}
 </section>
+
+<script>
+// Search on enter
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    document.getElementById('filterForm').submit();
+  }
+});
+
+// Mobile filter change
+function applyMobileFilter() {
+  const filterValue = document.getElementById('mobileFilterSelect').value;
+  const searchQuery = document.getElementById('searchInput').value;
+  let url = '?filter=' + filterValue;
+  if (searchQuery) {
+    url += '&query=' + encodeURIComponent(searchQuery);
+  }
+  window.location.href = url;
+}
+</script>
 {% endblock content %}

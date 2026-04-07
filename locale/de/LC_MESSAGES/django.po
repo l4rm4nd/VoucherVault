@@ -301,6 +301,10 @@ msgstr "Gutscheine"
 msgid "Loyalty Cards"
 msgstr "Kundenkarten"
 
+#: myapp/templates/inventory.html:672
+msgid "Loyalty"
+msgstr "Kundenkarten"
+
 #: myapp/templates/edit-item.html:8 myapp/templates/edit-item.html:13
 msgid "Edit Item"
 msgstr "Bearbeiten"
@@ -424,6 +428,46 @@ msgstr "Zum Inventar"
 #| msgid "Change Password"
 msgid "Change Your Password"
 msgstr "Passwort ändern"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Update Your Password"
+msgstr "Passwort aktualisieren"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Current Password"
+msgstr "Aktuelles Passwort"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "New Password"
+msgstr "Neues Passwort"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Confirm New Password"
+msgstr "Neues Passwort bestätigen"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password can't be too similar to your other personal information."
+msgstr "Dein Passwort darf deinen persönlichen Daten nicht zu ähnlich sein."
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password must contain at least 8 characters."
+msgstr "Dein Passwort muss mindestens 8 Zeichen enthalten."
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password can't be a commonly used password."
+msgstr "Dein Passwort darf kein häufig verwendetes Passwort sein."
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password can't be entirely numeric."
+msgstr "Dein Passwort darf nicht nur aus Zahlen bestehen."
+
+#: myapp/templates/registration/password_change_done.html
+msgid "Password Changed"
+msgstr "Passwort geändert"
+
+#: myapp/templates/registration/password_change_done.html
+msgid "Your password has been successfully changed. You can now use your new password to log in."
+msgstr "Dein Passwort wurde erfolgreich geändert. Du kannst dich jetzt mit deinem neuen Passwort anmelden."
 
 #: myapp/templates/share_item.html:7 myapp/templates/share_item.html:36
 msgid "Share Item"

@@ -300,6 +300,10 @@ msgstr "Cartes-cadeaux"
 msgid "Loyalty Cards"
 msgstr "Cartes de fidélité"
 
+#: myapp/templates/inventory.html:672
+msgid "Loyalty"
+msgstr "Fidélité"
+
 #: myapp/templates/edit-item.html:8 myapp/templates/edit-item.html:13
 msgid "Edit Item"
 msgstr "Modifier l'élément"
@@ -417,6 +421,46 @@ msgstr "Aller à l'inventaire"
 #: myapp/templates/registration/password_change_form.html:18
 msgid "Change Your Password"
 msgstr "Modifier votre mot de passe"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Update Your Password"
+msgstr "Mettre à jour votre mot de passe"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Current Password"
+msgstr "Mot de passe actuel"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "New Password"
+msgstr "Nouveau mot de passe"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Confirm New Password"
+msgstr "Confirmer le nouveau mot de passe"
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password can't be too similar to your other personal information."
+msgstr "Votre mot de passe ne peut pas être trop similaire à vos autres informations personnelles."
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password must contain at least 8 characters."
+msgstr "Votre mot de passe doit contenir au moins 8 caractères."
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password can't be a commonly used password."
+msgstr "Votre mot de passe ne peut pas être un mot de passe couramment utilisé."
+
+#: myapp/templates/registration/password_change_form.html
+msgid "Your password can't be entirely numeric."
+msgstr "Votre mot de passe ne peut pas être entièrement numérique."
+
+#: myapp/templates/registration/password_change_done.html
+msgid "Password Changed"
+msgstr "Mot de passe modifié"
+
+#: myapp/templates/registration/password_change_done.html
+msgid "Your password has been successfully changed. You can now use your new password to log in."
+msgstr "Votre mot de passe a été modifié avec succès. Vous pouvez maintenant utiliser votre nouveau mot de passe pour vous connecter."
 
 #: myapp/templates/share_item.html:7 myapp/templates/share_item.html:36
 msgid "Share Item"

@@ -131,6 +131,23 @@ def show_items(request):
 
     # Retrieve or create user preferences (only once)
     preferences, _ = UserPreference.objects.get_or_create(user=user)
+    
+    # Calculate counts for filters (always for current user's items)
+    user_items = Item.objects.filter(user=user)
+    threshold_days = int(os.getenv('EXPIRY_THRESHOLD_DAYS', 30))
+    soon_expiry_date = now() + timedelta(days=threshold_days)
+    
+    available_count = user_items.filter(is_used=False, expiry_date__gte=timezone.now()).count()
+    soon_expiring_count = user_items.filter(is_used=False, expiry_date__gte=now(), expiry_date__lt=soon_expiry_date).count()
+    used_count = user_items.filter(is_used=True).count()
+    expired_count = user_items.filter(expiry_date__lt=timezone.now(), is_used=False).count()
+    
+    # Type counts (from available items only)
+    available_items_qs = user_items.filter(is_used=False, expiry_date__gte=timezone.now())
+    voucher_count = available_items_qs.filter(type='voucher').count()
+    giftcard_count = available_items_qs.filter(type='giftcard').count()
+    coupon_count = available_items_qs.filter(type='coupon').count()
+    loyaltycard_count = available_items_qs.filter(type='loyaltycard').count()
 
     # Base query
     if filter_value == 'shared_by_me':
@@ -202,6 +219,17 @@ def show_items(request):
         'search_query': search_query,
         'current_date': timezone.now(),
         'preferences': preferences,
+        # Filter counts
+        'available_count': available_count,
+        'soon_expiring_count': soon_expiring_count,
+        'used_count': used_count,
+        'expired_count': expired_count,
+        # Type counts
+        'voucher_count': voucher_count,
+        'giftcard_count': giftcard_count,
+        'coupon_count': coupon_count,
+        'loyaltycard_count': loyaltycard_count,
+        'all_types_count': available_count,
     }
     return render(request, 'inventory.html', context)
 
@@ -573,8 +601,9 @@ def sharing_center(request):
     current_user = request.user
     today = now().date()
     
-    # Get filter parameter
+    # Get filter and search parameters
     filter_type = request.GET.get('filter', 'all')
+    search_query = request.GET.get('query', '').strip()
 
     # Retrieve or create user preferences
     preferences, _ = UserPreference.objects.get_or_create(user=current_user)
@@ -610,6 +639,10 @@ def sharing_center(request):
                 }
 
     shared_items = list(unique_items.values())
+    
+    # Sort by expiry date
+    shared_items.sort(key=lambda x: x['item'].expiry_date)
+    
     total_count = len(shared_items)
     with_me_count = len([item for item in shared_items if item.get('shared_with_me', False)])
     by_me_count = len([item for item in shared_items if not item.get('shared_with_me', False)])
@@ -619,12 +652,21 @@ def sharing_center(request):
         shared_items = [item for item in shared_items if item.get('shared_with_me', False)]
     elif filter_type == 'by_me':
         shared_items = [item for item in shared_items if not item.get('shared_with_me', False)]
+    
+    # Apply search
+    if search_query:
+        shared_items = [
+            item for item in shared_items 
+            if search_query.lower() in item['item'].name.lower() 
+            or search_query.lower() in item['item'].issuer.lower()
+        ]
 
     return render(request, 'sharing_center.html', {
         'shared_items': shared_items,
         'current_date': timezone.now(),
         'preferences': preferences,
         'current_filter': filter_type,
+        'search_query': search_query,
         'total_count': total_count,
         'with_me_count': with_me_count,
         'by_me_count': by_me_count,
@@ -824,6 +866,10 @@ def toggle_pin_item(request, item_uuid):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({'success': True, 'is_pinned': item.is_pinned})
     
+    # Support redirect back to previous page
+    next_url = request.POST.get('next') or request.GET.get('next')
+    if next_url:
+        return redirect(next_url)
     return redirect('show_items')
 
 

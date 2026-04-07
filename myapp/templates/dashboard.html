@@ -529,7 +529,7 @@ body.dark-mode .stat-card.total-value .stat-card-icon {
           <h2>{% trans "Shared Items" %}</h2>
         </div>
         <div class="stats-grid two-col">
-          <a href="{% url 'show_items' %}?status=shared_by_me" class="stat-card shared">
+          <a href="{% url 'sharing_center' %}?filter=by_me" class="stat-card shared">
             <div class="stat-card-icon">
               <i class="bi bi-send"></i>
             </div>
@@ -539,7 +539,7 @@ body.dark-mode .stat-card.total-value .stat-card-icon {
             </div>
           </a>
           
-          <a href="{% url 'show_items' %}?status=shared_with_me" class="stat-card shared">
+          <a href="{% url 'sharing_center' %}?filter=with_me" class="stat-card shared">
             <div class="stat-card-icon">
               <i class="bi bi-inbox"></i>
             </div>

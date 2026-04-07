@@ -129,6 +129,18 @@
   font-size: 0.85rem;
 }
 
+.filter-chip .count {
+  background: rgba(0,0,0,0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+.filter-chip.active .count {
+  background: rgba(255,255,255,0.2);
+}
+
 .filter-divider {
   width: 1px;
   height: 24px;
@@ -368,7 +380,7 @@ body.dark-mode .item-description {
 /* Pin Button */
 .pin-btn {
   position: absolute;
-  top: 0.5rem;
+  top: 0.75rem;
   right: 0.5rem;
   width: 32px;
   height: 32px;
@@ -460,6 +472,14 @@ body.dark-mode .pin-btn i {
 
 body.dark-mode .pin-btn:hover {
   background: #2a2a2a;
+}
+
+body.dark-mode .pin-btn.pinned {
+  background: #4a3f1f;
+}
+
+body.dark-mode .pin-btn.pinned i {
+  color: #ffc107;
 }
 
 body.dark-mode .meta-item {
@@ -611,19 +631,17 @@ body.dark-mode .mobile-filter-select {
       <div class="mobile-filters">
         <div class="mobile-filter-row">
           <select class="mobile-filter-select" id="mobileStatusFilter" onchange="applyMobileFilters()">
-            <option value="available" {% if item_status == 'available' or not item_status %}selected{% endif %}>{% trans "Available" %}</option>
-            <option value="soon_expiring" {% if item_status == 'soon_expiring' %}selected{% endif %}>{% trans "Expiring Soon" %}</option>
-            <option value="used" {% if item_status == 'used' %}selected{% endif %}>{% trans "Used" %}</option>
-            <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>{% trans "Expired" %}</option>
-            <option value="shared_by_me" {% if item_status == 'shared_by_me' %}selected{% endif %}>{% trans "Shared By Me" %}</option>
-            <option value="shared_with_me" {% if item_status == 'shared_with_me' %}selected{% endif %}>{% trans "Shared With Me" %}</option>
+            <option value="available" {% if item_status == 'available' or not item_status %}selected{% endif %}>{% trans "Available" %} ({{ available_count }})</option>
+            <option value="soon_expiring" {% if item_status == 'soon_expiring' %}selected{% endif %}>{% trans "Expiring Soon" %} ({{ soon_expiring_count }})</option>
+            <option value="used" {% if item_status == 'used' %}selected{% endif %}>{% trans "Used" %} ({{ used_count }})</option>
+            <option value="expired" {% if item_status == 'expired' %}selected{% endif %}>{% trans "Expired" %} ({{ expired_count }})</option>
           </select>
           <select class="mobile-filter-select" id="mobileTypeFilter" onchange="applyMobileFilters()">
-            <option value="" {% if not item_type %}selected{% endif %}>{% trans "All Types" %}</option>
-            <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>{% trans "Vouchers" %}</option>
-            <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>{% trans "Gift Cards" %}</option>
-            <option value="coupon" {% if item_type == 'coupon' %}selected{% endif %}>{% trans "Coupons" %}</option>
-            <option value="loyaltycard" {% if item_type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Cards" %}</option>
+            <option value="" {% if not item_type %}selected{% endif %}>{% trans "All Types" %} ({{ all_types_count }})</option>
+            <option value="voucher" {% if item_type == 'voucher' %}selected{% endif %}>{% trans "Vouchers" %} ({{ voucher_count }})</option>
+            <option value="giftcard" {% if item_type == 'giftcard' %}selected{% endif %}>{% trans "Gift Cards" %} ({{ giftcard_count }})</option>
+            <option value="coupon" {% if item_type == 'coupon' %}selected{% endif %}>{% trans "Coupons" %} ({{ coupon_count }})</option>
+            <option value="loyaltycard" {% if item_type == 'loyaltycard' %}selected{% endif %}>{% trans "Loyalty Cards" %} ({{ loyaltycard_count }})</option>
           </select>
         </div>
       </div>
@@ -634,18 +652,22 @@ body.dark-mode .mobile-filter-select {
         <a href="?{% if item_type %}type={{ item_type }}&{% endif %}status=available{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_status == 'available' or not item_status %}active{% endif %}">
           <i class="bi bi-check-circle"></i> {% trans "Available" %}
+          <span class="count">{{ available_count }}</span>
         </a>
         <a href="?{% if item_type %}type={{ item_type }}&{% endif %}status=soon_expiring{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_status == 'soon_expiring' %}active{% endif %}">
           <i class="bi bi-clock-history"></i> {% trans "Expiring Soon" %}
+          <span class="count">{{ soon_expiring_count }}</span>
         </a>
         <a href="?{% if item_type %}type={{ item_type }}&{% endif %}status=used{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_status == 'used' %}active{% endif %}">
           <i class="bi bi-check2-all"></i> {% trans "Used" %}
+          <span class="count">{{ used_count }}</span>
         </a>
         <a href="?{% if item_type %}type={{ item_type }}&{% endif %}status=expired{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_status == 'expired' %}active{% endif %}">
           <i class="bi bi-x-circle"></i> {% trans "Expired" %}
+          <span class="count">{{ expired_count }}</span>
         </a>
         
         <span class="filter-divider"></span>
@@ -654,34 +676,27 @@ body.dark-mode .mobile-filter-select {
         <a href="?status={{ item_status }}{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if not item_type %}active{% endif %}">
           {% trans "All Types" %}
+          <span class="count">{{ all_types_count }}</span>
         </a>
         <a href="?type=voucher&status={{ item_status }}{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_type == 'voucher' %}active{% endif %}">
           <i class="bi bi-ticket-perforated"></i> {% trans "Vouchers" %}
+          <span class="count">{{ voucher_count }}</span>
         </a>
         <a href="?type=giftcard&status={{ item_status }}{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_type == 'giftcard' %}active{% endif %}">
           <i class="bi bi-gift"></i> {% trans "Gift Cards" %}
+          <span class="count">{{ giftcard_count }}</span>
         </a>
         <a href="?type=coupon&status={{ item_status }}{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_type == 'coupon' %}active{% endif %}">
           <i class="bi bi-percent"></i> {% trans "Coupons" %}
+          <span class="count">{{ coupon_count }}</span>
         </a>
         <a href="?type=loyaltycard&status={{ item_status }}{% if search_query %}&query={{ search_query }}{% endif %}" 
            class="filter-chip {% if item_type == 'loyaltycard' %}active{% endif %}">
           <i class="bi bi-star"></i> {% trans "Loyalty" %}
-        </a>
-        
-        <span class="filter-divider"></span>
-
-        <!-- Sharing Filters -->
-        <a href="?status=shared_by_me{% if search_query %}&query={{ search_query }}{% endif %}" 
-           class="filter-chip {% if item_status == 'shared_by_me' %}active{% endif %}">
-          <i class="bi bi-box-arrow-up"></i> {% trans "Shared By Me" %}
-        </a>
-        <a href="?status=shared_with_me{% if search_query %}&query={{ search_query }}{% endif %}" 
-           class="filter-chip {% if item_status == 'shared_with_me' %}active{% endif %}">
-          <i class="bi bi-box-arrow-in-down"></i> {% trans "Shared With Me" %}
+          <span class="count">{{ loyaltycard_count }}</span>
         </a>
       </div>
       
