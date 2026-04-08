@@ -22,10 +22,10 @@ class UserPreference(models.Model):
     )
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    show_issue_date = models.BooleanField(default=True)
+    show_issue_date = models.BooleanField(default=False)
     show_expiry_date = models.BooleanField(default=True)
     show_value = models.BooleanField(default=True)
-    show_description = models.BooleanField(default=False)
+    show_description = models.BooleanField(default=True)
     sort_by = models.CharField(max_length=20, choices=SORT_CHOICES, default='expiry_date')
     sort_order = models.CharField(max_length=4, choices=SORT_ORDER_CHOICES, default='asc')
     view_mode = models.CharField(max_length=10, choices=VIEW_MODE_CHOICES, default='compact')
