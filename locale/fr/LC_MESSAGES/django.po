@@ -3880,5 +3880,8 @@ msgid_plural "%(counter)s items found"
 msgstr[0] "%(counter)s élément trouvé"
 msgstr[1] "%(counter)s éléments trouvés"
 
+msgid "Expiring Soon"
+msgstr "Expire bientôt"
+
 msgid "Search by name or issuer..."
 msgstr "Rechercher par nom ou émetteur..."
