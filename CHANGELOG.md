@@ -1,3 +1,10 @@
+## [1.27.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.4...v1.27.5) (2026-04-13)
+
+
+### Bug Fixes
+
+* bump pytz and fix italian trans ([4f46a70](https://github.com/l4rm4nd/VoucherVault/commit/4f46a7044b46b7a057d7f1afe92f8cf4f58c3401))
+
 ## [1.27.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.3...v1.27.4) (2026-04-08)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * sharing center search and autofocus ([8ddb6cf](https://github.com/l4rm4nd/VoucherVault/commit/8ddb6cf8508a920ddb6116ceab2899c929c95f27))
-
-## [1.27.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.26.1...v1.27.0) (2026-04-07)
-
-
-### Features
-
-* ui redesign ([89ee69d](https://github.com/l4rm4nd/VoucherVault/commit/89ee69d4894a04b6631c4fb63ed0579f7931a5d6)), closes [#88](https://github.com/l4rm4nd/VoucherVault/issues/88) [#116](https://github.com/l4rm4nd/VoucherVault/issues/116)
 
