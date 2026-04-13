@@ -3789,7 +3789,7 @@ msgid "Show expiry date"
 msgstr "Mostra la data di scadenza"
 
 msgid "New"
-msgstr "Novità"
+msgstr "Nuovo"
 
 msgid "Compact"
 msgstr "Compatto"
