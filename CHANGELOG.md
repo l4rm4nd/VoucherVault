@@ -1,3 +1,10 @@
+## [1.27.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.5...v1.27.6) (2026-04-18)
+
+
+### Bug Fixes
+
+* bump apprise; add semgrep and sbom scanning to workflow ([821e977](https://github.com/l4rm4nd/VoucherVault/commit/821e977e870347db07787cfaeed3e526b3b0ef97))
+
 ## [1.27.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.4...v1.27.5) (2026-04-13)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump base image ([a843dcb](https://github.com/l4rm4nd/VoucherVault/commit/a843dcb83599974eb611f41ec05b5e30a42f0368)), closes [#127](https://github.com/l4rm4nd/VoucherVault/issues/127)
-
-## [1.27.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.0...v1.27.1) (2026-04-07)
-
-
-### Bug Fixes
-
-* sharing center search and autofocus ([8ddb6cf](https://github.com/l4rm4nd/VoucherVault/commit/8ddb6cf8508a920ddb6116ceab2899c929c95f27))
 
