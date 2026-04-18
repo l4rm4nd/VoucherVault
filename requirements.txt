@@ -13,7 +13,7 @@ django-pwa==2.0.1
 
 # APP SPECIFIC
 qrcode==8.2
-apprise==1.9.7
+apprise==1.9.9
 treepoem==3.28.0
 mozilla-django-oidc==5.0.2
 
