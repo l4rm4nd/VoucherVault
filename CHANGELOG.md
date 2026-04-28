@@ -1,3 +1,10 @@
+## [1.27.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.6...v1.27.7) (2026-04-28)
+
+
+### Bug Fixes
+
+* bump dotenv ([227bbc7](https://github.com/l4rm4nd/VoucherVault/commit/227bbc7d727dee2dde0dae8cd8e6438de87433be))
+
 ## [1.27.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.5...v1.27.6) (2026-04-18)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add missing translation for filters ([0edb2c6](https://github.com/l4rm4nd/VoucherVault/commit/0edb2c6ca23d2d9e598b2143901cb2368f683997))
-
-## [1.27.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.1...v1.27.2) (2026-04-07)
-
-
-### Bug Fixes
-
-* bump base image ([a843dcb](https://github.com/l4rm4nd/VoucherVault/commit/a843dcb83599974eb611f41ec05b5e30a42f0368)), closes [#127](https://github.com/l4rm4nd/VoucherVault/issues/127)
 
