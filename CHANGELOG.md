@@ -1,3 +1,10 @@
+## [1.27.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.7...v1.27.8) (2026-05-08)
+
+
+### Bug Fixes
+
+* bump django ([bfdbf2d](https://github.com/l4rm4nd/VoucherVault/commit/bfdbf2daf3aae89d1a0fa1f288e5c8568ddf159e))
+
 ## [1.27.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.6...v1.27.7) (2026-04-28)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * bump Django fix CVEs ([784039d](https://github.com/l4rm4nd/VoucherVault/commit/784039d962689db888ff8d9b2a86d4ba9cfb4b7c))
-
-## [1.27.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.2...v1.27.3) (2026-04-08)
-
-
-### Bug Fixes
-
-* add missing translation for filters ([0edb2c6](https://github.com/l4rm4nd/VoucherVault/commit/0edb2c6ca23d2d9e598b2143901cb2368f683997))
 
