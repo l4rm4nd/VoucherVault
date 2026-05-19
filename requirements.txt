@@ -1,7 +1,7 @@
 # DEFAULT LIBS
-Django==5.2.13
+Django==5.2.14
 pytz==2026.1.post1
-python-dotenv==1.0.0
+python-dotenv==1.2.2
 psycopg2-binary==2.9.11
 uwsgi==2.0.31
 
