@@ -468,3 +468,42 @@ body.dark-mode .list-group-item {
 .dark-mode .btn-close {
   filter: invert(1);
 }
+
+/*--------------------------------------------------------------
+# Dark Mode - Barcode/QR Code Scanability Fix
+--------------------------------------------------------------*/
+
+/* Add white background to QR code images in sidebar for scanability */
+body.dark-mode .qr-image {
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+/* Add white background to barcode fallbacks in inventory/list views */
+body.dark-mode .item-logo[alt="QR Code"] {
+  background-color: #ffffff;
+  padding: 6px;
+}
+
+/* Fullscreen QR overlay - white background for scanability */
+body.dark-mode .qr-overlay {
+  background: #ffffff;
+}
+
+body.dark-mode .qr-overlay img {
+  filter: none;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Make close button visible on white background */
+body.dark-mode #qr-close-btn {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+body.dark-mode #qr-close-btn:hover {
+  background: rgba(0, 0, 0, 0.95);
+}
