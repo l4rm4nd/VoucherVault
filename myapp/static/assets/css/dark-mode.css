@@ -317,7 +317,6 @@ body.dark-mode input[type="password"] {
   background-color: #2a2a2a !important;
   color: #e0e0e0 !important;
   -webkit-text-fill-color: #e0e0e0 !important;
-  border: 1px solid #444 !important;
 }
 
 body.dark-mode input[type="password"]::placeholder {

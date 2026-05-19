@@ -485,7 +485,7 @@ a.action-btn-secondary:hover {
   flex: 1;
   min-width: 0;
   padding: 0.75rem 1rem;
-  border: none;
+  border: none !important;
   font-family: 'Courier New', monospace;
   font-size: 1rem;
   background: var(--input-bg, #fff);
@@ -495,6 +495,31 @@ a.action-btn-secondary:hover {
 
 .pin-input:focus {
   outline: none;
+}
+
+.copy-pin-btn {
+  width: 44px;
+  height: auto;
+  border: none;
+  background: var(--input-bg, #fff);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color, #495057);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.copy-pin-btn:hover {
+  background: var(--hover-bg, #f8f9fa);
+  color: var(--primary-color, #4154f1);
+}
+
+.copy-pin-btn.copied {
+  background: #198754;
+  border-color: #198754;
+  color: white;
 }
 
 .pin-toggle-btn {
@@ -521,13 +546,18 @@ a.action-btn-secondary:hover {
     flex-direction: column;
   }
   
+  .pin-input {
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid var(--border-color, #dee2e6);
+  }
+  
+  .copy-pin-btn {
+    width: 100%;
+  }
+  
   .pin-toggle-btn {
     width: 100%;
     border-radius: 0 0 8px 8px;
-  }
-  
-  .pin-input {
-    border-radius: 8px 8px 0 0;
   }
 }
 
@@ -802,6 +832,17 @@ body.dark-mode .status-badge.expired {
 body.dark-mode .pin-input {
   background: #2a2a2a;
   color: #e0e0e0;
+  border: none !important;
+}
+
+body.dark-mode .copy-pin-btn {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .copy-pin-btn:hover {
+  background: #333;
+  color: #5a6cf1;
 }
 
 body.dark-mode .pin-toggle-btn {
@@ -1212,6 +1253,9 @@ body.dark-mode .action-btn-secondary:hover {
       <div class="pin-card">
         <div class="pin-input-group">
           <input type="password" id="pin-code" class="pin-input" value="{{ item.pin }}" readonly>
+          <button type="button" class="copy-pin-btn" id="copy-pin-btn" title="{% trans 'Copy PIN' %}">
+            <i class="bi bi-clipboard"></i>
+          </button>
           <button type="button" id="toggle-pin" class="pin-toggle-btn">{% trans "Show PIN" %}</button>
         </div>
       </div>
@@ -1258,7 +1302,9 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
   const pinInput = document.getElementById('pin-code');
   const toggleButton = document.getElementById('toggle-pin');
+  const copyPinBtn = document.getElementById('copy-pin-btn');
   
+  // Toggle PIN visibility
   toggleButton.addEventListener('click', function() {
     if (pinInput.type === 'password') {
       pinInput.type = 'text';
@@ -1266,6 +1312,25 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       pinInput.type = 'password';
       toggleButton.textContent = '{% trans "Show PIN" %}';
+    }
+  });
+  
+  // Copy PIN to clipboard
+  copyPinBtn.addEventListener('click', async function() {
+    try {
+      const pin = pinInput.value;
+      if (pin) {
+        await navigator.clipboard.writeText(pin);
+        copyPinBtn.classList.add('copied');
+        copyPinBtn.innerHTML = '<i class="bi bi-check"></i>';
+        
+        setTimeout(() => {
+          copyPinBtn.classList.remove('copied');
+          copyPinBtn.innerHTML = '<i class="bi bi-clipboard"></i>';
+        }, 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy PIN:', err);
     }
   });
 });
