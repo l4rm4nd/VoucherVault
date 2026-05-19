@@ -1,3 +1,11 @@
+## [1.27.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.8...v1.27.9) (2026-05-19)
+
+
+### Bug Fixes
+
+* add pin copy button; fix [#129](https://github.com/l4rm4nd/VoucherVault/issues/129) ([aa89b5f](https://github.com/l4rm4nd/VoucherVault/commit/aa89b5fd597f5b1d4c6582fbe1c731849b05f163))
+* add white background for dark mode barcodes; fixes [#131](https://github.com/l4rm4nd/VoucherVault/issues/131) ([cae0f32](https://github.com/l4rm4nd/VoucherVault/commit/cae0f322da4091d3ff1ef77fb92eb190a3a48ab9))
+
 ## [1.27.8](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.7...v1.27.8) (2026-05-08)
 
 
@@ -25,11 +33,4 @@
 ### Bug Fixes
 
 * bump pytz and fix italian trans ([4f46a70](https://github.com/l4rm4nd/VoucherVault/commit/4f46a7044b46b7a057d7f1afe92f8cf4f58c3401))
-
-## [1.27.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.3...v1.27.4) (2026-04-08)
-
-
-### Bug Fixes
-
-* bump Django fix CVEs ([784039d](https://github.com/l4rm4nd/VoucherVault/commit/784039d962689db888ff8d9b2a86d4ba9cfb4b7c))
 
