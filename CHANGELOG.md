@@ -1,3 +1,10 @@
+## [1.28.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.10...v1.28.0) (2026-06-06)
+
+
+### Features
+
+* add support for currencies via fixer.io; fix [#100](https://github.com/l4rm4nd/VoucherVault/issues/100) ([d82cd23](https://github.com/l4rm4nd/VoucherVault/commit/d82cd234c257d30b1f2996a524afc05cbdba026d))
+
 ## [1.27.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.9...v1.27.10) (2026-06-06)
 
 
@@ -27,11 +34,4 @@
 ### Bug Fixes
 
 * bump dotenv ([227bbc7](https://github.com/l4rm4nd/VoucherVault/commit/227bbc7d727dee2dde0dae8cd8e6438de87433be))
-
-## [1.27.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.5...v1.27.6) (2026-04-18)
-
-
-### Bug Fixes
-
-* bump apprise; add semgrep and sbom scanning to workflow ([821e977](https://github.com/l4rm4nd/VoucherVault/commit/821e977e870347db07787cfaeed3e526b3b0ef97))
 
