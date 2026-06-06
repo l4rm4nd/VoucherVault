@@ -1,3 +1,11 @@
+## [1.27.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.9...v1.27.10) (2026-06-06)
+
+
+### Bug Fixes
+
+* add is_pinned to api stats results; fix [#133](https://github.com/l4rm4nd/VoucherVault/issues/133) ([4adfe7b](https://github.com/l4rm4nd/VoucherVault/commit/4adfe7b8932b7f417ca353161211e877d126e789))
+* bump django ([6a3da54](https://github.com/l4rm4nd/VoucherVault/commit/6a3da54147d234ca657a370ddf28ae661dfc11e1))
+
 ## [1.27.9](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.8...v1.27.9) (2026-05-19)
 
 
@@ -26,11 +34,4 @@
 ### Bug Fixes
 
 * bump apprise; add semgrep and sbom scanning to workflow ([821e977](https://github.com/l4rm4nd/VoucherVault/commit/821e977e870347db07787cfaeed3e526b3b0ef97))
-
-## [1.27.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.4...v1.27.5) (2026-04-13)
-
-
-### Bug Fixes
-
-* bump pytz and fix italian trans ([4f46a70](https://github.com/l4rm4nd/VoucherVault/commit/4f46a7044b46b7a057d7f1afe92f8cf4f58c3401))
 
