@@ -2101,7 +2101,7 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/apprise/plugins/streamlabs.py:159
 msgid "Currency"
-msgstr ""
+msgstr "Devise"
 
 #: venv/lib/python3.11/site-packages/apprise/plugins/streamlabs.py:171
 msgid "Identifier"
@@ -3918,3 +3918,24 @@ msgstr "Échec de la conversion de devises. Vérifiez votre clé API Fixer.io."
 
 msgid "Enter your Fixer.io API key"
 msgstr "Entrez votre clé API Fixer.io"
+
+msgid "View Mode"
+msgstr "Mode d'affichage"
+
+msgid "Inventory Layout"
+msgstr "Disposition de l'inventaire"
+
+msgid "Choose between compact grid or expanded card view"
+msgstr "Choisissez entre la vue grille compacte ou la vue carte étendue"
+
+msgid "Visible Fields"
+msgstr "Champs visibles"
+
+msgid "Sorting"
+msgstr "Tri"
+
+msgid "Sort Items By"
+msgstr "Trier les articles par"
+
+msgid "Sort Order"
+msgstr "Ordre de tri"
