@@ -77,7 +77,7 @@ class Command(BaseCommand):
                 message += '<pre>Type       Name              Expiry Date  Value</pre>\n'
                 message += '<pre>---------- ----------------  -----------  -----</pre>\n'
                 for item in items_to_notify:
-                    message += f'<pre>{item.type:<10} {item.name:<16}  {item.expiry_date.strftime("%Y-%m-%d")}  {item.value}</pre>\n'
+                    message += f'<pre>{item.type:<10} {item.name:<16}  {item.expiry_date.strftime("%Y-%m-%d")}  {item.value} {item.currency}</pre>\n'
 
                     # Mark the notification as sent (regular or last chance)
                     item.default_expiry_notification_sent = True
