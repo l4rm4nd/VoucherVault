@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.28.0...v1.28.1) (2026-06-06)
+
+
+### Bug Fixes
+
+* bandit sast url ([fc963b2](https://github.com/l4rm4nd/VoucherVault/commit/fc963b2ad39f7db0749b05074eb1129e25c72f27))
+
 ## [1.28.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.10...v1.28.0) (2026-06-06)
 
 
@@ -27,11 +34,4 @@
 ### Bug Fixes
 
 * bump django ([bfdbf2d](https://github.com/l4rm4nd/VoucherVault/commit/bfdbf2daf3aae89d1a0fa1f288e5c8568ddf159e))
-
-## [1.27.7](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.6...v1.27.7) (2026-04-28)
-
-
-### Bug Fixes
-
-* bump dotenv ([227bbc7](https://github.com/l4rm4nd/VoucherVault/commit/227bbc7d727dee2dde0dae8cd8e6438de87433be))
 
