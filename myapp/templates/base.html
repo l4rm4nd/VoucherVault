@@ -7,16 +7,18 @@
 <html lang="en">
 
 <head>
-  <!-- Darkmode toggle handler -->
+  <!-- Darkmode: toggle handler + live system-preference listener -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const toggleButton = document.getElementById('darkModeToggle');
-      toggleButton.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-          localStorage.setItem('darkMode', 'enabled');
-        } else {
-          localStorage.setItem('darkMode', 'disabled');
+      document.getElementById('darkModeToggle').addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      });
+
+      // React to OS-level theme changes only when the user has no saved override
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (localStorage.getItem('darkMode') === null) {
+          document.body.classList.toggle('dark-mode', e.matches);
         }
       });
     });
@@ -176,8 +178,17 @@
 </head>
 
 <body>
-  <!-- Apply theme synchronously before any content renders to prevent flash -->
-  <script>if (localStorage.getItem('darkMode') !== 'disabled') { document.body.classList.add('dark-mode'); }</script>
+  <!-- Apply theme synchronously before any content renders to prevent flash.
+       Priority: 1) user override in localStorage, 2) OS prefers-color-scheme, 3) light default -->
+  <script>
+    (function () {
+      var stored = localStorage.getItem('darkMode');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'enabled' || (stored === null && prefersDark)) {
+        document.body.classList.add('dark-mode');
+      }
+    })();
+  </script>
 
   <!-- Network Status Indicator -->
   <div id="network-status" class="network-status" style="display: none;">
