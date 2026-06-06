@@ -3888,3 +3888,36 @@ msgstr "Bald ablaufend"
 
 msgid "Search by name or issuer..."
 msgstr "Nach Name oder Aussteller suchen..."
+
+msgid "Select your preferred display currency. If your items use multiple currencies, a"
+msgstr "Wähle deine bevorzugte Anzeigewährung. Wenn deine Einträge mehrere Währungen verwenden, ist ein"
+
+msgid "API key is required to calculate a combined total on the dashboard."
+msgstr "API-Schlüssel erforderlich, um eine Gesamtsumme im Dashboard zu berechnen."
+
+msgid "Default Currency"
+msgstr "Standardwährung"
+
+msgid "Fixer.io API Key"
+msgstr "Fixer.io API-Schlüssel"
+
+msgid "Get a free API key at fixer.io"
+msgstr "Kostenlosen API-Schlüssel bei fixer.io erhalten"
+
+msgid "Optional. Required only when items use mixed currencies."
+msgstr "Optional. Nur erforderlich, wenn Einträge verschiedene Währungen verwenden."
+
+msgid "Items use multiple currencies."
+msgstr "Einträge verwenden mehrere Währungen."
+
+msgid "Set a Fixer.io API key"
+msgstr "Einen Fixer.io API-Schlüssel festlegen"
+
+msgid "in Display Preferences to calculate a total."
+msgstr "in den Anzeigepräferenzen, um eine Gesamtsumme zu berechnen."
+
+msgid "Currency conversion failed. Check your Fixer.io API key."
+msgstr "Währungskonvertierung fehlgeschlagen. Überprüfe deinen Fixer.io API-Schlüssel."
+
+msgid "Enter your Fixer.io API key"
+msgstr "Deinen Fixer.io API-Schlüssel eingeben"
