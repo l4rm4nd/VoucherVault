@@ -1039,7 +1039,7 @@ body.dark-mode .action-btn-secondary:hover {
                 {% elif item.value_type == "multiplier" %}
                 {{ total_value|floatformat:1 }}x
                 {% else %}
-                {{ total_value|floatformat:2 }}
+                {{ total_value|floatformat:2 }} {{ item.currency }}
                 {% endif %}
               </div>
             </div>
@@ -1155,14 +1155,14 @@ body.dark-mode .action-btn-secondary:hover {
               <tr>
                 <td>{{ item.issue_date|date:"Y-m-d" }}</td>
                 <td>{% trans "Initial Value" %}</td>
-                <td>{{ item.value }}</td>
+                <td>{{ item.value }} {{ item.currency }}</td>
                 <td></td>
               </tr>
               {% for transaction in transactions %}
               <tr>
                 <td>{{ transaction.date|date:"Y-m-d H:i" }}</td>
                 <td>{{ transaction.description }}</td>
-                <td>{{ transaction.value }}</td>
+                <td>{{ transaction.value }} {{ item.currency }}</td>
                 <td>
                   <form action="{% url 'delete_transaction' transaction.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
@@ -1176,7 +1176,7 @@ body.dark-mode .action-btn-secondary:hover {
               {% endfor %}
               <tr class="transaction-total">
                 <td colspan="2"><strong>{% trans "Total Value" %}</strong></td>
-                <td colspan="2"><strong>{{ total_value }}</strong></td>
+                <td colspan="2"><strong>{{ total_value }} {{ item.currency }}</strong></td>
               </tr>
             </tbody>
           </table>

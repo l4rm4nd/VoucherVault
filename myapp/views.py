@@ -9,6 +9,7 @@ import mimetypes
 from django.db.models import Q
 from .forms import *
 from .models import *
+from .utils import get_fixer_rates, convert_currency
 from django.db.models import Sum
 from django.utils import timezone
 from django.http import JsonResponse
@@ -70,15 +71,54 @@ def dashboard(request):
     used_items = Item.objects.filter(user=user, is_used=True).count()
     expired_items = Item.objects.filter(user=user, expiry_date__lt=timezone.now(), is_used=False).count()
 
-    # Calculate the current total value of available items
+    # Get user preferences for currency settings
+    preferences, _ = UserPreference.objects.get_or_create(user=user)
+    fixer_api_key = preferences.fixer_api_key
+    default_currency = preferences.default_currency or 'EUR'
+
+    # Calculate the current total value of available money-type items
     items = Item.objects.filter(user=user, is_used=False, value_type='money', expiry_date__gte=timezone.now())
     items = items.exclude(type='loyaltycard')
-    total_value = 0
 
-    for item in items:
-        transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
-        current_value = item.value + transactions_sum
-        total_value += current_value
+    currencies_used = set(items.values_list('currency', flat=True).distinct())
+
+    total_value = None
+    total_currency = None
+    currency_conversion_failed = False
+    needs_fixer_key = False
+
+    if currencies_used:
+        if len(currencies_used) == 1:
+            # All items share the same currency — sum directly
+            single_currency = next(iter(currencies_used))
+            total_value = 0
+            for item in items:
+                transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
+                total_value += float(item.value) + float(transactions_sum)
+            total_value = round(total_value, 2)
+            total_currency = single_currency
+        elif fixer_api_key:
+            # Mixed currencies — convert all to default_currency via Fixer.io
+            rates = get_fixer_rates(fixer_api_key)
+            if rates:
+                total_value = 0
+                for item in items:
+                    transactions_sum = Transaction.objects.filter(item=item).aggregate(Sum('value'))['value__sum'] or 0
+                    item_value = float(item.value) + float(transactions_sum)
+                    converted = convert_currency(item_value, item.currency, default_currency, rates)
+                    if converted is None:
+                        currency_conversion_failed = True
+                        total_value = None
+                        break
+                    total_value += converted
+                if total_value is not None:
+                    total_value = round(total_value, 2)
+                total_currency = default_currency
+            else:
+                currency_conversion_failed = True
+        else:
+            # Mixed currencies, no API key
+            needs_fixer_key = True
 
     coupons_count = Item.objects.filter(user=user, type='coupon', is_used=False, expiry_date__gte=timezone.now()).count()
     vouchers_count = Item.objects.filter(user=user, type='voucher', is_used=False, expiry_date__gte=timezone.now()).count()
@@ -110,6 +150,9 @@ def dashboard(request):
         'available_items': available_items,
         'used_items': used_items,
         'total_value': total_value,
+        'total_currency': total_currency,
+        'needs_fixer_key': needs_fixer_key,
+        'currency_conversion_failed': currency_conversion_failed,
         'coupons_count': coupons_count,
         'vouchers_count': vouchers_count,
         'giftcards_count': giftcards_count,
@@ -818,6 +861,7 @@ def get_stats(request):
                 'issuer',
                 'value',
                 'value_type',
+                'currency',
                 'issue_date',
                 'expiry_date',
                 'description',

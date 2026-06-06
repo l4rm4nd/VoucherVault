@@ -5,6 +5,42 @@ from django.core.exceptions import ValidationError
 import uuid
 from django.core.validators import RegexValidator
 
+CURRENCY_CHOICES = (
+    ('AED', 'AED - UAE Dirham'),
+    ('AUD', 'AUD - Australian Dollar'),
+    ('BGN', 'BGN - Bulgarian Lev'),
+    ('BRL', 'BRL - Brazilian Real'),
+    ('CAD', 'CAD - Canadian Dollar'),
+    ('CHF', 'CHF - Swiss Franc'),
+    ('CNY', 'CNY - Chinese Yuan'),
+    ('CZK', 'CZK - Czech Koruna'),
+    ('DKK', 'DKK - Danish Krone'),
+    ('EUR', 'EUR - Euro'),
+    ('GBP', 'GBP - British Pound'),
+    ('HKD', 'HKD - Hong Kong Dollar'),
+    ('HRK', 'HRK - Croatian Kuna'),
+    ('HUF', 'HUF - Hungarian Forint'),
+    ('IDR', 'IDR - Indonesian Rupiah'),
+    ('ILS', 'ILS - Israeli Shekel'),
+    ('INR', 'INR - Indian Rupee'),
+    ('JPY', 'JPY - Japanese Yen'),
+    ('KRW', 'KRW - South Korean Won'),
+    ('MXN', 'MXN - Mexican Peso'),
+    ('MYR', 'MYR - Malaysian Ringgit'),
+    ('NOK', 'NOK - Norwegian Krone'),
+    ('NZD', 'NZD - New Zealand Dollar'),
+    ('PHP', 'PHP - Philippine Peso'),
+    ('PLN', 'PLN - Polish Zloty'),
+    ('RON', 'RON - Romanian Leu'),
+    ('RUB', 'RUB - Russian Ruble'),
+    ('SEK', 'SEK - Swedish Krona'),
+    ('SGD', 'SGD - Singapore Dollar'),
+    ('THB', 'THB - Thai Baht'),
+    ('TRY', 'TRY - Turkish Lira'),
+    ('USD', 'USD - US Dollar'),
+    ('ZAR', 'ZAR - South African Rand'),
+)
+
 class UserPreference(models.Model):
     SORT_CHOICES = (
         ('expiry_date', 'Expiry Date'),
@@ -29,6 +65,8 @@ class UserPreference(models.Model):
     sort_by = models.CharField(max_length=20, choices=SORT_CHOICES, default='expiry_date')
     sort_order = models.CharField(max_length=4, choices=SORT_ORDER_CHOICES, default='asc')
     view_mode = models.CharField(max_length=10, choices=VIEW_MODE_CHOICES, default='compact')
+    fixer_api_key = models.CharField(max_length=64, blank=True, null=True, default=None)
+    default_currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='EUR')
 
 class Item(models.Model):
     ITEM_TYPES = (
@@ -69,6 +107,7 @@ class Item(models.Model):
         help_text="Hex code like #FF5733"
     )
     is_pinned = models.BooleanField(default=False)
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='EUR')
 
     def __str__(self):
         return self.name

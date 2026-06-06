@@ -687,6 +687,15 @@ body.dark-mode .error-alert {
               </div>
               <input type="hidden" id="value_type" name="value_type" value="{{ item.value_type }}">
             </div>
+
+            <div class="form-group" id="currency-field">
+              <label class="form-label" for="currency">{% trans "Currency" %}</label>
+              <select class="modern-select" id="currency" name="currency">
+                {% for code, label in form.fields.currency.choices %}
+                <option value="{{ code }}" {% if item.currency == code %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
           </div>
           
           <!-- Additional Info Section -->
@@ -806,6 +815,7 @@ document.addEventListener("DOMContentLoaded", function () {
       issuerCodeField.placeholder = "{% trans 'The store of your loyalty card' %}";
       redeemCodeLabel.innerHTML = "{% trans 'Loyalty ID' %} <span class='required'>*</span>";
       redeemCodeField.placeholder = "{% trans 'Loyalty card number or customer ID' %}";
+      document.getElementById('currency-field').style.display = 'none';
     } else {
       pinField.readOnly = false;
       valueField.readOnly = false;
@@ -815,6 +825,10 @@ document.addEventListener("DOMContentLoaded", function () {
       issuerCodeField.placeholder = "{% trans 'The issuer of the item' %}";
       redeemCodeLabel.innerHTML = "{% trans 'Redeem Code' %} <span class='required'>*</span>";
       redeemCodeField.placeholder = "{% trans 'The redeem code of the item' %}";
+      const currencyField = document.getElementById('currency-field');
+      if (valueTypeField.value === 'money') {
+        currencyField.style.display = '';
+      }
     }
 
     if (typeField.value === 'coupon') {
@@ -833,6 +847,7 @@ document.addEventListener("DOMContentLoaded", function () {
       valueField.setAttribute('max', '100.00');
       valueField.placeholder = "{% trans 'e.g. 20% off' %}";
       valueTypeIcon.title = "{% trans 'Percentage Value' %}";
+      document.getElementById('currency-field').style.display = 'none';
     } else if (valueTypeField.value === 'percentage') {
       valueTypeField.value = 'multiplier';
       valueTypeIcon.className = 'bi bi-dice-5';
@@ -841,6 +856,7 @@ document.addEventListener("DOMContentLoaded", function () {
       valueField.removeAttribute('max');
       valueField.placeholder = "{% trans 'e.g. 2x payback points' %}";
       valueTypeIcon.title = "{% trans 'Multiplier Value' %}";
+      document.getElementById('currency-field').style.display = 'none';
     } else {
       valueTypeField.value = 'money';
       valueTypeIcon.className = 'bi bi-cash-coin';
@@ -849,11 +865,17 @@ document.addEventListener("DOMContentLoaded", function () {
       valueField.removeAttribute('max');
       valueField.placeholder = "{% trans 'e.g. 5€' %}";
       valueTypeIcon.title = "{% trans 'Monetary Value' %}";
+      document.getElementById('currency-field').style.display = '';
     }
   }
 
   typeField.addEventListener('change', toggleFields);
   toggleValueTypeBtn.addEventListener('click', toggleValueInput);
+
+  // Hide currency field on load if value_type is not money
+  if (valueTypeField.value !== 'money') {
+    document.getElementById('currency-field').style.display = 'none';
+  }
 
   setInitialValueType();
   toggleFields();

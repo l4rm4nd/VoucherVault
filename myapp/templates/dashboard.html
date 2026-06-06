@@ -559,8 +559,29 @@ body.dark-mode .stat-card.total-value .stat-card-icon {
       <!-- Total Value Card -->
       <div class="value-display">
         <div class="value-display-label">{% trans "Total Value" %}</div>
-        <div class="value-display-value">{{ total_value|floatformat:2 }}</div>
+        {% if needs_fixer_key %}
+        <div class="value-display-value" style="font-size:1.1rem; opacity:0.85;">—</div>
+        <div class="value-display-subtitle">
+          <i class="bi bi-exclamation-circle me-1"></i>
+          {% trans "Items use multiple currencies." %}
+          <a href="{% url 'update_user_preferences' %}" style="color:rgba(255,255,255,0.9); text-decoration:underline;">
+            {% trans "Set a Fixer.io API key" %}
+          </a>
+          {% trans "in Display Preferences to calculate a total." %}
+        </div>
+        {% elif currency_conversion_failed %}
+        <div class="value-display-value" style="font-size:1.1rem; opacity:0.85;">—</div>
+        <div class="value-display-subtitle">
+          <i class="bi bi-exclamation-triangle me-1"></i>
+          {% trans "Currency conversion failed. Check your Fixer.io API key." %}
+        </div>
+        {% elif total_value is not None %}
+        <div class="value-display-value">{{ total_value|floatformat:2 }} {{ total_currency }}</div>
         <div class="value-display-subtitle">{% trans "Available Items" %}</div>
+        {% else %}
+        <div class="value-display-value">0.00</div>
+        <div class="value-display-subtitle">{% trans "Available Items" %}</div>
+        {% endif %}
         
         <div class="quick-stats">
           <div class="quick-stat">

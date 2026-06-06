@@ -772,7 +772,7 @@ body.dark-mode .mobile-filter-select {
               {% elif entry.item.value_type == "multiplier" %}
               <i class="bi bi-x-lg"></i> {{ entry.current_value|floatformat:1 }}
               {% else %}
-              <i class="bi bi-wallet2"></i> {{ entry.current_value|floatformat:2 }}
+              <i class="bi bi-wallet2"></i> {{ entry.current_value|floatformat:2 }} {{ entry.item.currency }}
               {% endif %}
             </div>
             {% endif %}

@@ -22,7 +22,7 @@ class ItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'logo_slug', 'type', 'value', 'value_type', 'file', 'code_type', 'tile_color']
+        fields = ['name', 'issuer', 'redeem_code', 'pin', 'issue_date', 'expiry_date', 'description', 'logo_slug', 'type', 'value', 'value_type', 'currency', 'file', 'code_type', 'tile_color']
         widgets = {
             'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'expiry_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
@@ -142,7 +142,7 @@ class UserProfileForm(forms.ModelForm):
 class UserPreferenceForm(forms.ModelForm):
     class Meta:
         model = UserPreference
-        fields = ['show_issue_date', 'show_expiry_date', 'show_value', 'show_description', 'sort_by', 'sort_order', 'view_mode']
+        fields = ['show_issue_date', 'show_expiry_date', 'show_value', 'show_description', 'sort_by', 'sort_order', 'view_mode', 'fixer_api_key', 'default_currency']
         widgets = {
             'show_issue_date': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'show_expiry_date': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
@@ -151,4 +151,6 @@ class UserPreferenceForm(forms.ModelForm):
             'sort_by': forms.Select(attrs={'class': 'form-select'}),
             'sort_order': forms.Select(attrs={'class': 'form-select'}),
             'view_mode': forms.Select(attrs={'class': 'form-select'}),
+            'fixer_api_key': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Enter your Fixer.io API key')}),
+            'default_currency': forms.Select(attrs={'class': 'form-select'}),
         }

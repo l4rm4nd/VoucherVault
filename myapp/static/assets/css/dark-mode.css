@@ -294,6 +294,10 @@ body.dark-mode .form-control {
   border-color: #444 !important;
 }
 
+body.dark-mode .form-control::placeholder {
+  color: #888 !important;
+}
+
 body.dark-mode .form-select {
   background-color: #2a2a2a !important;
   color: #e0e0e0 !important;

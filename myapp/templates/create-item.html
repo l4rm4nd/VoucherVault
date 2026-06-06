@@ -684,6 +684,15 @@ body.dark-mode .error-alert {
               </div>
               <input type="hidden" id="value_type" name="value_type" value="money">
             </div>
+
+            <div class="form-group" id="currency-field">
+              <label class="form-label" for="currency">{% trans "Currency" %}</label>
+              <select class="modern-select" id="currency" name="currency">
+                {% for code, label in form.fields.currency.choices %}
+                <option value="{{ code }}" {% if form.currency.value == code %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
           </div>
           
           <!-- Additional Info Section -->
@@ -788,6 +797,7 @@ document.addEventListener("DOMContentLoaded", function () {
       issuerCodeField.placeholder = "{% trans 'The store of your loyalty card' %}";
       redeemCodeLabel.innerHTML = "{% trans 'Loyalty ID' %} <span class='required'>*</span>";
       redeemCodeField.placeholder = "{% trans 'Loyalty card number or customer ID' %}";
+      document.getElementById('currency-field').style.display = 'none';
     } else {
       pinField.readOnly = false;
       valueField.readOnly = false;
@@ -797,6 +807,10 @@ document.addEventListener("DOMContentLoaded", function () {
       issuerCodeField.placeholder = "{% trans 'The issuer of the item' %}";
       redeemCodeLabel.innerHTML = "{% trans 'Redeem Code' %} <span class='required'>*</span>";
       redeemCodeField.placeholder = "{% trans 'The redeem code of the item' %}";
+      const currencyField = document.getElementById('currency-field');
+      if (valueTypeField.value === 'money') {
+        currencyField.style.display = '';
+      }
     }
 
     if (typeField.value === 'coupon') {
@@ -831,7 +845,13 @@ document.addEventListener("DOMContentLoaded", function () {
       valueField.removeAttribute('max');
       valueField.placeholder = "{% trans 'e.g. 5€' %}";
       valueTypeIcon.title = "{% trans 'Monetary Value' %}";
+      document.getElementById('currency-field').style.display = '';
     }
+  }
+
+  // Hide currency for non-money value types on initial load
+  if (document.getElementById('value_type').value !== 'money') {
+    document.getElementById('currency-field').style.display = 'none';
   }
 
   typeField.addEventListener('change', toggleFields);

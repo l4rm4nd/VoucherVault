@@ -84,6 +84,44 @@
               </div>
             </div>
 
+            <!-- Currency Section -->
+            <div class="mb-4">
+              <h6 class="text-muted mb-3"><i class="bi bi-currency-exchange me-2"></i>{% trans "Currency" %}</h6>
+              <p class="text-muted small">
+                {% trans "Select your preferred display currency. If your items use multiple currencies, a" %}
+                <a href="https://fixer.io/signup/free/monthly" target="_blank">Fixer.io</a>
+                {% trans "API key is required to calculate a combined total on the dashboard." %}
+              </p>
+              <div class="row">
+                {% for field in form %}
+                  {% if field.name == "default_currency" %}
+                    <div class="col-md-6 mb-3">
+                      <label for="{{ field.id_for_label }}" class="form-label">{% trans "Default Currency" %}</label>
+                      {{ field }}
+                      {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                  {% if field.name == "fixer_api_key" %}
+                    <div class="col-md-6 mb-3">
+                      <label for="{{ field.id_for_label }}" class="form-label">
+                        {% trans "Fixer.io API Key" %}
+                        <a href="https://fixer.io/signup/free/monthly" target="_blank" title="{% trans 'Get a free API key at fixer.io' %}">
+                          <i class="bi bi-info-circle"></i>
+                        </a>
+                      </label>
+                      {{ field }}
+                      <small class="form-text text-muted">{% trans "Optional. Required only when items use mixed currencies." %}</small>
+                      {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+
             <div class="mt-4">
               <button type="submit" class="btn btn-primary">
                 <i class="bi bi-check-circle me-1"></i>{% trans "Update Preferences" %}
