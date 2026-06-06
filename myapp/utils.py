@@ -20,9 +20,9 @@ def get_fixer_rates(api_key):
     Fetch latest exchange rates from Fixer.io (EUR base, free plan).
     Returns a dict of {currency_code: rate} or None on failure.
     """
-    url = f"http://data.fixer.io/api/latest?access_key={api_key}"
+    url = f"https://data.fixer.io/api/latest?access_key={api_key}"
     try:
-        with urllib.request.urlopen(url, timeout=5) as response:
+        with urllib.request.urlopen(url, timeout=5) as response:  # nosec B310 — URL scheme is hardcoded to http://
             data = json.loads(response.read().decode())
         if not data.get('success'):
             logger.warning("Fixer.io API error: %s", data.get('error'))

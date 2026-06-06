@@ -383,8 +383,9 @@ def create_item(request):
             # If form is not valid, render the form with validation errors
             return render(request, 'create-item.html', {'form': form})
     else:
-        # If not a POST request, initialize an empty form
-        form = ItemForm()
+        # If not a POST request, initialize form with user's preferred currency
+        preferences, _ = UserPreference.objects.get_or_create(user=request.user)
+        form = ItemForm(initial={'currency': preferences.default_currency or 'EUR'})
 
     return render(request, 'create-item.html', {'form': form})
 
