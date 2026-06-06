@@ -32,6 +32,7 @@
 - Single Sign-On (SSO) via OIDC
 - Database compatibility with SQLite3 and PostgreSQL
 - REST API endpoint with stats for Home Assisstant (HA) and other dashboards
+- Multi-currency support via free fixer.io API
 
 ## 📷 Screenshots
 
