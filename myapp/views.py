@@ -822,6 +822,7 @@ def get_stats(request):
                 'expiry_date',
                 'description',
                 'is_used',
+                'is_pinned',
                 'user__username'
             )
         )
