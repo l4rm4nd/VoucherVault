@@ -6,20 +6,20 @@ services:
     restart: unless-stopped
     environment:
       # your FQDN or IP; multiple ones supported by comma separation
-      - DOMAIN=vouchervault.example.com
+      - DOMAIN=${DOMAIN:-vouchervault.example.com}
       # set to True if you use a reverse proxy with tls; enables secure cookie flag and hsts
-      - SECURE_COOKIES=False
+      - SECURE_COOKIES=${SECURE_COOKIES:-False}
       # send notifications xx days prior expiry
-      - EXPIRY_THRESHOLD_DAYS=90
+      - EXPIRY_THRESHOLD_DAYS=${EXPIRY_THRESHOLD_DAYS:-90}
       # define the timezone
-      - TZ=Europe/Berlin
+      - TZ=${TZ:-Europe/Berlin}
       # ------- USE PSQL DB --------
-      - DB_ENGINE=postgres
-      - POSTGRES_USER=vouchervault
-      - POSTGRES_PASSWORD=vouchervault
-      - POSTGRES_DB=vouchervault
-      - POSTGRES_HOST=db
-      - POSTGRES_PORT=5432
+      - DB_ENGINE=${DB_ENGINE:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-vouchervault}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-vouchervault}
+      - POSTGRES_DB=${POSTGRES_DB:-vouchervault}
+      - POSTGRES_HOST=${POSTGRES_HOST:-db}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
     expose:
       - 8000
     ports:
@@ -43,6 +43,6 @@ services:
     volumes:
       - ./volume-data/database/psql:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=vouchervault
-      - POSTGRES_PASSWORD=vouchervault
-      - POSTGRES_DB=vouchervault
+      - POSTGRES_USER=${POSTGRES_USER:-vouchervault}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-vouchervault}
+      - POSTGRES_DB=${POSTGRES_DB:-vouchervault}
