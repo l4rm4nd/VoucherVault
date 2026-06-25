@@ -28,11 +28,11 @@ services:
       #- REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
       # ------- OPTIONAL OIDC AUTH --------
       # Set to 'True' to enable OIDC authentication
-      #- OIDC_ENABLED=${OIDC_ENABLED:-True}
+      #- OIDC_ENABLED=${OIDC_ENABLED:-False}
       # Decide whether login area triggers automatic OIDC login flow
       #- OIDC_AUTOLOGIN=${OIDC_AUTOLOGIN:-False}
       # Set to 'True' to allow the creation of new users through OIDC
-      #- OIDC_CREATE_USER=${OIDC_CREATE_USER:-True}
+      #- OIDC_CREATE_USER=${OIDC_CREATE_USER:-False}
       # The signing algorithm used by the OIDC provider (e.g., RS256, HS256)
       #- OIDC_RP_SIGN_ALGO=${OIDC_RP_SIGN_ALGO:-RS256}
       # URL of the JWKS endpoint for the OIDC provider
