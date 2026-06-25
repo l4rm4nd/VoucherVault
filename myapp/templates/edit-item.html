@@ -350,6 +350,35 @@
   font-size: 1.1rem;
 }
 
+/* Cancel Button */
+.cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1.5px solid #ced4da;
+  cursor: pointer;
+  background: #f8f9fa;
+  color: #495057;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+  color: #212529;
+  transform: translateY(-1px);
+}
+
+.cancel-btn i {
+  font-size: 1.1rem;
+}
+
 /* Error Alert */
 .error-alert {
   background: #f8d7da;
@@ -442,6 +471,18 @@ body.dark-mode .scanner-section,
 body.dark-mode .crop-section {
   background: #2a2a2a;
   border-color: #333;
+}
+
+body.dark-mode .cancel-btn {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #ccc;
+}
+
+body.dark-mode .cancel-btn:hover {
+  background: #333;
+  border-color: #555;
+  color: #e0e0e0;
 }
 
 body.dark-mode .error-alert {
@@ -730,11 +771,17 @@ body.dark-mode .error-alert {
             </div>
           </div>
           
-          <!-- Submit Button -->
-          <button type="submit" onclick="handleSubmitButton()" class="submit-btn">
-            <i class="bi bi-check-lg"></i>
-            {% trans "Update Item" %}
-          </button>
+          <!-- Submit / Cancel Buttons -->
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button type="submit" onclick="handleSubmitButton()" class="submit-btn">
+              <i class="bi bi-check-lg"></i>
+              {% trans "Update Item" %}
+            </button>
+            <a href="{% url 'view_item' item.id %}" class="cancel-btn">
+              <i class="bi bi-x-lg"></i>
+              {% trans "Cancel" %}
+            </a>
+          </div>
         </form>
       </div>
     </div>
