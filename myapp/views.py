@@ -6,6 +6,7 @@ import json
 import treepoem
 import unicodedata
 import mimetypes
+import datetime as dt
 from django.db.models import Q
 from .forms import *
 from .models import *
@@ -502,6 +503,23 @@ def delete_transaction(request, transaction_id):
     transaction.delete()
 
     return redirect('view_item', item_uuid=item.id)
+
+@require_POST
+@login_required
+def update_transaction_date(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    if transaction.item.user != request.user:
+        return JsonResponse({'error': 'Forbidden'}, status=403)
+    date_str = request.POST.get('date', '').strip()
+    if not date_str:
+        return JsonResponse({'error': 'Date is required'}, status=400)
+    try:
+        new_date = dt.datetime.strptime(date_str, '%Y-%m-%d').date()
+        transaction.date = timezone.make_aware(dt.datetime.combine(new_date, dt.time.min))
+        transaction.save(update_fields=['date'])
+        return JsonResponse({'date': transaction.date.strftime('%Y-%m-%d')})
+    except ValueError:
+        return JsonResponse({'error': 'Invalid date format'}, status=400)
 
 @require_GET
 @login_required

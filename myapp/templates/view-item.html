@@ -867,6 +867,44 @@ body.dark-mode .transaction-table td {
   color: #e0e0e0;
 }
 
+/* Editable date */
+.editable-date {
+  cursor: pointer;
+  border-bottom: 1px dashed #adb5bd;
+  padding-bottom: 1px;
+  transition: border-color 0.15s;
+}
+
+.editable-date:hover {
+  border-bottom-color: var(--primary-color, #4154f1);
+  color: var(--primary-color, #4154f1);
+}
+
+body.dark-mode .editable-date {
+  border-bottom-color: #555;
+}
+
+body.dark-mode .editable-date:hover {
+  border-bottom-color: var(--primary-color, #5a6cf1);
+  color: var(--primary-color, #5a6cf1);
+}
+
+.date-edit-input {
+  border: 1px solid var(--border-color, #dee2e6);
+  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.9rem;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #1e1e1e);
+  width: 130px;
+}
+
+body.dark-mode .date-edit-input {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
 body.dark-mode .transaction-total {
   background: #2a2a2a;
 }
@@ -1160,7 +1198,14 @@ body.dark-mode .action-btn-secondary:hover {
               </tr>
               {% for transaction in transactions %}
               <tr>
-                <td>{{ transaction.date|date:"Y-m-d H:i" }}</td>
+                <td>
+                  <span class="editable-date" 
+                        data-url="{% url 'update_transaction_date' transaction.id %}"
+                        data-date="{{ transaction.date|date:'Y-m-d' }}"
+                        title="{% trans 'Click to edit date' %}">
+                    {{ transaction.date|date:"Y-m-d" }}
+                  </span>
+                </td>
                 <td>{{ transaction.description }}</td>
                 <td>{{ transaction.value }} {{ item.currency }}</td>
                 <td>
@@ -1427,6 +1472,56 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Close button
   closeBtn?.addEventListener('click', closeOverlay);
+});
+</script>
+
+<script>
+// Inline date editing for transaction rows
+document.querySelectorAll('.editable-date').forEach(span => {
+  span.addEventListener('click', () => {
+    if (span.querySelector('input')) return; // already editing
+    const current = span.dataset.date;
+    const url = span.dataset.url;
+    const displayText = span.textContent.trim();
+
+    const input = document.createElement('input');
+    input.type = 'date';
+    input.value = current;
+    input.className = 'date-edit-input';
+
+    span.textContent = '';
+    span.appendChild(input);
+    input.focus();
+
+    function save() {
+      const newDate = input.value;
+      if (!newDate || newDate === current) {
+        span.textContent = displayText;
+        return;
+      }
+      const formData = new FormData();
+      formData.append('date', newDate);
+      formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+      fetch(url, { method: 'POST', body: formData })
+        .then(r => r.json())
+        .then(data => {
+          if (data.date) {
+            span.textContent = data.date;
+            span.dataset.date = data.date;
+          } else {
+            span.textContent = displayText;
+          }
+        })
+        .catch(() => { span.textContent = displayText; });
+    }
+
+    input.addEventListener('change', save);
+    input.addEventListener('blur', save);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') input.blur();
+      if (e.key === 'Escape') { span.textContent = displayText; }
+    });
+  });
 });
 </script>
 

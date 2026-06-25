@@ -26,6 +26,7 @@ urlpatterns = (
     path('user/edit/notifications', views.update_apprise_urls, name='update_apprise_urls'),
     path('user/toggle_view_mode', views.toggle_view_mode, name='toggle_view_mode'),
     path('transactions/delete/<uuid:transaction_id>', views.delete_transaction, name='delete_transaction'),
+    path('transactions/update-date/<uuid:transaction_id>', views.update_transaction_date, name='update_transaction_date'),
     path('verify-apprise-urls/', views.verify_apprise_urls, name='verify_apprise_urls'),
     path('download/<uuid:item_id>/', views.download_file, name='download_file'),
     path('shared-items/', views.sharing_center, name='sharing_center'),
