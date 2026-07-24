@@ -313,6 +313,10 @@ def view_item(request, item_uuid):
             if total_value <= 0:
                 item.is_used = True
                 item.save()
+            elif item.is_used:
+                # Reload brought the balance back above zero
+                item.is_used = False
+                item.save()
             return redirect('view_item', item_uuid=item.id)
     else:
         form = TransactionForm(item=item)

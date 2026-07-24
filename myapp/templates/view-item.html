@@ -1235,7 +1235,7 @@ body.dark-mode .action-btn-secondary:hover {
               </div>
               <div class="form-group">
                 <label for="value">{% trans "Value" %}</label>
-                <input type="number" id="value" name="value" step="0.01" max="0" placeholder="-0.00" required>
+                <input type="number" id="value" name="value" step="0.01" placeholder="{% trans 'e.g. -5.00 or +5.00' %}" required>
               </div>
               <button type="submit" class="action-btn action-btn-primary" style="height: fit-content;">
                 <i class="bi bi-plus-lg"></i> {% trans "Add" %}
@@ -1389,8 +1389,8 @@ document.addEventListener("DOMContentLoaded", function() {
   if (valueInput) {
     valueInput.addEventListener('blur', function() {
       const val = parseFloat(valueInput.value);
-      if (!isNaN(val) && val > 0) {
-        valueInput.value = -val.toFixed(2);
+      if (!isNaN(val) && val !== 0) {
+        valueInput.value = val.toFixed(2);
       }
     });
   }

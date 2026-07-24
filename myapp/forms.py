@@ -113,12 +113,11 @@ class TransactionForm(forms.ModelForm):
 
     def clean_value(self):
         value = self.cleaned_data['value']
-        if value >= 0:
-            error_msg_transaction = _('Transaction value must be negative.')
-            raise forms.ValidationError(error_msg_transaction)
+        if value == 0:
+            raise forms.ValidationError(_('Transaction value must not be zero.'))
         
-        if self.item:
-            # Calculate the total value after applying this transaction
+        if self.item and value < 0:
+            # Only guard against going negative for spend transactions
             total_value = self.item.value + sum(t.value for t in self.item.transactions.all()) + value
             if total_value < 0:
                 error_msg_value_calc = _('Transaction would result in negative item value.')
