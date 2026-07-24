@@ -295,7 +295,7 @@ def view_item(request, item_uuid):
     # Check if the item has been shared
     is_shared = item.shared_with.exists()
 
-    transactions = item.transactions.all()
+    transactions = item.transactions.order_by('date')
     total_value = item.value + sum(t.value for t in transactions)
     
     if request.method == 'POST':
