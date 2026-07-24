@@ -1,3 +1,16 @@
+## [1.30.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.29.0...v1.30.0) (2026-07-24)
+
+
+### Features
+
+* allow positive values in transaction history ([498321d](https://github.com/l4rm4nd/VoucherVault/commit/498321dc2356752c94b61de20146aa832418d93d))
+
+
+### Bug Fixes
+
+* cloning an item uses the old currency; fixes [#143](https://github.com/l4rm4nd/VoucherVault/issues/143) ([eabd14d](https://github.com/l4rm4nd/VoucherVault/commit/eabd14de21c61721eb1800bea03f019fe6dba274))
+* sort transaction history entries ([766614b](https://github.com/l4rm4nd/VoucherVault/commit/766614b9aa4187d7133db9023775705f003a6efc))
+
 ## [1.29.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.28.2...v1.29.0) (2026-06-25)
 
 
@@ -30,12 +43,4 @@
 ### Features
 
 * add support for currencies via fixer.io; fix [#100](https://github.com/l4rm4nd/VoucherVault/issues/100) ([d82cd23](https://github.com/l4rm4nd/VoucherVault/commit/d82cd234c257d30b1f2996a524afc05cbdba026d))
-
-## [1.27.10](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.9...v1.27.10) (2026-06-06)
-
-
-### Bug Fixes
-
-* add is_pinned to api stats results; fix [#133](https://github.com/l4rm4nd/VoucherVault/issues/133) ([4adfe7b](https://github.com/l4rm4nd/VoucherVault/commit/4adfe7b8932b7f417ca353161211e877d126e789))
-* bump django ([6a3da54](https://github.com/l4rm4nd/VoucherVault/commit/6a3da54147d234ca657a370ddf28ae661dfc11e1))
 
