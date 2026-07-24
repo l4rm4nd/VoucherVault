@@ -474,6 +474,7 @@ def duplicate_item(request, item_uuid):
         'value_type': original_item.value_type,
         'code_type': original_item.code_type,
         'tile_color': original_item.tile_color,
+        'currency': original_item.currency,
     }
 
     form = ItemForm(initial=initial_data)
