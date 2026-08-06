@@ -1,3 +1,10 @@
+## [1.30.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.0...v1.30.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* Update Django version to 5.2.17 ([ca56962](https://github.com/l4rm4nd/VoucherVault/commit/ca56962510ace0faf777745c5d6cc127be4ba388))
+
 ## [1.30.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.29.0...v1.30.0) (2026-07-24)
 
 
@@ -36,11 +43,4 @@
 ### Bug Fixes
 
 * bandit sast url ([fc963b2](https://github.com/l4rm4nd/VoucherVault/commit/fc963b2ad39f7db0749b05074eb1129e25c72f27))
-
-## [1.28.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.27.10...v1.28.0) (2026-06-06)
-
-
-### Features
-
-* add support for currencies via fixer.io; fix [#100](https://github.com/l4rm4nd/VoucherVault/issues/100) ([d82cd23](https://github.com/l4rm4nd/VoucherVault/commit/d82cd234c257d30b1f2996a524afc05cbdba026d))
 
