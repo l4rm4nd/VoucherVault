@@ -1,3 +1,10 @@
+## [1.30.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.1...v1.30.2) (2026-08-31)
+
+
+### Bug Fixes
+
+* trigger ci after entrypoint PR ([f818db6](https://github.com/l4rm4nd/VoucherVault/commit/f818db6b42f75a1d9bd02d28327955848030ea62))
+
 ## [1.30.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.0...v1.30.1) (2026-08-06)
 
 
@@ -36,11 +43,4 @@
 ### Bug Fixes
 
 * add currency to notifications ([93bb45b](https://github.com/l4rm4nd/VoucherVault/commit/93bb45b79ef7f85e58c1a4fdbda67d2379ba914d))
-
-## [1.28.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.28.0...v1.28.1) (2026-06-06)
-
-
-### Bug Fixes
-
-* bandit sast url ([fc963b2](https://github.com/l4rm4nd/VoucherVault/commit/fc963b2ad39f7db0749b05074eb1129e25c72f27))
 
