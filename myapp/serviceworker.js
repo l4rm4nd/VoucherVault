@@ -187,9 +187,11 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    // Only handle GET requests for caching
+    // Only handle GET requests for caching.
+    // Do not call respondWith() for other methods: re-fetching a request with a
+    // File/Blob body inside the service worker drops the body on iOS WebKit
+    // (uploads then fail with "CSRF token missing"). Let the browser send them natively.
     if (request.method !== 'GET') {
-        event.respondWith(fetch(request));
         return;
     }
 
