@@ -1,3 +1,10 @@
+## [1.30.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.2...v1.30.3) (2026-10-09)
+
+
+### Bug Fixes
+
+* improve serviceworker to fix [#146](https://github.com/l4rm4nd/VoucherVault/issues/146) ([c57c0f5](https://github.com/l4rm4nd/VoucherVault/commit/c57c0f59dc069bac9ccef87c47b0bafd051daa53))
+
 ## [1.30.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.1...v1.30.2) (2026-08-31)
 
 
@@ -36,11 +43,4 @@
 ### Bug Fixes
 
 * add cancel button to edit view ([c5b83f9](https://github.com/l4rm4nd/VoucherVault/commit/c5b83f9f00b3c29f81c81135d3464a3dddfbd181))
-
-## [1.28.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.28.1...v1.28.2) (2026-06-06)
-
-
-### Bug Fixes
-
-* add currency to notifications ([93bb45b](https://github.com/l4rm4nd/VoucherVault/commit/93bb45b79ef7f85e58c1a4fdbda67d2379ba914d))
 
