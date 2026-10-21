@@ -74,6 +74,10 @@ docker compose -f docker/docker-compose-sqlite.yml logs -f
 >
 > This is safer for automatic upgrades and you still get recent patches as well as bug fixes.
 
+## 🚀 One-Click Deploy
+
+[![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploylobe.svg)](https://repocloud.io/details/VoucherVault/)
+
 ## 🌍 Environment Variables
 
 The docker container takes various environment variables:
