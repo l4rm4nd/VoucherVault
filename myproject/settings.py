@@ -240,7 +240,9 @@ CELERY_ENABLE_UTC = False
 CELERY_WORKER_LOG_FILE = os.path.join(LOGS_DIR, 'celery_worker.log')
 CELERY_BEAT_LOG_FILE = os.path.join(LOGS_DIR, 'celery_beat.log')
 
-STATIC_URL = '/static/'
+FORCE_SCRIPT_NAME = os.environ.get('FORCE_SCRIPT_NAME', '')
+MEDIA_URL = f'{FORCE_SCRIPT_NAME}/media/'
+STATIC_URL = f'{FORCE_SCRIPT_NAME}/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'myapp', 'static')
 
 PWA_APP_NAME = 'VoucherVault'
@@ -288,9 +290,9 @@ PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'myapp', 'serviceworker.js')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/post-logout/'
+LOGIN_URL = f'{FORCE_SCRIPT_NAME}/accounts/login/'
+LOGIN_REDIRECT_URL = f'{FORCE_SCRIPT_NAME}/'
+LOGOUT_REDIRECT_URL = f'{FORCE_SCRIPT_NAME}/post-logout/'
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 

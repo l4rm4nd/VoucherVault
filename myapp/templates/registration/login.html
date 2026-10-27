@@ -157,7 +157,7 @@
             <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-in-right toggle-sidebar-btn"></i> OIDC</button>
         </form>
         {% endif %}
-        <form method="get" action="/admin">
+        <form method="get" action="{% url 'admin:index' %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-secondary"><i class="bi bi-person-gear toggle-sidebar-btn"></i> {% trans "Admin Panel" %}</button>
         </form>
