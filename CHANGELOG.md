@@ -1,3 +1,10 @@
+## [1.30.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.3...v1.30.4) (2026-10-27)
+
+
+### Bug Fixes
+
+* add support for azteccodecompact; fix [#148](https://github.com/l4rm4nd/VoucherVault/issues/148) ([1a02675](https://github.com/l4rm4nd/VoucherVault/commit/1a02675d78deb9f496e0f02737d8d15d4134e2ac))
+
 ## [1.30.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.2...v1.30.3) (2026-10-09)
 
 
@@ -31,16 +38,4 @@
 
 * cloning an item uses the old currency; fixes [#143](https://github.com/l4rm4nd/VoucherVault/issues/143) ([eabd14d](https://github.com/l4rm4nd/VoucherVault/commit/eabd14de21c61721eb1800bea03f019fe6dba274))
 * sort transaction history entries ([766614b](https://github.com/l4rm4nd/VoucherVault/commit/766614b9aa4187d7133db9023775705f003a6efc))
-
-## [1.29.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.28.2...v1.29.0) (2026-06-25)
-
-
-### Features
-
-* support date changing in transaction history; fixes [#137](https://github.com/l4rm4nd/VoucherVault/issues/137) ([5636276](https://github.com/l4rm4nd/VoucherVault/commit/56362760440186d235d35acfb2a44bf878012f98))
-
-
-### Bug Fixes
-
-* add cancel button to edit view ([c5b83f9](https://github.com/l4rm4nd/VoucherVault/commit/c5b83f9f00b3c29f81c81135d3464a3dddfbd181))
 
