@@ -1,3 +1,10 @@
+## [1.30.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.4...v1.30.5) (2026-10-27)
+
+
+### Bug Fixes
+
+* bump apprise ([a64fda5](https://github.com/l4rm4nd/VoucherVault/commit/a64fda56364981a4f326a49a49d78f391a668787))
+
 ## [1.30.4](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.3...v1.30.4) (2026-10-27)
 
 
@@ -25,17 +32,4 @@
 ### Bug Fixes
 
 * Update Django version to 5.2.17 ([ca56962](https://github.com/l4rm4nd/VoucherVault/commit/ca56962510ace0faf777745c5d6cc127be4ba388))
-
-## [1.30.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.29.0...v1.30.0) (2026-07-24)
-
-
-### Features
-
-* allow positive values in transaction history ([498321d](https://github.com/l4rm4nd/VoucherVault/commit/498321dc2356752c94b61de20146aa832418d93d))
-
-
-### Bug Fixes
-
-* cloning an item uses the old currency; fixes [#143](https://github.com/l4rm4nd/VoucherVault/issues/143) ([eabd14d](https://github.com/l4rm4nd/VoucherVault/commit/eabd14de21c61721eb1800bea03f019fe6dba274))
-* sort transaction history entries ([766614b](https://github.com/l4rm4nd/VoucherVault/commit/766614b9aa4187d7133db9023775705f003a6efc))
 
