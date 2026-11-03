@@ -28,6 +28,7 @@ from django.db.models import Count, Sum, Q, F, ExpressionWrapper, DecimalField
 from django.db.models.functions import Coalesce
 from django.db.models import Value
 from django.utils.text import get_valid_filename
+from django.utils.http import url_has_allowed_host_and_scheme
 
 apprise_txt = _('Apprise URLs were already configured. Will not display them again here to protect secrets. You can freely re-configure the URLs now and hit update though.')
 
@@ -937,7 +938,11 @@ def toggle_pin_item(request, item_uuid):
     
     # Support redirect back to previous page
     next_url = request.POST.get('next') or request.GET.get('next')
-    if next_url:
+    if next_url and url_has_allowed_host_and_scheme(
+        next_url,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
         return redirect(next_url)
     return redirect('show_items')
 
