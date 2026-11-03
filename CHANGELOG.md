@@ -1,3 +1,10 @@
+## [1.30.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.5...v1.30.6) (2026-11-03)
+
+
+### Bug Fixes
+
+* improve ownership checking ([3845e4f](https://github.com/l4rm4nd/VoucherVault/commit/3845e4f43c47e97ca9ac2ea5aadbf61a13ee2507))
+
 ## [1.30.5](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.4...v1.30.5) (2026-10-27)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * trigger ci after entrypoint PR ([f818db6](https://github.com/l4rm4nd/VoucherVault/commit/f818db6b42f75a1d9bd02d28327955848030ea62))
-
-## [1.30.1](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.0...v1.30.1) (2026-08-06)
-
-
-### Bug Fixes
-
-* Update Django version to 5.2.17 ([ca56962](https://github.com/l4rm4nd/VoucherVault/commit/ca56962510ace0faf777745c5d6cc127be4ba388))
 
