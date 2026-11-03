@@ -502,7 +502,7 @@ def delete_item(request, item_uuid):
 @require_POST
 @login_required
 def delete_transaction(request, transaction_id):
-    transaction = get_object_or_404(Transaction, id=transaction_id)
+    transaction = get_object_or_404(Transaction, id=transaction_id, item__user=request.user)
     item = transaction.item
     # Delete the transaction
     transaction.delete()
