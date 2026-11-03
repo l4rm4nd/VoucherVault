@@ -51,6 +51,7 @@ Out of scope:
   (report those upstream)
 - Automated scanner output without a working proof of concept
 - Denial of service through resource exhaustion on self-hosted instances
+- SSRF using intended application features
 
 ### Safe harbor
 
