@@ -1,3 +1,10 @@
+## [1.31.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.6...v1.31.0) (2026-11-09)
+
+
+### Features
+
+* add optional url; fix [#149](https://github.com/l4rm4nd/VoucherVault/issues/149); bump libs ([53d22c1](https://github.com/l4rm4nd/VoucherVault/commit/53d22c1ca7267b5840988b91829de70f803bd346))
+
 ## [1.30.6](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.5...v1.30.6) (2026-11-03)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * improve serviceworker to fix [#146](https://github.com/l4rm4nd/VoucherVault/issues/146) ([c57c0f5](https://github.com/l4rm4nd/VoucherVault/commit/c57c0f59dc069bac9ccef87c47b0bafd051daa53))
-
-## [1.30.2](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.1...v1.30.2) (2026-08-31)
-
-
-### Bug Fixes
-
-* trigger ci after entrypoint PR ([f818db6](https://github.com/l4rm4nd/VoucherVault/commit/f818db6b42f75a1d9bd02d28327955848030ea62))
 
