@@ -767,6 +767,14 @@ body.dark-mode .error-alert {
             </div>
             
             <div class="form-group">
+              <label class="form-label" for="url">{% trans "URL" %}</label>
+              <input type="url" class="modern-input" id="url" name="url" 
+                     placeholder="https://www.example.com" 
+                     value="{{ form.url.value|default_if_none:'' }}">
+              {% for error in form.url.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+            
+            <div class="form-group">
               <label class="form-label" for="file">{% trans "Upload File" %}</label>
               <input type="file" id="file" name="file" class="modern-input">
             </div>

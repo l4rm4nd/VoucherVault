@@ -474,6 +474,7 @@ def duplicate_item(request, item_uuid):
         'expiry_date': original_item.expiry_date,
         'description': original_item.description,
         'logo_slug': original_item.logo_slug,
+        'url': original_item.url,
         'type': original_item.type,
         'value': original_item.value,
         'value_type': original_item.value_type,
@@ -890,6 +891,7 @@ def get_stats(request):
                 'issue_date',
                 'expiry_date',
                 'description',
+                'url',
                 'is_used',
                 'is_pinned',
                 'user__username'

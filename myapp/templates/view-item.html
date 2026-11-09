@@ -1092,6 +1092,14 @@ body.dark-mode .action-btn-secondary:hover {
           </div>
           {% endif %}
           
+          <!-- URL -->
+          {% if item.url %}
+          <div class="item-description-section">
+            <h6><i class="bi bi-link-45deg"></i> {% trans "URL" %}</h6>
+            <p><a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.url }}</a></p>
+          </div>
+          {% endif %}
+          
           <!-- Action Buttons (Owner only) -->
           {% if is_owner %}
           <div class="action-buttons">
