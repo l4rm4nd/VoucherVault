@@ -25,7 +25,7 @@
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const langMatch = window.location.pathname.match(/^\/(en|de|fr|it)(\/|$)/);
+      const langMatch = window.location.pathname.match(/^\/(en|de|fr|it|es)(\/|$)/);
       if (langMatch) {
         localStorage.setItem('vv_last_lang', langMatch[1]);
       }

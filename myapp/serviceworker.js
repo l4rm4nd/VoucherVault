@@ -9,7 +9,7 @@ const CACHE_DURATION = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
 const CACHE_KEY = 'offline_cache_timestamp';
 
 // Static assets to cache on install (only truly static assets, not dynamic pages)
-const SUPPORTED_LANGS = ['en', 'de', 'fr', 'it'];
+const SUPPORTED_LANGS = ['en', 'de', 'fr', 'it', 'es'];
 
 const STATIC_CACHE_URLS = [
     '/offline/',
@@ -43,29 +43,29 @@ const STATIC_CACHE_URLS = [
 const API_CACHE_PATTERNS = [
     /\/api\/get\/stats/,
     /\/api\//,
-    /\/(en|de|fr|it)\/dashboard$/,
+    /\/(en|de|fr|it|es)\/dashboard$/,
     /\/dashboard$/,
-    /\/(en|de|fr|it)\/shared-items/,
+    /\/(en|de|fr|it|es)\/shared-items/,
     /\/shared-items/,
-    /\/(en|de|fr|it)\/items\/view\/.+/, 
+    /\/(en|de|fr|it|es)\/items\/view\/.+/, 
     /\/items\/view\/.+/,
-    /\/(en|de|fr|it)\/items\/edit\/.+/, 
+    /\/(en|de|fr|it|es)\/items\/edit\/.+/, 
     /\/items\/edit\/.+/,
-    /\/(en|de|fr|it)\/items\/view-image\/.+/, 
+    /\/(en|de|fr|it|es)\/items\/view-image\/.+/, 
     /\/items\/view-image\/.+/,
-    /^\/(en|de|fr|it)\/?$/,
+    /^\/(en|de|fr|it|es)\/?$/,
     /^\/$/
 ];
 
 // Pages that should always be cached when visited
 const CACHE_PAGE_PATTERNS = [
-    /\/(en|de|fr|it)\/items\//,
+    /\/(en|de|fr|it|es)\/items\//,
     /\/items\//,
-    /\/(en|de|fr|it)\/dashboard/,
+    /\/(en|de|fr|it|es)\/dashboard/,
     /\/dashboard/,
-    /\/(en|de|fr|it)\/shared-items/,
+    /\/(en|de|fr|it|es)\/shared-items/,
     /\/shared-items/,
-    /^\/(en|de|fr|it)\/?$/,
+    /^\/(en|de|fr|it|es)\/?$/,
     /^\/$/
 ];
 
@@ -212,7 +212,7 @@ self.addEventListener("fetch", event => {
     }
 
     // Connectivity check: always go to network and never serve from cache
-    const isPingPath = /^(\/((en|de|fr|it))\/)?ping\/$/.test(url.pathname);
+    const isPingPath = /^(\/((en|de|fr|it|es))\/)?ping\/$/.test(url.pathname);
     if (isPingPath || url.searchParams.has('ping')) {
         event.respondWith(
             fetch(request).catch(() => new Response('', {
@@ -308,7 +308,7 @@ self.addEventListener("fetch", event => {
                             console.log('[ServiceWorker] ✓ Bypass fallback to cache:', url.pathname + url.search);
                             return cachedResponse;
                         }
-                        const langMatch = url.pathname.match(/^\/(en|de|fr|it)/);
+                        const langMatch = url.pathname.match(/^\/(en|de|fr|it|es)/);
                         const offlineUrl = langMatch ? `/${langMatch[1]}/offline/` : '/offline/';
                         return caches.match(offlineUrl);
                     });
@@ -331,7 +331,7 @@ self.addEventListener("fetch", event => {
                         return await fetch(request);
                     } catch (error) {
                         console.log('[ServiceWorker] ✗ Network failed and cache expired, showing offline page');
-                        const langMatch = url.pathname.match(/^\/(en|de|fr|it)/);
+                        const langMatch = url.pathname.match(/^\/(en|de|fr|it|es)/);
                         const offlineUrl = langMatch ? `/${langMatch[1]}/offline/` : '/offline/';
                         return caches.match(offlineUrl) || new Response(
                             '<html><body><h1>Offline</h1><p>You are currently offline and the cache has expired.</p></body></html>',
@@ -395,7 +395,7 @@ self.addEventListener("fetch", event => {
                     console.log('[ServiceWorker] ✗ No cached page, showing offline page');
 
                     // Try to get language-specific offline page first
-                    const langMatch = url.pathname.match(/^\/(en|de|fr|it)/);
+                    const langMatch = url.pathname.match(/^\/(en|de|fr|it|es)/);
                     const offlineUrl = langMatch ? `/${langMatch[1]}/offline/` : '/offline/';
 
                     const offlinePage = await caches.match(offlineUrl);

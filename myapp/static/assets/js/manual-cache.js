@@ -121,7 +121,7 @@ class ManualCacheManager {
 
         try {
             // Get current language
-            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it)/);
+            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it|es)/);
             const currentLang = langMatch ? langMatch[1] : 'en';
 
             const urlsToCache = [];
