@@ -134,7 +134,7 @@ class OfflineSyncManager {
      */
     showOfflinePageBanner() {
         // Don't show on the offline page itself
-        if (/^\/(en|de|fr|it)?\/offline\/$/.test(window.location.pathname)) return;
+        if (/^\/(en|de|fr|it|es)?\/offline\/$/.test(window.location.pathname)) return;
         if (document.getElementById('offline-content-banner')) return;
 
         const banner = document.createElement('div');

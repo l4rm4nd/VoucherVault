@@ -1,0 +1,1035 @@
+# Spanish translation for VoucherVault.
+# This file is distributed under the same license as the VoucherVault package.
+# Pedro Flores, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VoucherVault\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-19 02:42+0100\n"
+"PO-Revision-Date: 2026-11-19 02:42+0100\n"
+"Last-Translator: Pedro Flores\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: myapp/forms.py:20 myapp/templates/create-item.html:563
+#: myapp/templates/edit-item.html:607
+msgid "Tile Color"
+msgstr "Color del mosaico"
+
+#: myapp/forms.py:62
+msgid "File type is not supported."
+msgstr "El tipo de archivo no es compatible."
+
+#: myapp/forms.py:67
+msgid "File extension is not supported."
+msgstr "La extensión del archivo no es compatible."
+
+#: myapp/forms.py:71
+msgid "File size is too large."
+msgstr "El archivo es demasiado grande."
+
+#: myapp/forms.py:87
+msgid "Value must be zero for loyalty cards."
+msgstr "El valor debe ser cero en las tarjetas de fidelización."
+
+#: myapp/forms.py:92
+msgid "Value must be a positive monetary amount."
+msgstr "El valor debe ser un importe positivo."
+
+#: myapp/forms.py:95
+msgid "Percentage value must be between 0 and 100."
+msgstr "El porcentaje debe estar entre 0 y 100."
+
+#: myapp/forms.py:98
+msgid "Multiplier must be 1 or higher."
+msgstr "El multiplicador debe ser 1 o mayor."
+
+#: myapp/forms.py:100
+msgid "Value must be positive."
+msgstr "El valor debe ser positivo."
+
+#: myapp/forms.py:117
+msgid "Transaction value must not be zero."
+msgstr "El valor de la transacción no puede ser cero."
+
+#: myapp/forms.py:123
+msgid "Transaction would result in negative item value."
+msgstr "La transacción dejaría el elemento con un valor negativo."
+
+#: myapp/forms.py:153
+msgid "Enter your Fixer.io API key"
+msgstr "Introduce tu clave de API de Fixer.io"
+
+#: myapp/templates/base.html:228 myapp/templates/update_apprise_urls.html:11
+msgid "Notification Settings"
+msgstr "Ajustes de notificaciones"
+
+#: myapp/templates/base.html:234 myapp/templates/update_preferences.html:7
+#: myapp/templates/update_preferences.html:11
+msgid "Display Preferences"
+msgstr "Preferencias de visualización"
+
+#: myapp/templates/base.html:241
+#: myapp/templates/registration/password_change_form.html:312
+#: myapp/templates/registration/password_change_form.html:399
+msgid "Change Password"
+msgstr "Cambiar contraseña"
+
+#: myapp/templates/base.html:249
+msgid "Admin Settings"
+msgstr "Administración"
+
+#: myapp/templates/base.html:266
+msgid "Sign Out"
+msgstr "Cerrar sesión"
+
+#: myapp/templates/base.html:287 myapp/templates/dashboard.html:419
+msgid "Dashboard"
+msgstr "Panel"
+
+#: myapp/templates/base.html:294 myapp/templates/inventory.html:592
+#: myapp/templates/inventory.html:596 myapp/templates/view-item.html:990
+msgid "Inventory"
+msgstr "Inventario"
+
+#: myapp/templates/base.html:301
+msgid "Sharing Center"
+msgstr "Centro de uso compartido"
+
+#: myapp/templates/base.html:305
+msgid "Functions"
+msgstr "Funciones"
+
+#: myapp/templates/base.html:310 myapp/templates/create-item.html:471
+#: myapp/templates/create-item.html:475
+msgid "Create New Item"
+msgstr "Crear nuevo elemento"
+
+#: myapp/templates/base.html:318
+msgid "Cache for Offline"
+msgstr "Guardar en caché"
+
+#: myapp/templates/base.html:326
+msgid "Purge Cache"
+msgstr "Vaciar caché"
+
+#: myapp/templates/create-item.html:466 myapp/templates/edit-item.html:508
+msgid "Processing..."
+msgstr "Procesando..."
+
+#: myapp/templates/create-item.html:474 myapp/templates/edit-item.html:516
+#: myapp/templates/inventory.html:595 myapp/templates/share_item.html:369
+#: myapp/templates/sharing_center.html:444
+#: myapp/templates/update_preferences.html:10
+#: myapp/templates/view-item.html:989
+msgid "Home"
+msgstr "Inicio"
+
+#: myapp/templates/create-item.html:498 myapp/templates/edit-item.html:541
+#: myapp/templates/view-item.html:986 myapp/templates/view-item.html:991
+msgid "Item Details"
+msgstr "Detalles del elemento"
+
+#: myapp/templates/create-item.html:508 myapp/templates/edit-item.html:551
+msgid "No QR code detected"
+msgstr "No se ha detectado ningún código QR"
+
+#: myapp/templates/create-item.html:518 myapp/templates/edit-item.html:561
+msgid "Click and drag to select the barcode area"
+msgstr "Haz clic y arrastra para seleccionar la zona del código de barras"
+
+#: myapp/templates/create-item.html:521 myapp/templates/edit-item.html:564
+msgid "Cropped image to be scanned:"
+msgstr "Imagen recortada que se escaneará:"
+
+#: myapp/templates/create-item.html:526 myapp/templates/edit-item.html:569
+msgid "Scan Selected Area"
+msgstr "Escanear zona seleccionada"
+
+#: myapp/templates/create-item.html:529 myapp/templates/edit-item.html:572
+msgid "Reset Selection"
+msgstr "Restablecer selección"
+
+#: myapp/templates/create-item.html:532 myapp/templates/edit-item.html:575
+#: myapp/templates/edit-item.html:791
+#: myapp/templates/registration/password_change_form.html:403
+#: myapp/templates/share_item.html:465
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: myapp/templates/create-item.html:545 myapp/templates/edit-item.html:588
+msgid "Basic Information"
+msgstr "Información básica"
+
+#: myapp/templates/create-item.html:549 myapp/templates/edit-item.html:592
+msgid "Type"
+msgstr "Tipo"
+
+#: myapp/templates/create-item.html:552 myapp/templates/edit-item.html:595
+#: myapp/templates/share_item.html:403 myapp/templates/sharing_center.html:594
+msgid "Gift Card"
+msgstr "Tarjeta regalo"
+
+#: myapp/templates/create-item.html:553 myapp/templates/edit-item.html:596
+#: myapp/templates/share_item.html:403 myapp/templates/sharing_center.html:594
+msgid "Voucher"
+msgstr "Vale"
+
+#: myapp/templates/create-item.html:554 myapp/templates/edit-item.html:597
+#: myapp/templates/share_item.html:403 myapp/templates/sharing_center.html:594
+msgid "Coupon"
+msgstr "Cupón"
+
+#: myapp/templates/create-item.html:555 myapp/templates/edit-item.html:598
+#: myapp/templates/share_item.html:403 myapp/templates/sharing_center.html:594
+msgid "Loyalty Card"
+msgstr "Tarjeta de fidelización"
+
+#: myapp/templates/create-item.html:564 myapp/templates/edit-item.html:608
+msgid "Reset to default"
+msgstr "Restablecer valor predeterminado"
+
+#: myapp/templates/create-item.html:572 myapp/templates/edit-item.html:616
+msgid "Name"
+msgstr "Nombre"
+
+#: myapp/templates/create-item.html:574 myapp/templates/edit-item.html:618
+msgid "The name of the item"
+msgstr "El nombre del elemento"
+
+#: myapp/templates/create-item.html:579 myapp/templates/create-item.html:815
+#: myapp/templates/edit-item.html:623 myapp/templates/edit-item.html:880
+msgid "Issuer"
+msgstr "Emisor"
+
+#: myapp/templates/create-item.html:581 myapp/templates/create-item.html:816
+#: myapp/templates/edit-item.html:625 myapp/templates/edit-item.html:881
+msgid "The issuer of the item"
+msgstr "El emisor del elemento"
+
+#: myapp/templates/create-item.html:590 myapp/templates/edit-item.html:634
+msgid "Code Information"
+msgstr "Información del código"
+
+#: myapp/templates/create-item.html:594 myapp/templates/create-item.html:817
+#: myapp/templates/edit-item.html:638 myapp/templates/edit-item.html:882
+msgid "Redeem Code"
+msgstr "Código de canje"
+
+#: myapp/templates/create-item.html:597 myapp/templates/create-item.html:818
+#: myapp/templates/edit-item.html:641 myapp/templates/edit-item.html:883
+msgid "The redeem code of the item"
+msgstr "El código de canje del elemento"
+
+#: myapp/templates/create-item.html:599 myapp/templates/edit-item.html:643
+msgid "Camera Scan"
+msgstr "Escanear con la cámara"
+
+#: myapp/templates/create-item.html:602 myapp/templates/edit-item.html:646
+msgid "File Scan"
+msgstr "Escanear desde archivo"
+
+#: myapp/templates/create-item.html:611 myapp/templates/edit-item.html:655
+msgid "Code Type"
+msgstr "Tipo de código"
+
+#: myapp/templates/create-item.html:632 myapp/templates/edit-item.html:676
+msgid "PIN Code"
+msgstr "Código PIN"
+
+#: myapp/templates/create-item.html:634 myapp/templates/edit-item.html:678
+msgid "The pin code of the item"
+msgstr "El código PIN del elemento"
+
+#: myapp/templates/create-item.html:644 myapp/templates/edit-item.html:688
+msgid "Dates"
+msgstr "Fechas"
+
+#: myapp/templates/create-item.html:649 myapp/templates/edit-item.html:693
+#: myapp/templates/view-item.html:1049
+msgid "Issue Date"
+msgstr "Fecha de emisión"
+
+#: myapp/templates/create-item.html:658 myapp/templates/edit-item.html:702
+#: myapp/templates/view-item.html:1056
+msgid "Expiry Date"
+msgstr "Fecha de caducidad"
+
+#: myapp/templates/create-item.html:672 myapp/templates/create-item.html:676
+#: myapp/templates/edit-item.html:716 myapp/templates/edit-item.html:720
+#: myapp/templates/view-item.html:1071 myapp/templates/view-item.html:1196
+#: myapp/templates/view-item.html:1245
+msgid "Value"
+msgstr "Valor"
+
+#: myapp/templates/create-item.html:679 myapp/templates/edit-item.html:723
+msgid "The value of the item"
+msgstr "El valor del elemento"
+
+#: myapp/templates/create-item.html:683 myapp/templates/create-item.html:856
+#: myapp/templates/edit-item.html:727 myapp/templates/edit-item.html:923
+msgid "Monetary Value"
+msgstr "Valor monetario"
+
+#: myapp/templates/create-item.html:690 myapp/templates/edit-item.html:734
+#: myapp/templates/update_preferences.html:89
+msgid "Currency"
+msgstr "Moneda"
+
+#: myapp/templates/create-item.html:703 myapp/templates/edit-item.html:747
+msgid "Additional Information"
+msgstr "Información adicional"
+
+#: myapp/templates/create-item.html:707 myapp/templates/edit-item.html:751
+#: myapp/templates/view-item.html:1090 myapp/templates/view-item.html:1195
+#: myapp/templates/view-item.html:1241
+msgid "Description"
+msgstr "Descripción"
+
+#: myapp/templates/create-item.html:709 myapp/templates/edit-item.html:753
+msgid "The description of the item"
+msgstr "La descripción del elemento"
+
+#: myapp/templates/create-item.html:715 myapp/templates/edit-item.html:759
+msgid "Logo Slug"
+msgstr "Identificador del logo"
+
+#: myapp/templates/create-item.html:716 myapp/templates/edit-item.html:760
+msgid "Learn more about logo.dev"
+msgstr "Más información sobre logo.dev"
+
+#: myapp/templates/create-item.html:726 myapp/templates/edit-item.html:770
+#: myapp/templates/view-item.html:1098
+msgid "URL"
+msgstr "URL"
+
+#: myapp/templates/create-item.html:734 myapp/templates/edit-item.html:778
+msgid "Upload File"
+msgstr "Subir archivo"
+
+#: myapp/templates/create-item.html:742
+msgid "Create Item"
+msgstr "Crear elemento"
+
+#: myapp/templates/create-item.html:805 myapp/templates/edit-item.html:870
+msgid "Store"
+msgstr "Tienda"
+
+#: myapp/templates/create-item.html:806 myapp/templates/edit-item.html:871
+msgid "The store of your loyalty card"
+msgstr "La tienda de tu tarjeta de fidelización"
+
+#: myapp/templates/create-item.html:807 myapp/templates/edit-item.html:872
+msgid "Loyalty ID"
+msgstr "ID de fidelización"
+
+#: myapp/templates/create-item.html:808 myapp/templates/edit-item.html:873
+msgid "Loyalty card number or customer ID"
+msgstr "Número de la tarjeta de fidelización o ID de cliente"
+
+#: myapp/templates/create-item.html:839 myapp/templates/edit-item.html:904
+#, python-format
+msgid "e.g. 20%% off"
+msgstr "p. ej., 20 %% de descuento"
+
+#: myapp/templates/create-item.html:840 myapp/templates/edit-item.html:905
+msgid "Percentage Value"
+msgstr "Valor porcentual"
+
+#: myapp/templates/create-item.html:847 myapp/templates/edit-item.html:913
+msgid "e.g. 2x payback points"
+msgstr "p. ej., 2x puntos de recompensa"
+
+#: myapp/templates/create-item.html:848 myapp/templates/edit-item.html:914
+msgid "Multiplier Value"
+msgstr "Valor multiplicador"
+
+#: myapp/templates/create-item.html:855 myapp/templates/edit-item.html:922
+msgid "e.g. 5€"
+msgstr "p. ej., 5 €"
+
+#: myapp/templates/dashboard.html:420
+msgid "Overview of your collection"
+msgstr "Resumen de tu colección"
+
+#: myapp/templates/dashboard.html:431
+msgid "My Collection"
+msgstr "Mi colección"
+
+#: myapp/templates/dashboard.html:439 myapp/templates/dashboard.html:589
+#: myapp/templates/dashboard.html:653 myapp/templates/dashboard.html:702
+#: myapp/templates/inventory.html:642 myapp/templates/inventory.html:688
+msgid "Gift Cards"
+msgstr "Tarjetas regalo"
+
+#: myapp/templates/dashboard.html:449 myapp/templates/dashboard.html:597
+#: myapp/templates/dashboard.html:654 myapp/templates/dashboard.html:703
+#: myapp/templates/inventory.html:643 myapp/templates/inventory.html:693
+msgid "Coupons"
+msgstr "Cupones"
+
+#: myapp/templates/dashboard.html:459 myapp/templates/dashboard.html:593
+#: myapp/templates/dashboard.html:655 myapp/templates/dashboard.html:704
+#: myapp/templates/inventory.html:641 myapp/templates/inventory.html:683
+msgid "Vouchers"
+msgstr "Vales"
+
+#: myapp/templates/dashboard.html:469 myapp/templates/dashboard.html:656
+#: myapp/templates/dashboard.html:705 myapp/templates/inventory.html:644
+msgid "Loyalty Cards"
+msgstr "Tarjetas de fidelización"
+
+#: myapp/templates/dashboard.html:480
+msgid "Status Overview"
+msgstr "Resumen de estado"
+
+#: myapp/templates/dashboard.html:488 myapp/templates/inventory.html:634
+#: myapp/templates/inventory.html:654
+msgid "Available"
+msgstr "Disponible"
+
+#: myapp/templates/dashboard.html:498 myapp/templates/inventory.html:636
+#: myapp/templates/inventory.html:664 myapp/templates/inventory.html:758
+#: myapp/templates/sharing_center.html:548 myapp/templates/view-item.html:1037
+msgid "Used"
+msgstr "Usado"
+
+#: myapp/templates/dashboard.html:508 myapp/templates/inventory.html:637
+#: myapp/templates/inventory.html:669 myapp/templates/inventory.html:760
+#: myapp/templates/sharing_center.html:550 myapp/templates/view-item.html:1039
+msgid "Expired"
+msgstr "Caducado"
+
+#: myapp/templates/dashboard.html:518
+msgid "Soon Expiring"
+msgstr "Por caducar"
+
+#: myapp/templates/dashboard.html:529 myapp/templates/sharing_center.html:441
+#: myapp/templates/sharing_center.html:445 myapp/templates/view-item.html:990
+msgid "Shared Items"
+msgstr "Elementos compartidos"
+
+#: myapp/templates/dashboard.html:537
+msgid "Shared by You"
+msgstr "Compartidos por ti"
+
+#: myapp/templates/dashboard.html:547
+msgid "Shared with You"
+msgstr "Compartidos contigo"
+
+#: myapp/templates/dashboard.html:561 myapp/templates/view-item.html:1231
+msgid "Total Value"
+msgstr "Valor total"
+
+#: myapp/templates/dashboard.html:566
+msgid "Items use multiple currencies."
+msgstr "Los elementos usan varias monedas."
+
+#: myapp/templates/dashboard.html:568
+msgid "Set a Fixer.io API key"
+msgstr "Configura una clave de API de Fixer.io"
+
+#: myapp/templates/dashboard.html:570
+msgid "in Display Preferences to calculate a total."
+msgstr "en Preferencias de visualización para calcular el total."
+
+#: myapp/templates/dashboard.html:576
+msgid "Currency conversion failed. Check your Fixer.io API key."
+msgstr "Error al convertir la moneda. Comprueba tu clave de API de Fixer.io."
+
+#: myapp/templates/dashboard.html:580 myapp/templates/dashboard.html:583
+msgid "Available Items"
+msgstr "Elementos disponibles"
+
+#: myapp/templates/dashboard.html:606 myapp/templates/dashboard.html:662
+msgid "Item Distribution"
+msgstr "Distribución de elementos"
+
+#: myapp/templates/dashboard.html:607
+msgid "By type"
+msgstr "Por tipo"
+
+#: myapp/templates/dashboard.html:616
+msgid "No items yet"
+msgstr "Aún no hay elementos"
+
+#: myapp/templates/edit-item.html:513
+msgid "Edit Item"
+msgstr "Editar elemento"
+
+#: myapp/templates/edit-item.html:518 myapp/templates/view-item.html:1107
+msgid "Edit"
+msgstr "Editar"
+
+#: myapp/templates/edit-item.html:787
+msgid "Update Item"
+msgstr "Actualizar elemento"
+
+#: myapp/templates/inventory.html:603
+msgid "Compact View"
+msgstr "Vista compacta"
+
+#: myapp/templates/inventory.html:605
+msgid "Compact"
+msgstr "Compacta"
+
+#: myapp/templates/inventory.html:610
+msgid "New"
+msgstr "Nuevo"
+
+#: myapp/templates/inventory.html:625 myapp/templates/sharing_center.html:461
+msgid "Search by name or issuer..."
+msgstr "Buscar por nombre o emisor..."
+
+#: myapp/templates/inventory.html:635 myapp/templates/inventory.html:659
+msgid "Expiring Soon"
+msgstr "Por caducar"
+
+#: myapp/templates/inventory.html:640 myapp/templates/inventory.html:678
+msgid "All Types"
+msgstr "Todos los tipos"
+
+#: myapp/templates/inventory.html:698
+msgid "Loyalty"
+msgstr "Fidelización"
+
+#: myapp/templates/inventory.html:711
+#, python-format
+msgid "%(counter)s item found"
+msgid_plural "%(counter)s items found"
+msgstr[0] "%(counter)s elemento encontrado"
+msgstr[1] "%(counter)s elementos encontrados"
+
+#: myapp/templates/inventory.html:730
+msgid "Unpin"
+msgstr "Dejar de fijar"
+
+#: myapp/templates/inventory.html:730
+msgid "Pin to top"
+msgstr "Fijar arriba"
+
+#: myapp/templates/inventory.html:829
+msgid "No items found"
+msgstr "No se han encontrado elementos"
+
+#: myapp/templates/inventory.html:830
+msgid "Try adjusting your filters or create a new item."
+msgstr "Prueba a cambiar los filtros o crea un elemento nuevo."
+
+#: myapp/templates/offline.html:8
+msgid "Offline"
+msgstr "Sin conexión"
+
+#: myapp/templates/offline.html:238
+msgid "You're Offline"
+msgstr "Estás sin conexión"
+
+#: myapp/templates/offline.html:242
+msgid ""
+"You are currently not connected to the Internet. But don't worry, "
+"VoucherVault works offline too if you have manually created a cache!"
+msgstr ""
+"Ahora mismo no tienes conexión a Internet. Pero no te preocupes: "
+"¡VoucherVault también funciona sin conexión si has creado una caché "
+"manualmente!"
+
+#: myapp/templates/offline.html:247
+msgid ""
+"Your previously viewed data is still available for offline reading. Creating "
+"and editing is not supported though."
+msgstr ""
+"Los datos que has consultado antes siguen disponibles para leerlos sin "
+"conexión. Sin embargo, no se pueden crear ni editar elementos."
+
+#: myapp/templates/offline.html:253
+msgid "Browse your dashboard and inventory"
+msgstr "Consulta tu panel y tu inventario"
+
+#: myapp/templates/offline.html:257
+msgid "View cached inventory items and details"
+msgstr "Consulta los elementos guardados en caché y sus detalles"
+
+#: myapp/templates/offline.html:264
+msgid "View Cached Data"
+msgstr "Ver datos en caché"
+
+#: myapp/templates/offline.html:268
+msgid "Try Again"
+msgstr "Reintentar"
+
+#: myapp/templates/offline.html:273
+msgid "The connection will be checked automatically when available."
+msgstr "La conexión se comprobará automáticamente cuando esté disponible."
+
+#: myapp/templates/offline.html:311
+msgid "Still offline. Please check your internet connection."
+msgstr "Sigues sin conexión. Comprueba tu conexión a Internet."
+
+#: myapp/templates/registration/login.html:143
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: myapp/templates/registration/login.html:147
+msgid "Password"
+msgstr "Contraseña"
+
+#: myapp/templates/registration/login.html:150
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: myapp/templates/registration/login.html:162
+msgid "Admin Panel"
+msgstr "Panel de administración"
+
+#: myapp/templates/registration/password_change_done.html:121
+msgid "Password Changed"
+msgstr "Contraseña cambiada"
+
+#: myapp/templates/registration/password_change_done.html:122
+msgid ""
+"Your password has been successfully changed. You can now use your new "
+"password to log in."
+msgstr ""
+"Tu contraseña se ha cambiado correctamente. Ya puedes iniciar sesión con la "
+"nueva contraseña."
+
+#: myapp/templates/registration/password_change_done.html:125
+msgid "Go to Inventory"
+msgstr "Ir al inventario"
+
+#: myapp/templates/registration/password_change_form.html:319
+msgid "Update Your Password"
+msgstr "Actualiza tu contraseña"
+
+#: myapp/templates/registration/password_change_form.html:326
+msgid "Current Password"
+msgstr "Contraseña actual"
+
+#: myapp/templates/registration/password_change_form.html:347
+msgid "New Password"
+msgstr "Nueva contraseña"
+
+#: myapp/templates/registration/password_change_form.html:367
+msgid "Your password can't be too similar to your other personal information."
+msgstr "Tu contraseña no puede parecerse demasiado a tu información personal."
+
+#: myapp/templates/registration/password_change_form.html:368
+msgid "Your password must contain at least 8 characters."
+msgstr "Tu contraseña debe tener al menos 8 caracteres."
+
+#: myapp/templates/registration/password_change_form.html:369
+msgid "Your password can't be a commonly used password."
+msgstr "Tu contraseña no puede ser una contraseña de uso común."
+
+#: myapp/templates/registration/password_change_form.html:370
+msgid "Your password can't be entirely numeric."
+msgstr "Tu contraseña no puede contener solo números."
+
+#: myapp/templates/registration/password_change_form.html:376
+msgid "Confirm New Password"
+msgstr "Confirmar nueva contraseña"
+
+#: myapp/templates/share_item.html:366 myapp/templates/share_item.html:460
+msgid "Share Item"
+msgstr "Compartir elemento"
+
+#: myapp/templates/share_item.html:371 myapp/templates/view-item.html:1113
+msgid "Share"
+msgstr "Compartir"
+
+#: myapp/templates/share_item.html:382
+msgid "Share this item with others"
+msgstr "Comparte este elemento con otras personas"
+
+#: myapp/templates/share_item.html:403
+msgid "Ticket"
+msgstr "Entrada"
+
+#: myapp/templates/share_item.html:412
+msgid "Select Users"
+msgstr "Seleccionar usuarios"
+
+#: myapp/templates/share_item.html:418
+msgid "Search users..."
+msgstr "Buscar usuarios..."
+
+#: myapp/templates/share_item.html:436
+msgid "No users found"
+msgstr "No se han encontrado usuarios"
+
+#: myapp/templates/share_item.html:441
+msgid "Click to select multiple users"
+msgstr "Haz clic para seleccionar varios usuarios"
+
+#: myapp/templates/share_item.html:453
+msgid "No other users available to share with"
+msgstr "No hay otros usuarios con los que compartir"
+
+#: myapp/templates/sharing_center.html:471
+#: myapp/templates/sharing_center.html:482
+msgid "All"
+msgstr "Todos"
+
+#: myapp/templates/sharing_center.html:472
+#: myapp/templates/sharing_center.html:487
+#: myapp/templates/sharing_center.html:539
+msgid "Shared With Me"
+msgstr "Compartidos conmigo"
+
+#: myapp/templates/sharing_center.html:473
+#: myapp/templates/sharing_center.html:492
+#: myapp/templates/sharing_center.html:543
+msgid "Shared By Me"
+msgstr "Compartidos por mí"
+
+#: myapp/templates/sharing_center.html:501
+#, python-format
+msgid "%(counter)s shared item"
+msgid_plural "%(counter)s shared items"
+msgstr[0] "%(counter)s elemento compartido"
+msgstr[1] "%(counter)s elementos compartidos"
+
+#: myapp/templates/sharing_center.html:602
+msgid "From"
+msgstr "De"
+
+#: myapp/templates/sharing_center.html:605
+msgid "You shared this item"
+msgstr "Has compartido este elemento"
+
+#: myapp/templates/sharing_center.html:624
+msgid "No shared items"
+msgstr "No hay elementos compartidos"
+
+#: myapp/templates/sharing_center.html:625
+msgid "Items shared with you or by you will appear here."
+msgstr "Aquí aparecerán los elementos que compartas o que compartan contigo."
+
+#: myapp/templates/update_apprise_urls.html:10
+msgid "User"
+msgstr "Usuario"
+
+#: myapp/templates/update_apprise_urls.html:21
+msgid "Configure Your Apprise URLs"
+msgstr "Configura tus URL de Apprise"
+
+#: myapp/templates/update_apprise_urls.html:22
+msgid ""
+"These URLs will be used to send out personal expiry notifications. Leave "
+"empty to disable notifications."
+msgstr ""
+"Estas URL se usarán para enviarte avisos personales de caducidad. Deja el "
+"campo vacío para desactivar las notificaciones."
+
+#: myapp/templates/update_apprise_urls.html:23
+msgid "Threshold"
+msgstr "Umbral"
+
+#: myapp/templates/update_apprise_urls.html:39
+msgid "Update"
+msgstr "Actualizar"
+
+#: myapp/templates/update_apprise_urls.html:40
+msgid "Test"
+msgstr "Probar"
+
+#: myapp/templates/update_apprise_urls.html:48
+msgid "Loading..."
+msgstr "Cargando..."
+
+#: myapp/templates/update_preferences.html:21
+msgid "Configure Display Preferences"
+msgstr "Configura las preferencias de visualización"
+
+#: myapp/templates/update_preferences.html:28
+msgid "View Mode"
+msgstr "Modo de vista"
+
+#: myapp/templates/update_preferences.html:32
+msgid "Inventory Layout"
+msgstr "Diseño del inventario"
+
+#: myapp/templates/update_preferences.html:34
+msgid "Choose between compact grid or expanded card view"
+msgstr "Elige entre una cuadrícula compacta o una vista de tarjetas ampliada"
+
+#: myapp/templates/update_preferences.html:45
+msgid "Visible Fields"
+msgstr "Campos visibles"
+
+#: myapp/templates/update_preferences.html:46
+msgid "Select which fields should be visible in your inventory/sharing view."
+msgstr ""
+"Selecciona qué campos se muestran en la vista de inventario y de elementos "
+"compartidos."
+
+#: myapp/templates/update_preferences.html:65
+msgid "Sorting"
+msgstr "Ordenación"
+
+#: myapp/templates/update_preferences.html:72
+msgid "Sort Items By"
+msgstr "Ordenar elementos por"
+
+#: myapp/templates/update_preferences.html:74
+msgid "Sort Order"
+msgstr "Orden"
+
+#: myapp/templates/update_preferences.html:91
+msgid ""
+"Select your preferred display currency. If your items use multiple "
+"currencies, a"
+msgstr ""
+"Selecciona la moneda en la que quieres ver los importes. Si tus elementos "
+"usan varias monedas, se necesita una clave de API de"
+
+#: myapp/templates/update_preferences.html:93
+msgid "API key is required to calculate a combined total on the dashboard."
+msgstr "para calcular el total combinado en el panel."
+
+#: myapp/templates/update_preferences.html:99
+msgid "Default Currency"
+msgstr "Moneda predeterminada"
+
+#: myapp/templates/update_preferences.html:109
+msgid "Fixer.io API Key"
+msgstr "Clave de API de Fixer.io"
+
+#: myapp/templates/update_preferences.html:110
+msgid "Get a free API key at fixer.io"
+msgstr "Consigue una clave de API gratuita en fixer.io"
+
+#: myapp/templates/update_preferences.html:115
+msgid "Optional. Required only when items use mixed currencies."
+msgstr "Opcional. Solo es necesaria si los elementos usan monedas distintas."
+
+#: myapp/templates/update_preferences.html:127
+msgid "Update Preferences"
+msgstr "Actualizar preferencias"
+
+#: myapp/templates/view-item.html:1067
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#: myapp/templates/view-item.html:1069
+msgid "Multiplier"
+msgstr "Multiplicador"
+
+#: myapp/templates/view-item.html:1110
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: myapp/templates/view-item.html:1120
+msgid "Mark Available"
+msgstr "Marcar como disponible"
+
+#: myapp/templates/view-item.html:1120
+msgid "Mark Used"
+msgstr "Marcar como usado"
+
+#: myapp/templates/view-item.html:1126 myapp/templates/view-item.html:1222
+msgid "Are you sure to delete?"
+msgstr "¿Seguro que quieres eliminarlo?"
+
+#: myapp/templates/view-item.html:1127
+msgid "Delete"
+msgstr "Eliminar"
+
+#: myapp/templates/view-item.html:1136
+msgid "Shared With"
+msgstr "Compartido con"
+
+#: myapp/templates/view-item.html:1147
+msgid "Are you sure you want to unshare this item?"
+msgstr "¿Seguro que quieres dejar de compartir este elemento?"
+
+#: myapp/templates/view-item.html:1148
+msgid "Unshare"
+msgstr "Dejar de compartir"
+
+#: myapp/templates/view-item.html:1153
+msgid "This item is not shared with anyone."
+msgstr "Este elemento no se comparte con nadie."
+
+#: myapp/templates/view-item.html:1165
+msgid "Show Image"
+msgstr "Mostrar imagen"
+
+#: myapp/templates/view-item.html:1168
+msgid "Hide Image"
+msgstr "Ocultar imagen"
+
+#: myapp/templates/view-item.html:1171
+msgid "Download"
+msgstr "Descargar"
+
+#: myapp/templates/view-item.html:1179
+msgid "Download File"
+msgstr "Descargar archivo"
+
+#: myapp/templates/view-item.html:1188
+msgid "Transaction History"
+msgstr "Historial de transacciones"
+
+#: myapp/templates/view-item.html:1194
+msgid "Date"
+msgstr "Fecha"
+
+#: myapp/templates/view-item.html:1203
+msgid "Initial Value"
+msgstr "Valor inicial"
+
+#: myapp/templates/view-item.html:1213
+msgid "Click to edit date"
+msgstr "Haz clic para editar la fecha"
+
+#: myapp/templates/view-item.html:1242
+msgid "Enter description"
+msgstr "Introduce una descripción"
+
+#: myapp/templates/view-item.html:1246
+msgid "e.g. -5.00 or +5.00"
+msgstr "p. ej., -5.00 o +5.00"
+
+#: myapp/templates/view-item.html:1249
+msgid "Add"
+msgstr "Añadir"
+
+#: myapp/templates/view-item.html:1278
+msgid "Your Identity"
+msgstr "Tu identificación"
+
+#: myapp/templates/view-item.html:1280
+msgid "Scan to Redeem"
+msgstr "Escanear para canjear"
+
+#: myapp/templates/view-item.html:1290
+msgid "Tap to reveal"
+msgstr "Toca para mostrar"
+
+#: myapp/templates/view-item.html:1292
+msgid "Fullscreen"
+msgstr "Pantalla completa"
+
+#: myapp/templates/view-item.html:1299
+msgid "Copy code"
+msgstr "Copiar código"
+
+#: myapp/templates/view-item.html:1309
+msgid "Copy PIN"
+msgstr "Copiar PIN"
+
+#: myapp/templates/view-item.html:1312 myapp/templates/view-item.html:1367
+msgid "Show PIN"
+msgstr "Mostrar PIN"
+
+#: myapp/templates/view-item.html:1322
+msgid "Close"
+msgstr "Cerrar"
+
+#: myapp/templates/view-item.html:1364
+msgid "Hide PIN"
+msgstr "Ocultar PIN"
+
+#: myapp/views.py:33
+msgid ""
+"Apprise URLs were already configured. Will not display them again here to "
+"protect secrets. You can freely re-configure the URLs now and hit update "
+"though."
+msgstr ""
+"Las URL de Apprise ya estaban configuradas. No se volverán a mostrar aquí "
+"para proteger los datos secretos. Aun así, puedes volver a configurar las "
+"URL y pulsar Actualizar."
+
+#: myapp/views.py:568
+msgid "Marked as used, removing remaining value"
+msgstr "Marcado como usado; se elimina el valor restante"
+
+#: myapp/views.py:619
+msgid "No Apprise URLs provided."
+msgstr "No se ha indicado ninguna URL de Apprise."
+
+#: myapp/views.py:643
+msgid "Invalid Apprise URLs:"
+msgstr "URL de Apprise no válidas:"
+
+#: myapp/views.py:648
+msgid "This is an Apprise test notification."
+msgstr "Esta es una notificación de prueba de Apprise."
+
+#: myapp/views.py:649
+msgid "Test Notification by VoucherVault"
+msgstr "Notificación de prueba de VoucherVault"
+
+#: myapp/views.py:650
+msgid "Test notification to at least one Apprise URL sent successfully."
+msgstr ""
+"Se ha enviado correctamente la notificación de prueba a al menos una URL de "
+"Apprise."
+
+#: myapp/views.py:651
+msgid "Failed to send test notification for every Apprise URL given."
+msgstr ""
+"No se ha podido enviar la notificación de prueba a ninguna de las URL de "
+"Apprise indicadas."
+
+#: myapp/views.py:754
+msgid "Item shared successfully!"
+msgstr "¡Elemento compartido correctamente!"
+
+#: myapp/views.py:756
+msgid "Please select at least one user to share with."
+msgstr "Selecciona al menos un usuario con quien compartirlo."
+
+#: myapp/views.py:776
+msgid "Item has been unshared successfully."
+msgstr "Se ha dejado de compartir el elemento correctamente."
+
+#: myproject/settings.py:208
+msgid "English"
+msgstr "Inglés"
+
+#: myproject/settings.py:209
+msgid "German"
+msgstr "Alemán"
+
+#: myproject/settings.py:210
+msgid "French"
+msgstr "Francés"
+
+#: myproject/settings.py:211
+msgid "Italian"
+msgstr "Italiano"
+
+#: myproject/settings.py:212
+msgid "Spanish"
+msgstr "Español"
+
+msgid "giftcard"
+msgstr "Tarjeta regalo"
+
+msgid "loyaltycard"
+msgstr "Tarjeta de fidelización"
+
+msgid "voucher"
+msgstr "Vale"
+
+msgid "coupon"
+msgstr "Cupón"
+
+msgid "Show description"
+msgstr "Mostrar descripción"
+
+msgid "Show value"
+msgstr "Mostrar valor"
+
+msgid "Show issue date"
+msgstr "Mostrar fecha de emisión"
+
+msgid "Show expiry date"
+msgstr "Mostrar fecha de caducidad"

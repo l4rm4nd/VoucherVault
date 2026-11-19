@@ -276,10 +276,10 @@
     
     <script>
         function getPreferredLang() {
-            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it)/);
+            const langMatch = window.location.pathname.match(/^\/(en|de|fr|it|es)/);
             if (langMatch) return langMatch[1];
             const stored = localStorage.getItem('vv_last_lang');
-            const allowed = new Set(['en', 'de', 'fr', 'it']);
+            const allowed = new Set(['en', 'de', 'fr', 'it', 'es']);
             return allowed.has(stored) ? stored : 'en';
         }
 

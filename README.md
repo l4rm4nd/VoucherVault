@@ -28,7 +28,7 @@
 - Client-side redeem code scanning (1D/2D) during item creation with automatic type detection using camera or file upload
 - Expiry notifications via Apprise
 - Multi-user support
-- Multi-language support (English, German, French, Italian)
+- Multi-language support (English, German, French, Italian, Spanish)
 - Single Sign-On (SSO) via OIDC
 - Database compatibility with SQLite3 and PostgreSQL
 - REST API endpoint with stats for Home Assisstant (HA) and other dashboards
