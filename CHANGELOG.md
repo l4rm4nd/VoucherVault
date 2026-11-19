@@ -1,3 +1,10 @@
+## [1.32.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.31.0...v1.32.0) (2026-11-19)
+
+
+### Features
+
+* add spanish translation ([8908069](https://github.com/l4rm4nd/VoucherVault/commit/8908069fd56a6506eb7f0fb889b021ef5b5167ea))
+
 ## [1.31.0](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.6...v1.31.0) (2026-11-09)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * add support for azteccodecompact; fix [#148](https://github.com/l4rm4nd/VoucherVault/issues/148) ([1a02675](https://github.com/l4rm4nd/VoucherVault/commit/1a02675d78deb9f496e0f02737d8d15d4134e2ac))
-
-## [1.30.3](https://github.com/l4rm4nd/VoucherVault/compare/v1.30.2...v1.30.3) (2026-10-09)
-
-
-### Bug Fixes
-
-* improve serviceworker to fix [#146](https://github.com/l4rm4nd/VoucherVault/issues/146) ([c57c0f5](https://github.com/l4rm4nd/VoucherVault/commit/c57c0f59dc069bac9ccef87c47b0bafd051daa53))
 
